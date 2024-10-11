@@ -45,5 +45,22 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+		  <!-- Section for Local Notifications -->
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+        <string>remote-notification</string>
+    </array>
+
+    <!-- Description for permission prompt for notifications -->
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>We need your location to send relevant notifications.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need access to your location to send notifications while using the app.</string>
+    <key>NSCalendarsUsageDescription</key>
+    <string>We need access to your calendar to schedule notifications for events.</string>
+    <key>NSUserTrackingUsageDescription</key>
+    <string>This is required for sending personalized notifications.</string>
 </dict>
 </plist>
