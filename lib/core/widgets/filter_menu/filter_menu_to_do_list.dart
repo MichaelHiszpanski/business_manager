@@ -1,4 +1,4 @@
-import 'package:dissertation_project_app/core/enums/fliter_menu_to_do_list_enum.dart';
+import 'package:business_manager/core/enums/fliter_menu_to_do_list_enum.dart';
 import 'package:flutter/material.dart';
 
 class FilterMenuToDoList extends StatelessWidget {

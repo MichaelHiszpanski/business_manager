@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:dissertation_project_app/core/tools/constants.dart';
+import 'package:business_manager/core/tools/constants.dart';
 
 extension BuildContextExtension on BuildContext {
   double get deviceHeight => MediaQuery.of(this).size.height;

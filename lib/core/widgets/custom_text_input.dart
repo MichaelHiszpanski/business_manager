@@ -1,5 +1,4 @@
-// import 'package:dissertation_project_app/sign_in_app/theme/colors.dart';
-import 'package:dissertation_project_app/core/theme/colors.dart';
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextInput extends StatefulWidget {

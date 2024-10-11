@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:dissertation_project_app/core/widgets/containers/animated_item_container/animated_item_container_side_menu.dart';
-import 'package:dissertation_project_app/main.dart';
-import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.dart';
+import 'package:business_manager/core/widgets/containers/animated_item_container/animated_item_container_side_menu.dart';
+import 'package:business_manager/main.dart';
+import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

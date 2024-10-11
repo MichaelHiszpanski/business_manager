@@ -1,4 +1,4 @@
-import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
+import 'package:business_manager/core/enums/piority_level_enum.dart';
 import 'package:flutter/material.dart';
 
 class PriorityDropdown extends StatefulWidget {
