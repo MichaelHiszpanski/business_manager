@@ -30,7 +30,7 @@ dependencies:
   flutter_colorpicker: ^1.1.0
   flutter_launcher_icons: ^0.11.0
   #  webview_flutter: ^4.9.0
-  webview_flutter: ^2.0.4
+#  webview_flutter: ^2.0.4
   flutter_widget_from_html_core: ^0.14.11
   url_launcher: ^6.0.0
   firebase_storage: ^12.3.3
