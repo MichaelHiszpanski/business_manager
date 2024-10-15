@@ -32,20 +32,17 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
       event.isAllDay,
     );
 
-    print('Reached _onAddNewMeeting');
-    print('Adding new meeting: $newMeeting');
-
     Box box =
         await Hive.openBox(HiveWorkManagerProperties.TO_WORK_MANAGER_DATA_BOX);
-    List<dynamic>? getExistingHiveData =
-        box.get(HiveWorkManagerProperties.TO_WORK_MANAGER_DATA_KEY);
-
-    List<WorkManagerHive> toDoNewList = [];
-
-    if (getExistingHiveData != null) {
-      toDoNewList = getExistingHiveData.cast<WorkManagerHive>();
-      print('Retrieved existing data from Hive: $toDoNewList');
-    }
+    // List<dynamic>? getExistingHiveData =
+    //     box.get(HiveWorkManagerProperties.TO_WORK_MANAGER_DATA_KEY);
+    //
+    // List<WorkManagerHive> toDoNewList = [];
+    //
+    // if (getExistingHiveData != null) {
+    //   toDoNewList = getExistingHiveData.cast<WorkManagerHive>();
+    //   print('Retrieved existing data from Hive: $toDoNewList');
+    // }
     if (state is WorkManagerLoaded) {
       emit(state.copyWith(
         meetings: List.from(state.meetings)..add(newMeeting),
@@ -62,7 +59,6 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
 
       await box.put(
           HiveWorkManagerProperties.TO_WORK_MANAGER_DATA_KEY, updatedHiveList);
-      print('Updated data stored in Hive: $updatedHiveList');
     } else {
       emit(WorkManagerLoaded(meetings: [newMeeting]));
       final updatedHiveList = [
@@ -83,10 +79,29 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
 
   FutureOr<void> _oneMeetingRemove(
       MeetingRemoveEvent event, Emitter<WorkManagerState> emit) async {
+    Box box =
+        await Hive.openBox(HiveWorkManagerProperties.TO_WORK_MANAGER_DATA_BOX);
+
     if (state is WorkManagerLoaded) {
       final currentMeetingList = List<Meeting>.from(state.meetings)
         ..remove(event.meeting);
       emit(state.copyWith(meetings: currentMeetingList));
+
+      final updateHiveList = currentMeetingList
+          .map(
+            (meeting) => WorkManagerHive(
+              eventName: meeting.eventName,
+              eventDescription: meeting.eventDescription,
+              startDate: meeting.startDate,
+              finishDate: meeting.finishDate,
+              backgroundColor: meeting.backgroundColor,
+              isAllDay: meeting.isAllDay,
+            ),
+          )
+          .toList();
+
+      await box.put(
+          HiveWorkManagerProperties.TO_WORK_MANAGER_DATA_KEY, updateHiveList);
     }
   }
 
@@ -102,11 +117,10 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
     List<Meeting> meetingsFromHive = [];
 
     if (getExistingHiveData == null || getExistingHiveData.isEmpty) {
-      print('No data in Hive to display.');
       return;
     }
 
-    if (getExistingHiveData != null) {
+
       List<WorkManagerHive> hiveDataList =
           getExistingHiveData.cast<WorkManagerHive>();
 
@@ -121,7 +135,7 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
           hiveItem.isAllDay,
         );
       }).toList();
-    }
+
 
     print('Loaded meetings from Hive: $meetingsFromHive');
     emit(WorkManagerLoaded(meetings: meetingsFromHive));

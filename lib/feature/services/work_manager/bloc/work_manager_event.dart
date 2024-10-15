@@ -3,6 +3,7 @@ part of 'work_manager_bloc.dart';
 sealed class WorkManagerEvent extends Equatable {
   const WorkManagerEvent();
 }
+
 class AddMeetingEvent extends WorkManagerEvent {
   final String eventName;
   final String eventDescription;
@@ -21,22 +22,21 @@ class AddMeetingEvent extends WorkManagerEvent {
   });
 
   @override
-  List<Object> get props => [eventName, eventDescription, startDate, finishDate,background, isAllDay];
+  List<Object> get props => [
+        eventName,
+        eventDescription,
+        startDate,
+        finishDate,
+        background,
+        isAllDay
+      ];
 }
+
 class DisplayMeetingEvent extends WorkManagerEvent {
-  // final List<Meeting> meetings;
-  //
-  // const DisplayMeetingEvent({
-  //   required this.meetings,
-  // });
-  const DisplayMeetingEvent();  // No arguments needed
+  const DisplayMeetingEvent();
 
   @override
   List<Object> get props => [];
-
-
-  // @override
-  // List<Object> get props => [meetings];
 }
 
 class MeetingRemoveEvent extends WorkManagerEvent {
@@ -47,3 +47,5 @@ class MeetingRemoveEvent extends WorkManagerEvent {
   @override
   List<Object> get props => [meeting];
 }
+
+
