@@ -33,6 +33,12 @@ dependencies:
   webview_flutter: ^2.0.4
   flutter_widget_from_html_core: ^0.14.11
   url_launcher: ^6.0.0
+  firebase_storage: ^12.3.3
+  firebase_core: ^3.6.0
+  cloud_firestore: ^5.4.4
+  firebase_database: ^11.1.4
+  google_sign_in: ^6.2.1
+  firebase_auth: ^5.3.1
 
 flutter_icons:
   android: "launcher_icon"
