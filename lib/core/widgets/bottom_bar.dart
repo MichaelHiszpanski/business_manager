@@ -16,7 +16,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: Pallete.colorThree,
+      backgroundColor: Pallete.colorOne,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -27,12 +27,12 @@ class _BottomBarState extends State<BottomBar> {
           label: 'To-Do List',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.cloud),
-          label: 'Weather',
+          icon: Icon(Icons.work_history),
+          label: 'Work Manager',
         ),
       ],
       currentIndex: widget.indexValue,
-      selectedItemColor: Colors.amber,
+      selectedItemColor: Colors.white,
       unselectedItemColor: Colors.red,
       onTap: (index) {
         switch (index) {
@@ -44,7 +44,7 @@ class _BottomBarState extends State<BottomBar> {
             break;
 
           case 2:
-            MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.weatherPage);
+            MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.workManagerScreen);
             break;
         }
       },

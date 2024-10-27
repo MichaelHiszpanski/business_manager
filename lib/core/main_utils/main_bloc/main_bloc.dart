@@ -16,21 +16,9 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   }
 
   void _onInitializeApp(InitializeApp event, Emitter<MainState> emit) {
-    // Load initial data if necessary
-    // For example, check if authToken exists in secure storage
-    // If exists, load User data
-    // Here, we'll just emit MainInitial or MainLoaded accordingly
 
-    // Example placeholder logic:
-    // String? storedAuthToken = await getAuthTokenFromStorage();
-    // if (storedAuthToken != null) {
-    //   User user = await fetchUserData(storedAuthToken);
-    //   emit(MainLoaded(authToken: storedAuthToken, user: user));
-    // } else {
-    //   emit(const MainInitial());
-    // }
 
-    emit(const MainInitial()); // Replace with actual logic
+    emit(const MainInitial());
   }
 
   void _onUpdateAuthToken(UpdateAuthToken event, Emitter<MainState> emit) {
@@ -63,7 +51,6 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   }
 
   void _onLogout(Logout event, Emitter<MainState> emit) {
-    // Clear data and reset to initial state
     emit(const MainInitial());
   }
 }

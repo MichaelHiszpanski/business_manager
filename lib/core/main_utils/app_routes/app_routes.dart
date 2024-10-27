@@ -13,7 +13,6 @@ class AppRoutes {
       '/services/to_do_list/presentation/screens/to_do_page';
   static const String addItemPage =
       '/services/to_do_list/presentation/screens/add_item_page';
-  static const String weatherPage = '/weather_app/weather_page';
   static const String loadAppDataScreen = '/core/screens/load_app_data_screen';
   static const String testScreen = '/core/screens/test_screen';
 

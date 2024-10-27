@@ -2,10 +2,7 @@ import 'dart:math';
 
 import 'package:business_manager/core/widgets/containers/animated_item_container/animated_item_container.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/custom_box_decoration.dart';
-import 'package:business_manager/main.dart';
-import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class WorkManagerRightCustomButton extends StatefulWidget {
   final Function(int) onItemClicked;
