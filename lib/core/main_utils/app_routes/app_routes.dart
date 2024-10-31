@@ -1,5 +1,5 @@
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
-import 'package:business_manager/core/screens/sign_in.dart';
+import 'package:business_manager/core/screens/sign_in_screen.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/screens/invoice_manager_screen.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/screens/add_item_page.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/screens/to_do_page.dart';
@@ -33,7 +33,7 @@ class AppRoutes {
   static final routes = <String, WidgetBuilder>{
     homePage: (context) => const HomePage(title: "Home Page"),
     toDoPage: (context) => const ToDoPage(),
-    signIn: (context) => SignInPage(),
+    signIn: (context) => SignInScreen(),
     addItemPage: (context) => AddItemPage(),
     loadAppDataScreen: (context) => const LoadAppDataScreen(),
     workManagerScreen: (context) => const WorkManagerScreen(),

@@ -1,22 +1,24 @@
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/main_utils/main_bloc/main_bloc.dart';
 import 'package:business_manager/main.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignInPage extends StatefulWidget {
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
+
   @override
-  _SignInPageState createState() => _SignInPageState();
+  _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignInScreenState extends State<SignInScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  Future<void> _signInWithEmailPassword() async {
+  Future<void> _signInWithEmailAndPassword() async {
     try {
       final UserCredential userCredential =
           await _auth.signInWithEmailAndPassword(
@@ -32,13 +34,17 @@ class _SignInPageState extends State<SignInPage> {
           context
               .read<MainBloc>()
               .add(UpdateAuthToken(authToken: authToken ?? ""));
-          MainApp.navigatorKey.currentState!
-              .pushNamed(AppRoutes.invoiceManagerScreen);
+
+          MainApp.navigatorKey.currentState!.pushNamedAndRemoveUntil(
+            AppRoutes.homePage,
+            (Route<dynamic> route) => false,
+          );
         }
       }
     } catch (e) {
-      print("Error signing in with Email and Password: $e");
-      return null;
+      if (kDebugMode) {
+        print("Error SignIn with Email and Password: $e");
+      }
     }
   }
 
@@ -63,7 +69,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () async => await _signInWithEmailPassword(),
+              onPressed: () async => await _signInWithEmailAndPassword(),
               child: Text("Sign in with Email"),
             ),
             const SizedBox(height: 16),
