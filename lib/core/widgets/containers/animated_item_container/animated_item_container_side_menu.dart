@@ -30,6 +30,7 @@ class AnimatedItemContainerSideMenu extends StatefulWidget {
 class _AnimatedItemContainerSideMenuState
     extends State<AnimatedItemContainerSideMenu> {
   bool isExpanded = false;
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +41,6 @@ class _AnimatedItemContainerSideMenuState
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return AnimatedAlign(
       duration: widget.toggleButton
           ? Duration(milliseconds: widget.minDuration)
@@ -57,10 +57,8 @@ class _AnimatedItemContainerSideMenuState
         child: AnimatedContainer(
           duration: const Duration(seconds: 2),
           curve: Curves.easeOutExpo,
-          // duration: const Duration(microseconds: 300),
-          // curve: widget.toggleButton ? Curves.easeIn : Curves.easeOut,
-          height: widget.size, //isExpanded ? screenSize.height : widget.size,
-          width: widget.size, //isExpanded ? screenSize.width : widget.size,
+          height: widget.size,
+          width: widget.size,
           decoration: BoxDecoration(
             color: widget.color,
             borderRadius: BorderRadius.circular(80.0),
@@ -68,7 +66,7 @@ class _AnimatedItemContainerSideMenuState
               BoxShadow(
                 color: Colors.black.withOpacity(0.3),
                 blurRadius: 10.0,
-                offset: Offset(4, 4),
+                offset: const Offset(4, 4),
               ),
             ],
           ),
