@@ -1,5 +1,6 @@
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/main_utils/main_bloc/main_bloc.dart';
+import 'package:business_manager/core/widgets/outlined_text_field/outlined_text_field.dart';
 import 'package:business_manager/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -57,20 +58,21 @@ class _SignInScreenState extends State<SignInScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: "Email"),
-              keyboardType: TextInputType.emailAddress,
+            OutlinedTextField(
+              labelText: "Email",
+              hintText: "Enter Email",
+              inputvalue: _emailController,
             ),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: "Password"),
-              obscureText: true,
+            const SizedBox(height: 16),
+            OutlinedTextField(
+              labelText: "Password",
+              hintText: "Enter Password",
+              inputvalue: _passwordController,
             ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async => await _signInWithEmailAndPassword(),
-              child: Text("Sign in with Email"),
+              child:const Text("Sign in with Email"),
             ),
             const SizedBox(height: 16),
           ],
