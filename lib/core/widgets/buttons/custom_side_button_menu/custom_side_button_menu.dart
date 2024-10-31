@@ -27,8 +27,8 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration:const Duration(milliseconds: 300),
-      reverseDuration:const Duration(milliseconds: 250),
+      duration: const Duration(milliseconds: 300),
+      reverseDuration: const Duration(milliseconds: 250),
     );
 
     _animation = CurvedAnimation(
@@ -47,11 +47,11 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
     _controller.dispose();
   }
 
-  Alignment alignment1 =const Alignment(-1.0, 0.0);
-  Alignment alignment2 =const Alignment(-1.0, 0.0);
-  Alignment alignment3 =const Alignment(-1.0, 0.0);
-  Alignment alignment4 =const Alignment(-1.0, 0.0);
-  Alignment alignment5 =const Alignment(-1.0, 0.0);
+  Alignment alignment1 = const Alignment(-1.0, 0.0);
+  Alignment alignment2 = const Alignment(-1.0, 0.0);
+  Alignment alignment3 = const Alignment(-1.0, 0.0);
+  Alignment alignment4 = const Alignment(-1.0, 0.0);
+  Alignment alignment5 = const Alignment(-1.0, 0.0);
   double size1 = 50.0;
   double size2 = 50.0;
   double size3 = 80.0;
@@ -66,78 +66,63 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
       child: Container(
         height: 450.0,
         width: screenSize.width,
-        decoration:const BoxDecoration(color: Colors.transparent),
+        decoration: const BoxDecoration(color: Colors.transparent),
         child: Stack(
           children: [
-            ToolTipWrapper(
-              message: "To-Do List",
-              child: AnimatedItemContainerSideMenu(
-                key: const Key('icon1'),
-                minDuration: 275,
-                maxDuration: 875,
-                icon: Icons.checklist,
-                alignment: alignment1,
-                toggleButton: toggleButton,
-                size: size1,
-                onTap: () => _onTap(0),
-                color: Colors.red[400] ?? Colors.red,
-              ),
+            AnimatedItemContainerSideMenu(
+              key:  Key('icon1'),
+              minDuration: 275,
+              maxDuration: 875,
+              icon: Icons.checklist,
+              alignment: alignment1,
+              toggleButton: toggleButton,
+              size: size1,
+              onTap: () => _onTap(0),
+              color: Colors.red[400] ?? Colors.red,
             ),
-            ToolTipWrapper(
-              message: "Invoices",
-              child: AnimatedItemContainerSideMenu(
-                key: const Key('icon2'),
-                minDuration: 275,
-                maxDuration: 875,
-                icon: Icons.inventory,
-                alignment: alignment2,
-                toggleButton: toggleButton,
-                size: size1,
-                onTap: () => _onTap(1),
-                color: Colors.green[400] ?? Colors.green,
-              ),
+            AnimatedItemContainerSideMenu(
+              key: Key('icon2'),
+              minDuration: 275,
+              maxDuration: 875,
+              icon: Icons.inventory,
+              alignment: alignment2,
+              toggleButton: toggleButton,
+              size: size1,
+              onTap: () => _onTap(1),
+              color: Colors.green[400] ?? Colors.green,
             ),
-            Tooltip(
-              message: "Nothing 1",
-              child: AnimatedItemContainerSideMenu(
-                key: const Key('icon3'),
-                minDuration: 275,
-                maxDuration: 875,
-                icon: Icons.computer,
-                alignment: alignment3,
-                toggleButton: toggleButton,
-                size: size1,
-                onTap: () => _onTap(2),
-                color: Colors.blue[400] ?? Colors.blue,
-              ),
+            AnimatedItemContainerSideMenu(
+              key: Key('icon3'),
+              minDuration: 275,
+              maxDuration: 875,
+              icon: Icons.computer,
+              alignment: alignment3,
+              toggleButton: toggleButton,
+              size: size1,
+              onTap: () => _onTap(2),
+              color: Colors.blue[400] ?? Colors.blue,
             ),
-            ToolTipWrapper(
-              message: "Work Manager",
-              child: AnimatedItemContainerSideMenu(
-                key: const Key('icon4'),
-                minDuration: 275,
-                maxDuration: 675,
-                icon: Icons.today,
-                alignment: alignment4,
-                toggleButton: toggleButton,
-                size: size1,
-                onTap: () => _onTap(3),
-                color: Colors.purple[400] ?? Colors.yellow,
-              ),
+            AnimatedItemContainerSideMenu(
+              key: const Key('icon4'),
+              minDuration: 275,
+              maxDuration: 675,
+              icon: Icons.today,
+              alignment: alignment4,
+              toggleButton: toggleButton,
+              size: size1,
+              onTap: () => _onTap(3),
+              color: Colors.purple[400] ?? Colors.yellow,
             ),
-            ToolTipWrapper(
-              message: "",
-              child: AnimatedItemContainerSideMenu(
-                key: const Key('icon5'),
-                minDuration: 520,
-                maxDuration: 675,
-                icon: Icons.info,
-                alignment: alignment5,
-                toggleButton: toggleButton,
-                size: size1,
-                onTap: () => _onTap(4),
-                color: Colors.orange[400] ?? Colors.orange,
-              ),
+            AnimatedItemContainerSideMenu(
+              key: const Key('icon5'),
+              minDuration: 520,
+              maxDuration: 675,
+              icon: Icons.info,
+              alignment: alignment5,
+              toggleButton: toggleButton,
+              size: size1,
+              onTap: () => _onTap(4),
+              color: Colors.orange[400] ?? Colors.orange,
             ),
             Align(
               alignment: Alignment.centerLeft, // Alignment.center,
@@ -214,11 +199,12 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
         break;
       case 1:
         MainApp.navigatorKey.currentState!
-            .pushNamed(AppRoutes.loadAppDataScreen);
+            .pushNamed(AppRoutes.invoiceManagerScreen);
         print("Icon 1 (Phone) tapped");
         break;
       case 2:
-        MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.testScreen);
+        MainApp.navigatorKey.currentState!
+            .pushNamed(AppRoutes.signIn);
         print("Icon 2 (Computer) tapped");
         break;
       case 3:

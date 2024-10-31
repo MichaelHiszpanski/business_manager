@@ -1,6 +1,9 @@
+import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
+import 'package:business_manager/core/main_utils/main_bloc/main_bloc.dart';
+import 'package:business_manager/main.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -9,29 +12,32 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future<User?> _signInWithGoogle() async {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _signInWithEmailPassword() async {
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        return null;
-      }
-
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
       final UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
+          await _auth.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      final User? user = userCredential.user;
 
-      return userCredential.user;
+      if (user != null) {
+        String? authToken = await user.getIdToken();
+
+        if (mounted) {
+          context
+              .read<MainBloc>()
+              .add(UpdateAuthToken(authToken: authToken ?? ""));
+          MainApp.navigatorKey.currentState!
+              .pushNamed(AppRoutes.invoiceManagerScreen);
+        }
+      }
     } catch (e) {
-      print("Error signing in with Google: $e");
+      print("Error signing in with Email and Password: $e");
       return null;
     }
   }
@@ -39,18 +45,29 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Google Sign-In')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            User? user = await _signInWithGoogle();
-            if (user != null) {
-              print("User signed in: ${user.displayName}");
-            } else {
-              print("Google sign-in failed.");
-            }
-          },
-          child: Text("Sign in with Google"),
+      appBar: AppBar(title: Text('Sign-In')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(labelText: "Email"),
+              keyboardType: TextInputType.emailAddress,
+            ),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(labelText: "Password"),
+              obscureText: true,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () async => await _signInWithEmailPassword(),
+              child: Text("Sign in with Email"),
+            ),
+            const SizedBox(height: 16),
+          ],
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:business_manager/feature/auth/user/user_model.dart';
 import 'package:equatable/equatable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'main_event.dart';
 part 'main_state.dart';
@@ -21,13 +22,15 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     emit(const MainInitial());
   }
 
-  void _onUpdateAuthToken(UpdateAuthToken event, Emitter<MainState> emit) {
+  void _onUpdateAuthToken(UpdateAuthToken event, Emitter<MainState> emit)async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('authToken', event.authToken);
+
     final currentState = state;
     if (currentState is MainLoaded) {
-      emit(MainLoaded(authToken: event.authToken, user: currentState.user));
+      emit(MainLoaded(authToken: event.authToken, user: currentState.user, todos: currentState.todos));
     } else {
-      emit(
-          MainLoaded(authToken: event.authToken, user: User(id: '', name: '')));
+      emit(MainLoaded(authToken: event.authToken, user: User(id: '', name: '')));
     }
   }
 
