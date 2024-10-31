@@ -1,13 +1,9 @@
-import 'dart:developer';
-
-import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/feature/services/work_manager/bloc/work_manager_bloc.dart';
 import 'package:business_manager/feature/services/work_manager/helpers/meeting_data_list_manager.dart';
 import 'package:business_manager/feature/services/work_manager/models/meeting_model.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/screens/add_new_event_screen.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/custom_meetings_alert_dialog.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/work_manager_left_custom_button.dart';
-import 'package:business_manager/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -152,20 +148,17 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
         });
         break;
       case 2:
+      default:
         setState(() {
           _calendarView = CalendarView.month;
         });
         break;
-      default:
-        print("Unknown icon tapped");
     }
   }
 
   void _onRightItemsClicked(int index) {
     switch (index) {
       case 0:
-        // MainApp.navigatorKey.currentState!
-        //            .pushNamed(AppRoutes.addNewEventScreen);
         _showAddEventBottomSheet(context, DateTime.now(), true);
         break;
       case 1:
@@ -174,12 +167,11 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
         });
         break;
       case 2:
+      default:
         setState(() {
           _calendarView = CalendarView.month;
         });
         break;
-      default:
-        print("Unknown icon tapped");
     }
   }
 }

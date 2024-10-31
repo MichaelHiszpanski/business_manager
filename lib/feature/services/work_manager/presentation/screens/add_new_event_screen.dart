@@ -1,12 +1,8 @@
-import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/feature/services/work_manager/bloc/work_manager_bloc.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/add_new_event_for_bottom_sheet.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/add_new_event_for_scafold.dart';
-import 'package:business_manager/feature/services/work_manager/presentation/widgets/color_selector.dart';
-import 'package:business_manager/feature/services/work_manager/presentation/widgets/custom_dropdown_hours.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class AddNewEventScreen extends StatefulWidget {
   final DateTime? selectedDatetime;

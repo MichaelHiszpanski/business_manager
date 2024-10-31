@@ -1,7 +1,6 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class DatePicker extends StatefulWidget {
   final ValueChanged<DateTime?> onDateSelected;
@@ -50,10 +49,6 @@ class _DatePickerState extends State<DatePicker> {
           style: const TextStyle(color: Colors.black54),
         ),
         const SizedBox(height: 10),
-        // ElevatedButton(
-        //   onPressed: () => _datePicker(context),
-        //   child: const Text('Pick Expiration Date'),
-        // ),
         CustomFloatingButton(
           onPressed: () => _datePicker(context),
           buttonText: 'Pick Expiration Date',
