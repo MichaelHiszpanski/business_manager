@@ -1,6 +1,8 @@
-# business_manager
+---
+## Dissertation Project for The Open University - Mobile Application
+---
 
-A new Flutter project.
+# Flutter project.
 
 ## Getting Started
 
