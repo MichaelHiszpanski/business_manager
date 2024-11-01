@@ -1,13 +1,17 @@
+import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/pdf_template_one.dart';
 import 'package:flutter/material.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:pdf/pdf.dart' as pdf;
 class InvoiceCustomFloatingButton extends StatelessWidget {
-  final pw.Document Function() generatePdf;
+  //final pw.Document Function() generatePdf;
+  final InvoiceOneModel Function() createInvoiceData;
 
   const InvoiceCustomFloatingButton({
     Key? key,
-    required this.generatePdf,
+    // required this.generatePdf,
+    required this.createInvoiceData,
   }) : super(key: key);
 
   @override
@@ -15,8 +19,13 @@ class InvoiceCustomFloatingButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () async {
         try {
-          final pdfBytes = await generatePdf().save();
-          print("PDF generated successfully with ${pdfBytes.length} bytes");
+          // final pdfBytes = await generatePdf().save();
+          final pdfData = createInvoiceData();
+          final pdfDocument = PdfTemplateOne(pdfData: pdfData).generatePdf();
+          final invoiceData = createInvoiceData();
+          // Create the PDF document using PdfTemplateOne
+         // final pdfDocument = PdfTemplateOne(pdfData: invoiceData).generatePdf();
+          final pdfBytes = await pdfDocument.save();
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => PdfPreview(
