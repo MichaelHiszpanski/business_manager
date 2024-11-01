@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -50,6 +51,17 @@ class _SignInScreenState extends State<SignInScreen> {
     }
   }
 
+  Future<void> _launchURL() async {
+    final Uri url =
+        Uri.parse("https://business-manager-website.vercel.app/sign-up");
+    if (await canLaunchUrl(url)) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,6 +100,26 @@ class _SignInScreenState extends State<SignInScreen> {
               child: ElevatedButton(
                 onPressed: () async => await _signInWithEmailAndPassword(),
                 child: const Text("Sign in with Email"),
+              ),
+            ),
+            const SizedBox(height: Constants.padding16),
+            Container(
+              width: double.maxFinite,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 2,
+                    blurRadius: 6,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: ElevatedButton(
+                onPressed: _launchURL,
+                child: const Text("Sign Up!"),
               ),
             ),
             const SizedBox(height: Constants.padding16),

@@ -53,6 +53,12 @@
         <string>remote-notification</string>
     </array>
 
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>https</string>
+    </array>
+
+
     <!-- Description for permission prompt for notifications -->
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>We need your location to send relevant notifications.</string>
