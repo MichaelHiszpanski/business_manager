@@ -1,10 +1,11 @@
+import 'package:business_manager/core/tools/constants.dart';
 import 'package:flutter/material.dart';
 
-class InvoiceInputs extends StatelessWidget {
+class PersonalDetailsInputs extends StatelessWidget {
   final TextEditingController businessOwnerName;
   final TextEditingController businessOwnerStreet;
 
-  const InvoiceInputs({
+  const PersonalDetailsInputs({
     super.key,
     required this.businessOwnerName,
     required this.businessOwnerStreet,
@@ -16,14 +17,15 @@ class InvoiceInputs extends StatelessWidget {
       children: [
         TextFormField(
           controller: businessOwnerName,
-          decoration: InputDecoration(labelText: 'Company Name'),
+          decoration:const InputDecoration(labelText: 'Company Name'),
 
         ),
+        const  SizedBox(height: Constants.padding16),
         TextFormField(
           controller: businessOwnerStreet,
-          decoration: InputDecoration(labelText: 'Street and Postcode'),
+          decoration:const InputDecoration(labelText: 'Street and Postcode'),
         ),
-        SizedBox(height: 20),
+      const  SizedBox(height: Constants.padding16),
       ],
     );
   }

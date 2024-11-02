@@ -1,4 +1,6 @@
 import 'package:business_manager/core/theme/colors.dart';
+import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
@@ -6,9 +8,6 @@ import 'package:business_manager/feature/services/invoice_manager/presentation/w
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_screen_left_button.dart';
 
 import 'package:flutter/material.dart';
-import 'package:pdf/widgets.dart' as pw;
-
-import 'package:pdf/pdf.dart' as pdf;
 
 class InvoiceManagerScreen extends StatefulWidget {
   const InvoiceManagerScreen({super.key});
@@ -39,13 +38,13 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         InvoiceItemModel(
             description: "Service/Product 1",
             quantity: "1",
-            itemPrice: "\$100.00",
-            totalItems: "\$100.00"),
+            itemPrice: "\£100.00",
+            totalItems: "\£100.00"),
         InvoiceItemModel(
             description: "Service/Product 2",
             quantity: "2",
-            itemPrice: "\$50.00",
-            totalItems: "\$100.00"),
+            itemPrice: "\£50.00",
+            totalItems: "\£100.00"),
       ],
       thankYouMessage: "Thank you for your business!",
       paymentDueMessage: "Payment is due within 15 days.",
@@ -56,40 +55,12 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Pallete.colorThree,
-      appBar: AppBar(
-        backgroundColor: Pallete.colorThree,
-        title: const Text(
-          'Invoice Service ',
-          style: TextStyle(
-            color: Pallete.colorTwo,
-            fontFamily: "Jaro",
-            fontSize: 24,
-          ),
-        ),
-        iconTheme: IconThemeData(
-          color: Pallete.colorOne,
-          size: 28,
-          shadows: [
-            BoxShadow(
-              color: Colors.black38.withOpacity(0.2),
-              spreadRadius: 2,
-              blurRadius: 8,
-              offset: const Offset(2, 4),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.menu,
-              color: Pallete.colorOne,
-            ),
-            onPressed: () {},
-          ),
-        ],
+      appBar: CustomAppBar(
+        title: "Invoice Service",
+        onMenuPressed: () {},
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
         child: InvoiceInputs(
           businessOwnerName: _businessOwnerName,
           businessOwnerStreet: _businessOwnerStreet,
@@ -105,10 +76,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           Positioned(
             bottom: 20,
             right: 0,
-            // child: InvoiceCustomFloatingButton(
-            //   generatePdf:
-            //       PdfTemplateOne(pdfData: _createInvoiceData()).generatePdf,
-            // ),
             child: InvoiceCustomFloatingButton(
               createInvoiceData: _createInvoiceData,
             ),

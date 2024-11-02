@@ -60,26 +60,7 @@ class PdfTemplateOne {
               pw.Text(pdfData.clientMobile),
               pw.Text(pdfData.clientEmail),
               pw.SizedBox(height: 32),
-              // pw.Table.fromTextArray(
-              //   border: pw.TableBorder.all(),
-              //   headers: ['Description', 'Quantity', 'Unit Price', 'Total'],
-              //   headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-              //   cellAlignment: pw.Alignment.centerLeft,
-              //   cellHeight: 30,
-              //   columnWidths: {
-              //     0: pw.FlexColumnWidth(4),
-              //     1: pw.FlexColumnWidth(1),
-              //     2: pw.FlexColumnWidth(2),
-              //     3: pw.FlexColumnWidth(2),
-              //   },
-              //   cellStyle: pw.TextStyle(fontSize: 12),
-              //   data: [
-              //     ['Service/Product 1', '1', '\$100.00', '\$100.00'],
-              //     ['Service/Product 2', '2', '\$50.00', '\$100.00'],
-              //     ['Service/Product 3', '3', '\$25.00', '\$75.00'],
-              //   ],
-              // ),
-              pw.Table.fromTextArray(
+              pw.TableHelper.fromTextArray(
                 border: pw.TableBorder.all(),
                 headers: ['Description', 'Quantity', 'Unit Price', 'Total'],
                 headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
@@ -101,7 +82,6 @@ class PdfTemplateOne {
                         ])
                     .toList(),
               ),
-
               pw.Divider(height: 32),
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.end,
@@ -151,11 +131,17 @@ class PdfTemplateOne {
                 ],
               ),
               pw.SizedBox(height: 32),
-              pw.Text("Thank you for your business!",
-                  style: pw.TextStyle(fontSize: 16)),
-              pw.Text("Payment is due within 15 days.",
-                  style: pw.TextStyle(
-                      fontSize: 12, fontStyle: pw.FontStyle.italic)),
+              pw.Text(
+                "Thank you for your business!",
+                style: pw.TextStyle(fontSize: 16),
+              ),
+              pw.Text(
+                "Payment is due within 15 days.",
+                style: pw.TextStyle(
+                  fontSize: 12,
+                  fontStyle: pw.FontStyle.italic,
+                ),
+              ),
             ],
           );
         },

@@ -1,5 +1,6 @@
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/screens/sign_in_screen.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/screens/add_business_owner_screen.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/screens/invoice_manager_screen.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/screens/add_item_page.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/screens/to_do_page.dart';
@@ -29,6 +30,8 @@ class AppRoutes {
   //INVOICE-MANAGER
   static const String invoiceManagerScreen =
       '/services/invoice_manager/presentation/screens/invoice_manager';
+  static const String addBusinessOwnerScreen =
+      '/services/invoice_manager/presentation/screens/add_business_owner_screen.dart';
 
   static final routes = <String, WidgetBuilder>{
     homePage: (context) => const HomePage(title: "Home Page"),
@@ -41,5 +44,6 @@ class AppRoutes {
           isLastDateVisible: true,
         ),
     invoiceManagerScreen: (context) => const InvoiceManagerScreen(),
+    addBusinessOwnerScreen: (context) => const AddBusinessOwnerScreen(),
   };
 }
