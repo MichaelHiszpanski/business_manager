@@ -1,3 +1,5 @@
+import 'package:business_manager/core/theme/colors.dart';
+import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/pdf_template_one.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,10 @@ class InvoiceCustomFloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor:
+            WidgetStateProperty.all(Pallete.colorSix.withOpacity(0.60)),
+      ),
       onPressed: () async {
         try {
           final pdfData = createInvoiceData();
@@ -56,7 +62,17 @@ class InvoiceCustomFloatingButton extends StatelessWidget {
           print("Error generating PDF: $e");
         }
       },
-      child: const Text('Preview PDF'),
+      child: const Padding(
+        padding: EdgeInsets.all(Constants.padding4),
+        child: Text(
+          'Preview PDF',
+          style: TextStyle(
+            color: Pallete.colorOne,
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -106,6 +106,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       subTotalPrice: calculateSubTotalPrice(),
     );
   }
+
   double calculateSubTotalPrice() {
     return _invoiceAddedItemsList.fold(0.0, (total, item) {
       final price = double.tryParse(item.itemPrice) ?? 0.0;
@@ -251,7 +252,16 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                   const Spacer(),
                   ElevatedButton(
                     onPressed: _saveInvoiceData,
-                    child: const Text("Add to Invoice"),
+                    child: const Text(
+                      "Add to Invoice",
+                      style: TextStyle(
+                        color: Pallete.whiteColor,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all(Pallete.colorFive),
+                    ),
                   ),
                 ],
               ),
