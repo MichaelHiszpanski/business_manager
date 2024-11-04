@@ -1,3 +1,6 @@
+import 'package:business_manager/core/theme/colors.dart';
+import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:flutter/material.dart';
 
 class PersonalDetailsInputs extends StatelessWidget {
@@ -54,10 +57,11 @@ class PersonalDetailsInputs extends StatelessWidget {
           controller: email,
           decoration: const InputDecoration(labelText: 'Email:'),
         ),
-        const SizedBox(height: 20),
-        ElevatedButton(
+        const SizedBox(height: Constants.padding24),
+        CustomFloatingButton(
           onPressed: onSaveData,
-          child: const Text('Save'),
+          buttonText: 'Save',
+          backgroundColor: Pallete.gradient3,
         ),
       ],
     );

@@ -65,7 +65,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   InvoiceOneModel _createInvoiceOneData() {
     return InvoiceOneModel(
       invoiceDateTimeCreated: DateTime.now(),
-      invoiceNumber: "00123",
+      invoiceNumber: _invoiceNumber.text,
       businessDetailsModel: BusinessDetailsModel(
         businessFirstName: _selectedBusinessDetails.businessFirstName,
         businessLastName: _selectedBusinessDetails.businessLastName,
@@ -96,15 +96,15 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
             itemPrice: "\£50.00",
             totalItems: "\£100.00"),
       ],
-      thankYouMessage: "Thank you for your business!",
-      paymentDueDays: "Payment is due within 15 days.",
+      thankYouMessage: _thankYouMessage.text,
+      paymentDueDays: "Payment is due within ${_paymentDueDays.text} days.",
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Pallete.colorThree,
+      backgroundColor: Pallete.whiteColor,
       appBar: CustomAppBar(
         title: "Invoice Service",
         onMenuPressed: () {},
@@ -121,6 +121,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                     style: TextStyle(
                       fontFamily: "Jaro",
                       fontSize: 20,
+                      color: Pallete.colorSix,
                     ),
                   ),
                   Expanded(
@@ -160,6 +161,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                     style: TextStyle(
                       fontFamily: "Jaro",
                       fontSize: 20,
+                      color: Pallete.colorSix,
                     ),
                   ),
                   Expanded(

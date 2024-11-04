@@ -1,3 +1,4 @@
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/core/enums/piority_level_enum.dart';
@@ -108,6 +109,7 @@ class _EditItemPageState extends State<EditItemPage> {
                 CustomFloatingButton(
                   onPressed: _validateToDoItem,
                   buttonText: ('Save Changes'),
+                  backgroundColor: Pallete.gradient3,
                 ),
               ],
             ),

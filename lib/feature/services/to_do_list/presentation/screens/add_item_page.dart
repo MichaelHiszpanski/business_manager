@@ -1,3 +1,4 @@
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
@@ -94,6 +95,7 @@ class _AddItemPageState extends State<AddItemPage> {
                   CustomFloatingButton(
                     onPressed: _validateToDoItem,
                     buttonText: "Add ToDo",
+                    backgroundColor: Pallete.gradient3,
                   ),
                 ],
               ),

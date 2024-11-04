@@ -1,3 +1,4 @@
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
@@ -27,7 +28,10 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
     return DropdownButton<T>(
       hint: const Row(
         children: [
-          Icon(Icons.list_rounded, color: Colors.blueGrey),
+          Icon(
+            Icons.list_rounded,
+            color: Pallete.gradient1,
+          ),
           SizedBox(width: Constants.padding8),
           Text(
             "Select from list:",
@@ -47,6 +51,7 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
       items: widget.itemList.map((item) {
         return DropdownMenuItem<T>(
           value: item,
+
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: Constants.padding8),
             child: Text(

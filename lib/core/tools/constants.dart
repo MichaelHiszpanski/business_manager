@@ -12,4 +12,13 @@ class Constants {
   static const padding24 = 24.0;
   static const padding32 = 32.0;
   static const padding42 = 42.0;
+
+  static const radius5 = 5.0;
+  static const radius10 = 10.0;
+  static const radius15 = 15.0;
+  static const radius20 = 20.0;
+  static const radius25 = 25.0;
+  static const radius30 = 30.0;
+  static const radius35 = 35.0;
+  static const radius40 = 40.0;
 }

@@ -1,6 +1,8 @@
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/main_utils/main_bloc/main_bloc.dart';
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/core/widgets/outlined_text_field/outlined_text_field.dart';
 import 'package:business_manager/main.dart';
 import 'package:flutter/foundation.dart';
@@ -65,7 +67,10 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign-In')),
+      appBar: CustomAppBar(
+        title: "Sign-IN",
+        onMenuPressed: () {},
+      ),
       body: Padding(
         padding: const EdgeInsets.all(Constants.padding16),
         child: Column(
@@ -74,13 +79,13 @@ class _SignInScreenState extends State<SignInScreen> {
             OutlinedTextField(
               labelText: "Email",
               hintText: "Enter Email",
-              inputvalue: _emailController,
+              inputValue: _emailController,
             ),
             const SizedBox(height: Constants.padding16),
             OutlinedTextField(
               labelText: "Password",
               hintText: "Enter Password",
-              inputvalue: _passwordController,
+              inputValue: _passwordController,
             ),
             const SizedBox(height: Constants.padding16),
             Container(
@@ -99,7 +104,16 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               child: ElevatedButton(
                 onPressed: () async => await _signInWithEmailAndPassword(),
-                child: const Text("Sign in with Email"),
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(Pallete.gradient1),
+                ),
+                child: const Text(
+                  "Sign in with Email",
+                  style: TextStyle(
+                    color: Pallete.whiteColor,
+                    fontSize: 20,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: Constants.padding16),
@@ -107,7 +121,7 @@ class _SignInScreenState extends State<SignInScreen> {
               width: double.maxFinite,
               height: 50,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(Constants.radius10),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
@@ -119,7 +133,16 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               child: ElevatedButton(
                 onPressed: _launchURL,
-                child: const Text("Sign Up!"),
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(Pallete.gradient3),
+                ),
+                child: const Text(
+                  "Sign Up!",
+                  style: TextStyle(
+                    color: Pallete.whiteColor,
+                    fontSize: 20,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: Constants.padding16),

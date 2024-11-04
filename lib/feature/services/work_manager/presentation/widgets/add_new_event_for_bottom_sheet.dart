@@ -1,3 +1,4 @@
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/color_selector.dart';
@@ -107,6 +108,7 @@ class AddNewEventForBottomSheet extends StatelessWidget {
               CustomFloatingButton(
                 onPressed: addMeeting,
                 buttonText: 'Accept',
+                backgroundColor: Pallete.gradient2,
               ),
               const SizedBox(height: 32),
             ],

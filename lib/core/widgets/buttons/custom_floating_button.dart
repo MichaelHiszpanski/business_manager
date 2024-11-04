@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class CustomFloatingButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonText;
+  final Color backgroundColor;
 
   const CustomFloatingButton({
     super.key,
     required this.onPressed,
     required this.buttonText,
+    required this.backgroundColor,
   });
 
   @override
@@ -17,11 +19,12 @@ class CustomFloatingButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ButtonStyle(
-          backgroundColor:
-          WidgetStateProperty.all<Color>(Colors.blue),
+          backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
           padding: WidgetStateProperty.all<EdgeInsets>(
             const EdgeInsets.symmetric(
-                horizontal: 32.0, vertical: 16.0),
+              horizontal: 32.0,
+              vertical: 16.0,
+            ),
           ),
           elevation: WidgetStateProperty.all<double>(6.0),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
