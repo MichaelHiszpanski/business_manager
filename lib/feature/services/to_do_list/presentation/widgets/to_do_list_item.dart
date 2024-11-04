@@ -1,4 +1,5 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
+import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
@@ -22,18 +23,19 @@ class ToDoListItem extends StatelessWidget {
             width: 3,
             style: BorderStyle.solid,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(Constants.radius10),
+          ),
         ),
         child: ListTile(
           title: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    todo.title,
-                    style: Theme.of(context).textTheme.displayMedium,
-                  ),
                   Text.rich(
                     TextSpan(
                       children: [
@@ -47,13 +49,48 @@ class ToDoListItem extends StatelessWidget {
                           text: todo.priority.toString().split('.').last,
                           style: TextStyle(
                             color: PriorityDropdown.getPriorityColor(
-                                todo.priority),
+                              todo.priority,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  )
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    icon: const Icon(Icons.edit),
+                    padding: const EdgeInsets.all(0),
+                    constraints: const BoxConstraints(),
+                    iconSize: 20,
+                    color: Colors.orange,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => EditItemPage(todo: todo),
+                        ),
+                      );
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete),
+                    padding: const EdgeInsets.all(0),
+                    constraints: const BoxConstraints(),
+                    iconSize: 20,
+                    color: Colors.red,
+                    onPressed: () {
+                      context.read<ToDoBloc>().add(
+                            RemoveToDoListItem(id: todo.id),
+                          );
+                    },
+                  ),
                 ],
+              ),
+              Text(
+                todo.title,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ],
           ),
@@ -76,43 +113,43 @@ class ToDoListItem extends StatelessWidget {
                   ],
                 ),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.edit),
-                        padding: EdgeInsets.all(0),
-                        constraints: BoxConstraints(),
-                        iconSize: 24,
-                        color: Colors.orange,
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => EditItemPage(todo: todo),
-                            ),
-                          );
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        padding: EdgeInsets.all(0),
-                        constraints: BoxConstraints(),
-                        iconSize: 24,
-                        color: Colors.red,
-                        onPressed: () {
-                          context.read<ToDoBloc>().add(
-                                RemoveToDoListItem(id: todo.id),
-                              );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              //  Container(
+              // width: 80,
+              //  child:
+              //      Row(
+              //        mainAxisSize: MainAxisSize.min,
+              //        mainAxisAlignment: MainAxisAlignment.end,
+              //        children: [
+              //          IconButton(
+              //            icon:const Icon(Icons.edit),
+              //            padding:const EdgeInsets.all(0),
+              //            constraints:const BoxConstraints(),
+              //            iconSize: 20,
+              //            color: Colors.orange,
+              //            onPressed: () {
+              //              Navigator.of(context).push(
+              //                MaterialPageRoute(
+              //                  builder: (context) => EditItemPage(todo: todo),
+              //                ),
+              //              );
+              //            },
+              //          ),
+              //          IconButton(
+              //            icon: const Icon(Icons.delete),
+              //            padding:const EdgeInsets.all(0),
+              //            constraints:const BoxConstraints(),
+              //            iconSize: 20,
+              //            color: Colors.red,
+              //            onPressed: () {
+              //              context.read<ToDoBloc>().add(
+              //                    RemoveToDoListItem(id: todo.id),
+              //                  );
+              //            },
+              //          ),
+              //        ],
+              //      ),
+              //
+              //  ),
             ],
           ),
         ),

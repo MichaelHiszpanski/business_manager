@@ -1,3 +1,4 @@
+import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/feature/services/work_manager/bloc/work_manager_bloc.dart';
 import 'package:business_manager/feature/services/work_manager/helpers/meeting_data_list_manager.dart';
 import 'package:business_manager/feature/services/work_manager/models/meeting_model.dart';
@@ -31,8 +32,9 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Work Manager'),
+      appBar: CustomAppBar(
+        title: "Work Manager",
+        onMenuPressed: () {},
       ),
       body: BlocBuilder<WorkManagerBloc, WorkManagerState>(
         builder: (context, state) {

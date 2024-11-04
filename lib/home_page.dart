@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
       ]),
       floatingActionButton:
           const Column(mainAxisAlignment: MainAxisAlignment.end, children: []),
-      bottomNavigationBar: const BottomBar(indexValue: 0),
+
     );
   }
 }
