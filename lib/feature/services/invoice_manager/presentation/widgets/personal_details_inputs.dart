@@ -12,6 +12,8 @@ class PersonalDetailsInputs extends StatelessWidget {
   final TextEditingController mobile;
   final TextEditingController email;
   final VoidCallback onSaveData;
+  final TextEditingController? businessName;
+  final bool isBusinessInputText;
 
   const PersonalDetailsInputs({
     super.key,
@@ -23,12 +25,20 @@ class PersonalDetailsInputs extends StatelessWidget {
     required this.mobile,
     required this.email,
     required this.onSaveData,
+    this.businessName,
+    this.isBusinessInputText = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        if (isBusinessInputText) ...[
+          TextFormField(
+            controller: businessName,
+            decoration: const InputDecoration(labelText: 'Business Name'),
+          ),
+        ],
         TextFormField(
           controller: firstName,
           decoration: const InputDecoration(labelText: 'First name'),

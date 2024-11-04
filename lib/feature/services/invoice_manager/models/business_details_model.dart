@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class BusinessDetailsModel extends Equatable {
+  final String businessName;
   final String businessFirstName;
   final String businessLastName;
   final String businessOwnerStreet;
@@ -10,6 +11,7 @@ class BusinessDetailsModel extends Equatable {
   final String businessOwnerEmail;
 
   const BusinessDetailsModel({
+    required this.businessName,
     required this.businessFirstName,
     required this.businessLastName,
     required this.businessOwnerStreet,
@@ -19,10 +21,11 @@ class BusinessDetailsModel extends Equatable {
     required this.businessOwnerEmail,
   });
 
-  String get displayName => "$businessFirstName $businessLastName";
+  String get displayName => "$businessName";
 
   @override
   List<Object?> get props => [
+        businessName,
         businessFirstName,
         businessLastName,
         businessOwnerStreet,

@@ -24,7 +24,7 @@ class InvoiceDetailsInputs extends StatefulWidget {
 
 class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
   final _keyForm = GlobalKey<FormState>();
-  String _error = "";
+  final String _error = "";
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +58,6 @@ class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
           CustomFloatingButton(
             onPressed: () {
               if (_keyForm.currentState!.validate()) {
-                setState(() {
-                  _error = '';
-                });
                 widget.onSaveData();
               }
             },
@@ -74,14 +71,7 @@ class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
 
   String? _validateInvoiceNumber(String? value) {
     if (value == null || value.isEmpty) {
-      setState(() {
-        _error = 'Please enter a value.';
-      });
       return _error;
-    } else {
-      setState(() {
-        _error = '';
-      });
     }
 
     return null;
@@ -89,16 +79,10 @@ class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
 
   String? _validateDueDays(String? value) {
     if (value == null || value.isEmpty) {
-      setState(() {
-        _error = 'Please enter a value.';
-      });
       return _error;
     }
     final intValue = int.tryParse(value);
     if (intValue == null || intValue < 1 || intValue > 360) {
-      setState(() {
-        _error = 'Please Enter a value between 1 and 360.';
-      });
       return _error;
     }
     return null;

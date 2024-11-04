@@ -29,6 +29,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final List<InvoiceItemModel> _invoiceAddedItemsList = [];
   int _currentItemQuantity = 0;
   BusinessDetailsModel _selectedBusinessDetails = const BusinessDetailsModel(
+    businessName: "",
     businessFirstName: "",
     businessLastName: "",
     businessOwnerStreet: "",
@@ -52,7 +53,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     itemPrice: "",
     totalItems: "",
   );
-
+  final TextEditingController _businessName = TextEditingController();
   final TextEditingController _businessOwnerFirstName = TextEditingController();
   final TextEditingController _businessOwnerLastName = TextEditingController();
   final TextEditingController _businessOwnerStreet = TextEditingController();
@@ -83,6 +84,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       invoiceDateTimeCreated: DateTime.now(),
       invoiceNumber: _invoiceNumber.text,
       businessDetailsModel: BusinessDetailsModel(
+        businessName: _selectedBusinessDetails.businessName,
         businessFirstName: _selectedBusinessDetails.businessFirstName,
         businessLastName: _selectedBusinessDetails.businessLastName,
         businessOwnerStreet: _selectedBusinessDetails.businessOwnerStreet,
@@ -133,9 +135,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                   const Text(
                     "Your Business:    ",
                     style: TextStyle(
-                      fontFamily: "Jaro",
-                      fontSize: 20,
-                      color: Pallete.colorSix,
+                      fontFamily: "Orbitron",
+                      fontSize: 18,
+                      color: Pallete.colorFive,
                     ),
                   ),
                   Expanded(
@@ -156,6 +158,8 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 title: "Add new Business Details",
                 children: [
                   PersonalDetailsInputs(
+                    isBusinessInputText: true,
+                    businessName: _businessName,
                     firstName: _businessOwnerFirstName,
                     lastName: _businessOwnerLastName,
                     street: _businessOwnerStreet,
@@ -173,9 +177,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                   const Text(
                     "Your Clients:        ",
                     style: TextStyle(
-                      fontFamily: "Jaro",
-                      fontSize: 20,
-                      color: Pallete.colorSix,
+                      fontFamily: "Orbitron",
+                      fontSize: 18,
+                      color: Pallete.colorFive,
                     ),
                   ),
                   Expanded(
@@ -213,9 +217,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                   const Text(
                     "Your Items:           ",
                     style: TextStyle(
-                      fontFamily: "Jaro",
-                      fontSize: 20,
-                      color: Pallete.colorSix,
+                      fontFamily: "Racing",
+                      fontSize: 18,
+                      color: Pallete.colorFive,
                     ),
                   ),
                   Expanded(
@@ -314,6 +318,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
 
   void _saveBusinessDetails() {
     final newBusiness = BusinessDetailsModel(
+      businessName: _businessName.text,
       businessFirstName: _businessOwnerFirstName.text,
       businessLastName: _businessOwnerLastName.text,
       businessOwnerStreet: _businessOwnerStreet.text,
@@ -324,7 +329,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     );
 
     setState(() {
-      if (!_businessesList.contains(newBusiness)) {
+      if (!_businessesList.contains(newBusiness) &&
+          (_businessesList
+              .every((item) => item.businessName != _businessName.text))) {
         _businessesList.add(newBusiness);
         _businessOwnerFirstName.clear();
         _businessOwnerLastName.clear();
@@ -414,20 +421,5 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         }
       }
     });
-  }
-
-  void _onLeftItemsClicked(int index) {
-    switch (index) {
-      case 0:
-        setState(() {});
-        break;
-      case 1:
-        setState(() {});
-        break;
-      case 2:
-      default:
-        setState(() {});
-        break;
-    }
   }
 }

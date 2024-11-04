@@ -85,3 +85,25 @@ flutter:
           weight: 200
         - asset: assets/fonts/jaro/Jaro_9pt-Regular.ttf
           weight: 700
+
+    - family: Orbitron
+      fonts:
+        - asset: assets/fonts/orbitron/Orbitron-Regular.ttf
+          weight: 200
+        - asset: assets/fonts/orbitron/Orbitron-Bold.ttf
+          weight: 700
+
+    - family: Racing
+      fonts:
+        - asset: assets/fonts/racing/RacingSansOne-Regular.ttf
+          weight: 200
+
+    - family: Marker
+      fonts:
+        - asset: assets/fonts/marker/PermanentMarker-Regular.ttf
+          weight: 200
+
+    - family: Rubik
+      fonts:
+        - asset: assets/fonts/rubik/RubikWetPaint-Regular.ttf
+          weight: 200

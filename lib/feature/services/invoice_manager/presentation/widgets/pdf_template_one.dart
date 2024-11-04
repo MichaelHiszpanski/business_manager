@@ -25,12 +25,14 @@ class PdfTemplateOne {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text(
-                        pdfData.businessDetailsModel.businessFirstName,
+                        pdfData.businessDetailsModel.businessName,
                         style: pw.TextStyle(
-                          fontSize: 24,
+                          fontSize: 22,
                           fontWeight: pw.FontWeight.bold,
                         ),
                       ),
+                      pw.Text(
+                          "${pdfData.businessDetailsModel.businessFirstName} ${pdfData.businessDetailsModel.businessLastName}"),
                       pw.Text(pdfData.businessDetailsModel.businessOwnerStreet),
                       pw.Text(pdfData.businessDetailsModel.businessOwnerCity),
                       pw.Text(pdfData.businessDetailsModel.businessOwnerMobile),
