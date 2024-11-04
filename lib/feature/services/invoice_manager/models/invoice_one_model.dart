@@ -10,7 +10,7 @@ class InvoiceOneModel extends Equatable {
   final ClientDetailsModel clientDetailsModel;
   final List<InvoiceItemModel> invoiceItemsList;
   final String thankYouMessage;
-  final String paymentDueMessage;
+  final String paymentDueDays;
 
   const InvoiceOneModel({
     required this.invoiceDateTimeCreated,
@@ -19,7 +19,7 @@ class InvoiceOneModel extends Equatable {
     required this.clientDetailsModel,
     required this.invoiceItemsList,
     required this.thankYouMessage,
-    required this.paymentDueMessage,
+    required this.paymentDueDays,
   });
 
   @override
@@ -30,6 +30,6 @@ class InvoiceOneModel extends Equatable {
         clientDetailsModel,
         invoiceItemsList,
         thankYouMessage,
-        paymentDueMessage,
+        paymentDueDays,
       ];
 }

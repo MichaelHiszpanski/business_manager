@@ -8,7 +8,8 @@ import 'package:business_manager/feature/services/invoice_manager/models/invoice
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/drop_down_list.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/expansion_tile_wrapper.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_inputs.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_details_inputs.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/personal_details_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_screen_left_button.dart';
 
 import 'package:flutter/material.dart';
@@ -57,6 +58,10 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final TextEditingController _clientMobile = TextEditingController();
   final TextEditingController _clientEmail = TextEditingController();
 
+  final TextEditingController _invoiceNumber = TextEditingController();
+  final TextEditingController _thankYouMessage = TextEditingController();
+  final TextEditingController _paymentDueDays = TextEditingController();
+
   InvoiceOneModel _createInvoiceOneData() {
     return InvoiceOneModel(
       invoiceDateTimeCreated: DateTime.now(),
@@ -92,7 +97,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
             totalItems: "\£100.00"),
       ],
       thankYouMessage: "Thank you for your business!",
-      paymentDueMessage: "Payment is due within 15 days.",
+      paymentDueDays: "Payment is due within 15 days.",
     );
   }
 
@@ -182,10 +187,23 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                     postCode: _clientPostCode,
                     mobile: _clientMobile,
                     email: _clientEmail,
-                    onSaveData: _saveBusinessDetails,
+                    onSaveData: _saveClientDetails,
                   ),
                 ],
               ),
+              const SizedBox(height: Constants.padding16),
+              ExpansionTileWrapper(
+                title: "Invoice Details",
+                children: [
+                  InvoiceDetailsInputs(
+                    invoiceNumber: _invoiceNumber,
+                    thankYouMessage: _thankYouMessage,
+                    paymentDueDays: _paymentDueDays,
+                    onSaveData: () {},
+                  ),
+                ],
+              ),
+              const SizedBox(height: Constants.padding16 * 10),
             ],
           ),
         ),
