@@ -8,7 +8,6 @@ class InvoiceDetailsInputs extends StatelessWidget {
   final TextEditingController invoiceNumber;
   final TextEditingController thankYouMessage;
   final TextEditingController paymentDueDays;
-
   final VoidCallback onSaveData;
 
   InvoiceDetailsInputs({

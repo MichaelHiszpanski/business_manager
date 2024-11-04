@@ -9,6 +9,7 @@ import 'package:business_manager/feature/services/invoice_manager/presentation/w
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/expansion_tile_wrapper.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_details_inputs.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_items_list_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/personal_details_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_screen_left_button.dart';
 
@@ -24,6 +25,9 @@ class InvoiceManagerScreen extends StatefulWidget {
 class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final List<BusinessDetailsModel> _businessesList = [];
   final List<ClientDetailsModel> _clientsList = [];
+  final List<InvoiceItemModel> _itemsList = [];
+  final List<InvoiceItemModel> _invoiceAddedItemsList = [];
+  int _currentItemQuantity = 0;
   BusinessDetailsModel _selectedBusinessDetails = const BusinessDetailsModel(
     businessFirstName: "",
     businessLastName: "",
@@ -42,6 +46,13 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     clientEmail: "",
     clientMobile: "",
   );
+  InvoiceItemModel _invoiceItemDetails = const InvoiceItemModel(
+    description: "",
+    quantity: "",
+    itemPrice: "",
+    totalItems: "",
+  );
+
   final TextEditingController _businessOwnerFirstName = TextEditingController();
   final TextEditingController _businessOwnerLastName = TextEditingController();
   final TextEditingController _businessOwnerStreet = TextEditingController();
@@ -61,6 +72,11 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final TextEditingController _invoiceNumber = TextEditingController();
   final TextEditingController _thankYouMessage = TextEditingController();
   final TextEditingController _paymentDueDays = TextEditingController();
+
+  final TextEditingController _itemDescription = TextEditingController();
+  final TextEditingController _itemPrice = TextEditingController();
+  final TextEditingController _itemQuantity = TextEditingController();
+  final TextEditingController _itemTotalCount = TextEditingController();
 
   InvoiceOneModel _createInvoiceOneData() {
     return InvoiceOneModel(
@@ -84,21 +100,18 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         clientEmail: _selectedClientDetails.clientMobile,
         clientMobile: _selectedClientDetails.clientEmail,
       ),
-      invoiceItemsList: [
-        InvoiceItemModel(
-            description: "Service/Product 1",
-            quantity: "1",
-            itemPrice: "\£100.00",
-            totalItems: "\£100.00"),
-        InvoiceItemModel(
-            description: "Service/Product 2",
-            quantity: "2",
-            itemPrice: "\£50.00",
-            totalItems: "\£100.00"),
-      ],
+      invoiceItemsList: _invoiceAddedItemsList,
       thankYouMessage: _thankYouMessage.text,
       paymentDueDays: "Payment is due within ${_paymentDueDays.text} days.",
+      subTotalPrice: calculateSubTotalPrice(),
     );
+  }
+  double calculateSubTotalPrice() {
+    return _invoiceAddedItemsList.fold(0.0, (total, item) {
+      final price = double.tryParse(item.itemPrice) ?? 0.0;
+      final quantity = int.tryParse(item.quantity) ?? 0;
+      return total + (price * quantity);
+    });
   }
 
   @override
@@ -194,6 +207,66 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 ],
               ),
               const SizedBox(height: Constants.padding16),
+              Row(
+                children: [
+                  const Text(
+                    "Your Items:           ",
+                    style: TextStyle(
+                      fontFamily: "Jaro",
+                      fontSize: 20,
+                      color: Pallete.colorSix,
+                    ),
+                  ),
+                  Expanded(
+                    child: DropDownList<InvoiceItemModel>(
+                      itemList: _itemsList,
+                      getFullNameDetails: (invoice) => invoice.displayName,
+                      onValueSelected: (selectedItem) {
+                        setState(() {
+                          _invoiceItemDetails = selectedItem!;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: Constants.padding16),
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.remove),
+                    onPressed: () => updateQuantity(
+                      false,
+                      int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.add),
+                    onPressed: () => updateQuantity(
+                      true,
+                      int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
+                    ),
+                  ),
+                  Text("Quantity: ${_currentItemQuantity.toString()}"),
+                  const Spacer(),
+                  ElevatedButton(
+                    onPressed: _saveInvoiceData,
+                    child: const Text("Add to Invoice"),
+                  ),
+                ],
+              ),
+              ExpansionTileWrapper(
+                title: "Add New Item",
+                children: [
+                  InvoiceItemsListInputs(
+                    onSaveData: _saveNewItem,
+                    description: _itemDescription,
+                    itemPrice: _itemPrice,
+                    totalItems: _itemTotalCount,
+                  ),
+                ],
+              ),
+              const SizedBox(height: Constants.padding16),
               ExpansionTileWrapper(
                 title: "Invoice Details",
                 children: [
@@ -212,11 +285,11 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       ),
       floatingActionButton: Stack(
         children: <Widget>[
-          Positioned(
-            bottom: 20,
-            left: 20,
-            child: InvoiceScreenLeftButton(onItemCliked: _onLeftItemsClicked),
-          ),
+          // Positioned(
+          //   bottom: 20,
+          //   left: 20,
+          //   child: InvoiceScreenLeftButton(onItemCliked: _onLeftItemsClicked),
+          // ),
           Positioned(
             bottom: 20,
             right: 0,
@@ -275,6 +348,60 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         _clientCity.clear();
         _clientMobile.clear();
         _clientEmail.clear();
+      }
+    });
+  }
+
+  void _saveNewItem() {
+    final newItem = InvoiceItemModel(
+        description: _itemDescription.text,
+        quantity: _itemQuantity.text,
+        itemPrice: _itemPrice.text,
+        totalItems: _itemTotalCount.text);
+
+    setState(() {
+      if (!_itemsList.any((item) => item == newItem)) {
+        _itemsList.add(newItem);
+        _itemDescription.clear();
+        _itemQuantity.clear();
+        _itemPrice.clear();
+        _itemTotalCount.clear();
+      }
+    });
+  }
+
+  void _saveInvoiceData() {
+    if (_invoiceItemDetails.description.isEmpty) return;
+
+    final updatedItem = InvoiceItemModel(
+      description: _invoiceItemDetails.description,
+      quantity: _currentItemQuantity.toString(),
+      itemPrice: _invoiceItemDetails.itemPrice,
+      totalItems:
+          (double.parse(_invoiceItemDetails.itemPrice) * _currentItemQuantity)
+              .toStringAsFixed(2),
+    );
+
+    setState(() {
+      if (!_invoiceAddedItemsList
+          .any((item) => item.description == updatedItem.description)) {
+        _invoiceAddedItemsList.add(updatedItem);
+      }
+
+      _currentItemQuantity = 0;
+    });
+  }
+
+  void updateQuantity(bool isIncrement, int maximumQuantity) {
+    setState(() {
+      if (isIncrement) {
+        if (_currentItemQuantity < maximumQuantity) {
+          _currentItemQuantity++;
+        }
+      } else {
+        if (_currentItemQuantity > 0) {
+          _currentItemQuantity--;
+        }
       }
     });
   }

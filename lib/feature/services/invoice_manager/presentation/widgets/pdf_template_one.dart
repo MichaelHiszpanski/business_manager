@@ -58,7 +58,7 @@ class PdfTemplateOne {
                 style:
                     pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold),
               ),
-              pw.Text(pdfData.clientDetailsModel. clientFirstName),
+              pw.Text(pdfData.clientDetailsModel.clientFirstName),
               pw.Text(pdfData.clientDetailsModel.clientStreet),
               pw.Text(pdfData.clientDetailsModel.clientCity),
               pw.Text(pdfData.clientDetailsModel.clientMobile),
@@ -100,7 +100,8 @@ class PdfTemplateOne {
                           children: [
                             pw.Text("Subtotal:",
                                 style: pw.TextStyle(fontSize: 14)),
-                            pw.Text("\$275.00",
+                            pw.Text(
+                                "£ ${(pdfData.subTotalPrice!).toStringAsFixed(2)}",
                                 style: pw.TextStyle(fontSize: 14)),
                           ],
                         ),
@@ -109,7 +110,8 @@ class PdfTemplateOne {
                           children: [
                             pw.Text("Tax (10%):",
                                 style: pw.TextStyle(fontSize: 14)),
-                            pw.Text("\$27.50",
+                            pw.Text(
+                                "£ ${(pdfData.subTotalPrice! * 0.1).toStringAsFixed(2)}",
                                 style: pw.TextStyle(fontSize: 14)),
                           ],
                         ),
@@ -123,7 +125,7 @@ class PdfTemplateOne {
                                   fontSize: 16, fontWeight: pw.FontWeight.bold),
                             ),
                             pw.Text(
-                              "\$302.50",
+                              "£ ${(pdfData.subTotalPrice! + (pdfData.subTotalPrice! * 0.1)).toStringAsFixed(2)}",
                               style: pw.TextStyle(
                                   fontSize: 16, fontWeight: pw.FontWeight.bold),
                             ),

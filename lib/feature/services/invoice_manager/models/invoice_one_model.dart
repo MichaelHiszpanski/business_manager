@@ -11,6 +11,7 @@ class InvoiceOneModel extends Equatable {
   final List<InvoiceItemModel> invoiceItemsList;
   final String thankYouMessage;
   final String paymentDueDays;
+  final double? subTotalPrice;
 
   const InvoiceOneModel({
     required this.invoiceDateTimeCreated,
@@ -20,6 +21,7 @@ class InvoiceOneModel extends Equatable {
     required this.invoiceItemsList,
     required this.thankYouMessage,
     required this.paymentDueDays,
+    this.subTotalPrice = 0,
   });
 
   @override

@@ -3,7 +3,6 @@ import 'package:business_manager/core/tools/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 
-//**
 class DropDownList<T extends Equatable> extends StatefulWidget {
   final List<T> itemList;
   final String Function(T) getFullNameDetails;
@@ -51,7 +50,6 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
       items: widget.itemList.map((item) {
         return DropdownMenuItem<T>(
           value: item,
-
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: Constants.padding8),
             child: Text(
