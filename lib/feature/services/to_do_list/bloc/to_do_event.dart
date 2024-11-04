@@ -39,12 +39,12 @@ class CheckForExpiredItems extends ToDoEvent {
 }
 
 class UpdateToDoList extends ToDoEvent {
-  final ToDoItem todo;
+  final ToDoItem toDo;
 
-  const UpdateToDoList({required this.todo});
+  const UpdateToDoList({required this.toDo});
 
   @override
-  List<Object?> get props => [todo];
+  List<Object?> get props => [toDo];
 }
 
 class LoadToDoList extends ToDoEvent {

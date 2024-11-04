@@ -56,7 +56,7 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
 
       _toDoList.addAll(toDoItems);
 
-      emit(ToDoLoadSuccess(todos: List.from(_toDoList)));
+      emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
     } else {
       emit(ToDoError());
       _toDoList.clear();
@@ -85,7 +85,7 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     ));
 
     await box.put(HiveToDoListProperties.TO_DO_LIST_DATA_KEY, toDoNewList);
-    emit(ToDoLoadSuccess(todos: List.from(_toDoList)));
+    emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
   }
 
   FutureOr<void> _onRemoveToDoListItem(
@@ -112,15 +112,15 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
 
     NotificationHelper.cancelNotification(event.id.hashCode);
 
-    emit(ToDoLoadSuccess(todos: List.from(_toDoList)));
+    emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
   }
 
   FutureOr<void> _onUpdateToDoList(
       UpdateToDoList event, Emitter<ToDoState> emit) async {
-    final index = _toDoList.indexWhere((todo) => todo.id == event.todo.id);
+    final index = _toDoList.indexWhere((todo) => todo.id == event.toDo.id);
 
     if (index != -1) {
-      _toDoList[index] = event.todo;
+      _toDoList[index] = event.toDo;
 
       Box box = await Hive.openBox(HiveToDoListProperties.TO_DO_LIST_DATA_BOX);
       List<dynamic>? getExistingHiveData =
@@ -129,20 +129,20 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
 
       if (getExistingHiveData != null) {
         toDoNewList = getExistingHiveData.cast<ToDoItemHive>();
-        toDoNewList.removeWhere((item) => item.id == event.todo.id);
+        toDoNewList.removeWhere((item) => item.id == event.toDo.id);
       }
 
       toDoNewList.add(ToDoItemHive(
-        id: event.todo.id,
-        title: event.todo.title,
-        content: event.todo.content,
-        expiredDate: event.todo.expiredDate,
-        priority: event.todo.priority.toString(),
+        id: event.toDo.id,
+        title: event.toDo.title,
+        content: event.toDo.content,
+        expiredDate: event.toDo.expiredDate,
+        priority: event.toDo.priority.toString(),
       ));
 
       await box.put(HiveToDoListProperties.TO_DO_LIST_DATA_KEY, toDoNewList);
 
-      emit(ToDoLoadSuccess(todos: List.from(_toDoList)));
+      emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
     }
   }
 
@@ -151,7 +151,7 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     final now = DateTime.now();
     _toDoList.removeWhere((todo) => todo.expiredDate.isBefore(now));
     _notificationAlertListGenerator(_toDoList);
-    emit(ToDoLoadSuccess(todos: List.from(_toDoList)));
+    emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
   }
 
   void _notificationAlertListGenerator(List<ToDoItem> toDoList) {

@@ -12,12 +12,12 @@ class ToDoInitial extends ToDoState {}
 class ToDoLoading extends ToDoState {}
 
 class ToDoLoadSuccess extends ToDoState {
-  final List<ToDoItem> todos;
+  final List<ToDoItem> toDoList;
 
-  const ToDoLoadSuccess({required this.todos});
+  const ToDoLoadSuccess({required this.toDoList});
 
   @override
-  List<Object?> get props => [todos];
+  List<Object?> get props => [toDoList];
 }
 
 class ToDoError extends ToDoState {}

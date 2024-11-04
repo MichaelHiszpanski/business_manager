@@ -24,13 +24,17 @@ class PdfTemplateOne {
                   pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
-                      pw.Text(pdfData.businessName,
-                          style: pw.TextStyle(
-                              fontSize: 24, fontWeight: pw.FontWeight.bold)),
-                      pw.Text(pdfData.businessOwnerStreet),
-                      pw.Text(pdfData.clientCity),
-                      pw.Text(pdfData.businessOwnerMobile),
-                      pw.Text(pdfData.businessOwnerEmail),
+                      pw.Text(
+                        pdfData.businessDetailsModel.businessFirstName,
+                        style: pw.TextStyle(
+                          fontSize: 24,
+                          fontWeight: pw.FontWeight.bold,
+                        ),
+                      ),
+                      pw.Text(pdfData.businessDetailsModel.businessOwnerStreet),
+                      pw.Text(pdfData.businessDetailsModel.businessOwnerCity),
+                      pw.Text(pdfData.businessDetailsModel.businessOwnerMobile),
+                      pw.Text(pdfData.businessDetailsModel.businessOwnerEmail),
                     ],
                   ),
                   pw.Column(
@@ -54,11 +58,11 @@ class PdfTemplateOne {
                 style:
                     pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold),
               ),
-              pw.Text(pdfData.clientName),
-              pw.Text(pdfData.clientStreet),
-              pw.Text(pdfData.clientCity),
-              pw.Text(pdfData.clientMobile),
-              pw.Text(pdfData.clientEmail),
+              pw.Text(pdfData.clientDetailsModel. clientFirstName),
+              pw.Text(pdfData.clientDetailsModel.clientStreet),
+              pw.Text(pdfData.clientDetailsModel.clientCity),
+              pw.Text(pdfData.clientDetailsModel.clientMobile),
+              pw.Text(pdfData.clientDetailsModel.clientEmail),
               pw.SizedBox(height: 32),
               pw.TableHelper.fromTextArray(
                 border: pw.TableBorder.all(),

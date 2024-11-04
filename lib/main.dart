@@ -42,8 +42,6 @@ class MainApp extends StatelessWidget {
         navigatorKey: navigatorKey,
         initialRoute: '/home_page',
         theme: customTheme,
-        // localizationsDelegates: AppLocalizations.localizationsDelegates,
-        // supportedLocales: AppLocalizations.supportedLocales,
         locale: const Locale('en'),
         routes: AppRoutes.routes,
         home: Scaffold(

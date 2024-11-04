@@ -29,15 +29,6 @@ final class UpdateUser extends MainEvent {
   List<Object?> get props => [user];
 }
 
-final class UpdateToDoList extends MainEvent {
-  final List<ToDoItem> todos;
-
-  const UpdateToDoList({required this.todos});
-
-  @override
-  List<Object?> get props => [todos];
-}
-
 final class Logout extends MainEvent {
   const Logout();
 }

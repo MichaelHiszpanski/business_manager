@@ -115,7 +115,7 @@ class _ToDoPageState extends State<ToDoPage> {
           } else if (state is ToDoLoading) {
             return const LoadAppDataScreen();
           } else if (state is ToDoLoadSuccess) {
-            final toDoList = _filteredToDos(state.todos);
+            final toDoList = _filteredToDos(state.toDoList);
             if (toDoList.isEmpty) {
               return const Center(child: Text('Nothing to do yet...'));
             }

@@ -51,7 +51,7 @@ class _EditItemPageState extends State<EditItemPage> {
         expiredDate: _expiredDateSelected,
       );
 
-      context.read<ToDoBloc>().add(UpdateToDoList(todo: updatedToDo));
+      context.read<ToDoBloc>().add(UpdateToDoList(toDo: updatedToDo));
       Navigator.of(context).pop();
     }
   }

@@ -1,6 +1,8 @@
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:business_manager/feature/services/invoice_manager/models/business_details_model.dart';
+import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
@@ -22,18 +24,24 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
 
   InvoiceOneModel _createInvoiceData() {
     return InvoiceOneModel(
-      businessName: _businessOwnerName.text,
-      businessOwnerStreet: _businessOwnerStreet.text,
-      businessOwnerCity: "City, State, Zip",
-      businessOwnerMobile: "(123) 456-7890",
-      businessOwnerEmail: "business@example.com",
       invoiceDateTimeCreated: DateTime.now(),
       invoiceNumber: "00123",
-      clientName: _businessOwnerName.text,
-      clientStreet: "456 Client Rd",
-      clientCity: "City, State, Zip",
-      clientMobile: "(987) 654-3210",
-      clientEmail: "client@example.com",
+      businessDetailsModel: BusinessDetailsModel(
+          businessFirstName: _businessOwnerName.text,
+          businessLastName: "NONE",
+          businessOwnerStreet: _businessOwnerStreet.text,
+          businessOwnerPostCode: "NONE",
+          businessOwnerCity: "NONE",
+          businessOwnerMobile: "NONE",
+          businessOwnerEmail: "NONE"),
+      clientDetailsModel: ClientDetailsModel(
+          clientFirstName: "NONE",
+          clientLastName: "NONE",
+          clientStreet: "NONE",
+          clientPostCode: "NONE",
+          clientCity: "NONE",
+          clientEmail: "NONE",
+          clientMobile: "NONE"),
       invoiceItemsList: [
         InvoiceItemModel(
             description: "Service/Product 1",
