@@ -22,6 +22,7 @@ class InvoiceManagerScreen extends StatefulWidget {
 
 class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final List<BusinessDetailsModel> _businessesList = [];
+  final List<ClientDetailsModel> _clientsList = [];
   BusinessDetailsModel _selectedBusinessDetails = const BusinessDetailsModel(
     businessFirstName: "",
     businessLastName: "",
@@ -31,6 +32,15 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     businessOwnerMobile: "",
     businessOwnerEmail: "",
   );
+  ClientDetailsModel _selectedClientDetails = const ClientDetailsModel(
+    clientFirstName: "",
+    clientLastName: "",
+    clientStreet: "",
+    clientPostCode: "",
+    clientCity: "",
+    clientEmail: "",
+    clientMobile: "",
+  );
   final TextEditingController _businessOwnerFirstName = TextEditingController();
   final TextEditingController _businessOwnerLastName = TextEditingController();
   final TextEditingController _businessOwnerStreet = TextEditingController();
@@ -39,7 +49,15 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final TextEditingController _businessOwnerMobile = TextEditingController();
   final TextEditingController _businessOwnerEmail = TextEditingController();
 
-  InvoiceOneModel _createInvoiceData() {
+  final TextEditingController _clientFirstName = TextEditingController();
+  final TextEditingController _clientLastName = TextEditingController();
+  final TextEditingController _clientStreet = TextEditingController();
+  final TextEditingController _clientPostCode = TextEditingController();
+  final TextEditingController _clientCity = TextEditingController();
+  final TextEditingController _clientMobile = TextEditingController();
+  final TextEditingController _clientEmail = TextEditingController();
+
+  InvoiceOneModel _createInvoiceOneData() {
     return InvoiceOneModel(
       invoiceDateTimeCreated: DateTime.now(),
       invoiceNumber: "00123",
@@ -53,13 +71,14 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         businessOwnerEmail: _selectedBusinessDetails.businessOwnerEmail,
       ),
       clientDetailsModel: ClientDetailsModel(
-          clientFirstName: "NONE",
-          clientLastName: "NONE",
-          clientStreet: "NONE",
-          clientPostCode: "NONE",
-          clientCity: "NONE",
-          clientEmail: "NONE",
-          clientMobile: "NONE"),
+        clientFirstName: _selectedClientDetails.clientFirstName,
+        clientLastName: _selectedClientDetails.clientLastName,
+        clientStreet: _selectedClientDetails.clientStreet,
+        clientPostCode: _selectedClientDetails.clientPostCode,
+        clientCity: _selectedClientDetails.clientCity,
+        clientEmail: _selectedClientDetails.clientMobile,
+        clientMobile: _selectedClientDetails.clientEmail,
+      ),
       invoiceItemsList: [
         InvoiceItemModel(
             description: "Service/Product 1",
@@ -99,7 +118,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                       fontSize: 20,
                     ),
                   ),
-
                   Expanded(
                     child: DropDownList<BusinessDetailsModel>(
                       itemList: _businessesList,
@@ -130,6 +148,44 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 ],
               ),
               const SizedBox(height: Constants.padding16),
+              Row(
+                children: [
+                  const Text(
+                    "Your Clients:        ",
+                    style: TextStyle(
+                      fontFamily: "Jaro",
+                      fontSize: 20,
+                    ),
+                  ),
+                  Expanded(
+                    child: DropDownList<ClientDetailsModel>(
+                      itemList: _clientsList,
+                      getFullNameDetails: (client) => client.displayName,
+                      onValueSelected: (selectedClient) {
+                        setState(() {
+                          _selectedClientDetails = selectedClient!;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: Constants.padding16),
+              ExpansionTileWrapper(
+                title: "Add new Client Details",
+                children: [
+                  PersonalDetailsInputs(
+                    firstName: _clientFirstName,
+                    lastName: _clientLastName,
+                    street: _clientStreet,
+                    city: _clientCity,
+                    postCode: _clientPostCode,
+                    mobile: _clientMobile,
+                    email: _clientEmail,
+                    onSaveData: _saveBusinessDetails,
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -145,7 +201,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
             bottom: 20,
             right: 0,
             child: InvoiceCustomFloatingButton(
-              createInvoiceData: _createInvoiceData,
+              createInvoiceData: _createInvoiceOneData,
             ),
           ),
         ],
@@ -174,6 +230,31 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         _businessOwnerCity.clear();
         _businessOwnerMobile.clear();
         _businessOwnerEmail.clear();
+      }
+    });
+  }
+
+  void _saveClientDetails() {
+    final newClient = ClientDetailsModel(
+      clientFirstName: _clientFirstName.text,
+      clientLastName: _clientLastName.text,
+      clientStreet: _clientStreet.text,
+      clientPostCode: _clientPostCode.text,
+      clientCity: _clientCity.text,
+      clientEmail: _clientEmail.text,
+      clientMobile: _clientMobile.text,
+    );
+
+    setState(() {
+      if (!_clientsList.contains(newClient)) {
+        _clientsList.add(newClient);
+        _clientFirstName.clear();
+        _clientLastName.clear();
+        _clientStreet.clear();
+        _clientPostCode.clear();
+        _clientCity.clear();
+        _clientMobile.clear();
+        _clientEmail.clear();
       }
     });
   }
