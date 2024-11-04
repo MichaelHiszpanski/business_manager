@@ -5,6 +5,7 @@ import 'package:business_manager/feature/services/invoice_manager/models/busines
 import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/expansion_tile_wrapper.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_screen_left_button.dart';
@@ -19,21 +20,27 @@ class InvoiceManagerScreen extends StatefulWidget {
 }
 
 class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
-  final TextEditingController _businessOwnerName = TextEditingController();
+  final TextEditingController _businessOwnerFirstName = TextEditingController();
+  final TextEditingController _businessOwnerLastName = TextEditingController();
   final TextEditingController _businessOwnerStreet = TextEditingController();
+  final TextEditingController _businessOwnerPostCode = TextEditingController();
+  final TextEditingController _businessOwnerCity = TextEditingController();
+  final TextEditingController _businessOwnerMobile = TextEditingController();
+  final TextEditingController _businessOwnerEmail = TextEditingController();
 
   InvoiceOneModel _createInvoiceData() {
     return InvoiceOneModel(
       invoiceDateTimeCreated: DateTime.now(),
       invoiceNumber: "00123",
       businessDetailsModel: BusinessDetailsModel(
-          businessFirstName: _businessOwnerName.text,
-          businessLastName: "NONE",
-          businessOwnerStreet: _businessOwnerStreet.text,
-          businessOwnerPostCode: "NONE",
-          businessOwnerCity: "NONE",
-          businessOwnerMobile: "NONE",
-          businessOwnerEmail: "NONE"),
+        businessFirstName: _businessOwnerFirstName.text,
+        businessLastName: _businessOwnerLastName.text,
+        businessOwnerStreet: _businessOwnerStreet.text,
+        businessOwnerPostCode: _businessOwnerPostCode.text,
+        businessOwnerCity: _businessOwnerCity.text,
+        businessOwnerMobile: _businessOwnerMobile.text,
+        businessOwnerEmail: _businessOwnerEmail.text,
+      ),
       clientDetailsModel: ClientDetailsModel(
           clientFirstName: "NONE",
           clientLastName: "NONE",
@@ -67,11 +74,27 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         title: "Invoice Service",
         onMenuPressed: () {},
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
-        child: InvoiceInputs(
-          businessOwnerName: _businessOwnerName,
-          businessOwnerStreet: _businessOwnerStreet,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
+          child: Column(
+            children: [
+              ExpansionTileWrapper(
+                children: [
+                  PersonalDetailsInputs(
+                    firstName: _businessOwnerFirstName,
+                    lastName: _businessOwnerLastName,
+                    street: _businessOwnerStreet,
+                    city: _businessOwnerCity,
+                    postCode: _businessOwnerPostCode,
+                    mobile: _businessOwnerMobile,
+                    email: _businessOwnerEmail,
+                  ),
+                ],
+              ),
+
+            ],
+          ),
         ),
       ),
       floatingActionButton: Stack(

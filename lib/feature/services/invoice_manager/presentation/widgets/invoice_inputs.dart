@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 
-class InvoiceInputs extends StatelessWidget {
-  final TextEditingController businessOwnerName;
-  final TextEditingController businessOwnerStreet;
+class PersonalDetailsInputs extends StatelessWidget {
+  final TextEditingController firstName;
+  final TextEditingController lastName;
+  final TextEditingController street;
+  final TextEditingController postCode;
+  final TextEditingController city;
+  final TextEditingController mobile;
+  final TextEditingController email;
 
-  const InvoiceInputs({
+  const PersonalDetailsInputs({
     super.key,
-    required this.businessOwnerName,
-    required this.businessOwnerStreet,
+    required this.firstName,
+    required this.lastName,
+    required this.street,
+    required this.postCode,
+    required this.city,
+    required this.mobile,
+    required this.email,
   });
 
   @override
@@ -15,13 +25,32 @@ class InvoiceInputs extends StatelessWidget {
     return Column(
       children: [
         TextFormField(
-          controller: businessOwnerName,
-          decoration: InputDecoration(labelText: 'Company Name'),
-
+          controller: firstName,
+          decoration: const InputDecoration(labelText: 'First name'),
         ),
         TextFormField(
-          controller: businessOwnerStreet,
-          decoration: InputDecoration(labelText: 'Street and Postcode'),
+          controller: lastName,
+          decoration: const InputDecoration(labelText: 'Last Name'),
+        ),
+        TextFormField(
+          controller: street,
+          decoration: const InputDecoration(labelText: 'Street Name'),
+        ),
+        TextFormField(
+          controller: city,
+          decoration: const InputDecoration(labelText: 'City Name'),
+        ),
+        TextFormField(
+          controller: postCode,
+          decoration: const InputDecoration(labelText: 'Post Code'),
+        ),
+        TextFormField(
+          controller: mobile,
+          decoration: const InputDecoration(labelText: 'Mobile Number'),
+        ),
+        TextFormField(
+          controller: email,
+          decoration: const InputDecoration(labelText: 'Email:'),
         ),
         SizedBox(height: 20),
       ],
