@@ -20,6 +20,8 @@ class ClientDetailsModel extends Equatable {
     required this.clientMobile,
   });
 
+  String get displayName => "$clientFirstName $clientLastName";
+
   @override
   List<Object?> get props => [
         clientFirstName,

@@ -8,6 +8,7 @@ class PersonalDetailsInputs extends StatelessWidget {
   final TextEditingController city;
   final TextEditingController mobile;
   final TextEditingController email;
+  final VoidCallback onSaveData;
 
   const PersonalDetailsInputs({
     super.key,
@@ -18,6 +19,7 @@ class PersonalDetailsInputs extends StatelessWidget {
     required this.city,
     required this.mobile,
     required this.email,
+    required this.onSaveData,
   });
 
   @override
@@ -52,7 +54,11 @@ class PersonalDetailsInputs extends StatelessWidget {
           controller: email,
           decoration: const InputDecoration(labelText: 'Email:'),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: onSaveData,
+          child: const Text('Save'),
+        ),
       ],
     );
   }

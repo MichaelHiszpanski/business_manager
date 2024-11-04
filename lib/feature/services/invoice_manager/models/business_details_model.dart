@@ -19,6 +19,8 @@ class BusinessDetailsModel extends Equatable {
     required this.businessOwnerEmail,
   });
 
+  String get displayName => "$businessFirstName $businessLastName";
+
   @override
   List<Object?> get props => [
         businessFirstName,

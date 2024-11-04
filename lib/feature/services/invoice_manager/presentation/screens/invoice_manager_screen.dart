@@ -5,6 +5,7 @@ import 'package:business_manager/feature/services/invoice_manager/models/busines
 import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/drop_down_list.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/expansion_tile_wrapper.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_inputs.dart';
@@ -20,6 +21,16 @@ class InvoiceManagerScreen extends StatefulWidget {
 }
 
 class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
+  final List<BusinessDetailsModel> _businessesList = [];
+  BusinessDetailsModel _selectedBusinessDetails = const BusinessDetailsModel(
+    businessFirstName: "",
+    businessLastName: "",
+    businessOwnerStreet: "",
+    businessOwnerPostCode: "",
+    businessOwnerCity: "",
+    businessOwnerMobile: "",
+    businessOwnerEmail: "",
+  );
   final TextEditingController _businessOwnerFirstName = TextEditingController();
   final TextEditingController _businessOwnerLastName = TextEditingController();
   final TextEditingController _businessOwnerStreet = TextEditingController();
@@ -27,19 +38,20 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final TextEditingController _businessOwnerCity = TextEditingController();
   final TextEditingController _businessOwnerMobile = TextEditingController();
   final TextEditingController _businessOwnerEmail = TextEditingController();
+  bool _isExpanded = true;
 
   InvoiceOneModel _createInvoiceData() {
     return InvoiceOneModel(
       invoiceDateTimeCreated: DateTime.now(),
       invoiceNumber: "00123",
       businessDetailsModel: BusinessDetailsModel(
-        businessFirstName: _businessOwnerFirstName.text,
-        businessLastName: _businessOwnerLastName.text,
-        businessOwnerStreet: _businessOwnerStreet.text,
-        businessOwnerPostCode: _businessOwnerPostCode.text,
-        businessOwnerCity: _businessOwnerCity.text,
-        businessOwnerMobile: _businessOwnerMobile.text,
-        businessOwnerEmail: _businessOwnerEmail.text,
+        businessFirstName: _selectedBusinessDetails.businessFirstName,
+        businessLastName: _selectedBusinessDetails.businessLastName,
+        businessOwnerStreet: _selectedBusinessDetails.businessOwnerStreet,
+        businessOwnerPostCode: _selectedBusinessDetails.businessOwnerPostCode,
+        businessOwnerCity: _selectedBusinessDetails.businessOwnerCity,
+        businessOwnerMobile: _selectedBusinessDetails.businessOwnerMobile,
+        businessOwnerEmail: _selectedBusinessDetails.businessOwnerEmail,
       ),
       clientDetailsModel: ClientDetailsModel(
           clientFirstName: "NONE",
@@ -80,6 +92,13 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           child: Column(
             children: [
               ExpansionTileWrapper(
+                title: "Business Owner Details",
+                defaultValue: _isExpanded,
+                onExpandedChanged: (expanded) {
+                  setState(() {
+                    _isExpanded = expanded;
+                  });
+                },
                 children: [
                   PersonalDetailsInputs(
                     firstName: _businessOwnerFirstName,
@@ -89,10 +108,20 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                     postCode: _businessOwnerPostCode,
                     mobile: _businessOwnerMobile,
                     email: _businessOwnerEmail,
+                    onSaveData: _saveBusinessDetails,
                   ),
                 ],
               ),
-
+              DropDownList<BusinessDetailsModel>(
+                itemList: _businessesList,
+                getFullNameDetails: (business) => business.displayName,
+                onValueSelected: (selectedBusiness) {
+                  setState(() {
+                    _selectedBusinessDetails = selectedBusiness!;
+                  });
+                },
+              ),
+              SizedBox(height: 20)
             ],
           ),
         ),
@@ -114,6 +143,32 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         ],
       ),
     );
+  }
+
+  void _saveBusinessDetails() {
+    final newBusiness = BusinessDetailsModel(
+      businessFirstName: _businessOwnerFirstName.text,
+      businessLastName: _businessOwnerLastName.text,
+      businessOwnerStreet: _businessOwnerStreet.text,
+      businessOwnerPostCode: _businessOwnerPostCode.text,
+      businessOwnerCity: _businessOwnerCity.text,
+      businessOwnerMobile: _businessOwnerMobile.text,
+      businessOwnerEmail: _businessOwnerEmail.text,
+    );
+
+    setState(() {
+      if (!_businessesList.contains(newBusiness)) {
+        _businessesList.add(newBusiness);
+        _businessOwnerFirstName.clear();
+        _businessOwnerLastName.clear();
+        _businessOwnerStreet.clear();
+        _businessOwnerPostCode.clear();
+        _businessOwnerCity.clear();
+        _businessOwnerMobile.clear();
+        _businessOwnerEmail.clear();
+        _isExpanded = false;
+      }
+    });
   }
 
   void _onLeftItemsClicked(int index) {
