@@ -38,7 +38,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final TextEditingController _businessOwnerCity = TextEditingController();
   final TextEditingController _businessOwnerMobile = TextEditingController();
   final TextEditingController _businessOwnerEmail = TextEditingController();
-  bool _isExpanded = true;
 
   InvoiceOneModel _createInvoiceData() {
     return InvoiceOneModel(
@@ -91,14 +90,32 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
           child: Column(
             children: [
+              Row(
+                children: [
+                  const Text(
+                    "Your Business:    ",
+                    style: TextStyle(
+                      fontFamily: "Jaro",
+                      fontSize: 20,
+                    ),
+                  ),
+
+                  Expanded(
+                    child: DropDownList<BusinessDetailsModel>(
+                      itemList: _businessesList,
+                      getFullNameDetails: (business) => business.displayName,
+                      onValueSelected: (selectedBusiness) {
+                        setState(() {
+                          _selectedBusinessDetails = selectedBusiness!;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: Constants.padding16),
               ExpansionTileWrapper(
-                title: "Business Owner Details",
-                defaultValue: _isExpanded,
-                onExpandedChanged: (expanded) {
-                  setState(() {
-                    _isExpanded = expanded;
-                  });
-                },
+                title: "Add new Business Details",
                 children: [
                   PersonalDetailsInputs(
                     firstName: _businessOwnerFirstName,
@@ -112,16 +129,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                   ),
                 ],
               ),
-              DropDownList<BusinessDetailsModel>(
-                itemList: _businessesList,
-                getFullNameDetails: (business) => business.displayName,
-                onValueSelected: (selectedBusiness) {
-                  setState(() {
-                    _selectedBusinessDetails = selectedBusiness!;
-                  });
-                },
-              ),
-              SizedBox(height: 20)
+              const SizedBox(height: Constants.padding16),
             ],
           ),
         ),
@@ -166,7 +174,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         _businessOwnerCity.clear();
         _businessOwnerMobile.clear();
         _businessOwnerEmail.clear();
-        _isExpanded = false;
       }
     });
   }

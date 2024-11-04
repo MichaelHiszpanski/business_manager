@@ -1,5 +1,7 @@
+import 'package:business_manager/core/tools/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
+
 //**
 class DropDownList<T extends Equatable> extends StatefulWidget {
   final List<T> itemList;
@@ -23,18 +25,39 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<T>(
-      hint: const Text(
-        "Select from list:",
-        style: TextStyle(
-          fontFamily: 'Jaro',
-          fontSize: 20,
+      hint: const Row(
+        children: [
+          Icon(Icons.list_rounded, color: Colors.blueGrey),
+          SizedBox(width: Constants.padding8),
+          Text(
+            "Select from list:",
+            style: TextStyle(
+              fontFamily: 'Jaro',
+              fontSize: 20,
+            ),
+          ),
+        ],
+      ),
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          Constants.padding16,
         ),
       ),
       value: _itemSelected,
       items: widget.itemList.map((item) {
         return DropdownMenuItem<T>(
           value: item,
-          child: Text(widget.getFullNameDetails(item)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Constants.padding8),
+            child: Text(
+              widget.getFullNameDetails(item),
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontFamily: 'Jaro',
+                fontSize: 16,
+              ),
+            ),
+          ),
         );
       }).toList(),
       onChanged: (value) {
@@ -45,6 +68,7 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
           widget.onValueSelected!(value);
         }
       },
+      isExpanded: true,
     );
   }
 }
