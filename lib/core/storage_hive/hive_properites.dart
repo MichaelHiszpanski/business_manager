@@ -4,8 +4,8 @@ class HiveProperties {
   static const int toDoListID = 2;
   static const int workManagerID = 3;
   static const int invoiceManagerID = 4;
-  static const int  businessDetailsID=5;
-  static const int  clientDetailsID=6;
+  static const int businessDetailsID = 5;
+  static const int clientDetailsID = 6;
 }
 
 class HiveToDoListProperties {
@@ -30,9 +30,22 @@ class HiveWorkManagerProperties {
   static const int isAllDay = 5;
 }
 
-class HiveInvoiceManagerProperties {
-  static const String TO_INVOICE_MANAGER_DATA_BOX = "TO_INVOICE_MANAGER_DATA_BOX";
-  static const String TO_INVOICE_MANAGER_DATA_KEY = "TO_INVOICE_MANAGER_ATA_KEY";
+class HiveBusinessDetailsProperties {
+  static const String TO_BUSINESS_DETAILS_DATA_BOX =
+      "TO_BUSINESS_DETAILS_DATA_BOX";
+  static const String TO_BUSINESS_DETAILS_DATA_KEY =
+      "TO_BUSINESS_DETAILS_ATA_KEY";
+  static const int id = 0;
+  static const int title = 1;
+  static const int content = 2;
+  static const int dateTimeAdded = 3;
+  static const int expiredDate = 4;
+  static const int priority = 5;
+}
+
+class HiveClientDetailsProperties {
+  static const String TO_CLIENT_DETAILS_DATA_BOX = "TO_CLIENT_DETAILS_DATA_BOX";
+  static const String TO_CLIENT_DETAILS_DATA_KEY = "TO_CLIENT_DETAILS_ATA_KEY";
   static const int id = 0;
   static const int title = 1;
   static const int content = 2;

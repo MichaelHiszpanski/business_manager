@@ -8,41 +8,41 @@ part 'client_details_hive.g.dart';
 class ClientsDetailsHive {
 
   @HiveField(0)
-  final String businessFirstName;
+  final String clientFirstName;
 
   @HiveField(1)
-  final String businessLastName;
+  final String clientLastName;
 
   @HiveField(2)
-  final String businessOwnerStreet;
+  final String clientOwnerStreet;
 
   @HiveField(3)
-  final String businessOwnerPostCode;
+  final String clientOwnerPostCode;
 
   @HiveField(4)
-  final String businessOwnerCity;
+  final String clientOwnerCity;
 
   @HiveField(5)
-  final String businessOwnerMobile;
+  final String clientOwnerMobile;
 
   @HiveField(6)
-  final String businessOwnerEmail;
+  final String clientOwnerEmail;
 
   ClientsDetailsHive({
-    required this.businessFirstName,
-    required this.businessLastName,
-    required this.businessOwnerStreet,
-    required this.businessOwnerPostCode,
-    required this.businessOwnerCity,
-    required this.businessOwnerMobile,
-    required this.businessOwnerEmail,
+    required this.clientFirstName,
+    required this.clientLastName,
+    required this.clientOwnerStreet,
+    required this.clientOwnerPostCode,
+    required this.clientOwnerCity,
+    required this.clientOwnerMobile,
+    required this.clientOwnerEmail,
   });
 
   @override
   String toString() {
-    return 'BusinessDetailsHive( businessFirstName: $businessFirstName, '
-        'businessLastName: $businessLastName, businessOwnerStreet: $businessOwnerStreet, '
-        'businessOwnerPostCode: $businessOwnerPostCode, businessOwnerCity: $businessOwnerCity, '
-        'businessOwnerMobile: $businessOwnerMobile, businessOwnerEmail: $businessOwnerEmail)';
+    return 'BusinessDetailsHive( businessFirstName: $clientFirstName, '
+        'businessLastName: $clientLastName, businessOwnerStreet: $clientOwnerStreet, '
+        'businessOwnerPostCode: $clientOwnerPostCode, businessOwnerCity: $clientOwnerCity, '
+        'businessOwnerMobile: $clientOwnerMobile, businessOwnerEmail: $clientOwnerEmail)';
   }
 }

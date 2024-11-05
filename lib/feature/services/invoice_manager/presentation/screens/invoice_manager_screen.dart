@@ -190,30 +190,44 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 ],
               ),
               const SizedBox(height: Constants.padding16),
-              Row(
-                children: [
-                  const Expanded(
-                    child: Text(
-                      "Your Clients:",
-                      style: TextStyle(
-                        fontFamily: "Orbitron",
-                        fontSize: 18,
-                        color: Pallete.colorFive,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: DropDownList<ClientDetailsModel>(
-                      itemList: _clientsList,
-                      getFullNameDetails: (client) => client.displayName,
-                      onValueSelected: (selectedClient) {
-                        setState(() {
-                          _selectedClientDetails = selectedClient!;
-                        });
-                      },
-                    ),
-                  ),
-                ],
+              BlocBuilder<InvoiceManagerBloc, InvoiceManagerState>(
+                builder: (context, state) {
+                  if (state is InvoiceManagerLoading) {
+                    return const CircularProgressIndicator();
+                  } else if (state is InvoiceManagerLoaded) {
+                    _clientsList.clear();
+                    _clientsList.addAll(state.clientDetailsDataList);
+
+                    return Row(
+                      children: [
+                        const Expanded(
+                          child: Text(
+                            "Your Clients:",
+                            style: TextStyle(
+                              fontFamily: "Orbitron",
+                              fontSize: 18,
+                              color: Pallete.colorFive,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: DropDownList<ClientDetailsModel>(
+                            itemList: _clientsList,
+                            getFullNameDetails: (client) => client.displayName,
+                            onValueSelected: (selectedClient) {
+                              setState(() {
+                                _selectedClientDetails = selectedClient!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  } else if (state is InvoiceManagerError) {
+                    return const Text("Failed to load business data.");
+                  }
+                  return Container();
+                },
               ),
               const SizedBox(height: Constants.padding16),
               ExpansionTileWrapper(
@@ -234,8 +248,8 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
               const SizedBox(height: Constants.padding16),
               Row(
                 children: [
-                  Expanded(
-                    child: const Text(
+                  const Expanded(
+                    child: Text(
                       "Your Items:",
                       style: TextStyle(
                         fontFamily: "Orbitron",
@@ -321,11 +335,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       ),
       floatingActionButton: Stack(
         children: <Widget>[
-          // Positioned(
-          //   bottom: 20,
-          //   left: 20,
-          //   child: InvoiceScreenLeftButton(onItemCliked: _onLeftItemsClicked),
-          // ),
           Positioned(
             bottom: 20,
             right: 0,
@@ -380,7 +389,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       clientEmail: _clientEmail.text,
       clientMobile: _clientMobile.text,
     );
-
+    context
+        .read<InvoiceManagerBloc>()
+        .add(InvoiceManagerAddClient(clientDetailsData: newClient));
     setState(() {
       if (!_clientsList.contains(newClient)) {
         _clientsList.add(newClient);
