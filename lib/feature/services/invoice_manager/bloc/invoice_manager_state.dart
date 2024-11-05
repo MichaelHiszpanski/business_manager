@@ -12,15 +12,16 @@ final class InvoiceManagerInitial extends InvoiceManagerState {}
 final class InvoiceManagerLoading extends InvoiceManagerState {}
 
 final class InvoiceManagerLoaded extends InvoiceManagerState {
-  final List<BusinessDetailsModel>? businessDetailsDataList;
-  final  List<ClientDetailsModel>? clientDetailsDataList;
+  final List<BusinessDetailsModel> businessDetailsDataList;
+  final List<ClientDetailsModel> clientDetailsDataList;
 
   const InvoiceManagerLoaded({
-  this.businessDetailsDataList,
-     this.clientDetailsDataList,
+   required this.businessDetailsDataList,
+    required this.clientDetailsDataList,
   });
 
-
   @override
-  List<Object> get props => [businessDetailsDataList!,clientDetailsDataList!];
+  List<Object> get props => [businessDetailsDataList, clientDetailsDataList];
 }
+
+final class InvoiceManagerError extends InvoiceManagerState {}

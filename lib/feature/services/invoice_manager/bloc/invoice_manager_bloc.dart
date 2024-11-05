@@ -12,31 +12,64 @@ part 'invoice_manager_state.dart';
 
 class InvoiceManagerBloc
     extends Bloc<InvoiceManagerEvent, InvoiceManagerState> {
-  late final List<BusinessDetailsModel> _businessBox;
+  final List<BusinessDetailsModel> _businessCurrentList = [];
 
   InvoiceManagerBloc() : super(InvoiceManagerInitial()) {
-    on<InvoiceManagerEvent>((event, emit) {});
+    on<InitialInvoiceManager>(_initializeHive);
     on<InvoiceManagerAddBusiness>(_addBusinessDetails);
     on<InvoiceManagerDisplay>(_displayInvoiceData);
+    add(const InitialInvoiceManager());
   }
 
-  Future<void> _initializeHive() async {
+  Future<void> _initializeHive(
+      InitialInvoiceManager event, Emitter<InvoiceManagerState> emit) async {
+    await Hive.initFlutter();
+    Box box = await Hive.openBox(
+        HiveInvoiceManagerProperties.TO_INVOICE_MANAGER_DATA_BOX);
+    final List<dynamic>? getExistingHiveData =
+        await box.get(HiveInvoiceManagerProperties.TO_INVOICE_MANAGER_DATA_KEY);
+    if (getExistingHiveData != null) {
+      _businessCurrentList.addAll(
+        getExistingHiveData
+            .cast<BusinessDetailsHive>()
+            .map((hiveData) => BusinessDetailsModel(
+                  businessName: hiveData.businessName,
+                  businessFirstName: hiveData.businessFirstName,
+                  businessLastName: hiveData.businessLastName,
+                  businessOwnerStreet: hiveData.businessOwnerStreet,
+                  businessOwnerPostCode: hiveData.businessOwnerPostCode,
+                  businessOwnerCity: hiveData.businessOwnerCity,
+                  businessOwnerMobile: hiveData.businessOwnerMobile,
+                  businessOwnerEmail: hiveData.businessOwnerEmail,
+                )),
+      );
+
+      emit(
+        InvoiceManagerLoaded(
+          businessDetailsDataList: List.from(_businessCurrentList),
+          clientDetailsDataList: [],
+        ),
+      );
+    }
     add(const InvoiceManagerDisplay());
   }
 
   Future<void> _addBusinessDetails(InvoiceManagerAddBusiness event,
       Emitter<InvoiceManagerState> emit) async {
     emit(InvoiceManagerLoading());
+
     Box box = await Hive.openBox(
         HiveInvoiceManagerProperties.TO_INVOICE_MANAGER_DATA_BOX);
     List<dynamic>? getExistingHiveData =
-        box.get(HiveInvoiceManagerProperties.TO_INVOICE_MANAGER_DATA_KEY);
+        await box.get(HiveInvoiceManagerProperties.TO_INVOICE_MANAGER_DATA_KEY);
     List<BusinessDetailsHive> businessDetailList = [];
 
-    _businessBox.add(event.businessDetailsData);
     if (getExistingHiveData != null) {
       businessDetailList = getExistingHiveData.cast<BusinessDetailsHive>();
     }
+
+    _businessCurrentList.add(event.businessDetailsData);
+
     businessDetailList.add(BusinessDetailsHive(
       businessName: event.businessDetailsData.businessName,
       businessFirstName: event.businessDetailsData.businessFirstName,
@@ -48,12 +81,12 @@ class InvoiceManagerBloc
       businessOwnerEmail: event.businessDetailsData.businessOwnerEmail,
     ));
 
-    await box.put(HiveInvoiceManagerProperties.TO_INVOICE_MANAGER_DATA_BOX,
+    await box.put(HiveInvoiceManagerProperties.TO_INVOICE_MANAGER_DATA_KEY,
         businessDetailList);
 
     emit(
       InvoiceManagerLoaded(
-        businessDetailsDataList: List.from(_businessBox),
+        businessDetailsDataList: List.from(_businessCurrentList),
         clientDetailsDataList: [],
       ),
     );
@@ -64,7 +97,36 @@ class InvoiceManagerBloc
     emit(InvoiceManagerLoading());
     Box box = await Hive.openBox(
         HiveInvoiceManagerProperties.TO_INVOICE_MANAGER_DATA_BOX);
-    List<dynamic>? getExistingHiveData =
-        box.get(HiveInvoiceManagerProperties.TO_INVOICE_MANAGER_DATA_KEY);
+    final List<dynamic>? getExistingHiveData =
+        await box.get(HiveInvoiceManagerProperties.TO_INVOICE_MANAGER_DATA_KEY);
+
+    if (getExistingHiveData != null) {
+      final List<BusinessDetailsModel> businessDetailsDataList =
+          getExistingHiveData.map((dynamic hiveData) {
+        return BusinessDetailsModel(
+          businessName: hiveData.businessName,
+          businessFirstName: hiveData.businessFirstName,
+          businessLastName: hiveData.businessLastName,
+          businessOwnerStreet: hiveData.businessOwnerStreet,
+          businessOwnerPostCode: hiveData.businessOwnerPostCode,
+          businessOwnerCity: hiveData.businessOwnerCity,
+          businessOwnerMobile: hiveData.businessOwnerMobile,
+          businessOwnerEmail: hiveData.businessOwnerEmail,
+        );
+      }).toList();
+
+      _businessCurrentList
+        ..clear()
+        ..addAll(businessDetailsDataList);
+      emit(
+        InvoiceManagerLoaded(
+          businessDetailsDataList: List.from(_businessCurrentList),
+          clientDetailsDataList: [],
+        ),
+      );
+    } else {
+      emit(InvoiceManagerError());
+      _businessCurrentList.clear();
+    }
   }
 }

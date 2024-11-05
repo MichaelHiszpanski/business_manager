@@ -1,6 +1,7 @@
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:business_manager/feature/services/invoice_manager/bloc/invoice_manager_bloc.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/business_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
@@ -14,6 +15,7 @@ import 'package:business_manager/feature/services/invoice_manager/presentation/w
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_screen_left_button.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InvoiceManagerScreen extends StatefulWidget {
   const InvoiceManagerScreen({super.key});
@@ -130,30 +132,44 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
           child: Column(
             children: [
-              Row(
-                children: [
-                  const  Expanded(
-                   child: Text(
-                      "Your Business:",
-                      style: TextStyle(
-                        fontFamily: "Orbitron",
-                        fontSize: 18,
-                        color: Pallete.colorFive,
-                      ),
-                    ),
-                 ),
-                  Expanded(
-                    child: DropDownList<BusinessDetailsModel>(
-                      itemList: _businessesList,
-                      getFullNameDetails: (business) => business.displayName,
-                      onValueSelected: (selectedBusiness) {
-                        setState(() {
-                          _selectedBusinessDetails = selectedBusiness!;
-                        });
-                      },
-                    ),
-                  ),
-                ],
+              BlocBuilder<InvoiceManagerBloc, InvoiceManagerState>(
+                builder: (context, state) {
+                  if (state is InvoiceManagerLoading) {
+                    return const CircularProgressIndicator();
+                  } else if (state is InvoiceManagerLoaded) {
+                    _businessesList.clear();
+                    _businessesList.addAll(state.businessDetailsDataList);
+                    return Row(
+                      children: [
+                        const Expanded(
+                          child: Text(
+                            "Your Business:",
+                            style: TextStyle(
+                              fontFamily: "Orbitron",
+                              fontSize: 18,
+                              color: Pallete.colorFive,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: DropDownList<BusinessDetailsModel>(
+                            itemList: _businessesList,
+                            getFullNameDetails: (business) =>
+                                business.displayName,
+                            onValueSelected: (selectedBusiness) {
+                              setState(() {
+                                _selectedBusinessDetails = selectedBusiness!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  } else if (state is InvoiceManagerError) {
+                    return const Text("Failed to load business data.");
+                  }
+                  return Container();
+                },
               ),
               const SizedBox(height: Constants.padding16),
               ExpansionTileWrapper(
@@ -176,7 +192,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
               const SizedBox(height: Constants.padding16),
               Row(
                 children: [
-                  const  Expanded(
+                  const Expanded(
                     child: Text(
                       "Your Clients:",
                       style: TextStyle(
@@ -333,6 +349,10 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       businessOwnerMobile: _businessOwnerMobile.text,
       businessOwnerEmail: _businessOwnerEmail.text,
     );
+
+    context
+        .read<InvoiceManagerBloc>()
+        .add(InvoiceManagerAddBusiness(businessDetailsData: newBusiness));
 
     setState(() {
       if (!_businessesList.contains(newBusiness) &&

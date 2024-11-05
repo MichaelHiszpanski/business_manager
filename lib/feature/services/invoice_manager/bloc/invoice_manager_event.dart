@@ -6,7 +6,9 @@ sealed class InvoiceManagerEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-
+class InitialInvoiceManager extends InvoiceManagerEvent {
+  const InitialInvoiceManager();
+}
 class InvoiceManagerAddBusiness extends InvoiceManagerEvent {
   final BusinessDetailsModel businessDetailsData;
 
