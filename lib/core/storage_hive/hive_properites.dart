@@ -4,6 +4,8 @@ class HiveProperties {
   static const int toDoListID = 2;
   static const int workManagerID = 3;
   static const int invoiceManagerID = 4;
+  static const int  businessDetailsID=5;
+  static const int  clientDetailsID=6;
 }
 
 class HiveToDoListProperties {
