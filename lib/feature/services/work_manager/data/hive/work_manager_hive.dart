@@ -7,22 +7,22 @@ part 'work_manager_hive.g.dart';
 
 @HiveType(typeId: HiveProperties.workManagerID)
 class WorkManagerHive {
-  @HiveField(0)
+  @HiveField(HiveWorkManagerProperties.eventName)
   final String eventName;
 
-  @HiveField(1)
+  @HiveField(HiveWorkManagerProperties.eventDescription)
   final String eventDescription;
 
-  @HiveField(2)
+  @HiveField(HiveWorkManagerProperties.startDate)
   final DateTime startDate;
 
-  @HiveField(3)
+  @HiveField(HiveWorkManagerProperties.finishDate)
   final DateTime finishDate;
 
-  @HiveField(4)
+  @HiveField(HiveWorkManagerProperties.backgroundColor)
   final Color backgroundColor;
 
-  @HiveField(5)
+  @HiveField(HiveWorkManagerProperties.isAllDay)
   final bool isAllDay;
 
   WorkManagerHive({

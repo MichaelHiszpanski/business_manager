@@ -121,7 +121,7 @@ class _EditItemPageState extends State<EditItemPage> {
 
   String? _validateValue(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter a to-do title.';
+      return 'Please enter a value.';
     }
     return null;
   }

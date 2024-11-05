@@ -26,7 +26,7 @@ class ExpansionTileWrapper extends StatelessWidget {
         title: Text(
           title,
           style: const TextStyle(
-            fontFamily: 'Jaro',
+            fontFamily: 'Racing',
             fontSize: 20,
           ),
         ),

@@ -37,10 +37,6 @@ class ToDoItemHive extends Equatable {
             expiredDate ?? DateTime.now().add(const Duration(days: 60)),
         priority = priority ?? PriorityLevelEnum.LOW.toString().split('.').last;
 
-  // PriorityLevelEnum get priorityEnum => PriorityLevelEnum.values.firstWhere(
-  //     (e) => e.toString().split('.').last == priority,
-  //     orElse: () => PriorityLevelEnum.LOW);
-
   @override
   List<Object?> get props =>
       [id, title, content, dateTimeAdded, expiredDate, priority];

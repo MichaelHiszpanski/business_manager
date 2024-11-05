@@ -36,7 +36,7 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
             "Select from list:",
             style: TextStyle(
               fontFamily: 'Jaro',
-              fontSize: 20,
+              fontSize: 16,
             ),
           ),
         ],

@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback onMenuPressed;
+  final bool? isActionButtonAvailable;
 
   const CustomAppBar({
     super.key,
     required this.title,
     required this.onMenuPressed,
+    this.isActionButtonAvailable = false,
   });
 
   @override
@@ -36,13 +38,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       actions: [
-        IconButton(
-          icon: const Icon(
-            Icons.menu,
-            color: Pallete.colorOne,
+        if (isActionButtonAvailable!) ...[
+          IconButton(
+            icon: const Icon(
+              Icons.menu,
+              color: Pallete.colorOne,
+            ),
+            onPressed: onMenuPressed,
           ),
-          onPressed: onMenuPressed,
-        ),
+        ]
       ],
     );
   }

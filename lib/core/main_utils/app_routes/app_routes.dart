@@ -3,7 +3,7 @@ import 'package:business_manager/core/screens/sign_in_screen.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/screens/add_business_owner_screen.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/screens/invoice_manager_screen.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/screens/add_item_page.dart';
-import 'package:business_manager/feature/services/to_do_list/presentation/screens/to_do_page.dart';
+import 'package:business_manager/feature/services/to_do_list/presentation/screens/to_do_list_screen.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/screens/add_new_event_screen.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/screens/work_manager_screen.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class AppRoutes {
 
   static final routes = <String, WidgetBuilder>{
     homePage: (context) => const HomePage(title: "Home Page"),
-    toDoPage: (context) => const ToDoPage(),
+    toDoPage: (context) => const ToDoListScreen(),
     signIn: (context) => SignInScreen(),
     addItemPage: (context) => AddItemPage(),
     loadAppDataScreen: (context) => const LoadAppDataScreen(),

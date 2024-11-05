@@ -69,7 +69,8 @@ class InvoiceCustomFloatingButton extends StatelessWidget {
           style: TextStyle(
             color: Pallete.colorOne,
             fontSize: 22,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w200,
+            fontFamily: "Jaro",
           ),
         ),
       ),

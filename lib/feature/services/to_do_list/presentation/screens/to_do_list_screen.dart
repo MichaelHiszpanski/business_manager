@@ -14,14 +14,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'add_item_page.dart';
 
-class ToDoPage extends StatefulWidget {
-  const ToDoPage({super.key});
+class ToDoListScreen extends StatefulWidget {
+  const ToDoListScreen({super.key});
 
   @override
-  State<ToDoPage> createState() => _ToDoPageState();
+  State<ToDoListScreen> createState() => _ToDoListScreenState();
 }
 
-class _ToDoPageState extends State<ToDoPage> {
+class _ToDoListScreenState extends State<ToDoListScreen> {
   FilterMenuToDoListEnum _selectedFilter = FilterMenuToDoListEnum.ALL;
 
   @override
@@ -80,6 +80,7 @@ class _ToDoPageState extends State<ToDoPage> {
       appBar: CustomAppBar(
         title: "To-Do Service",
         onMenuPressed: _filterShowModalBottomSheet,
+        isActionButtonAvailable: true,
       ),
       body: BlocBuilder<ToDoBloc, ToDoState>(
         builder: (context, state) {

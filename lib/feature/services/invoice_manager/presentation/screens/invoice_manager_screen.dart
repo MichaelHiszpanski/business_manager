@@ -132,14 +132,16 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
             children: [
               Row(
                 children: [
-                  const Text(
-                    "Your Business:    ",
-                    style: TextStyle(
-                      fontFamily: "Orbitron",
-                      fontSize: 18,
-                      color: Pallete.colorFive,
+                  const  Expanded(
+                   child: Text(
+                      "Your Business:",
+                      style: TextStyle(
+                        fontFamily: "Orbitron",
+                        fontSize: 18,
+                        color: Pallete.colorFive,
+                      ),
                     ),
-                  ),
+                 ),
                   Expanded(
                     child: DropDownList<BusinessDetailsModel>(
                       itemList: _businessesList,
@@ -174,12 +176,14 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
               const SizedBox(height: Constants.padding16),
               Row(
                 children: [
-                  const Text(
-                    "Your Clients:        ",
-                    style: TextStyle(
-                      fontFamily: "Orbitron",
-                      fontSize: 18,
-                      color: Pallete.colorFive,
+                  const  Expanded(
+                    child: Text(
+                      "Your Clients:",
+                      style: TextStyle(
+                        fontFamily: "Orbitron",
+                        fontSize: 18,
+                        color: Pallete.colorFive,
+                      ),
                     ),
                   ),
                   Expanded(
@@ -214,12 +218,14 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
               const SizedBox(height: Constants.padding16),
               Row(
                 children: [
-                  const Text(
-                    "Your Items:           ",
-                    style: TextStyle(
-                      fontFamily: "Racing",
-                      fontSize: 18,
-                      color: Pallete.colorFive,
+                  Expanded(
+                    child: const Text(
+                      "Your Items:",
+                      style: TextStyle(
+                        fontFamily: "Orbitron",
+                        fontSize: 18,
+                        color: Pallete.colorFive,
+                      ),
                     ),
                   ),
                   Expanded(

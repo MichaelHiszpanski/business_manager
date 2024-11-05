@@ -16,7 +16,11 @@ final class MainLoaded extends MainState {
   final User user;
   final List<ToDoItem>? todos;
 
-  const MainLoaded({required this.authToken, required this.user, this.todos});
+  const MainLoaded({
+    required this.authToken,
+    required this.user,
+    this.todos,
+  });
 
   @override
   List<Object?> get props => [authToken, user, todos];
