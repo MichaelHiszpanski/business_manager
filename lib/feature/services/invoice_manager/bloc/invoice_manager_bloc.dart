@@ -20,7 +20,7 @@ class InvoiceManagerBloc
     on<InitialInvoiceManager>(_initializeHive);
     on<InvoiceManagerAddBusiness>(_addBusinessDetails);
     on<InvoiceManagerAddClient>(_addClientDetails);
-    on<InvoiceManagerDisplay>(_displayInvoiceData);
+
     add(const InitialInvoiceManager());
   }
 
@@ -35,6 +35,9 @@ class InvoiceManagerBloc
         HiveClientDetailsProperties.TO_CLIENT_DETAILS_DATA_BOX);
     List<dynamic>? getExistingClientHiveData = await boxClient
         .get(HiveClientDetailsProperties.TO_CLIENT_DETAILS_DATA_KEY);
+
+    _businessCurrentList.clear();
+    _clientCurrentList.clear();
 
     if (getExistingBusinessHiveData != null) {
       _businessCurrentList.addAll(
@@ -51,13 +54,6 @@ class InvoiceManagerBloc
                   businessOwnerEmail: hiveData.businessOwnerEmail,
                 )),
       );
-
-      emit(
-        InvoiceManagerLoaded(
-          businessDetailsDataList: List.from(_businessCurrentList),
-          clientDetailsDataList: _clientCurrentList,
-        ),
-      );
     }
     if (getExistingClientHiveData != null) {
       _clientCurrentList.addAll(
@@ -73,15 +69,14 @@ class InvoiceManagerBloc
               ),
             ),
       );
-
-      emit(
-        InvoiceManagerLoaded(
-          businessDetailsDataList: _businessCurrentList,
-          clientDetailsDataList: List.from(_clientCurrentList),
-        ),
-      );
     }
-    add(const InvoiceManagerDisplay());
+    emit(
+      InvoiceManagerLoaded(
+        businessDetailsDataList: List.from(_businessCurrentList),
+        clientDetailsDataList: List.from(_clientCurrentList),
+      ),
+    );
+    // add(const InvoiceManagerDisplay());
   }
 
   Future<void> _addBusinessDetails(InvoiceManagerAddBusiness event,
@@ -157,43 +152,5 @@ class InvoiceManagerBloc
         clientDetailsDataList: List.from(_clientCurrentList),
       ),
     );
-  }
-
-  Future<void> _displayInvoiceData(
-      InvoiceManagerDisplay event, Emitter<InvoiceManagerState> emit) async {
-    emit(InvoiceManagerLoading());
-    Box box = await Hive.openBox(
-        HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_BOX);
-    final List<dynamic>? getExistingHiveData = await box
-        .get(HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY);
-
-    if (getExistingHiveData != null) {
-      final List<BusinessDetailsModel> businessDetailsDataList =
-          getExistingHiveData.map((dynamic hiveData) {
-        return BusinessDetailsModel(
-          businessName: hiveData.businessName,
-          businessFirstName: hiveData.businessFirstName,
-          businessLastName: hiveData.businessLastName,
-          businessOwnerStreet: hiveData.businessOwnerStreet,
-          businessOwnerPostCode: hiveData.businessOwnerPostCode,
-          businessOwnerCity: hiveData.businessOwnerCity,
-          businessOwnerMobile: hiveData.businessOwnerMobile,
-          businessOwnerEmail: hiveData.businessOwnerEmail,
-        );
-      }).toList();
-
-      _businessCurrentList
-        ..clear()
-        ..addAll(businessDetailsDataList);
-      emit(
-        InvoiceManagerLoaded(
-          businessDetailsDataList: List.from(_businessCurrentList),
-          clientDetailsDataList: [],
-        ),
-      );
-    } else {
-      emit(InvoiceManagerError());
-      _businessCurrentList.clear();
-    }
   }
 }
