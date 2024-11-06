@@ -50,30 +50,30 @@ class _AddItemPageState extends State<AddItemPage> {
         body: SingleChildScrollView(
           reverse: true,
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(Constants.padding16),
             child: Form(
               key: _globalKey,
               child: Column(
                 children: [
-                  Text('New Event'),
+                  const Text('New Event'),
                   TextFormField(
                     controller: _titleController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Enter title',
                     ),
                     validator: _validateValue,
                     maxLength: Constants.MAX_LENGHT_TEXT_TITLE,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: Constants.padding24),
                   TextFormField(
                       controller: _contentController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Content...',
                       ),
                       maxLines: null,
                       maxLength: Constants.MAX_LENGHT_TEXT_CONTENT,
                       validator: _validateValue),
-                  SizedBox(height: 20),
+                  const SizedBox(height: Constants.padding24),
                   PriorityDropdown(
                     selectedPriority: _prioritySelected,
                     onChanged: (PriorityLevelEnum newPriority) {
@@ -82,7 +82,7 @@ class _AddItemPageState extends State<AddItemPage> {
                       });
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: Constants.padding24),
                   DatePicker(
                     selectedDate: _expiredDateSelected,
                     onDateSelected: (DateTime? selectedDate) {
@@ -91,7 +91,7 @@ class _AddItemPageState extends State<AddItemPage> {
                       });
                     },
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: Constants.padding24),
                   CustomFloatingButton(
                     onPressed: _validateToDoItem,
                     buttonText: "Add ToDo",

@@ -1,4 +1,3 @@
-
 import 'package:business_manager/core/storage_hive/hive_properites.dart';
 import 'package:hive/hive.dart';
 
@@ -6,28 +5,28 @@ part 'business_details_hive.g.dart';
 
 @HiveType(typeId: HiveProperties.businessDetailsID)
 class BusinessDetailsHive {
-  @HiveField(0)
+  @HiveField(HiveBusinessDetailsProperties.businessName)
   final String businessName;
 
-  @HiveField(1)
+  @HiveField(HiveBusinessDetailsProperties.businessFirstName)
   final String businessFirstName;
 
-  @HiveField(2)
+  @HiveField(HiveBusinessDetailsProperties.businessLastName)
   final String businessLastName;
 
-  @HiveField(3)
+  @HiveField(HiveBusinessDetailsProperties.businessOwnerStreet)
   final String businessOwnerStreet;
 
-  @HiveField(4)
+  @HiveField(HiveBusinessDetailsProperties.businessOwnerPostCode)
   final String businessOwnerPostCode;
 
-  @HiveField(5)
+  @HiveField(HiveBusinessDetailsProperties.businessOwnerCity)
   final String businessOwnerCity;
 
-  @HiveField(6)
+  @HiveField(HiveBusinessDetailsProperties.businessOwnerMobile)
   final String businessOwnerMobile;
 
-  @HiveField(7)
+  @HiveField(HiveBusinessDetailsProperties.businessOwnerEmail)
   final String businessOwnerEmail;
 
   BusinessDetailsHive({

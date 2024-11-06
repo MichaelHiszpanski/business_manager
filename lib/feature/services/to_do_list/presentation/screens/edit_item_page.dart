@@ -61,17 +61,17 @@ class _EditItemPageState extends State<EditItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit ToDo Item'),
+        title: const Text('Edit ToDo Item'),
       ),
       body: SingleChildScrollView(
         reverse: true,
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(Constants.padding16),
           child: Form(
             key: _formKey,
             child: Column(
               children: [
-                Text('Edit Event'),
+                const Text('Edit Event'),
                 TextFormField(
                   controller: _titleController,
                   decoration: const InputDecoration(
@@ -80,14 +80,14 @@ class _EditItemPageState extends State<EditItemPage> {
                   validator: _validateValue,
                   maxLength: Constants.MAX_LENGHT_TEXT_TITLE,
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: Constants.padding24),
                 TextFormField(
                     controller: _contentController,
                     decoration: const InputDecoration(
                       hintText: 'Content...',
                     ),
                     validator: _validateValue),
-                const SizedBox(height: 20),
+                const SizedBox(height: Constants.padding24),
                 PriorityDropdown(
                   selectedPriority: _selectedPriority,
                   onChanged: (PriorityLevelEnum newPriority) {
