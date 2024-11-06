@@ -11,10 +11,10 @@ ThemeData getAppTheme() {
     brightness: Brightness.light,
     primaryColor: Pallete.colorOne,
     scaffoldBackgroundColor: Pallete.whiteColor,
-    colorScheme: ColorScheme.light(
+    colorScheme:const ColorScheme.light(
       brightness: Brightness.light,
-      // primary: appColors.BRAND_PRIMARY,
-      // onPrimary: appColors.UI_BASE_WHITE,
+      // primary: Pallete.whiteColor,
+      // onPrimary:Pallete.whiteColor,
     ),
     textTheme: getTextTheme(Pallete.colorOne),
     appBarTheme: const AppBarTheme(

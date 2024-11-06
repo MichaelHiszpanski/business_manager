@@ -6,9 +6,11 @@ sealed class InvoiceManagerEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
 class InitialInvoiceManager extends InvoiceManagerEvent {
   const InitialInvoiceManager();
 }
+
 class InvoiceManagerAddBusiness extends InvoiceManagerEvent {
   final BusinessDetailsModel businessDetailsData;
 
@@ -25,6 +27,15 @@ class InvoiceManagerAddClient extends InvoiceManagerEvent {
 
   @override
   List<Object> get props => [clientDetailsData];
+}
+
+class InvoiceManagerAddItem extends InvoiceManagerEvent {
+  final InvoiceItemModel invoiceItemData;
+
+  const InvoiceManagerAddItem({required this.invoiceItemData});
+
+  @override
+  List<Object> get props => [invoiceItemData];
 }
 
 class InvoiceManagerDisplay extends InvoiceManagerEvent {

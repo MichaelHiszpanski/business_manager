@@ -40,7 +40,7 @@ class _PriorityDropdownState extends State<PriorityDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
+      padding:const  EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
       decoration: BoxDecoration(
         color: PriorityDropdown.getPriorityColor(_selectedPriority),
         borderRadius: BorderRadius.circular(10.0),
@@ -50,7 +50,7 @@ class _PriorityDropdownState extends State<PriorityDropdown> {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 2,
             blurRadius: 5,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
