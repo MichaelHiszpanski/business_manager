@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:business_manager/core/tools/constants.dart';
 
 extension BuildContextExtension on BuildContext {
@@ -7,7 +7,7 @@ extension BuildContextExtension on BuildContext {
 
   double get deviceWidth => MediaQuery.of(this).size.width;
 
-  // AppLocalizations get strings => AppLocalizations.of(this);
+  AppLocalizations get strings => AppLocalizations.of(this);
 
   bool get isMobile => MediaQuery.of(this).size.width < Constants.MOBILE_WIDTH;
 

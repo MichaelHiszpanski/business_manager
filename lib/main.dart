@@ -2,11 +2,12 @@ import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/main_utils/bloc_provider/bloc_provider.dart';
 import 'package:business_manager/core/storage_hive/firebase/firebase_configuration.dart';
 import 'package:business_manager/core/storage_hive/hive_register_adapter.dart';
+import 'package:business_manager/core/theme/app_theme.dart';
 import 'package:business_manager/core/theme/text_styles.dart';
 import 'package:business_manager/home_page.dart';
 import 'package:business_manager/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,9 +15,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName:'assets/.env');
+  await dotenv.load(fileName: 'assets/.env');
   tz.initializeTimeZones();
 
   await HiveRegisterAdapter.register();
@@ -50,13 +50,13 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         navigatorKey: navigatorKey,
         initialRoute: '/home_page',
-        theme: customTheme,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        theme: getAppTheme(),
         locale: const Locale('en'),
         routes: AppRoutes.routes,
-        home: Scaffold(
-          body: Center(child: HomePage(title: "title")
-              //HomePage(title: ""),
-              ),
+        home: const Scaffold(
+          body: Center(child: HomePage(title: "title")),
         ),
       ),
       //)
