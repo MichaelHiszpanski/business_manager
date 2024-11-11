@@ -25,3 +25,12 @@ extension BuildContextExtension on BuildContext {
     if (Navigator.of(this).canPop()) Navigator.of(this).pop();
   }
 }
+
+List<Locale> getSupportedLocales() {
+  return const [
+    Locale('de'),
+    Locale('en'),
+    Locale('pl'),
+    Locale('es'),
+  ];
+}

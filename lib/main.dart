@@ -12,6 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
+import 'core/tools/flutter_helper.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: 'assets/.env');
@@ -49,7 +51,7 @@ class MainApp extends StatelessWidget {
         navigatorKey: navigatorKey,
         initialRoute: '/home_page',
         localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
+        supportedLocales: getSupportedLocales(),
         theme: getAppTheme(),
         locale: const Locale('en'),
         routes: AppRoutes.routes,

@@ -2,6 +2,7 @@ import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/main_utils/main_bloc/main_bloc.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/core/widgets/outlined_text_field/outlined_text_field.dart';
 import 'package:business_manager/main.dart';
@@ -68,7 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Sign-IN",
+        title: context.strings.sign_in,
         onMenuPressed: () {},
       ),
       body: Padding(
@@ -77,14 +78,14 @@ class _SignInScreenState extends State<SignInScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             OutlinedTextField(
-              labelText: "Email",
-              hintText: "Enter Email",
+              labelText: context.strings.email,
+              hintText: context.strings.enter_emial,
               inputValue: _emailController,
             ),
             const SizedBox(height: Constants.padding16),
             OutlinedTextField(
-              labelText: "Password",
-              hintText: "Enter Password",
+              labelText: context.strings.password,
+              hintText: context.strings.enter_password,
               inputValue: _passwordController,
             ),
             const SizedBox(height: Constants.padding16),
@@ -107,9 +108,9 @@ class _SignInScreenState extends State<SignInScreen> {
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(Pallete.gradient1),
                 ),
-                child: const Text(
-                  "Sign in with Email",
-                  style: TextStyle(
+                child: Text(
+                  context.strings.sign_in_with_email,
+                  style: const TextStyle(
                     color: Pallete.whiteColor,
                     fontSize: 20,
                   ),
@@ -136,9 +137,9 @@ class _SignInScreenState extends State<SignInScreen> {
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(Pallete.gradient3),
                 ),
-                child: const Text(
-                  "Sign Up!",
-                  style: TextStyle(
+                child: Text(
+                  context.strings.sign_up,
+                  style: const TextStyle(
                     color: Pallete.whiteColor,
                     fontSize: 20,
                   ),

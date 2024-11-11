@@ -29,6 +29,7 @@ class InvoiceManagerBloc
 
   Future<void> _initializeHive(
       InitialInvoiceManager event, Emitter<InvoiceManagerState> emit) async {
+    emit(InvoiceManagerLoading());
     await Hive.initFlutter();
 
     Box boxBusiness = await Hive.openBox(

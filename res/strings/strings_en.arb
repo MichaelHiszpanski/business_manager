@@ -1,0 +1,9 @@
+{
+    "sign_in":"Sign-In",
+    "sign_up":"Sign-Up",
+    "email":"Email",
+    "password":"Password",
+    "enter_emial":"Enter Emial",
+    "enter_password":"Enter Password",
+     "sign_in_with_email": "Sign in with Email"
+}
