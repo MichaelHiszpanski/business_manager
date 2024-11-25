@@ -4,15 +4,15 @@
 
 # Flutter project.
 
-## Getting Started
+This mobile application is built using **Flutter**, a versatile framework for creating cross-platform apps with a single codebase. 
 
-This project is a starting point for a Flutter application.
+### **Key Features**
+- **Services**: The app includes tools like a To-Do List with **WorkManager** for task scheduling and an **Invoice Manager** for generating and managing invoices.
+- **Data Storage**: All data is securely stored using **Hive**, a fast and lightweight key-value database.
+- **User-Friendly Design**: The app focuses on an intuitive and responsive user experience, making it accessible and easy to use for small business owners.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
