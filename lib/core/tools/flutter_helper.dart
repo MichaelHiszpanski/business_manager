@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:business_manager/core/tools/constants.dart';
 
 extension BuildContextExtension on BuildContext {
+  TextTheme get text => Theme.of(this).textTheme;
   double get deviceHeight => MediaQuery.of(this).size.height;
 
   double get deviceWidth => MediaQuery.of(this).size.width;

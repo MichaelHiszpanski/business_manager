@@ -1,11 +1,9 @@
 import 'dart:math';
 
 import 'package:business_manager/core/widgets/containers/animated_item_container/animated_item_container_side_menu.dart';
-import 'package:business_manager/core/widgets/containers/tooltip/tooltip.dart';
 import 'package:business_manager/main.dart';
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomSideButtonMenu extends StatefulWidget {
   const CustomSideButtonMenu({super.key});
@@ -47,11 +45,11 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
     _controller.dispose();
   }
 
-  Alignment alignment1 = const Alignment(-1.0, 0.0);
-  Alignment alignment2 = const Alignment(-1.0, 0.0);
-  Alignment alignment3 = const Alignment(-1.0, 0.0);
-  Alignment alignment4 = const Alignment(-1.0, 0.0);
-  Alignment alignment5 = const Alignment(-1.0, 0.0);
+  Alignment alignment1 = const Alignment(0.0, 0.0);
+  Alignment alignment2 = const Alignment(0.0, 0.0);
+  Alignment alignment3 = const Alignment(0.0, 0.0);
+  Alignment alignment4 = const Alignment(0.0, 0.0);
+  Alignment alignment5 = const Alignment(0.0, 0.0);
   double size1 = 50.0;
   double size2 = 50.0;
   double size3 = 80.0;
@@ -125,9 +123,9 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
               color: Colors.orange[400] ?? Colors.orange,
             ),
             Align(
-              alignment: Alignment.centerLeft, // Alignment.center,
+              alignment: Alignment.bottomCenter, // Alignment.center,
               child: Transform.translate(
-                offset: const Offset(-85.0, 0.0),
+                offset: const Offset(0.0, 0.0),
                 child: Transform.rotate(
                   angle: _animation.value * pi * (3 / 4),
                   child: AnimatedContainer(
@@ -229,19 +227,19 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
         size1 = 50.0;
       });
       Future.delayed(const Duration(milliseconds: 150), () {
-        alignment2 = const Alignment(0.4, -0.8);
+        alignment2 = const Alignment(0.8, -1.0);
         size2 = 50.0;
       });
       Future.delayed(const Duration(milliseconds: 200), () {
-        alignment3 = const Alignment(0.8, 0.0);
+        alignment3 = const Alignment(-0.8, 0.0);
         size3 = 50.0;
       });
       Future.delayed(const Duration(milliseconds: 250), () {
-        alignment4 = const Alignment(0.4, 0.8);
+        alignment4 = const Alignment(0.8, 0.0);
         size3 = 50.0;
       });
       Future.delayed(const Duration(milliseconds: 300), () {
-        alignment5 = const Alignment(-0.8, 1.0);
+        alignment5 = const Alignment(0.0, 1.5);
         size3 = 50.0;
       });
     } else {
@@ -251,10 +249,32 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
       Future.delayed(const Duration(milliseconds: 100), () {
         setState(() {
           alignment1 = alignment2 =
-              alignment3 = alignment4 = alignment5 = const Alignment(-1.0, 0.0);
+              alignment3 = alignment4 = alignment5 = const Alignment(0.0, 0.0);
           size1 = size2 = size3 = size4 = size5 = 20.0;
         });
       });
     }
   }
 }
+
+
+// Future.delayed(const Duration(milliseconds: 100), () {
+// alignment1 = const Alignment(-0.8, -1.0);
+// size1 = 50.0;
+// });
+// Future.delayed(const Duration(milliseconds: 150), () {
+// alignment2 = const Alignment(0.4, -0.8);
+// size2 = 50.0;
+// });
+// Future.delayed(const Duration(milliseconds: 200), () {
+// alignment3 = const Alignment(0.8, 0.0);
+// size3 = 50.0;
+// });
+// Future.delayed(const Duration(milliseconds: 250), () {
+// alignment4 = const Alignment(0.4, 0.8);
+// size3 = 50.0;
+// });
+// Future.delayed(const Duration(milliseconds: 300), () {
+// alignment5 = const Alignment(-0.8, 1.0);
+// size3 = 50.0;
+// });

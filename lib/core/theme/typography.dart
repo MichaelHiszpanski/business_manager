@@ -1,4 +1,7 @@
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:flutter/material.dart';
+
+import 'app_font_family.dart';
 
 TextTheme getTextTheme(Color defaultTextColor) {
   return TextTheme(
@@ -14,11 +17,12 @@ TextTheme getTextTheme(Color defaultTextColor) {
       fontWeight: FontWeight.w500,
       color: defaultTextColor,
     ),
-    headlineLarge: TextStyle(
-      fontSize: 28,
+    headlineLarge:const TextStyle(
+      fontSize: 32,
       height: 1.2,
-      fontWeight: FontWeight.w700,
-      color: defaultTextColor,
+      fontWeight:FontWeight.w800,
+      color:Pallete.colorOne,
+      fontFamily: AppFontFamily.orbitron
     ),
     headlineMedium: TextStyle(
       fontSize: 20,

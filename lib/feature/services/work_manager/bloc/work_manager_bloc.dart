@@ -73,7 +73,6 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
       ];
       await box.put(
           HiveWorkManagerProperties.TO_WORK_MANAGER_DATA_KEY, updatedHiveList);
-      print('New meeting stored in Hive: $updatedHiveList');
     }
   }
 
@@ -107,7 +106,7 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
 
   FutureOr<void> _onDisplayEvents(
       DisplayMeetingEvent event, Emitter<WorkManagerState> emit) async {
-    print('Reached _onDisplayEvents');
+
     Box box =
         await Hive.openBox(HiveWorkManagerProperties.TO_WORK_MANAGER_DATA_BOX);
 
@@ -120,24 +119,20 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
       return;
     }
 
+    List<WorkManagerHive> hiveDataList =
+        getExistingHiveData.cast<WorkManagerHive>();
 
-      List<WorkManagerHive> hiveDataList =
-          getExistingHiveData.cast<WorkManagerHive>();
+    meetingsFromHive = hiveDataList.map((hiveItem) {
+      return Meeting(
+        hiveItem.eventName,
+        hiveItem.eventDescription,
+        hiveItem.startDate,
+        hiveItem.finishDate,
+        hiveItem.backgroundColor,
+        hiveItem.isAllDay,
+      );
+    }).toList();
 
-      print('Retrieved data from Hive: $hiveDataList');
-      meetingsFromHive = hiveDataList.map((hiveItem) {
-        return Meeting(
-          hiveItem.eventName,
-          hiveItem.eventDescription,
-          hiveItem.startDate,
-          hiveItem.finishDate,
-          hiveItem.backgroundColor,
-          hiveItem.isAllDay,
-        );
-      }).toList();
-
-
-    print('Loaded meetings from Hive: $meetingsFromHive');
     emit(WorkManagerLoaded(meetings: meetingsFromHive));
   }
 }

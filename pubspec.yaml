@@ -21,7 +21,7 @@ dependencies:
   http: ^1.2.1
   equatable: ^2.0.5
   uuid: ^4.5.1
-  connectivity_plus: ^6.0.5
+  connectivity_plus: ^6.1.0
   intl: ^0.19.0
   flutter_local_notifications: ^17.2.3
   timezone: ^0.9.4
@@ -31,15 +31,13 @@ dependencies:
   syncfusion_flutter_calendar: ^26.2.12
   flutter_colorpicker: ^1.1.0
   flutter_launcher_icons: ^0.14.0
-  #  webview_flutter: ^4.9.0
-#  webview_flutter: ^2.0.4
   flutter_widget_from_html_core: ^0.14.11
   url_launcher: ^6.0.0
   firebase_storage: ^12.3.3
   firebase_core: ^3.6.0
   cloud_firestore: ^5.4.4
   firebase_database: ^11.1.4
-  google_sign_in: ^6.2.1
+  google_sign_in: ^6.2.2
   firebase_auth: ^5.3.1
   shared_preferences: ^2.3.0
   pdf: ^3.11.1
@@ -70,6 +68,8 @@ flutter:
     - assets/svg/
     - assets/images/star.png
     - assets/images/earth.png
+    - assets/images/hom3.png
+    - assets/images/home4.png
     - assets/images/space2.jpeg
     - assets/myfile.html
     - assets/.env

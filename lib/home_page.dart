@@ -1,3 +1,4 @@
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/bottom_bar.dart';
 
 import 'package:business_manager/core/widgets/buttons/custom_side_button_menu/custom_side_button_menu.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:permission_handler/permission_handler.dart';
+
+import 'core/theme/app_font_family.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -38,14 +41,22 @@ class _HomePageState extends State<HomePage> {
       body: Stack(children: [
         Positioned.fill(
           child: Image.asset(
-            'assets/images/space2.jpeg',
+            'assets/images/home4.png',
             fit: BoxFit.cover,
           ),
         ),
-        const Center(
+      Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Text("Business Manager",
+                style: context.text.headlineLarge,
+                // TextStyle(
+              //   fontFamily: AppFontFamily.orbitron,
+              //   color: Colors.white,
+              //   fontSize: Constants.
+              // )
+              ),
               CustomSideButtonMenu(),
             ],
           ),
