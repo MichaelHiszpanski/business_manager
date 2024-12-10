@@ -14,6 +14,7 @@ import 'package:business_manager/feature/services/invoice_manager/presentation/w
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_items_list_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/personal_details_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_screen_left_button.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_one.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -122,6 +123,8 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     });
   }
 
+  int _currentStep = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,23 +133,175 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         title: "Invoice Service",
         onMenuPressed: () {},
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
-          child: Column(
-            children: [
-              BlocBuilder<InvoiceManagerBloc, InvoiceManagerState>(
-                builder: (context, state) {
-                  if (state is InvoiceManagerLoading) {
-                    return const CircularProgressIndicator();
-                  } else if (state is InvoiceManagerLoaded) {
-                    _businessesList.clear();
-                    _businessesList.addAll(state.businessDetailsDataList);
-                    return Row(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
+        child: Center(
+          child: Stepper(
+            steps: [
+              // Step(
+              //   title: const SizedBox.shrink(),
+              //   isActive: _currentStep == 0,
+              //   content: Column(
+              //     children: [
+              //       const SizedBox(height: Constants.padding16),
+              //       BlocBuilder<InvoiceManagerBloc, InvoiceManagerState>(
+              //         builder: (context, state) {
+              //           if (state is InvoiceManagerLoading) {
+              //             return const CircularProgressIndicator();
+              //           } else if (state is InvoiceManagerLoaded) {
+              //             _businessesList.clear();
+              //             _businessesList.addAll(state.businessDetailsDataList);
+              //             return Row(
+              //               children: [
+              //                 const Expanded(
+              //                   child: Text(
+              //                     "Your Business:",
+              //                     style: TextStyle(
+              //                       fontFamily: "Orbitron",
+              //                       fontSize: 18,
+              //                       color: Pallete.colorFive,
+              //                     ),
+              //                   ),
+              //                 ),
+              //                 Expanded(
+              //                   child: DropDownList<BusinessDetailsModel>(
+              //                     itemList: _businessesList,
+              //                     getFullNameDetails: (business) =>
+              //                         business.displayName,
+              //                     onValueSelected: (selectedBusiness) {
+              //                       setState(() {
+              //                         _selectedBusinessDetails =
+              //                             selectedBusiness!;
+              //                       });
+              //                     },
+              //                   ),
+              //                 ),
+              //               ],
+              //             );
+              //           } else if (state is InvoiceManagerError) {
+              //             return const Text("Failed to load business data.");
+              //           }
+              //           return Container();
+              //         },
+              //       ),
+              //       const SizedBox(height: Constants.padding16),
+              //       ExpansionTileWrapper(
+              //         title: "Add new Business Details",
+              //         children: [
+              //           PersonalDetailsInputs(
+              //             isBusinessInputText: true,
+              //             businessName: _businessName,
+              //             firstName: _businessOwnerFirstName,
+              //             lastName: _businessOwnerLastName,
+              //             street: _businessOwnerStreet,
+              //             city: _businessOwnerCity,
+              //             postCode: _businessOwnerPostCode,
+              //             mobile: _businessOwnerMobile,
+              //             email: _businessOwnerEmail,
+              //             onSaveData: _saveBusinessDetails,
+              //           ),
+              //         ],
+              //       ),
+              //     ],
+              //   ),
+              //   stepStyle: _stepStyle(),
+              // ),
+              Step(
+                title: const SizedBox.shrink(),
+                isActive: _currentStep == 0,
+                content: StepOne(
+                  businessesList: _businessesList,
+                  businessName: _businessName,
+                  businessOwnerFirstName: _businessOwnerFirstName,
+                  businessOwnerLastName: _businessOwnerLastName,
+                  businessOwnerStreet: _businessOwnerStreet,
+                  businessOwnerPostCode: _businessOwnerPostCode,
+                  businessOwnerCity: _businessOwnerCity,
+                  businessOwnerMobile: _businessOwnerMobile,
+                  businessOwnerEmail: _businessOwnerEmail,
+                  initialSelectedBusinessDetails: _selectedBusinessDetails,
+                  saveBusinessDetails: _saveBusinessDetails,
+                ),
+                stepStyle: _stepStyle(),
+              ),
+              Step(
+                title: const SizedBox.shrink(),
+                isActive: _currentStep == 1,
+                content: Column(
+                  children: [
+                    const SizedBox(height: Constants.padding16),
+
+                    BlocBuilder<InvoiceManagerBloc, InvoiceManagerState>(
+                      builder: (context, state) {
+                        if (state is InvoiceManagerLoading) {
+                          return const CircularProgressIndicator();
+                        } else if (state is InvoiceManagerLoaded) {
+                          _clientsList.clear();
+                          _clientsList.addAll(state.clientDetailsDataList);
+
+                          return Row(
+                            children: [
+                              const Expanded(
+                                child: Text(
+                                  "Your Clients:",
+                                  style: TextStyle(
+                                    fontFamily: AppFontFamily.orbitron,
+                                    fontSize: 18,
+                                    color: Pallete.colorFive,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: DropDownList<ClientDetailsModel>(
+                                  itemList: _clientsList,
+                                  getFullNameDetails: (client) =>
+                                      client.displayName,
+                                  onValueSelected: (selectedClient) {
+                                    setState(() {
+                                      _selectedClientDetails = selectedClient!;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
+                        } else if (state is InvoiceManagerError) {
+                          return const Text("Failed to load business data.");
+                        }
+                        return Container();
+                      },
+                    ),
+                    const SizedBox(height: Constants.padding16),
+                    ExpansionTileWrapper(
+                      title: "Add new Client Details",
+                      children: [
+                        PersonalDetailsInputs(
+                          firstName: _clientFirstName,
+                          lastName: _clientLastName,
+                          street: _clientStreet,
+                          city: _clientCity,
+                          postCode: _clientPostCode,
+                          mobile: _clientMobile,
+                          email: _clientEmail,
+                          onSaveData: _saveClientDetails,
+                        ),
+                      ],
+                    ),
+                    // const SizedBox(height: Constants.padding16 * 10),
+                  ],
+                ),
+                stepStyle: _stepStyle(),
+              ),
+              Step(
+                title: SizedBox.shrink(),
+                isActive: _currentStep == 2,
+                content: Column(
+                  children: [
+                    Row(
                       children: [
                         const Expanded(
                           child: Text(
-                            "Your Business:",
+                            "Your Items:",
                             style: TextStyle(
                               fontFamily: "Orbitron",
                               fontSize: 18,
@@ -155,186 +310,191 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                           ),
                         ),
                         Expanded(
-                          child: DropDownList<BusinessDetailsModel>(
-                            itemList: _businessesList,
-                            getFullNameDetails: (business) =>
-                                business.displayName,
-                            onValueSelected: (selectedBusiness) {
+                          child: DropDownList<InvoiceItemModel>(
+                            itemList: _itemsList,
+                            getFullNameDetails: (invoice) =>
+                                invoice.displayName,
+                            onValueSelected: (selectedItem) {
                               setState(() {
-                                _selectedBusinessDetails = selectedBusiness!;
+                                _invoiceItemDetails = selectedItem!;
                               });
                             },
                           ),
                         ),
                       ],
-                    );
-                  } else if (state is InvoiceManagerError) {
-                    return const Text("Failed to load business data.");
-                  }
-                  return Container();
-                },
-              ),
-              const SizedBox(height: Constants.padding16),
-              BlocBuilder<InvoiceManagerBloc, InvoiceManagerState>(
-                builder: (context, state) {
-                  if (state is InvoiceManagerLoading) {
-                    return const CircularProgressIndicator();
-                  } else if (state is InvoiceManagerLoaded) {
-                    _clientsList.clear();
-                    _clientsList.addAll(state.clientDetailsDataList);
-
-                    return Row(
+                    ),
+                    const SizedBox(height: Constants.padding16),
+                    Row(
                       children: [
-                        const Expanded(
-                          child: Text(
-                            "Your Clients:",
+                        IconButton(
+                          icon: const Icon(Icons.remove),
+                          onPressed: () => updateQuantity(
+                            false,
+                            int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () => updateQuantity(
+                            true,
+                            int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
+                          ),
+                        ),
+                        Text("Quantity: ${_currentItemQuantity.toString()}"),
+                        const Spacer(),
+                        ElevatedButton(
+                          onPressed: _saveInvoiceData,
+                          child: const Text(
+                            "Add to Invoice",
                             style: TextStyle(
-                              fontFamily: AppFontFamily.orbitron,
-                              fontSize: 18,
-                              color: Pallete.colorFive,
+                              color: Pallete.whiteColor,
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: DropDownList<ClientDetailsModel>(
-                            itemList: _clientsList,
-                            getFullNameDetails: (client) => client.displayName,
-                            onValueSelected: (selectedClient) {
-                              setState(() {
-                                _selectedClientDetails = selectedClient!;
-                              });
-                            },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                WidgetStateProperty.all(Pallete.colorFive),
                           ),
                         ),
                       ],
-                    );
-                  } else if (state is InvoiceManagerError) {
-                    return const Text("Failed to load business data.");
-                  }
-                  return Container();
-                },
-              ),
-              const SizedBox(height: Constants.padding16),
-              Row(
-                children: [
-                  const Expanded(
-                    child: Text(
-                      "Your Items:",
-                      style: TextStyle(
-                        fontFamily: "Orbitron",
-                        fontSize: 18,
-                        color: Pallete.colorFive,
-                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: DropDownList<InvoiceItemModel>(
-                      itemList: _itemsList,
-                      getFullNameDetails: (invoice) => invoice.displayName,
-                      onValueSelected: (selectedItem) {
-                        setState(() {
-                          _invoiceItemDetails = selectedItem!;
-                        });
-                      },
+                    const SizedBox(height: Constants.padding16),
+                    ExpansionTileWrapper(
+                      title: "Add New Item",
+                      children: [
+                        InvoiceItemsListInputs(
+                          onSaveData: _saveNewItem,
+                          description: _itemDescription,
+                          itemPrice: _itemPrice,
+                          totalItems: _itemTotalCount,
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: Constants.padding16),
+                  ],
+                ),
+                stepStyle: _stepStyle(),
               ),
-              const SizedBox(height: Constants.padding16),
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.remove),
-                    onPressed: () => updateQuantity(
-                      false,
-                      int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
+              Step(
+                title: const SizedBox.shrink(),
+                isActive: _currentStep == 3,
+                content: Column(
+                  children: [
+                    const SizedBox(height: Constants.padding16),
+                    ExpansionTileWrapper(
+                      title: "Invoice Details",
+                      children: [
+                        InvoiceDetailsInputs(
+                          invoiceNumber: _invoiceNumber,
+                          thankYouMessage: _thankYouMessage,
+                          paymentDueDays: _paymentDueDays,
+                          onSaveData: () {},
+                        ),
+                      ],
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    onPressed: () => updateQuantity(
-                      true,
-                      int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
-                    ),
-                  ),
-                  Text("Quantity: ${_currentItemQuantity.toString()}"),
-                  const Spacer(),
-                  ElevatedButton(
-                    onPressed: _saveInvoiceData,
-                    child: const Text(
-                      "Add to Invoice",
-                      style: TextStyle(
-                        color: Pallete.whiteColor,
-                      ),
-                    ),
-                    style: ButtonStyle(
-                      backgroundColor:
-                          WidgetStateProperty.all(Pallete.colorFive),
-                    ),
-                  ),
-                ],
+                    const SizedBox(height: Constants.padding16),
+                  ],
+                ),
+                stepStyle: _stepStyle(),
               ),
-
-              const SizedBox(height: Constants.padding16),
-              ExpansionTileWrapper(
-                title: "Invoice Details",
-                children: [
-                  InvoiceDetailsInputs(
-                    invoiceNumber: _invoiceNumber,
-                    thankYouMessage: _thankYouMessage,
-                    paymentDueDays: _paymentDueDays,
-                    onSaveData: () {},
-                  ),
-                ],
-              ),
-              const SizedBox(height: Constants.padding16),
-              ExpansionTileWrapper(
-                title: "Add New Item",
-                children: [
-                  InvoiceItemsListInputs(
-                    onSaveData: _saveNewItem,
-                    description: _itemDescription,
-                    itemPrice: _itemPrice,
-                    totalItems: _itemTotalCount,
-                  ),
-                ],
-              ),
-              const SizedBox(height: Constants.padding16),
-              ExpansionTileWrapper(
-                title: "Add new Business Details",
-                children: [
-                  PersonalDetailsInputs(
-                    isBusinessInputText: true,
-                    businessName: _businessName,
-                    firstName: _businessOwnerFirstName,
-                    lastName: _businessOwnerLastName,
-                    street: _businessOwnerStreet,
-                    city: _businessOwnerCity,
-                    postCode: _businessOwnerPostCode,
-                    mobile: _businessOwnerMobile,
-                    email: _businessOwnerEmail,
-                    onSaveData: _saveBusinessDetails,
-                  ),
-                ],
-              ),
-              const SizedBox(height: Constants.padding16),
-              ExpansionTileWrapper(
-                title: "Add new Client Details",
-                children: [
-                  PersonalDetailsInputs(
-                    firstName: _clientFirstName,
-                    lastName: _clientLastName,
-                    street: _clientStreet,
-                    city: _clientCity,
-                    postCode: _clientPostCode,
-                    mobile: _clientMobile,
-                    email: _clientEmail,
-                    onSaveData: _saveClientDetails,
-                  ),
-                ],
-              ),
-              const SizedBox(height: Constants.padding16 * 10),
+              // Step(
+              //   title: Text("5"),
+              //   isActive: _currentStep == 4,
+              //   content: Column(
+              //     children: [
+              //       const SizedBox(height: Constants.padding16),
+              //       ExpansionTileWrapper(
+              //         title: "Add New Item",
+              //         children: [
+              //           InvoiceItemsListInputs(
+              //             onSaveData: _saveNewItem,
+              //             description: _itemDescription,
+              //             itemPrice: _itemPrice,
+              //             totalItems: _itemTotalCount,
+              //           ),
+              //         ],
+              //       ),
+              //       const SizedBox(height: Constants.padding16),
+              //     ],
+              //   ),
+              // ),
             ],
+            onStepTapped: (int newIndex) {
+              setState(() {
+                _currentStep = newIndex;
+              });
+            },
+            currentStep: _currentStep,
+            onStepContinue: () {
+              if (_currentStep != 3) {
+                setState(() {
+                  _currentStep += 1;
+                });
+              }
+            },
+            onStepCancel: () {
+              if (_currentStep != 0) {
+                setState(() {
+                  _currentStep -= 1;
+                });
+              }
+            },
+            type: StepperType.horizontal,
+            controlsBuilder: (BuildContext context, ControlsDetails details) {
+              if (_currentStep == 3) {
+                return const SizedBox.shrink();
+              }
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: details.onStepContinue,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Pallete.colorSix,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 12,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: AppFontFamily.orbitron,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    if (_currentStep > 0)
+                      ElevatedButton(
+                        onPressed: details.onStepCancel,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Pallete.colorSeven,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        child: const Text(
+                          'Back',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: AppFontFamily.orbitron,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ),
@@ -343,9 +503,11 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           Positioned(
             bottom: 20,
             right: 0,
-            child: InvoiceCustomFloatingButton(
-              createInvoiceData: _createInvoiceOneData,
-            ),
+            child: _currentStep == 3
+                ? InvoiceCustomFloatingButton(
+                    createInvoiceData: _createInvoiceOneData,
+                  )
+                : const SizedBox.shrink(),
           ),
         ],
       ),
@@ -464,4 +626,82 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       }
     });
   }
+
+  StepStyle _stepStyle() {
+    return StepStyle(
+      connectorColor: Pallete.colorSeven,
+      gradient: const LinearGradient(
+        colors: [Pallete.colorSeven, Pallete.colorSix],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      indexStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+          fontFamily: AppFontFamily.orbitron),
+      connectorThickness: 2.0,
+      border: Border.all(
+        color: Colors.black,
+        width: 0.5,
+      ),
+    );
+  }
 }
+
+// Step(
+// title: const SizedBox.shrink(),
+// isActive: _currentStep == 0,
+// content: StepOne(
+// businessesList: _businessesList,
+// businessName: _businessName,
+// businessOwnerFirstName: _businessOwnerFirstName,
+// businessOwnerLastName: _businessOwnerLastName,
+// businessOwnerStreet: _businessOwnerStreet,
+// businessOwnerPostCode: _businessOwnerPostCode,
+// businessOwnerCity: _businessOwnerCity,
+// businessOwnerMobile: _businessOwnerMobile,
+// businessOwnerEmail: _businessOwnerEmail,
+// selectedBusinessDetails: _selectedBusinessDetails,
+// saveBusinessDetails: _saveBusinessDetails,
+// ),
+// stepStyle: _stepStyle(),
+// ),
+// Step(
+// title: const SizedBox.shrink(),
+// isActive: _currentStep == 1,
+// content: StepTwo(
+// clientsList: _clientsList,
+// clientFirstName: _clientFirstName,
+// clientLastName: _clientLastName,
+// clientStreet: _clientStreet,
+// clientPostCode: _clientPostCode,
+// clientCity: _clientCity,
+// clientMobile: _clientMobile,
+// clientEmail: _clientEmail,
+// selectedClientDetails: _selectedClientDetails,
+// saveClientDetails: _saveClientDetails),
+// stepStyle: _stepStyle(),
+// ),
+// Step(
+// title: SizedBox.shrink(),
+// isActive: _currentStep == 2,
+// content: StepThree(
+// itemsList: _itemsList,
+// invoiceItemDetails: _invoiceItemDetails,
+// updateQuantity:
+//
+// updateQuantity(
+// true,
+// int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
+// ),
+//
+// currentItemQuantity: _currentItemQuantity,
+// saveInvoiceData: _saveInvoiceData,
+// itemDescription: _itemDescription,
+// itemPrice: _itemPrice,
+// itemTotalCount: _itemTotalCount,
+// saveNewItem: _saveNewItem,
+// ),
+// stepStyle: _stepStyle(),
+// ),

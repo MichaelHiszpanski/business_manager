@@ -1,5 +1,4 @@
 import 'package:business_manager/core/tools/flutter_helper.dart';
-import 'package:business_manager/core/widgets/bottom_bar.dart';
 
 import 'package:business_manager/core/widgets/buttons/custom_side_button_menu/custom_side_button_menu.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +7,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:permission_handler/permission_handler.dart';
-
-import 'core/theme/app_font_family.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -45,26 +42,26 @@ class _HomePageState extends State<HomePage> {
             fit: BoxFit.cover,
           ),
         ),
-      Center(
+        Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Business Manager",
+              Text(
+                "Business Manager",
                 style: context.text.headlineLarge,
                 // TextStyle(
-              //   fontFamily: AppFontFamily.orbitron,
-              //   color: Colors.white,
-              //   fontSize: Constants.
-              // )
+                //   fontFamily: AppFontFamily.orbitron,
+                //   color: Colors.white,
+                //   fontSize: Constants.
+                // )
               ),
-              CustomSideButtonMenu(),
+              const CustomSideButtonMenu(),
             ],
           ),
         ),
       ]),
-      floatingActionButton:
-          const Column(mainAxisAlignment: MainAxisAlignment.end, children: []),
-
+      // floatingActionButton:
+      //     const Column(mainAxisAlignment: MainAxisAlignment.end, children: []),
     );
   }
 }
