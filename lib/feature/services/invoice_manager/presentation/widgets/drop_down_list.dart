@@ -52,13 +52,13 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
         return DropdownMenuItem<T>(
           value: item,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Constants.padding8),
+            padding: const EdgeInsets.symmetric(horizontal: Constants.padding4),
             child: Text(
               widget.getFullNameDetails(item),
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontFamily: AppFontFamily.jaro,
-                fontSize: 12,
+                fontSize: 14,
               ),
             ),
           ),

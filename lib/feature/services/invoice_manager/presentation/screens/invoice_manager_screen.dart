@@ -134,9 +134,13 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         title: "Invoice Service",
         onMenuPressed: () {},
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
-        child: Center(
+      body: Container(
+        height: double.infinity,
+        decoration:BoxDecoration(
+          color: Pallete.colorTwo.withOpacity(0.25)
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
           child: Stepper(
             steps: [
               Step(
@@ -204,8 +208,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                         Expanded(
                           child: DropDownList<InvoiceItemModel>(
                             itemList: _itemsList,
-                            getFullNameDetails: (invoice) =>
-                                invoice.displayName,
+                            getFullNameDetails: (invoice) => invoice.displayName,
                             onValueSelected: (selectedItem) {
                               setState(() {
                                 _invoiceItemDetails = selectedItem!;
@@ -309,36 +312,38 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 });
               }
             },
-            type: StepperType.horizontal,
+            //  type: StepperType.horizontal,
             controlsBuilder: (BuildContext context, ControlsDetails details) {
-              if (_currentStep == 3) {
-                return const SizedBox.shrink();
-              }
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Row(
                   children: <Widget>[
-                    ElevatedButton(
-                      onPressed: details.onStepContinue,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Pallete.colorSix,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 12,
+                    if (_currentStep == 3) ...[
+                      const SizedBox.shrink(),
+                    ] else ...[
+                      ElevatedButton(
+                        onPressed: details.onStepContinue,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Pallete.colorSix,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(Constants.padding24),
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                        child: const Text(
+                          'Continue',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: AppFontFamily.orbitron,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                      child: const Text(
-                        'Continue',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: AppFontFamily.orbitron,
-                        ),
-                      ),
-                    ),
+                    ],
                     const SizedBox(width: 8),
                     if (_currentStep > 0)
                       ElevatedButton(
@@ -350,7 +355,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                             vertical: 12,
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: BorderRadius.circular(Constants.padding24),
                           ),
                         ),
                         child: const Text(
@@ -359,6 +364,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             fontFamily: AppFontFamily.orbitron,
+                            color: Pallete.colorOne,
                           ),
                         ),
                       ),
@@ -372,7 +378,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       floatingActionButton: Stack(
         children: <Widget>[
           Positioned(
-            bottom: 20,
+            bottom: 60,
             right: 0,
             child: _currentStep == 3
                 ? InvoiceCustomFloatingButton(
@@ -500,27 +506,31 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
 
   StepStyle _stepStyle() {
     return StepStyle(
-      connectorColor: Pallete.colorSeven,
-      gradient: const LinearGradient(
-        colors: [Pallete.colorSeven, Pallete.colorSix],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      indexStyle: const TextStyle(
+        connectorColor: Pallete.colorSeven,
+        gradient: const LinearGradient(
+          colors: [Pallete.colorSeven, Pallete.colorSix],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        indexStyle: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: Colors.black,
-          fontFamily: AppFontFamily.orbitron),
-      connectorThickness: 2.0,
-      border: Border.all(
-        color: Colors.black,
-        width: 0.5,
-      ),
-    );
+          fontFamily: AppFontFamily.orbitron,
+        ),
+        connectorThickness: 2.0,
+        border: Border.all(
+          color: Colors.black,
+          width: 0.5,
+        ),
+        boxShadow: BoxShadow(
+          color: Pallete.colorFive.withOpacity(0.45),
+          offset: const Offset(0, 4),
+          blurRadius: 8,
+          spreadRadius: 1,
+        ));
   }
 }
-
-
 
 // Step(
 // title: SizedBox.shrink(),

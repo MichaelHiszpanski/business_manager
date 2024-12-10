@@ -49,6 +49,7 @@ class _StepThreeState extends State<StepThree> {
                   fontFamily: "Orbitron",
                   fontSize: 18,
                   color: Pallete.colorFive,
+                    fontWeight: FontWeight.w600,
                 ),
               ),
             ),

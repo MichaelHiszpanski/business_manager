@@ -73,6 +73,7 @@ class _StepTwoState extends State<StepTwo> {
                         fontFamily: AppFontFamily.orbitron,
                         fontSize: 18,
                         color: Pallete.colorFive,
+                          fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),

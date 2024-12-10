@@ -76,8 +76,9 @@ class _StepOneState extends State<StepOne> {
                       "Your Business:",
                       style: TextStyle(
                         fontFamily: "Orbitron",
-                        fontSize: 18,
+                        fontSize: 17,
                         color: Pallete.colorFive,
+                        fontWeight: FontWeight.w600
                       ),
                     ),
                   ),

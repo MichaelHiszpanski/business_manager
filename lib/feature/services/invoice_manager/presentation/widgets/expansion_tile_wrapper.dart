@@ -6,12 +6,10 @@ class ExpansionTileWrapper extends StatelessWidget {
   final List<Widget> children;
   final String title;
 
-
   const ExpansionTileWrapper({
     super.key,
     required this.children,
     required this.title,
-
   });
 
   @override
@@ -21,9 +19,10 @@ class ExpansionTileWrapper extends StatelessWidget {
         dividerColor: Colors.transparent,
       ),
       child: ExpansionTile(
+        minTileHeight: 40,
         collapsedBackgroundColor: Pallete.colorOne,
         collapsedTextColor: Colors.white,
-        collapsedShape:  RoundedRectangleBorder(
+        collapsedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Constants.padding16),
         ),
         collapsedIconColor: Colors.white,
@@ -40,11 +39,11 @@ class ExpansionTileWrapper extends StatelessWidget {
           title,
           style: const TextStyle(
             fontFamily: 'Suse',
-            fontSize: 18,
-            // color: Pallete.whiteColor,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
           ),
         ),
-
+        backgroundColor: Colors.white,
         children: children,
       ),
     );
