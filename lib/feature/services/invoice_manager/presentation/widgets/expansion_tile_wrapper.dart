@@ -21,10 +21,12 @@ class ExpansionTileWrapper extends StatelessWidget {
         dividerColor: Colors.transparent,
       ),
       child: ExpansionTile(
-        collapsedBackgroundColor: Colors.grey,
+        collapsedBackgroundColor: Pallete.colorOne,
+        collapsedTextColor: Colors.white,
         collapsedShape:  RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Constants.padding16),
         ),
+        collapsedIconColor: Colors.white,
         tilePadding: const EdgeInsets.only(
           right: Constants.padding16,
           left: Constants.padding16,
@@ -38,7 +40,7 @@ class ExpansionTileWrapper extends StatelessWidget {
           title,
           style: const TextStyle(
             fontFamily: 'Suse',
-            fontSize: 20,
+            fontSize: 18,
             // color: Pallete.whiteColor,
           ),
         ),

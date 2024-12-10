@@ -12,37 +12,44 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class StepTwo extends StatefulWidget {
   final List<ClientDetailsModel> clientsList;
   final VoidCallback saveClientDetails;
-  ClientDetailsModel selectedClientDetails;
+  final ClientDetailsModel? initialSelectedClientDetails;
+  final void Function(ClientDetailsModel?) onClientSelected;
   final TextEditingController clientFirstName;
-
   final TextEditingController clientLastName;
-
   final TextEditingController clientStreet;
   final TextEditingController clientPostCode;
-
   final TextEditingController clientCity;
-
   final TextEditingController clientMobile;
   final TextEditingController clientEmail;
 
-  StepTwo(
-      {super.key,
-      required this.clientsList,
-      required this.clientFirstName,
-      required this.clientLastName,
-      required this.clientStreet,
-      required this.clientPostCode,
-      required this.clientCity,
-      required this.clientMobile,
-      required this.clientEmail,
-      required this.selectedClientDetails,
-      required this.saveClientDetails});
+  StepTwo({
+    super.key,
+    required this.clientsList,
+    required this.clientFirstName,
+    required this.clientLastName,
+    required this.clientStreet,
+    required this.clientPostCode,
+    required this.clientCity,
+    required this.clientMobile,
+    required this.clientEmail,
+    required this.initialSelectedClientDetails,
+    required this.saveClientDetails,
+    required this.onClientSelected,
+  });
 
   @override
   State<StepTwo> createState() => _StepTwoState();
 }
 
 class _StepTwoState extends State<StepTwo> {
+  late ClientDetailsModel? selectedClientDetails;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedClientDetails = widget.initialSelectedClientDetails;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -75,15 +82,16 @@ class _StepTwoState extends State<StepTwo> {
                       getFullNameDetails: (client) => client.displayName,
                       onValueSelected: (selectedClient) {
                         setState(() {
-                          widget.selectedClientDetails = selectedClient!;
+                          selectedClientDetails = selectedClient!;
                         });
+                        widget.onClientSelected(selectedClientDetails);
                       },
                     ),
                   ),
                 ],
               );
             } else if (state is InvoiceManagerError) {
-              return const Text("Failed to load business data.");
+              return const Text("Failed to load clients data.");
             }
             return Container();
           },

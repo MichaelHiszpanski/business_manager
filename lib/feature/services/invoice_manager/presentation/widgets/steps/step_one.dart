@@ -13,7 +13,7 @@ class StepOne extends StatefulWidget {
   final BusinessDetailsModel? initialSelectedBusinessDetails;
   final VoidCallback saveBusinessDetails;
   final TextEditingController businessName;
-
+  final void Function(BusinessDetailsModel?) onBusinessSelected;
   final TextEditingController businessOwnerFirstName;
 
   final TextEditingController businessOwnerLastName;
@@ -28,19 +28,21 @@ class StepOne extends StatefulWidget {
 
   final TextEditingController businessOwnerEmail;
 
-  StepOne(
-      {super.key,
-      required this.businessesList,
-      required this.businessName,
-      required this.businessOwnerFirstName,
-      required this.businessOwnerLastName,
-      required this.businessOwnerStreet,
-      required this.businessOwnerPostCode,
-      required this.businessOwnerCity,
-      required this.businessOwnerMobile,
-      required this.businessOwnerEmail,
-      required this.initialSelectedBusinessDetails,
-      required this.saveBusinessDetails});
+  StepOne({
+    super.key,
+    required this.businessesList,
+    required this.businessName,
+    required this.businessOwnerFirstName,
+    required this.businessOwnerLastName,
+    required this.businessOwnerStreet,
+    required this.businessOwnerPostCode,
+    required this.businessOwnerCity,
+    required this.businessOwnerMobile,
+    required this.businessOwnerEmail,
+    required this.initialSelectedBusinessDetails,
+    required this.saveBusinessDetails,
+    required this.onBusinessSelected,
+  });
 
   @override
   State<StepOne> createState() => _StepOneState();
@@ -85,8 +87,9 @@ class _StepOneState extends State<StepOne> {
                       getFullNameDetails: (business) => business.displayName,
                       onValueSelected: (selectedBusiness) {
                         setState(() {
-                        selectedBusinessDetails = selectedBusiness!;
+                          selectedBusinessDetails = selectedBusiness!;
                         });
+                        widget.onBusinessSelected(selectedBusinessDetails);
                       },
                     ),
                   ),
