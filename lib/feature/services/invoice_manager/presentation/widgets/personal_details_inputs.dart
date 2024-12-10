@@ -3,7 +3,7 @@ import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:flutter/material.dart';
 
-class PersonalDetailsInputs extends StatelessWidget {
+class PersonalDetailsInputs extends StatefulWidget {
   final TextEditingController firstName;
   final TextEditingController lastName;
   final TextEditingController street;
@@ -30,50 +30,81 @@ class PersonalDetailsInputs extends StatelessWidget {
   });
 
   @override
+  State<PersonalDetailsInputs> createState() => _PersonalDetailsInputsState();
+}
+
+class _PersonalDetailsInputsState extends State<PersonalDetailsInputs> {
+  final _keyForm = GlobalKey<FormState>();
+  final String _error = "";
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (isBusinessInputText) ...[
+    return Form(
+      key: _keyForm,
+      child: Column(
+        children: [
+          if (widget.isBusinessInputText) ...[
+            TextFormField(
+              controller: widget.businessName,
+              decoration: const InputDecoration(labelText: 'Business Name'),
+              validator:  _validateField,
+            ),
+          ],
           TextFormField(
-            controller: businessName,
-            decoration: const InputDecoration(labelText: 'Business Name'),
+            controller: widget.firstName,
+            decoration: const InputDecoration(labelText: 'First name'),
+            validator:  _validateField,
+          ),
+          TextFormField(
+            controller: widget.lastName,
+            decoration: const InputDecoration(labelText: 'Last Name'),
+            validator:  _validateField,
+          ),
+          TextFormField(
+            controller: widget.street,
+            decoration: const InputDecoration(labelText: 'Street Name'),
+            validator:  _validateField,
+          ),
+          TextFormField(
+            controller: widget.city,
+            decoration: const InputDecoration(labelText: 'City Name'),
+            validator:  _validateField,
+          ),
+          TextFormField(
+            controller: widget.postCode,
+            decoration: const InputDecoration(labelText: 'Post Code'),
+            validator:  _validateField,
+          ),
+          TextFormField(
+            controller: widget.mobile,
+            decoration: const InputDecoration(labelText: 'Mobile Number'),
+            validator:  _validateField,
+          ),
+          TextFormField(
+            controller: widget.email,
+            decoration: const InputDecoration(labelText: 'Email:'),
+            validator:  _validateField,
+          ),
+          const SizedBox(height: Constants.padding24),
+          CustomFloatingButton(
+            onPressed: () {
+              if (_keyForm.currentState!.validate()) {
+                widget.onSaveData();
+              }
+            },
+            buttonText: 'Save',
+            backgroundColor: Pallete.gradient3,
           ),
         ],
-        TextFormField(
-          controller: firstName,
-          decoration: const InputDecoration(labelText: 'First name'),
-        ),
-        TextFormField(
-          controller: lastName,
-          decoration: const InputDecoration(labelText: 'Last Name'),
-        ),
-        TextFormField(
-          controller: street,
-          decoration: const InputDecoration(labelText: 'Street Name'),
-        ),
-        TextFormField(
-          controller: city,
-          decoration: const InputDecoration(labelText: 'City Name'),
-        ),
-        TextFormField(
-          controller: postCode,
-          decoration: const InputDecoration(labelText: 'Post Code'),
-        ),
-        TextFormField(
-          controller: mobile,
-          decoration: const InputDecoration(labelText: 'Mobile Number'),
-        ),
-        TextFormField(
-          controller: email,
-          decoration: const InputDecoration(labelText: 'Email:'),
-        ),
-        const SizedBox(height: Constants.padding24),
-        CustomFloatingButton(
-          onPressed: onSaveData,
-          buttonText: 'Save',
-          backgroundColor: Pallete.gradient3,
-        ),
-      ],
+      ),
     );
+  }
+
+  String? _validateField(String? value) {
+    if (value == null || value.isEmpty) {
+      return _error;
+    }
+
+    return null;
   }
 }

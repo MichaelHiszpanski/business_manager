@@ -19,7 +19,7 @@ class WorkManagerScreen extends StatefulWidget {
 }
 
 class _WorkManagerScreenState extends State<WorkManagerScreen> {
-  CalendarView _calendarView = CalendarView.day;
+  CalendarView _calendarView = CalendarView.schedule;
   bool toggleButton = true;
 
   @override
@@ -165,13 +165,13 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
         break;
       case 1:
         setState(() {
-          _calendarView = CalendarView.week;
+          _calendarView = CalendarView.timelineMonth;
         });
         break;
       case 2:
       default:
         setState(() {
-          _calendarView = CalendarView.month;
+          _calendarView = CalendarView.schedule;
         });
         break;
     }

@@ -129,7 +129,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                 child: Transform.rotate(
                   angle: _animation.value * pi * (3 / 4),
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 1675),
+                    duration: const Duration(milliseconds: 675),
                     curve: Curves.easeOut,
                     height: toggleButton ? 300.0 : 160.0,
                     width: toggleButton ? 300.0 : 160.0,

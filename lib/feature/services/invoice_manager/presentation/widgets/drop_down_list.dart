@@ -1,3 +1,4 @@
+import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +36,8 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
           Text(
             "Select from list:",
             style: TextStyle(
-              fontFamily: 'Jaro',
-              fontSize: 16,
+              fontFamily: AppFontFamily.jaro,
+              fontSize: 14,
             ),
           ),
         ],
@@ -56,8 +57,8 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
               widget.getFullNameDetails(item),
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
-                fontFamily: 'Jaro',
-                fontSize: 16,
+                fontFamily: AppFontFamily.jaro,
+                fontSize: 12,
               ),
             ),
           ),
@@ -67,6 +68,7 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
         setState(() {
           _itemSelected = value;
         });
+
         if (widget.onValueSelected != null) {
           widget.onValueSelected!(value);
         }

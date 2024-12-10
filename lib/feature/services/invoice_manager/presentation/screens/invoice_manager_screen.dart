@@ -1,3 +1,4 @@
+import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
@@ -30,6 +31,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final List<InvoiceItemModel> _itemsList = [];
   final List<InvoiceItemModel> _invoiceAddedItemsList = [];
   int _currentItemQuantity = 0;
+
   BusinessDetailsModel _selectedBusinessDetails = const BusinessDetailsModel(
     businessName: "",
     businessFirstName: "",
@@ -55,6 +57,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     itemPrice: "",
     totalItems: "",
   );
+
   final TextEditingController _businessName = TextEditingController();
   final TextEditingController _businessOwnerFirstName = TextEditingController();
   final TextEditingController _businessOwnerLastName = TextEditingController();
@@ -172,24 +175,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 },
               ),
               const SizedBox(height: Constants.padding16),
-              ExpansionTileWrapper(
-                title: "Add new Business Details",
-                children: [
-                  PersonalDetailsInputs(
-                    isBusinessInputText: true,
-                    businessName: _businessName,
-                    firstName: _businessOwnerFirstName,
-                    lastName: _businessOwnerLastName,
-                    street: _businessOwnerStreet,
-                    city: _businessOwnerCity,
-                    postCode: _businessOwnerPostCode,
-                    mobile: _businessOwnerMobile,
-                    email: _businessOwnerEmail,
-                    onSaveData: _saveBusinessDetails,
-                  ),
-                ],
-              ),
-              const SizedBox(height: Constants.padding16),
               BlocBuilder<InvoiceManagerBloc, InvoiceManagerState>(
                 builder: (context, state) {
                   if (state is InvoiceManagerLoading) {
@@ -204,7 +189,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                           child: Text(
                             "Your Clients:",
                             style: TextStyle(
-                              fontFamily: "Orbitron",
+                              fontFamily: AppFontFamily.orbitron,
                               fontSize: 18,
                               color: Pallete.colorFive,
                             ),
@@ -228,22 +213,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                   }
                   return Container();
                 },
-              ),
-              const SizedBox(height: Constants.padding16),
-              ExpansionTileWrapper(
-                title: "Add new Client Details",
-                children: [
-                  PersonalDetailsInputs(
-                    firstName: _clientFirstName,
-                    lastName: _clientLastName,
-                    street: _clientStreet,
-                    city: _clientCity,
-                    postCode: _clientPostCode,
-                    mobile: _clientMobile,
-                    email: _clientEmail,
-                    onSaveData: _saveClientDetails,
-                  ),
-                ],
               ),
               const SizedBox(height: Constants.padding16),
               Row(
@@ -305,6 +274,20 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                   ),
                 ],
               ),
+
+              const SizedBox(height: Constants.padding16),
+              ExpansionTileWrapper(
+                title: "Invoice Details",
+                children: [
+                  InvoiceDetailsInputs(
+                    invoiceNumber: _invoiceNumber,
+                    thankYouMessage: _thankYouMessage,
+                    paymentDueDays: _paymentDueDays,
+                    onSaveData: () {},
+                  ),
+                ],
+              ),
+              const SizedBox(height: Constants.padding16),
               ExpansionTileWrapper(
                 title: "Add New Item",
                 children: [
@@ -318,13 +301,35 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
               ),
               const SizedBox(height: Constants.padding16),
               ExpansionTileWrapper(
-                title: "Invoice Details",
+                title: "Add new Business Details",
                 children: [
-                  InvoiceDetailsInputs(
-                    invoiceNumber: _invoiceNumber,
-                    thankYouMessage: _thankYouMessage,
-                    paymentDueDays: _paymentDueDays,
-                    onSaveData: () {},
+                  PersonalDetailsInputs(
+                    isBusinessInputText: true,
+                    businessName: _businessName,
+                    firstName: _businessOwnerFirstName,
+                    lastName: _businessOwnerLastName,
+                    street: _businessOwnerStreet,
+                    city: _businessOwnerCity,
+                    postCode: _businessOwnerPostCode,
+                    mobile: _businessOwnerMobile,
+                    email: _businessOwnerEmail,
+                    onSaveData: _saveBusinessDetails,
+                  ),
+                ],
+              ),
+              const SizedBox(height: Constants.padding16),
+              ExpansionTileWrapper(
+                title: "Add new Client Details",
+                children: [
+                  PersonalDetailsInputs(
+                    firstName: _clientFirstName,
+                    lastName: _clientLastName,
+                    street: _clientStreet,
+                    city: _clientCity,
+                    postCode: _clientPostCode,
+                    mobile: _clientMobile,
+                    email: _clientEmail,
+                    onSaveData: _saveClientDetails,
                   ),
                 ],
               ),

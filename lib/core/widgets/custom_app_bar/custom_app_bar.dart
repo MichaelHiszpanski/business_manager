@@ -1,3 +1,4 @@
+import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -16,12 +17,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Pallete.colorSix,
+      backgroundColor: Colors.transparent,
       title: Text(
         title,
         style: const TextStyle(
-          color: Pallete.colorOne,
-          fontFamily: "Rubik",
+          color: Pallete.gradient1,
+          fontFamily: AppFontFamily.marker,
           fontSize: 24,
         ),
       ),

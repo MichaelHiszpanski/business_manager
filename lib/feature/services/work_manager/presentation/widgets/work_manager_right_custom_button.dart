@@ -34,8 +34,8 @@ class _WorkManagerRightCustomButtonState
     super.initState();
     _controller = AnimationController(
         vsync: this,
-        duration: Duration(milliseconds: 300),
-        reverseDuration: Duration(milliseconds: 250));
+        duration:const Duration(milliseconds: 300),
+        reverseDuration:const Duration(milliseconds: 250));
 
     _animation = CurvedAnimation(
         parent: _controller,
