@@ -3,13 +3,16 @@ import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/feature/services/invoice_manager/bloc/invoice_manager_bloc.dart';
+import 'package:business_manager/feature/services/invoice_manager/models/bank_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/business_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/expansion_tile_wrapper.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/forms/invoice_bank_details_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/forms/invoice_details_inputs.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_four.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_one.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_three.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_two.dart';
@@ -29,9 +32,10 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final List<ClientDetailsModel> _clientsList = [];
   final List<InvoiceItemModel> _itemsList = [];
   final List<InvoiceItemModel> _invoiceAddedItemsList = [];
+  final List<BankDetailsModel> _bankList = [];
   double _currentItemQuantity = 0;
   int _currentStep = 0;
-  int _totalSteps=4;
+  int _totalSteps = 4;
 
   BusinessDetailsModel _selectedBusinessDetails = const BusinessDetailsModel(
     businessName: "",
@@ -59,6 +63,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     totalItems: "",
   );
 
+  BankDetailsModel _selectedBankDetails =
+      const BankDetailsModel(bankName: "", sortCode: "", accountNo: "");
+
   final TextEditingController _businessName = TextEditingController();
   final TextEditingController _businessOwnerFirstName = TextEditingController();
   final TextEditingController _businessOwnerLastName = TextEditingController();
@@ -84,6 +91,10 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final TextEditingController _itemPrice = TextEditingController();
   final TextEditingController _itemQuantity = TextEditingController();
   final TextEditingController _itemTotalCount = TextEditingController();
+
+  final TextEditingController _bankName = TextEditingController();
+  final TextEditingController _sortCode = TextEditingController();
+  final TextEditingController _accountNo = TextEditingController();
 
   InvoiceOneModel _createInvoiceOneData() {
     return InvoiceOneModel(
@@ -207,23 +218,36 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
               Step(
                 title: const SizedBox.shrink(),
                 isActive: _currentStep == 3,
-                content: Column(
-                  children: [
-                    const SizedBox(height: Constants.padding16),
-                    ExpansionTileWrapper(
-                      title: "Invoice Details",
-                      children: [
-                        InvoiceDetailsInputs(
-                          invoiceNumber: _invoiceNumber,
-                          thankYouMessage: _thankYouMessage,
-                          paymentDueDays: _paymentDueDays,
-                          onSaveData: () {},
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: Constants.padding16),
-                  ],
-                ),
+                content: StepFour(
+                    bankList: _bankList,
+                    saveBankDetails: _saveBankDetails,
+                    bankName: _bankName,
+                    sortCode: _sortCode,
+                    accountNo: _accountNo,
+                    onBankSelected: (BankDetailsModel? selectedItem) {
+                      setState(() {
+                        _selectedBankDetails = selectedItem!;
+                      });
+                    },
+                    initialSelectedBankDetails: _selectedBankDetails),
+
+                // Column(
+                //   children: [
+                //     const SizedBox(height: Constants.padding16),
+                //     ExpansionTileWrapper(
+                //       title: "Bank Details",
+                //       children: [
+                //         InvoiceBankDetailsInputs(
+                //           onSaveData: () {},
+                //           bankName: _bankName,
+                //           sortCode:_sortCode,
+                //           accountNo:_accountNo,
+                //         ),
+                //       ],
+                //     ),
+                //     const SizedBox(height: Constants.padding16),
+                //   ],
+                // ),
                 stepStyle: _stepStyle(),
               ),
               Step(
@@ -377,7 +401,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           Positioned(
             bottom: 60,
             right: 0,
-            child: _currentStep == 3
+            child: _currentStep == _totalSteps
                 ? InvoiceCustomFloatingButton(
                     createInvoiceData: _createInvoiceOneData,
                   )
@@ -443,6 +467,24 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         _clientCity.clear();
         _clientMobile.clear();
         _clientEmail.clear();
+      }
+    });
+  }
+
+  void _saveBankDetails() {
+    final newBank = BankDetailsModel(
+        bankName: _bankName.text,
+        sortCode: _sortCode.text,
+        accountNo: _accountNo.text);
+    context
+        .read<InvoiceManagerBloc>()
+        .add(InvoiceManagerAddBank(bankDetailsData: newBank));
+    setState(() {
+      if (!_bankList.contains(newBank)) {
+        _bankList.add(newBank);
+        _bankName.clear();
+        _sortCode.clear();
+        _accountNo.clear();
       }
     });
   }
