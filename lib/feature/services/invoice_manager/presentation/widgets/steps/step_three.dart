@@ -14,7 +14,7 @@ class StepThree extends StatefulWidget {
   final List<InvoiceItemModel> itemsList;
   final InvoiceItemModel? initialSelectedItemDetails;
   final void Function(InvoiceItemModel?) onItemSelected;
-  final int currentItemQuantity;
+  final double currentItemQuantity;
   final VoidCallback saveInvoiceData;
   final VoidCallback saveNewItem;
   final TextEditingController itemDescription;

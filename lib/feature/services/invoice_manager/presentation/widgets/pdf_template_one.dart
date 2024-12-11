@@ -1,3 +1,4 @@
+import 'package:business_manager/core/helpers/date_format_helper.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart' as pdf;
@@ -35,8 +36,10 @@ class PdfTemplateOne {
                           "${pdfData.businessDetailsModel.businessFirstName} ${pdfData.businessDetailsModel.businessLastName}"),
                       pw.Text(pdfData.businessDetailsModel.businessOwnerStreet),
                       pw.Text(pdfData.businessDetailsModel.businessOwnerCity),
-                      pw.Text(pdfData.businessDetailsModel.businessOwnerMobile),
-                      pw.Text(pdfData.businessDetailsModel.businessOwnerEmail),
+                      pw.Text(
+                          "Mobile: ${pdfData.businessDetailsModel.businessOwnerMobile}"),
+                      pw.Text(
+                          "Email: ${pdfData.businessDetailsModel.businessOwnerEmail}"),
                     ],
                   ),
                   pw.Column(
@@ -48,7 +51,7 @@ class PdfTemplateOne {
                       pw.SizedBox(height: 8),
                       pw.Text(
                           // "Date: ${DateTime.now().toString().split(' ')[0]}"
-                          "Date: ${pdfData.invoiceDateTimeCreated}"),
+                          "Date: ${DateFormatHelper.dateFomrat(pdfData.invoiceDateTimeCreated)}"),
                       pw.Text("Invoice #: ${pdfData.invoiceNumber}"),
                     ],
                   ),
@@ -60,11 +63,12 @@ class PdfTemplateOne {
                 style:
                     pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold),
               ),
-              pw.Text(pdfData.clientDetailsModel.clientFirstName),
+              pw.Text(
+                  "${pdfData.clientDetailsModel.clientFirstName} ${pdfData.clientDetailsModel.clientLastName}"),
               pw.Text(pdfData.clientDetailsModel.clientStreet),
               pw.Text(pdfData.clientDetailsModel.clientCity),
-              pw.Text(pdfData.clientDetailsModel.clientMobile),
-              pw.Text(pdfData.clientDetailsModel.clientEmail),
+              pw.Text("Mobile: ${pdfData.clientDetailsModel.clientMobile}"),
+              pw.Text("Email: ${pdfData.clientDetailsModel.clientEmail}"),
               pw.SizedBox(height: 32),
               pw.TableHelper.fromTextArray(
                 border: pw.TableBorder.all(),
@@ -107,16 +111,16 @@ class PdfTemplateOne {
                                 style: pw.TextStyle(fontSize: 14)),
                           ],
                         ),
-                        pw.Row(
-                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                          children: [
-                            pw.Text("Tax (10%):",
-                                style: pw.TextStyle(fontSize: 14)),
-                            pw.Text(
-                                "£ ${(pdfData.subTotalPrice! * 0.1).toStringAsFixed(2)}",
-                                style: pw.TextStyle(fontSize: 14)),
-                          ],
-                        ),
+                        // pw.Row(
+                        //   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     pw.Text("Tax (10%):",
+                        //         style: pw.TextStyle(fontSize: 14)),
+                        //     pw.Text(
+                        //         "£ ${(pdfData.subTotalPrice! * 0.1).toStringAsFixed(2)}",
+                        //         style: pw.TextStyle(fontSize: 14)),
+                        //   ],
+                        // ),
                         pw.Divider(),
                         pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -127,7 +131,7 @@ class PdfTemplateOne {
                                   fontSize: 16, fontWeight: pw.FontWeight.bold),
                             ),
                             pw.Text(
-                              "£ ${(pdfData.subTotalPrice! + (pdfData.subTotalPrice! * 0.1)).toStringAsFixed(2)}",
+                              "£ ${(pdfData.subTotalPrice! ).toStringAsFixed(2)}",//+ (pdfData.subTotalPrice! * 0.1)
                               style: pw.TextStyle(
                                   fontSize: 16, fontWeight: pw.FontWeight.bold),
                             ),

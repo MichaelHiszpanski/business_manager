@@ -29,7 +29,8 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final List<ClientDetailsModel> _clientsList = [];
   final List<InvoiceItemModel> _itemsList = [];
   final List<InvoiceItemModel> _invoiceAddedItemsList = [];
-  int _currentItemQuantity = 0;
+  double _currentItemQuantity = 0;
+  int _currentStep = 0;
 
   BusinessDetailsModel _selectedBusinessDetails = const BusinessDetailsModel(
     businessName: "",
@@ -116,12 +117,10 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   double calculateSubTotalPrice() {
     return _invoiceAddedItemsList.fold(0.0, (total, item) {
       final price = double.tryParse(item.itemPrice) ?? 0.0;
-      final quantity = int.tryParse(item.quantity) ?? 0;
+      final quantity = double.tryParse(item.quantity) ?? 0.0;
       return total + (price * quantity);
     });
   }
-
-  int _currentStep = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -431,7 +430,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         quantity: _itemQuantity.text,
         itemPrice: _itemPrice.text,
         totalItems: _itemTotalCount.text);
-
+    context
+        .read<InvoiceManagerBloc>()
+        .add(InvoiceManagerAddItem(invoiceItemData: newItem));
     setState(() {
       if (!_itemsList.any((item) => item == newItem)) {
         _itemsList.add(newItem);
@@ -463,21 +464,17 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
 
       _currentItemQuantity = 0;
     });
-
-    context
-        .read<InvoiceManagerBloc>()
-        .add(InvoiceManagerAddItem(invoiceItemData: updatedItem));
   }
 
   void updateQuantity(bool isIncrement, int maximumQuantity) {
     setState(() {
       if (isIncrement) {
         if (_currentItemQuantity < maximumQuantity) {
-          _currentItemQuantity++;
+          _currentItemQuantity = _currentItemQuantity + 0.5;
         }
       } else {
         if (_currentItemQuantity > 0) {
-          _currentItemQuantity--;
+          _currentItemQuantity = _currentItemQuantity - 0.5;
         }
       }
     });

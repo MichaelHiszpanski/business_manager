@@ -7,6 +7,7 @@ class HiveProperties {
   static const int businessDetailsID = 5;
   static const int clientDetailsID = 6;
   static const int invoiceItemsID = 7;
+  static const int bankDetailsID = 8;
 }
 
 class HiveToDoListProperties {
@@ -65,4 +66,12 @@ class HiveInvoiceItemsProperties {
   static const int quantity = 1;
   static const int itemPrice = 2;
   static const int totalItems = 3;
+}
+
+class HiveBankDetailsProperties {
+  static const String TO_BANK_DETAILS_DATA_BOX = "TO_BANK_DETAILS_DATA_BOX";
+  static const String TO_BANK_DETAILS_DATA_KEY = "TO_BANK_DETAILS_DATA_KEY";
+  static const int bankName = 0;
+  static const int sortCode = 1;
+  static const int accountNo = 2;
 }
