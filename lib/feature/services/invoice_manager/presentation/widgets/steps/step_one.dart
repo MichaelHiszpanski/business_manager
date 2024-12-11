@@ -15,17 +15,11 @@ class StepOne extends StatefulWidget {
   final TextEditingController businessName;
   final void Function(BusinessDetailsModel?) onBusinessSelected;
   final TextEditingController businessOwnerFirstName;
-
   final TextEditingController businessOwnerLastName;
-
   final TextEditingController businessOwnerStreet;
-
   final TextEditingController businessOwnerPostCode;
-
   final TextEditingController businessOwnerCity;
-
   final TextEditingController businessOwnerMobile;
-
   final TextEditingController businessOwnerEmail;
 
   StepOne({
@@ -72,15 +66,14 @@ class _StepOneState extends State<StepOne> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 const Text(
+                  const Text(
                     "Your Business:",
-                    textAlign:   TextAlign.left,
+                    textAlign: TextAlign.left,
                     style: TextStyle(
                       fontFamily: "Orbitron",
                       fontSize: 16,
                       color: Pallete.colorFive,
                       fontWeight: FontWeight.w600,
-
                     ),
                   ),
                   DropDownList<BusinessDetailsModel>(

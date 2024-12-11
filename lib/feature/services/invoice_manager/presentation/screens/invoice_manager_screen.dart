@@ -7,13 +7,9 @@ import 'package:business_manager/feature/services/invoice_manager/models/busines
 import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/drop_down_list.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/expansion_tile_wrapper.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_details_inputs.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_items_list_inputs.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/personal_details_inputs.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_screen_left_button.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_one.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_three.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_two.dart';
@@ -187,10 +183,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 ),
                 stepStyle: _stepStyle(),
               ),
-              // Step(
-              //   title: SizedBox.shrink(),
-              //   isActive: _currentStep == 2,
-              //   content:
               Step(
                 title: const SizedBox.shrink(),
                 isActive: _currentStep == 2,
@@ -209,83 +201,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                       _selectedItemDetails = selectedItem!;
                     });
                   },
-                  //     Column(
-                  //   children: [
-                  //     Row(
-                  //       children: [
-                  //         const Expanded(
-                  //           child: Text(
-                  //             "Your Items:",
-                  //             style: TextStyle(
-                  //               fontFamily: "Orbitron",
-                  //               fontSize: 18,
-                  //               color: Pallete.colorFive,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //         Expanded(
-                  //           child: DropDownList<InvoiceItemModel>(
-                  //             itemList: _itemsList,
-                  //             getFullNameDetails: (invoice) =>
-                  //                 invoice.displayName,
-                  //             onValueSelected: (selectedItem) {
-                  //               setState(() {
-                  //                 _invoiceItemDetails = selectedItem!;
-                  //               });
-                  //             },
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //     const SizedBox(height: Constants.padding16),
-                  //     Row(
-                  //       children: [
-                  //         IconButton(
-                  //           icon: const Icon(Icons.remove),
-                  //           onPressed: () => updateQuantity(
-                  //             false,
-                  //             int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
-                  //           ),
-                  //         ),
-                  //         IconButton(
-                  //           icon: const Icon(Icons.add),
-                  //           onPressed: () => updateQuantity(
-                  //             true,
-                  //             int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
-                  //           ),
-                  //         ),
-                  //         Text("Quantity: ${_currentItemQuantity.toString()}"),
-                  //         const Spacer(),
-                  //         ElevatedButton(
-                  //           onPressed: _saveInvoiceData,
-                  //           child: const Text(
-                  //             "Add to Invoice",
-                  //             style: TextStyle(
-                  //               color: Pallete.whiteColor,
-                  //             ),
-                  //           ),
-                  //           style: ButtonStyle(
-                  //             backgroundColor:
-                  //                 WidgetStateProperty.all(Pallete.colorFive),
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //     const SizedBox(height: Constants.padding16),
-                  //     ExpansionTileWrapper(
-                  //       title: "Add New Item",
-                  //       children: [
-                  //         InvoiceItemsListInputs(
-                  //           onSaveData: _saveNewItem,
-                  //           description: _itemDescription,
-                  //           itemPrice: _itemPrice,
-                  //           totalItems: _itemTotalCount,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //     const SizedBox(height: Constants.padding16),
-                  //   ],
-                  // ),
                 ),
                 stepStyle: _stepStyle(),
               ),
@@ -595,26 +510,3 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         ));
   }
 }
-
-// Step(
-// title: SizedBox.shrink(),
-// isActive: _currentStep == 2,
-// content: StepThree(
-// itemsList: _itemsList,
-// invoiceItemDetails: _invoiceItemDetails,
-// updateQuantity:
-//
-// updateQuantity(
-// true,
-// int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
-// ),
-//
-// currentItemQuantity: _currentItemQuantity,
-// saveInvoiceData: _saveInvoiceData,
-// itemDescription: _itemDescription,
-// itemPrice: _itemPrice,
-// itemTotalCount: _itemTotalCount,
-// saveNewItem: _saveNewItem,
-// ),
-// stepStyle: _stepStyle(),
-// ),

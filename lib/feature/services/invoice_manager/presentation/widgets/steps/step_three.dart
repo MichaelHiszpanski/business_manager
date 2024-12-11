@@ -111,23 +111,21 @@ class _StepThreeState extends State<StepThree> {
             ),
             Text("Quantity: ${widget.currentItemQuantity.toString()}"),
             const Spacer(),
-
           ],
         ),
         const SizedBox(height: Constants.padding16),
         ElevatedButton(
           onPressed: widget.saveInvoiceData,
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all(Pallete.colorFive),
+          ),
           child: const Text(
             "Add Item to Invoice",
             style: TextStyle(
-              color: Pallete.whiteColor,
-              fontWeight: FontWeight.w600,
-              fontFamily: AppFontFamily.suse,
-              fontSize: 18
-            ),
-          ),
-          style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(Pallete.colorFive),
+                color: Pallete.whiteColor,
+                fontWeight: FontWeight.w600,
+                fontFamily: AppFontFamily.suse,
+                fontSize: 18),
           ),
         ),
         const SizedBox(height: Constants.padding16),
