@@ -230,24 +230,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                       });
                     },
                     initialSelectedBankDetails: _selectedBankDetails),
-
-                // Column(
-                //   children: [
-                //     const SizedBox(height: Constants.padding16),
-                //     ExpansionTileWrapper(
-                //       title: "Bank Details",
-                //       children: [
-                //         InvoiceBankDetailsInputs(
-                //           onSaveData: () {},
-                //           bankName: _bankName,
-                //           sortCode:_sortCode,
-                //           accountNo:_accountNo,
-                //         ),
-                //       ],
-                //     ),
-                //     const SizedBox(height: Constants.padding16),
-                //   ],
-                // ),
                 stepStyle: _stepStyle(),
               ),
               Step(

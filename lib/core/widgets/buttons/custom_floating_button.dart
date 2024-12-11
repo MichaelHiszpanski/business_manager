@@ -1,3 +1,5 @@
+import 'package:business_manager/core/theme/app_font_family.dart';
+import 'package:business_manager/core/tools/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomFloatingButton extends StatelessWidget {
@@ -23,23 +25,27 @@ class CustomFloatingButton extends StatelessWidget {
           padding: WidgetStateProperty.all<EdgeInsets>(
             const EdgeInsets.symmetric(
               horizontal: 32.0,
-              vertical: 16.0,
+              vertical: 8.0,
             ),
           ),
           elevation: WidgetStateProperty.all<double>(6.0),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
+              borderRadius: BorderRadius.circular(Constants.padding24),
             ),
           ),
           textStyle: WidgetStateProperty.all<TextStyle>(
             const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
+              fontFamily: AppFontFamily.orbitron,
             ),
           ),
         ),
-        child: Text(buttonText),
+        child: Text(
+          buttonText,
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
     );
   }
