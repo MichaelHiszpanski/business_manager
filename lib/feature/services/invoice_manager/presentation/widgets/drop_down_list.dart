@@ -37,16 +37,20 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
             "Select from list:",
             style: TextStyle(
               fontFamily: AppFontFamily.jaro,
-              fontSize: 14,
+              fontSize: 16,
             ),
           ),
         ],
       ),
+      iconDisabledColor: Pallete.gradient1,
+      dropdownColor:  Colors.white,
+
       borderRadius: const BorderRadius.all(
         Radius.circular(
           Constants.padding16,
         ),
       ),
+
       value: _itemSelected,
       items: widget.itemList.map((item) {
         return DropdownMenuItem<T>(
@@ -58,7 +62,7 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontFamily: AppFontFamily.jaro,
-                fontSize: 14,
+                fontSize: 18,
               ),
             ),
           ),

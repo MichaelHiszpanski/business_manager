@@ -64,30 +64,27 @@ class _StepTwoState extends State<StepTwo> {
               widget.clientsList.clear();
               widget.clientsList.addAll(state.clientDetailsDataList);
 
-              return Row(
+              return  Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Expanded(
-                    child: Text(
-                      "Your Clients:",
-                      style: TextStyle(
-                        fontFamily: AppFontFamily.orbitron,
-                        fontSize: 18,
-                        color: Pallete.colorFive,
-                          fontWeight: FontWeight.w600,
-                      ),
+                  Text(
+                    "Your Clients:",
+                    style: TextStyle(
+                      fontFamily: AppFontFamily.orbitron,
+                      fontSize: 16,
+                      color: Pallete.colorFive,
+                        fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Expanded(
-                    child: DropDownList<ClientDetailsModel>(
-                      itemList: widget.clientsList,
-                      getFullNameDetails: (client) => client.displayName,
-                      onValueSelected: (selectedClient) {
-                        setState(() {
-                          selectedClientDetails = selectedClient!;
-                        });
-                        widget.onClientSelected(selectedClientDetails);
-                      },
-                    ),
+                  DropDownList<ClientDetailsModel>(
+                    itemList: widget.clientsList,
+                    getFullNameDetails: (client) => client.displayName,
+                    onValueSelected: (selectedClient) {
+                      setState(() {
+                        selectedClientDetails = selectedClient!;
+                      });
+                      widget.onClientSelected(selectedClientDetails);
+                    },
                   ),
                 ],
               );
@@ -99,7 +96,7 @@ class _StepTwoState extends State<StepTwo> {
         ),
         const SizedBox(height: Constants.padding16),
         ExpansionTileWrapper(
-          title: "Add new Client Details",
+          title: "New Client",
           children: [
             PersonalDetailsInputs(
               firstName: widget.clientFirstName,

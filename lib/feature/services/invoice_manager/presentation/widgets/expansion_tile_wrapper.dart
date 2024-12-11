@@ -23,7 +23,7 @@ class ExpansionTileWrapper extends StatelessWidget {
         collapsedBackgroundColor: Pallete.colorOne,
         collapsedTextColor: Colors.white,
         collapsedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Constants.padding16),
+          borderRadius: BorderRadius.circular(Constants.padding24),
         ),
         collapsedIconColor: Colors.white,
         tilePadding: const EdgeInsets.only(

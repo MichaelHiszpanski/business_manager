@@ -15,6 +15,7 @@ import 'package:business_manager/feature/services/invoice_manager/presentation/w
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/personal_details_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_screen_left_button.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_one.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_three.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_two.dart';
 
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     clientEmail: "",
     clientMobile: "",
   );
-  InvoiceItemModel _invoiceItemDetails = const InvoiceItemModel(
+  InvoiceItemModel _selectedItemDetails = const InvoiceItemModel(
     description: "",
     quantity: "",
     itemPrice: "",
@@ -136,9 +137,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       ),
       body: Container(
         height: double.infinity,
-        decoration:BoxDecoration(
-          color: Pallete.colorTwo.withOpacity(0.25)
-        ),
+        decoration: BoxDecoration(color: Pallete.colorTwo.withOpacity(0.25)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
           child: Stepper(
@@ -188,84 +187,105 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 ),
                 stepStyle: _stepStyle(),
               ),
+              // Step(
+              //   title: SizedBox.shrink(),
+              //   isActive: _currentStep == 2,
+              //   content:
               Step(
-                title: SizedBox.shrink(),
+                title: const SizedBox.shrink(),
                 isActive: _currentStep == 2,
-                content: Column(
-                  children: [
-                    Row(
-                      children: [
-                        const Expanded(
-                          child: Text(
-                            "Your Items:",
-                            style: TextStyle(
-                              fontFamily: "Orbitron",
-                              fontSize: 18,
-                              color: Pallete.colorFive,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: DropDownList<InvoiceItemModel>(
-                            itemList: _itemsList,
-                            getFullNameDetails: (invoice) => invoice.displayName,
-                            onValueSelected: (selectedItem) {
-                              setState(() {
-                                _invoiceItemDetails = selectedItem!;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: Constants.padding16),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.remove),
-                          onPressed: () => updateQuantity(
-                            false,
-                            int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
-                          ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: () => updateQuantity(
-                            true,
-                            int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
-                          ),
-                        ),
-                        Text("Quantity: ${_currentItemQuantity.toString()}"),
-                        const Spacer(),
-                        ElevatedButton(
-                          onPressed: _saveInvoiceData,
-                          child: const Text(
-                            "Add to Invoice",
-                            style: TextStyle(
-                              color: Pallete.whiteColor,
-                            ),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                WidgetStateProperty.all(Pallete.colorFive),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: Constants.padding16),
-                    ExpansionTileWrapper(
-                      title: "Add New Item",
-                      children: [
-                        InvoiceItemsListInputs(
-                          onSaveData: _saveNewItem,
-                          description: _itemDescription,
-                          itemPrice: _itemPrice,
-                          totalItems: _itemTotalCount,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: Constants.padding16),
-                  ],
+                content: StepThree(
+                  itemsList: _itemsList,
+                  initialSelectedItemDetails: _selectedItemDetails,
+                  updateQuantity: updateQuantity,
+                  currentItemQuantity: _currentItemQuantity,
+                  saveInvoiceData: _saveInvoiceData,
+                  itemDescription: _itemDescription,
+                  itemPrice: _itemPrice,
+                  itemTotalCount: _itemTotalCount,
+                  saveNewItem: _saveNewItem,
+                  onItemSelected: (InvoiceItemModel? selectedItem) {
+                    setState(() {
+                      _selectedItemDetails = selectedItem!;
+                    });
+                  },
+                  //     Column(
+                  //   children: [
+                  //     Row(
+                  //       children: [
+                  //         const Expanded(
+                  //           child: Text(
+                  //             "Your Items:",
+                  //             style: TextStyle(
+                  //               fontFamily: "Orbitron",
+                  //               fontSize: 18,
+                  //               color: Pallete.colorFive,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         Expanded(
+                  //           child: DropDownList<InvoiceItemModel>(
+                  //             itemList: _itemsList,
+                  //             getFullNameDetails: (invoice) =>
+                  //                 invoice.displayName,
+                  //             onValueSelected: (selectedItem) {
+                  //               setState(() {
+                  //                 _invoiceItemDetails = selectedItem!;
+                  //               });
+                  //             },
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     const SizedBox(height: Constants.padding16),
+                  //     Row(
+                  //       children: [
+                  //         IconButton(
+                  //           icon: const Icon(Icons.remove),
+                  //           onPressed: () => updateQuantity(
+                  //             false,
+                  //             int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
+                  //           ),
+                  //         ),
+                  //         IconButton(
+                  //           icon: const Icon(Icons.add),
+                  //           onPressed: () => updateQuantity(
+                  //             true,
+                  //             int.tryParse(_invoiceItemDetails.totalItems) ?? 10,
+                  //           ),
+                  //         ),
+                  //         Text("Quantity: ${_currentItemQuantity.toString()}"),
+                  //         const Spacer(),
+                  //         ElevatedButton(
+                  //           onPressed: _saveInvoiceData,
+                  //           child: const Text(
+                  //             "Add to Invoice",
+                  //             style: TextStyle(
+                  //               color: Pallete.whiteColor,
+                  //             ),
+                  //           ),
+                  //           style: ButtonStyle(
+                  //             backgroundColor:
+                  //                 WidgetStateProperty.all(Pallete.colorFive),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     const SizedBox(height: Constants.padding16),
+                  //     ExpansionTileWrapper(
+                  //       title: "Add New Item",
+                  //       children: [
+                  //         InvoiceItemsListInputs(
+                  //           onSaveData: _saveNewItem,
+                  //           description: _itemDescription,
+                  //           itemPrice: _itemPrice,
+                  //           totalItems: _itemTotalCount,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     const SizedBox(height: Constants.padding16),
+                  //   ],
+                  // ),
                 ),
                 stepStyle: _stepStyle(),
               ),
@@ -315,56 +335,96 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
             //  type: StepperType.horizontal,
             controlsBuilder: (BuildContext context, ControlsDetails details) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                padding: const EdgeInsets.only(top: Constants.padding24),
                 child: Row(
                   children: <Widget>[
                     if (_currentStep == 3) ...[
                       const SizedBox.shrink(),
                     ] else ...[
-                      ElevatedButton(
-                        onPressed: details.onStepContinue,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Pallete.colorSix,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 12,
+                      Container(
+                        decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Pallete.colorSeven, Pallete.colorSix],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Pallete.colorFive.withOpacity(0.45),
+                                offset: const Offset(0, 4),
+                                blurRadius: 8,
+                                spreadRadius: 1,
+                              ),
+                            ],
+                            borderRadius:
+                                BorderRadius.circular(Constants.padding24)),
+                        child: ElevatedButton(
+                          onPressed: details.onStepContinue,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            shadowColor: Colors.transparent,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 12,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(Constants.padding24),
+                            ),
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(Constants.padding24),
-                          ),
-                        ),
-                        child: const Text(
-                          'Continue',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: AppFontFamily.orbitron,
-                            color: Colors.white,
+                          child: const Text(
+                            'Continue',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: AppFontFamily.orbitron,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
                     ],
-                    const SizedBox(width: 8),
+                    const SizedBox(width: 2 * Constants.padding16),
                     if (_currentStep > 0)
-                      ElevatedButton(
-                        onPressed: details.onStepCancel,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Pallete.colorSeven,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 12,
+                      Container(
+                        decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Pallete.colorSix, Pallete.colorSeven],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Pallete.colorFive.withOpacity(0.45),
+                                offset: const Offset(0, 4),
+                                blurRadius: 8,
+                                spreadRadius: 1,
+                              ),
+                            ],
+                            borderRadius:
+                                BorderRadius.circular(Constants.padding24)),
+                        child: ElevatedButton(
+                          onPressed: details.onStepCancel,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            shadowColor: Colors.transparent,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 12,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(Constants.padding24),
+                            ),
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(Constants.padding24),
-                          ),
-                        ),
-                        child: const Text(
-                          'Back',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: AppFontFamily.orbitron,
-                            color: Pallete.colorOne,
+                          child: const Text(
+                            'Back',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: AppFontFamily.orbitron,
+                              color: Pallete.colorOne,
+                            ),
                           ),
                         ),
                       ),
@@ -469,14 +529,14 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   }
 
   void _saveInvoiceData() {
-    if (_invoiceItemDetails.description.isEmpty) return;
+    if (_selectedItemDetails.description.isEmpty) return;
 
     final updatedItem = InvoiceItemModel(
-      description: _invoiceItemDetails.description,
+      description: _selectedItemDetails.description,
       quantity: _currentItemQuantity.toString(),
-      itemPrice: _invoiceItemDetails.itemPrice,
+      itemPrice: _selectedItemDetails.itemPrice,
       totalItems:
-          (double.parse(_invoiceItemDetails.itemPrice) * _currentItemQuantity)
+          (double.parse(_selectedItemDetails.itemPrice) * _currentItemQuantity)
               .toStringAsFixed(2),
     );
 
@@ -488,6 +548,10 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
 
       _currentItemQuantity = 0;
     });
+
+    context
+        .read<InvoiceManagerBloc>()
+        .add(InvoiceManagerAddItem(invoiceItemData: updatedItem));
   }
 
   void updateQuantity(bool isIncrement, int maximumQuantity) {

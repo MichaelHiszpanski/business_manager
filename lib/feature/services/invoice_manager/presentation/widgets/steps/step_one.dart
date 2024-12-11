@@ -69,30 +69,29 @@ class _StepOneState extends State<StepOne> {
             } else if (state is InvoiceManagerLoaded) {
               widget.businessesList.clear();
               widget.businessesList.addAll(state.businessDetailsDataList);
-              return Row(
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Expanded(
-                    child: Text(
-                      "Your Business:",
-                      style: TextStyle(
-                        fontFamily: "Orbitron",
-                        fontSize: 17,
-                        color: Pallete.colorFive,
-                        fontWeight: FontWeight.w600
-                      ),
+                 const Text(
+                    "Your Business:",
+                    textAlign:   TextAlign.left,
+                    style: TextStyle(
+                      fontFamily: "Orbitron",
+                      fontSize: 16,
+                      color: Pallete.colorFive,
+                      fontWeight: FontWeight.w600,
+
                     ),
                   ),
-                  Expanded(
-                    child: DropDownList<BusinessDetailsModel>(
-                      itemList: widget.businessesList,
-                      getFullNameDetails: (business) => business.displayName,
-                      onValueSelected: (selectedBusiness) {
-                        setState(() {
-                          selectedBusinessDetails = selectedBusiness!;
-                        });
-                        widget.onBusinessSelected(selectedBusinessDetails);
-                      },
-                    ),
+                  DropDownList<BusinessDetailsModel>(
+                    itemList: widget.businessesList,
+                    getFullNameDetails: (business) => business.displayName,
+                    onValueSelected: (selectedBusiness) {
+                      setState(() {
+                        selectedBusinessDetails = selectedBusiness!;
+                      });
+                      widget.onBusinessSelected(selectedBusinessDetails);
+                    },
                   ),
                 ],
               );
@@ -104,7 +103,7 @@ class _StepOneState extends State<StepOne> {
         ),
         const SizedBox(height: Constants.padding16),
         ExpansionTileWrapper(
-          title: "Add new Business Details",
+          title: "New Business",
           children: [
             PersonalDetailsInputs(
               isBusinessInputText: true,
