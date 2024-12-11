@@ -9,7 +9,7 @@ import 'package:business_manager/feature/services/invoice_manager/models/invoice
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/expansion_tile_wrapper.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_details_inputs.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/forms/invoice_details_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_one.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_three.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_two.dart';
@@ -31,6 +31,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final List<InvoiceItemModel> _invoiceAddedItemsList = [];
   double _currentItemQuantity = 0;
   int _currentStep = 0;
+  int _totalSteps=4;
 
   BusinessDetailsModel _selectedBusinessDetails = const BusinessDetailsModel(
     businessName: "",
@@ -225,6 +226,28 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 ),
                 stepStyle: _stepStyle(),
               ),
+              Step(
+                title: const SizedBox.shrink(),
+                isActive: _currentStep == 4,
+                content: Column(
+                  children: [
+                    const SizedBox(height: Constants.padding16),
+                    ExpansionTileWrapper(
+                      title: "Invoice Details",
+                      children: [
+                        InvoiceDetailsInputs(
+                          invoiceNumber: _invoiceNumber,
+                          thankYouMessage: _thankYouMessage,
+                          paymentDueDays: _paymentDueDays,
+                          onSaveData: () {},
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: Constants.padding16),
+                  ],
+                ),
+                stepStyle: _stepStyle(),
+              ),
             ],
             onStepTapped: (int newIndex) {
               setState(() {
@@ -233,7 +256,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
             },
             currentStep: _currentStep,
             onStepContinue: () {
-              if (_currentStep != 3) {
+              if (_currentStep != _totalSteps) {
                 setState(() {
                   _currentStep += 1;
                 });
@@ -252,7 +275,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 padding: const EdgeInsets.only(top: Constants.padding24),
                 child: Row(
                   children: <Widget>[
-                    if (_currentStep == 3) ...[
+                    if (_currentStep == _totalSteps) ...[
                       const SizedBox.shrink(),
                     ] else ...[
                       Container(

@@ -15,11 +15,13 @@ final class InvoiceManagerLoaded extends InvoiceManagerState {
   final List<BusinessDetailsModel> businessDetailsDataList;
   final List<ClientDetailsModel> clientDetailsDataList;
   final List<InvoiceItemModel> invoiceItemsList;
+  final List<BankDetailsModel> bankDetailsDataList;
 
   const InvoiceManagerLoaded({
     required this.businessDetailsDataList,
     required this.clientDetailsDataList,
     required this.invoiceItemsList,
+    required this.bankDetailsDataList,
   });
 
   @override
@@ -27,6 +29,7 @@ final class InvoiceManagerLoaded extends InvoiceManagerState {
         businessDetailsDataList,
         clientDetailsDataList,
         invoiceItemsList,
+        bankDetailsDataList,
       ];
 }
 

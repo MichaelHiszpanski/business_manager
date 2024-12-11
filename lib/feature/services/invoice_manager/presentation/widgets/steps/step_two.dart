@@ -5,7 +5,7 @@ import 'package:business_manager/feature/services/invoice_manager/bloc/invoice_m
 import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/drop_down_list.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/expansion_tile_wrapper.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/personal_details_inputs.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/forms/personal_details_inputs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -67,7 +67,7 @@ class _StepTwoState extends State<StepTwo> {
               return  Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Your Clients:",
                     style: TextStyle(
                       fontFamily: AppFontFamily.orbitron,

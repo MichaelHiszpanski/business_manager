@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:business_manager/core/storage_hive/hive_properites.dart';
+import 'package:business_manager/feature/services/invoice_manager/data/hive/bank_hive/bank_details_hive.dart';
 import 'package:business_manager/feature/services/invoice_manager/data/hive/business_hive/business_details_hive.dart';
 import 'package:business_manager/feature/services/invoice_manager/data/hive/client_hive/client_details_hive.dart';
 import 'package:business_manager/feature/services/invoice_manager/data/hive/invoice_items/invoice_items_hive.dart';
+import 'package:business_manager/feature/services/invoice_manager/models/bank_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/business_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
@@ -18,12 +20,14 @@ class InvoiceManagerBloc
   final List<BusinessDetailsModel> _businessCurrentList = [];
   final List<ClientDetailsModel> _clientCurrentList = [];
   final List<InvoiceItemModel> _invoiceItemsCurrentList = [];
+  final List<BankDetailsModel> _bankCurrentList = [];
 
   InvoiceManagerBloc() : super(InvoiceManagerInitial()) {
     on<InitialInvoiceManager>(_initializeHive);
     on<InvoiceManagerAddBusiness>(_addBusinessDetails);
     on<InvoiceManagerAddClient>(_addClientDetails);
     on<InvoiceManagerAddItem>(_addItemsDetails);
+    on<InvoiceManagerAddBank>(_addBankDetails);
     add(const InitialInvoiceManager());
   }
 
@@ -103,6 +107,7 @@ class InvoiceManagerBloc
         businessDetailsDataList: List.from(_businessCurrentList),
         clientDetailsDataList: List.from(_clientCurrentList),
         invoiceItemsList: List.from(_invoiceItemsCurrentList),
+        bankDetailsDataList: List.from(_bankCurrentList),
       ),
     );
     // add(const InvoiceManagerDisplay());
@@ -145,6 +150,7 @@ class InvoiceManagerBloc
         businessDetailsDataList: List.from(_businessCurrentList),
         clientDetailsDataList: _clientCurrentList,
         invoiceItemsList: _invoiceItemsCurrentList,
+        bankDetailsDataList: _bankCurrentList,
       ),
     );
   }
@@ -185,6 +191,7 @@ class InvoiceManagerBloc
         businessDetailsDataList: _businessCurrentList,
         clientDetailsDataList: List.from(_clientCurrentList),
         invoiceItemsList: _invoiceItemsCurrentList,
+        bankDetailsDataList: _bankCurrentList,
       ),
     );
   }
@@ -224,6 +231,43 @@ class InvoiceManagerBloc
         businessDetailsDataList: _businessCurrentList,
         clientDetailsDataList: List.from(_clientCurrentList),
         invoiceItemsList: _invoiceItemsCurrentList,
+        bankDetailsDataList: _bankCurrentList,
+      ),
+    );
+  }
+
+  Future<void> _addBankDetails(
+      InvoiceManagerAddBank event, Emitter<InvoiceManagerState> emit) async {
+    emit(InvoiceManagerLoading());
+
+    Box boxItems =
+        await Hive.openBox(HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_BOX);
+    List<BankDetailsHive> bankDetailsList = [];
+    List<dynamic>? getExistingBankDetailsHiveData =
+        await boxItems.get(HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_KEY);
+
+    if (getExistingBankDetailsHiveData != null) {
+      bankDetailsList = getExistingBankDetailsHiveData.cast<BankDetailsHive>();
+    }
+
+    _bankCurrentList.add(event.bankDetailsData);
+
+    bankDetailsList.add(BankDetailsHive(
+        bankName: event.bankDetailsData.bankName,
+        sortCode: event.bankDetailsData.sortCode,
+        accountNo: event.bankDetailsData.accountNo));
+
+    await boxItems.put(
+      HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_KEY,
+      bankDetailsList,
+    );
+
+    emit(
+      InvoiceManagerLoaded(
+        businessDetailsDataList: _businessCurrentList,
+        clientDetailsDataList: _clientCurrentList,
+        invoiceItemsList: _invoiceItemsCurrentList,
+        bankDetailsDataList: List.from(_bankCurrentList),
       ),
     );
   }

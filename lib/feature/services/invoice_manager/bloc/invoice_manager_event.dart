@@ -38,6 +38,15 @@ class InvoiceManagerAddItem extends InvoiceManagerEvent {
   List<Object> get props => [invoiceItemData];
 }
 
+class InvoiceManagerAddBank extends InvoiceManagerEvent {
+  final BankDetailsModel bankDetailsData;
+
+  const InvoiceManagerAddBank({required this.bankDetailsData});
+
+  @override
+  List<Object> get props => [bankDetailsData];
+}
+
 class InvoiceManagerDisplay extends InvoiceManagerEvent {
   const InvoiceManagerDisplay();
 
