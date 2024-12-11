@@ -19,6 +19,16 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
   late Animation _animation;
   bool isClickable = true;
   bool isClickedToNavigate = false;
+  Alignment alignment1 = const Alignment(0.0, 0.8);
+  Alignment alignment2 = const Alignment(0.0, 0.8);
+  Alignment alignment3 = const Alignment(0.0, 0.8);
+  Alignment alignment4 = const Alignment(0.0, 0.8);
+  Alignment alignment5 = const Alignment(0.0, 0.8);
+  double size1 = 50.0;
+  double size2 = 50.0;
+  double size3 = 80.0;
+  double size4 = 80.0;
+  double size5 = 80.0;
 
   @override
   void initState() {
@@ -45,17 +55,6 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
     _controller.dispose();
   }
 
-  Alignment alignment1 = const Alignment(0.0, 0.0);
-  Alignment alignment2 = const Alignment(0.0, 0.0);
-  Alignment alignment3 = const Alignment(0.0, 0.0);
-  Alignment alignment4 = const Alignment(0.0, 0.0);
-  Alignment alignment5 = const Alignment(0.0, 0.0);
-  double size1 = 50.0;
-  double size2 = 50.0;
-  double size3 = 80.0;
-  double size4 = 80.0;
-  double size5 = 80.0;
-
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -68,7 +67,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
         child: Stack(
           children: [
             AnimatedItemContainerSideMenu(
-              key:  Key('icon1'),
+              key: Key('icon1'),
               minDuration: 275,
               maxDuration: 875,
               icon: Icons.checklist,
@@ -82,7 +81,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
               key: Key('icon2'),
               minDuration: 275,
               maxDuration: 875,
-              icon: Icons.inventory,
+              icon: Icons.account_balance,
               alignment: alignment2,
               toggleButton: toggleButton,
               size: size1,
@@ -93,7 +92,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
               key: Key('icon3'),
               minDuration: 275,
               maxDuration: 875,
-              icon: Icons.computer,
+              icon: Icons.people,
               alignment: alignment3,
               toggleButton: toggleButton,
               size: size1,
@@ -104,7 +103,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
               key: const Key('icon4'),
               minDuration: 275,
               maxDuration: 675,
-              icon: Icons.today,
+              icon: Icons.work_history,
               alignment: alignment4,
               toggleButton: toggleButton,
               size: size1,
@@ -131,11 +130,11 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 675),
                     curve: Curves.easeOut,
-                    height: toggleButton ? 300.0 : 160.0,
-                    width: toggleButton ? 300.0 : 160.0,
+                    height: toggleButton ? 200.0 : 160.0,
+                    width: toggleButton ? 200.0 : 160.0,
                     decoration: BoxDecoration(
                       color: Colors.transparent, //blue[600],
-                      borderRadius: BorderRadius.circular(300.0),
+                      borderRadius: BorderRadius.circular(200.0),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.5),
@@ -193,31 +192,30 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
     switch (iconIndex) {
       case 0:
         MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.toDoPage);
-        print("Icon 0 (Message) tapped");
+
         break;
       case 1:
         MainApp.navigatorKey.currentState!
             .pushNamed(AppRoutes.invoiceManagerScreen);
-        print("Icon 1 (Phone) tapped");
+
         break;
       case 2:
-        MainApp.navigatorKey.currentState!
-            .pushNamed(AppRoutes.signIn);
-        print("Icon 2 (Computer) tapped");
+        MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.signIn);
+
         break;
       case 3:
         MainApp.navigatorKey.currentState!
             .pushNamed(AppRoutes.workManagerScreen);
-        print("Icon 3 (Today) tapped");
+
         break;
       case 4:
-        print("Icon 4 (Shop) tapped");
+        MainApp.navigatorKey.currentState!
+            .pushNamed(AppRoutes.informationScreen);
+
         break;
       case 999:
-        print("Icon 999 (Shop) tapped");
         break;
       default:
-        print("Unknown icon tapped");
     }
     if (toggleButton) {
       toggleButton = !toggleButton;
@@ -239,7 +237,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
         size3 = 50.0;
       });
       Future.delayed(const Duration(milliseconds: 300), () {
-        alignment5 = const Alignment(0.0, 1.5);
+        alignment5 = const Alignment(0.0, -0.6);
         size3 = 50.0;
       });
     } else {
@@ -249,32 +247,10 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
       Future.delayed(const Duration(milliseconds: 100), () {
         setState(() {
           alignment1 = alignment2 =
-              alignment3 = alignment4 = alignment5 = const Alignment(0.0, 0.0);
+              alignment3 = alignment4 = alignment5 = const Alignment(0.0, 0.8);
           size1 = size2 = size3 = size4 = size5 = 20.0;
         });
       });
     }
   }
 }
-
-
-// Future.delayed(const Duration(milliseconds: 100), () {
-// alignment1 = const Alignment(-0.8, -1.0);
-// size1 = 50.0;
-// });
-// Future.delayed(const Duration(milliseconds: 150), () {
-// alignment2 = const Alignment(0.4, -0.8);
-// size2 = 50.0;
-// });
-// Future.delayed(const Duration(milliseconds: 200), () {
-// alignment3 = const Alignment(0.8, 0.0);
-// size3 = 50.0;
-// });
-// Future.delayed(const Duration(milliseconds: 250), () {
-// alignment4 = const Alignment(0.4, 0.8);
-// size3 = 50.0;
-// });
-// Future.delayed(const Duration(milliseconds: 300), () {
-// alignment5 = const Alignment(-0.8, 1.0);
-// size3 = 50.0;
-// });
