@@ -71,7 +71,7 @@ class _StepOneState extends State<StepOne> {
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontFamily: "Orbitron",
-                      fontSize: 16,
+                      fontSize: 18,
                       color: Pallete.colorFive,
                       fontWeight: FontWeight.w600,
                     ),

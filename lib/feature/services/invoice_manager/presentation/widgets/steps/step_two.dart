@@ -71,7 +71,7 @@ class _StepTwoState extends State<StepTwo> {
                     "Your Clients:",
                     style: TextStyle(
                       fontFamily: AppFontFamily.orbitron,
-                      fontSize: 16,
+                      fontSize: 18,
                       color: Pallete.colorFive,
                         fontWeight: FontWeight.w600,
                     ),

@@ -55,7 +55,7 @@ class _StepFourState extends State<StepFour> {
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontFamily: "Orbitron",
-                      fontSize: 16,
+                      fontSize: 18,
                       color: Pallete.colorFive,
                       fontWeight: FontWeight.w600,
                     ),

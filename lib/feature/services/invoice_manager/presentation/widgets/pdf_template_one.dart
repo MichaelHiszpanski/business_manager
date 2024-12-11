@@ -131,7 +131,7 @@ class PdfTemplateOne {
                                   fontSize: 16, fontWeight: pw.FontWeight.bold),
                             ),
                             pw.Text(
-                              "£ ${(pdfData.subTotalPrice! ).toStringAsFixed(2)}",//+ (pdfData.subTotalPrice! * 0.1)
+                              "£ ${(pdfData.subTotalPrice!).toStringAsFixed(2)}", //+ (pdfData.subTotalPrice! * 0.1)
                               style: pw.TextStyle(
                                   fontSize: 16, fontWeight: pw.FontWeight.bold),
                             ),
@@ -152,6 +152,31 @@ class PdfTemplateOne {
                 style: pw.TextStyle(
                   fontSize: 12,
                   fontStyle: pw.FontStyle.italic,
+                ),
+              ),
+              pw.SizedBox(height: 16),
+              pw.Divider(),
+              pw.SizedBox(height: 8),
+              pw.Container(
+                width: 200,
+                child: pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Text(
+                      "Bank Name: ${pdfData.bankDetailsModel.bankName}",
+                      style: pw.TextStyle(fontSize: 16),
+                    ),
+                    pw.Text(
+                      "Sort Code:  ${pdfData.bankDetailsModel.sortCode}",
+                      style: pw.TextStyle(fontSize: 16),
+                    ),
+                    pw.Text(
+                      "Account No:  ${pdfData.bankDetailsModel.accountNo}",
+                      style: pw.TextStyle(fontSize: 16),
+                    ),
+                    pw.SizedBox(height: 8),
+                    pw.Divider(),
+                  ],
                 ),
               ),
             ],

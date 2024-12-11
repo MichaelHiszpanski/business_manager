@@ -119,6 +119,11 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         clientEmail: _selectedClientDetails.clientMobile,
         clientMobile: _selectedClientDetails.clientEmail,
       ),
+      bankDetailsModel: BankDetailsModel(
+        bankName: _selectedBankDetails.bankName,
+        sortCode: _selectedBankDetails.sortCode,
+        accountNo: _selectedBankDetails.accountNo,
+      ),
       invoiceItemsList: _invoiceAddedItemsList,
       thankYouMessage: _thankYouMessage.text,
       paymentDueDays: "Payment is due within ${_paymentDueDays.text} days.",
