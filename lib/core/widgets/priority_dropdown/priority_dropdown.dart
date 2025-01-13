@@ -1,4 +1,5 @@
 import 'package:business_manager/core/enums/piority_level_enum.dart';
+import 'package:business_manager/core/tools/constants.dart';
 import 'package:flutter/material.dart';
 
 class PriorityDropdown extends StatefulWidget {
@@ -40,10 +41,10 @@ class _PriorityDropdownState extends State<PriorityDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:const  EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
       decoration: BoxDecoration(
         color: PriorityDropdown.getPriorityColor(_selectedPriority),
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(Constants.padding32),
         border: Border.all(color: Colors.grey.shade300, width: 2.0),
         boxShadow: [
           BoxShadow(
@@ -60,10 +61,11 @@ class _PriorityDropdownState extends State<PriorityDropdown> {
           dropdownColor: PriorityDropdown.getPriorityColor(_selectedPriority),
           isExpanded: true,
           style: const TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 16.0,
             fontWeight: FontWeight.w600,
           ),
+          padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
           items: PriorityLevelEnum.values.map((PriorityLevelEnum priority) {
             return DropdownMenuItem<PriorityLevelEnum>(
               value: priority,

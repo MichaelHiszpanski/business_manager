@@ -1,5 +1,7 @@
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
+import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/core/enums/piority_level_enum.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
@@ -60,8 +62,9 @@ class _EditItemPageState extends State<EditItemPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit ToDo Item'),
+      appBar: CustomAppBar(
+        title: 'Edit ToDo Item',
+        onMenuPressed: () {},
       ),
       body: SingleChildScrollView(
         reverse: true,
@@ -82,11 +85,15 @@ class _EditItemPageState extends State<EditItemPage> {
                 ),
                 const SizedBox(height: Constants.padding24),
                 TextFormField(
-                    controller: _contentController,
-                    decoration: const InputDecoration(
-                      hintText: 'Content...',
-                    ),
-                    validator: _validateValue),
+                  controller: _contentController,
+                  decoration: const InputDecoration(
+                    hintText: 'Content...',
+                  ),
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  maxLength: Constants.MAX_LENGHT_TEXT_CONTENT,
+                  validator: _validateValue,
+                ),
                 const SizedBox(height: Constants.padding24),
                 PriorityDropdown(
                   selectedPriority: _selectedPriority,
@@ -106,10 +113,12 @@ class _EditItemPageState extends State<EditItemPage> {
                   },
                 ),
                 const SizedBox(height: 20),
-                CustomFloatingButton(
-                  onPressed: _validateToDoItem,
-                  buttonText: ('Save Changes'),
-                  backgroundColor: Pallete.gradient3,
+                ButtonWrapperOne(
+                  child: CustomFloatingButton(
+                    onPressed: _validateToDoItem,
+                    buttonText: ('Save Changes'),
+                    backgroundColor: Colors.transparent,
+                  ),
                 ),
               ],
             ),

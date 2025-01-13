@@ -29,12 +29,14 @@ TextTheme getTextTheme(Color defaultTextColor) {
       height: 1.25,
       fontWeight: FontWeight.w700,
       color: defaultTextColor,
+        fontFamily: AppFontFamily.orbitron
     ),
     headlineSmall: TextStyle(
       fontSize: 19,
       height: 1.25,
       fontWeight: FontWeight.w700,
       color: defaultTextColor,
+        fontFamily: AppFontFamily.orbitron
     ),
     titleLarge: TextStyle(
       fontSize: 18,
@@ -43,39 +45,42 @@ TextTheme getTextTheme(Color defaultTextColor) {
       color: defaultTextColor,
     ),
     titleMedium: TextStyle(
-      fontSize: 16,
+      fontSize: 18,
       height: 1.25,
       fontWeight: FontWeight.w400,
       color: defaultTextColor,
     ),
     bodyMedium: TextStyle(
-      fontSize: 14,
+      fontSize: 16,
       height: 1.25,
       fontWeight: FontWeight.w400,
       color: defaultTextColor,
     ),
     bodySmall: TextStyle(
-      fontSize: 13,
+      fontSize: 14,
       height: 1.2,
       fontWeight: FontWeight.w400,
       color: defaultTextColor,
     ),
     labelLarge: TextStyle(
+      fontSize: 14,
+      height: 1.2,
+      fontWeight: FontWeight.w400,
+      color: defaultTextColor,
+      fontFamily: AppFontFamily.suse
+    ),
+    labelMedium: TextStyle(
       fontSize: 12,
       height: 1.2,
       fontWeight: FontWeight.w400,
       color: defaultTextColor,
-    ),
-    labelMedium: TextStyle(
-      fontSize: 11,
-      height: 1.2,
-      fontWeight: FontWeight.w400,
-      color: defaultTextColor,
+        fontFamily: AppFontFamily.suse
     ),
     labelSmall: TextStyle(
       fontSize: 10,
       fontWeight: FontWeight.w400,
       color: defaultTextColor,
+        fontFamily: AppFontFamily.suse
     ),
   );
 }

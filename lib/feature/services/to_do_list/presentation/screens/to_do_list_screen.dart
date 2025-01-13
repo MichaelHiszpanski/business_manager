@@ -2,6 +2,7 @@ import 'package:business_manager/core/helpers/date_format_helper.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/widgets/bottom_bar.dart';
+import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/core/widgets/filter_menu/filter_menu_to_do_list.dart';
 import 'package:business_manager/core/enums/fliter_menu_to_do_list_enum.dart';
@@ -114,14 +115,17 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 60.0),
-        child: CustomFloatingActionButton(
-          icon: Icons.add,
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => AddItemPage()),
-            );
-          },
-          heroTag: "hero_to_do_page",
+        child: ButtonWrapperOne(
+          child: CustomFloatingActionButton(
+            icon: Icons.add,
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => AddItemPage()),
+              );
+            },
+            heroTag: "hero_to_do_page",
+            backgroundColor: Colors.transparent,
+          ),
         ),
       ),
     );

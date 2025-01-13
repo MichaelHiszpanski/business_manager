@@ -1,5 +1,9 @@
+import 'package:business_manager/core/screens/informations_screen.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
+import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
+import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/core/enums/piority_level_enum.dart';
@@ -7,6 +11,7 @@ import 'package:business_manager/feature/services/to_do_list/models/to_do_item/t
 import 'package:business_manager/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/widgets/date_picker.dart';
+import 'package:business_manager/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
@@ -44,18 +49,22 @@ class _AddItemPageState extends State<AddItemPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Add ToDo Item'),
+        appBar: CustomAppBar(
+          title: 'Add ToDo Item',
+          onMenuPressed: () {},
         ),
         body: SingleChildScrollView(
           reverse: true,
           child: Padding(
-            padding: const EdgeInsets.all(Constants.padding16),
+            padding: const EdgeInsets.all(Constants.padding32),
             child: Form(
               key: _globalKey,
               child: Column(
                 children: [
-                  const Text('New Event'),
+                  Text(
+                    'New Event',
+                    style: context.text.headlineLarge,
+                  ),
                   TextFormField(
                     controller: _titleController,
                     decoration: const InputDecoration(
@@ -66,13 +75,15 @@ class _AddItemPageState extends State<AddItemPage> {
                   ),
                   const SizedBox(height: Constants.padding24),
                   TextFormField(
-                      controller: _contentController,
-                      decoration: const InputDecoration(
-                        hintText: 'Content...',
-                      ),
-                      maxLines: null,
-                      maxLength: Constants.MAX_LENGHT_TEXT_CONTENT,
-                      validator: _validateValue),
+                    controller: _contentController,
+                    decoration: const InputDecoration(
+                      hintText: 'Content...',
+                    ),
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,
+                    maxLength: Constants.MAX_LENGHT_TEXT_CONTENT,
+                    validator: _validateValue,
+                  ),
                   const SizedBox(height: Constants.padding24),
                   PriorityDropdown(
                     selectedPriority: _prioritySelected,
@@ -92,10 +103,12 @@ class _AddItemPageState extends State<AddItemPage> {
                     },
                   ),
                   const SizedBox(height: Constants.padding24),
-                  CustomFloatingButton(
-                    onPressed: _validateToDoItem,
-                    buttonText: "Add ToDo",
-                    backgroundColor: Pallete.gradient3,
+                  ButtonWrapperOne(
+                    child: CustomFloatingButton(
+                      onPressed: _validateToDoItem,
+                      buttonText: "Add ToDo",
+                      backgroundColor: Colors.transparent,
+                    ),
                   ),
                 ],
               ),

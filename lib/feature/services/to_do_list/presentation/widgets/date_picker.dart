@@ -1,5 +1,6 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
 import 'package:business_manager/core/theme/colors.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +48,7 @@ class _DatePickerState extends State<DatePicker> {
           _expiredDateSelected == null
               ? 'No Date Selected! ${_expiredDateSelected ?? ""}'
               : 'Selected: ${DateFormatHelper.dateFomrat(_expiredDateSelected)}',
-          style: const TextStyle(color: Colors.black54),
+          style: context.text.titleMedium,
         ),
         const SizedBox(height: 10),
         CustomFloatingButton(

@@ -22,7 +22,7 @@ class CustomFloatingActionButton extends StatelessWidget {
       heroTag: heroTag,
       onPressed: onPressed,
       backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
-      child: Icon(icon, color: iconColor ?? Colors.white),
+      child: Icon(icon, color: iconColor ?? Colors.white,size: 34,),
     );
   }
 }
