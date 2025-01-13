@@ -4,14 +4,15 @@ import 'package:business_manager/core/storage_hive/hive_register_adapter.dart';
 import 'package:business_manager/core/theme/app_theme.dart';
 import 'package:business_manager/home_page.dart';
 import 'package:business_manager/observer.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
+import 'core/supabase/supabase_config.dart';
 import 'core/tools/flutter_helper.dart';
 
 Future<void> main() async {
@@ -21,7 +22,11 @@ Future<void> main() async {
 
   await HiveRegisterAdapter.register();
 
-  await Firebase.initializeApp();
+
+  await Supabase.initialize(
+    url: SupabaseConfig.supabaseUrl,
+    anonKey: SupabaseConfig.supabaseAnonKey,
+  );
 
   Bloc.observer = AppBlocObserver();
 

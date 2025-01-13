@@ -148,7 +148,7 @@ class PdfTemplateOne {
                 style: pw.TextStyle(fontSize: 16),
               ),
               pw.Text(
-                "Payment is due within ${pdfData.paymentDueDays} days.",
+                " ${pdfData.paymentDueDays}.",
                 style: pw.TextStyle(
                   fontSize: 12,
                   fontStyle: pw.FontStyle.italic,

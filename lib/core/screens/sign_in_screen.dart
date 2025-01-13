@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/main_utils/main_bloc/main_bloc.dart';
 import 'package:business_manager/core/theme/colors.dart';
@@ -8,10 +9,11 @@ import 'package:business_manager/core/widgets/outlined_text_field/outlined_text_
 import 'package:business_manager/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+@RoutePage()
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
@@ -20,39 +22,61 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  String? _errorMessage;
+  bool _isLoading = false;
 
-  Future<void> _signInWithEmailAndPassword() async {
+
+  Future<void> _signInWithSupabase() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
     try {
-      final UserCredential userCredential =
-          await _auth.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+      final response = await Supabase.instance.client.auth.signInWithPassword(
+        email: email,
+        password: password,
       );
-      final User? user = userCredential.user;
 
-      if (user != null) {
-        String? authToken = await user.getIdToken();
+      final user = response.user;
 
-        if (mounted) {
-          context
-              .read<MainBloc>()
-              .add(UpdateAuthToken(authToken: authToken ?? ""));
+      if (user == null) {
 
-          MainApp.navigatorKey.currentState!.pushNamedAndRemoveUntil(
-            AppRoutes.homePage,
-            (Route<dynamic> route) => false,
-          );
-        }
+        setState(() {
+          _errorMessage = "Failed to sign in. Please check your credentials.";
+        });
+        return;
       }
-    } catch (e) {
+
+      final authToken = Supabase.instance.client.auth.currentSession?.accessToken;
+
+      if (authToken != null && mounted) {
+        context.read<MainBloc>().add(UpdateAuthToken(authToken: authToken));
+        MainApp.navigatorKey.currentState!.pushNamedAndRemoveUntil(
+          AppRoutes.homePage,
+              (Route<dynamic> route) => false,
+        );
+      }
+    } catch (error) {
       if (kDebugMode) {
-        print("Error SignIn with Email and Password: $e");
+        print('Error signing in with Supabase: $error');
       }
+      setState(() {
+        _errorMessage = error.toString();
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
+
 
   Future<void> _launchURL() async {
     final Uri url =
@@ -104,7 +128,8 @@ class _SignInScreenState extends State<SignInScreen> {
                 ],
               ),
               child: ElevatedButton(
-                onPressed: () async => await _signInWithEmailAndPassword(),
+
+                onPressed: _isLoading ? null : _signInWithSupabase,
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(Pallete.gradient1),
                 ),

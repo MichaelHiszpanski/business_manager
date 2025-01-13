@@ -42,6 +42,8 @@ class InvoiceManagerBloc
         HiveClientDetailsProperties.TO_CLIENT_DETAILS_DATA_BOX);
     Box boxItems = await Hive.openBox(
         HiveInvoiceItemsProperties.TO_INVOICE_ITEMS_DATA_BOX);
+    Box boxBankDetails =
+        await Hive.openBox(HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_BOX);
 
     List<dynamic>? getExistingBusinessHiveData = await boxBusiness
         .get(HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY);
@@ -52,9 +54,13 @@ class InvoiceManagerBloc
     List<dynamic>? getExistingItemsHiveData = await boxItems
         .get(HiveInvoiceItemsProperties.TO_INVOICE_ITEMS_DATA_KEY);
 
+    List<dynamic>? getExistingBankDetailsHiveData = await boxBankDetails
+        .get(HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_KEY);
+
     _businessCurrentList.clear();
     _clientCurrentList.clear();
     _invoiceItemsCurrentList.clear();
+    _bankCurrentList.clear();
 
     if (getExistingBusinessHiveData != null) {
       _businessCurrentList.addAll(
@@ -97,6 +103,18 @@ class InvoiceManagerBloc
                 quantity: hiveData.quantity,
                 itemPrice: hiveData.itemPrice,
                 totalItems: hiveData.totalItems,
+              ),
+            ),
+      );
+    }
+
+    if (getExistingBankDetailsHiveData != null) {
+      _bankCurrentList.addAll(
+        getExistingBankDetailsHiveData.cast<BankDetailsHive>().map(
+              (hiveData) => BankDetailsModel(
+                bankName: hiveData.bankName,
+                sortCode: hiveData.sortCode,
+                accountNo: hiveData.accountNo,
               ),
             ),
       );

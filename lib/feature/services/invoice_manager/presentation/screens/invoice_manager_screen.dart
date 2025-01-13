@@ -149,7 +149,17 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       ),
       body: Container(
         height: double.infinity,
-        decoration: BoxDecoration(color: Pallete.colorTwo.withOpacity(0.25)),
+        // decoration: BoxDecoration(color: Pallete.colorTwo.withOpacity(0.25)),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.white,
+              Pallete.colorOne.withOpacity(0.75),
+            ],
+            begin: Alignment.bottomLeft,
+            end: Alignment.topCenter,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
           child: Stepper(
