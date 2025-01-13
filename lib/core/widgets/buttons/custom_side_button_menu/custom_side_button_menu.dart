@@ -122,7 +122,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
               color: Colors.orange[400] ?? Colors.orange,
             ),
             Align(
-              alignment: Alignment.bottomCenter, // Alignment.center,
+              alignment: Alignment.bottomCenter,
               child: Transform.translate(
                 offset: const Offset(0.0, 0.0),
                 child: Transform.rotate(
@@ -133,7 +133,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                     height: toggleButton ? 200.0 : 160.0,
                     width: toggleButton ? 200.0 : 160.0,
                     decoration: BoxDecoration(
-                      color: Colors.transparent, //blue[600],
+                      color: Colors.transparent,
                       borderRadius: BorderRadius.circular(200.0),
                       boxShadow: [
                         BoxShadow(
@@ -170,8 +170,6 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
         ),
       ),
     );
-    //   ),
-    // );
   }
 
   void _onTap(int iconIndex) {
@@ -200,7 +198,8 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
 
         break;
       case 2:
-        MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.signIn);
+        MainApp.navigatorKey.currentState!
+            .pushNamed(AppRoutes.employeeManagementScreen);
 
         break;
       case 3:

@@ -1,6 +1,7 @@
 import 'package:business_manager/core/screens/informations_screen.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/screens/sign_in_screen.dart';
+import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_management_screen.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/screens/add_business_owner_screen.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/screens/invoice_manager_screen.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/screens/add_item_page.dart';
@@ -35,6 +36,10 @@ class AppRoutes {
   static const String addBusinessOwnerScreen =
       '/services/invoice_manager/presentation/screens/add_business_owner_screen.dart';
 
+  //Employee Management
+  static const String employeeManagementScreen =
+      '/services/employee_management/presentation/screens/employee_management_screen.dart';
+
   static final routes = <String, WidgetBuilder>{
     homePage: (context) => const HomePage(title: "Home Page"),
     toDoPage: (context) => const ToDoListScreen(),
@@ -48,5 +53,6 @@ class AppRoutes {
     invoiceManagerScreen: (context) => const InvoiceManagerScreen(),
     informationScreen: (context) => const InformationsScreen(),
     addBusinessOwnerScreen: (context) => const AddBusinessOwnerScreen(),
+    employeeManagementScreen: (context) => const EmployeeManagementScreen(),
   };
 }
