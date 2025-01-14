@@ -5,11 +5,12 @@ import 'app_font_family.dart';
 
 TextTheme getTextTheme(Color defaultTextColor) {
   return TextTheme(
-    displayMedium: TextStyle(
-      fontSize: 24,
+    displayMedium: const TextStyle(
+      fontSize: 22,
       height: 1.3,
-      fontWeight: FontWeight.w500,
-      color: defaultTextColor,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      fontFamily: AppFontFamily.orbitron,
     ),
     displaySmall: TextStyle(
       fontSize: 18,
@@ -17,26 +18,26 @@ TextTheme getTextTheme(Color defaultTextColor) {
       fontWeight: FontWeight.w500,
       color: defaultTextColor,
     ),
-    headlineLarge:const TextStyle(
+    headlineLarge: const TextStyle(
       fontSize: 32,
       height: 1.2,
-      fontWeight:FontWeight.w800,
-      color:Pallete.colorOne,
-      fontFamily: AppFontFamily.orbitron
+      fontWeight: FontWeight.w800,
+      color: Pallete.colorOne,
+      fontFamily: AppFontFamily.orbitron,
     ),
     headlineMedium: TextStyle(
       fontSize: 20,
       height: 1.25,
       fontWeight: FontWeight.w700,
       color: defaultTextColor,
-        fontFamily: AppFontFamily.orbitron
+      fontFamily: AppFontFamily.orbitron,
     ),
     headlineSmall: TextStyle(
       fontSize: 19,
       height: 1.25,
       fontWeight: FontWeight.w700,
       color: defaultTextColor,
-        fontFamily: AppFontFamily.orbitron
+      fontFamily: AppFontFamily.orbitron,
     ),
     titleLarge: TextStyle(
       fontSize: 18,
@@ -67,20 +68,20 @@ TextTheme getTextTheme(Color defaultTextColor) {
       height: 1.2,
       fontWeight: FontWeight.w400,
       color: defaultTextColor,
-      fontFamily: AppFontFamily.suse
+      fontFamily: AppFontFamily.suse,
     ),
     labelMedium: TextStyle(
       fontSize: 12,
       height: 1.2,
       fontWeight: FontWeight.w400,
       color: defaultTextColor,
-        fontFamily: AppFontFamily.suse
+      fontFamily: AppFontFamily.suse,
     ),
     labelSmall: TextStyle(
       fontSize: 10,
       fontWeight: FontWeight.w400,
       color: defaultTextColor,
-        fontFamily: AppFontFamily.suse
+      fontFamily: AppFontFamily.suse,
     ),
   );
 }

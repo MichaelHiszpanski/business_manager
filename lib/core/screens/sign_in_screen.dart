@@ -4,6 +4,7 @@ import 'package:business_manager/core/main_utils/main_bloc/main_bloc.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
+import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/core/widgets/outlined_text_field/outlined_text_field.dart';
 import 'package:business_manager/main.dart';
@@ -22,12 +23,10 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String? _errorMessage;
   bool _isLoading = false;
-
 
   Future<void> _signInWithSupabase() async {
     setState(() {
@@ -47,20 +46,20 @@ class _SignInScreenState extends State<SignInScreen> {
       final user = response.user;
 
       if (user == null) {
-
         setState(() {
           _errorMessage = "Failed to sign in. Please check your credentials.";
         });
         return;
       }
 
-      final authToken = Supabase.instance.client.auth.currentSession?.accessToken;
+      final authToken =
+          Supabase.instance.client.auth.currentSession?.accessToken;
 
       if (authToken != null && mounted) {
         context.read<MainBloc>().add(UpdateAuthToken(authToken: authToken));
         MainApp.navigatorKey.currentState!.pushNamedAndRemoveUntil(
           AppRoutes.homePage,
-              (Route<dynamic> route) => false,
+          (Route<dynamic> route) => false,
         );
       }
     } catch (error) {
@@ -76,7 +75,6 @@ class _SignInScreenState extends State<SignInScreen> {
       });
     }
   }
-
 
   Future<void> _launchURL() async {
     final Uri url =
@@ -127,17 +125,16 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ],
               ),
-              child: ElevatedButton(
-
-                onPressed: _isLoading ? null : _signInWithSupabase,
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Pallete.gradient1),
-                ),
-                child: Text(
-                  context.strings.sign_in_with_email,
-                  style: const TextStyle(
-                    color: Pallete.whiteColor,
-                    fontSize: 20,
+              child: ButtonWrapperOne(
+                child: ElevatedButton(
+                  onPressed: _isLoading ? null : _signInWithSupabase,
+                  style: ButtonStyle(
+                    backgroundColor:
+                        WidgetStateProperty.all(Colors.transparent),
+                  ),
+                  child: Text(
+                    context.strings.sign_in_with_email,
+                    style: context.text.displayMedium,
                   ),
                 ),
               ),
@@ -164,10 +161,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 child: Text(
                   context.strings.sign_up,
-                  style: const TextStyle(
-                    color: Pallete.whiteColor,
-                    fontSize: 20,
-                  ),
+                  style: context.text.displayMedium,
                 ),
               ),
             ),

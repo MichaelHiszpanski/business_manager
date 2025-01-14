@@ -1,6 +1,8 @@
 import 'package:business_manager/core/screens/informations_screen.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/screens/sign_in_screen.dart';
+import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_add_new_screen.dart';
+import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_details_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_management_screen.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/screens/add_business_owner_screen.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/screens/invoice_manager_screen.dart';
@@ -39,6 +41,10 @@ class AppRoutes {
   //Employee Management
   static const String employeeManagementScreen =
       '/services/employee_management/presentation/screens/employee_management_screen.dart';
+  static const String employeeDetailsScreen =
+      '/services/employee_management/presentation/screens/employee_details_screen.dart';
+  static const String employeeAddNewScreen =
+      '/services/employee_management/presentation/screens/employee_add_new_screen.dart';
 
   static final routes = <String, WidgetBuilder>{
     homePage: (context) => const HomePage(title: "Home Page"),
@@ -54,5 +60,7 @@ class AppRoutes {
     informationScreen: (context) => const InformationsScreen(),
     addBusinessOwnerScreen: (context) => const AddBusinessOwnerScreen(),
     employeeManagementScreen: (context) => const EmployeeManagementScreen(),
+    employeeDetailsScreen: (context) => const EmployeeDetailsScreen(),
+    employeeAddNewScreen: (context) => const EmployeeAddNewScreen(),
   };
 }
