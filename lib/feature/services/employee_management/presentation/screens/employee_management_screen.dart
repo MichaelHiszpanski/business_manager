@@ -47,6 +47,17 @@ class _EmployeeManagementScreenState extends State<EmployeeManagementScreen> {
     );
   }
 
+  void handleNewEmployee() {
+    Navigator.of(context).pushNamed(
+      AppRoutes.employeeAddNewScreen,
+      // arguments: {'index': index, 'item': items[index]},
+    );
+  }
+
+  void handleDeleteEmployee() {
+    print("Delete Employee button pressed");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,14 +69,19 @@ class _EmployeeManagementScreenState extends State<EmployeeManagementScreen> {
         children: [
           Row(
             children: [
-              EmployeeSidePanel(),
-              ChartContainer(),
+              EmployeeSidePanel(
+                onNewEmployeePressed: handleNewEmployee,
+                // onDeleteEmployeePressed: handleDeleteEmployee,
+              ),
+            const  ChartContainer(
+                employeesNumber: 18,
+              ),
             ],
           ),
           Container(
             key: const Key("wheellKEy"),
             height: MediaQuery.of(context).size.height * 0.4,
-            decoration: const BoxDecoration(color: Pallete.gradient2),
+            decoration: const BoxDecoration(color: Pallete.colorTwo),
             child: ListWheelScrollView.useDelegate(
               itemExtent: 50,
               useMagnifier: true,
@@ -80,7 +96,10 @@ class _EmployeeManagementScreenState extends State<EmployeeManagementScreen> {
               childDelegate: ListWheelChildBuilderDelegate(
                 builder: (context, index) {
                   if (index < 0 || index >= items.length) {
-                    return null;
+                    return Text(
+                      "No Employee",
+                      style: context.text.titleMedium,
+                    );
                   }
                   return InkWell(
                     onTap: () {
@@ -97,7 +116,7 @@ class _EmployeeManagementScreenState extends State<EmployeeManagementScreen> {
                           fontSize: 18,
                           color: selectedIndex == index
                               ? Colors.white
-                              : Colors.black,
+                              : Colors.white,
                         ),
                       ),
                     ),

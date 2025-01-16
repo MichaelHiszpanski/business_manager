@@ -2,50 +2,69 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class ChartContainer extends StatelessWidget {
-  const ChartContainer({super.key});
+  final double? employeesNumber;
+  final double? taskNumber;
+  final double? taskDoneNumber;
+  final double? otherNumber;
+
+  const ChartContainer({
+    super.key,
+    this.employeesNumber,
+    this.taskNumber,
+    this.taskDoneNumber,
+    this.otherNumber,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return  Flexible(
+    return Flexible(
       child: Container(
         height: MediaQuery.of(context).size.height * 0.4,
         color: Colors.transparent,
         padding: const EdgeInsets.all(16.0),
         child: BarChart(
           BarChartData(
-            gridData: FlGridData(show: false),
-            // Disable grid lines
-            titlesData: FlTitlesData(show: false),
-            // Disable axis titles
+            gridData: const FlGridData(show: false),
+            titlesData: const FlTitlesData(show: false),
             borderData: FlBorderData(show: false),
-            // Disable border
             barGroups: [
               BarChartGroupData(
                 x: 0,
                 barRods: [
                   BarChartRodData(
-                      toY: 8, color: Colors.blue, width: 16),
+                    toY: employeesNumber ?? 0.1,
+                    color: Colors.blue,
+                    width: 16,
+                  ),
                 ],
               ),
               BarChartGroupData(
                 x: 1,
                 barRods: [
                   BarChartRodData(
-                      toY: 10, color: Colors.green, width: 16),
+                    toY: taskNumber ?? 0.1,
+                    color: Colors.green,
+                    width: 16,
+                  ),
                 ],
               ),
               BarChartGroupData(
                 x: 2,
                 barRods: [
                   BarChartRodData(
-                      toY: 5, color: Colors.orange, width: 16),
+                      toY: taskDoneNumber ?? 0.1,
+                      color: Colors.orange,
+                      width: 16),
                 ],
               ),
               BarChartGroupData(
                 x: 3,
                 barRods: [
                   BarChartRodData(
-                      toY: 12, color: Colors.red, width: 16),
+                    toY: otherNumber ?? 0.1,
+                    color: Colors.red,
+                    width: 16,
+                  ),
                 ],
               ),
             ],
@@ -55,7 +74,6 @@ class ChartContainer extends StatelessWidget {
     );
   }
 }
-
 
 // Flexible(
 //   child: Container(

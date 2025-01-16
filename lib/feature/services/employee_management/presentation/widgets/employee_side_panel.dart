@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class EmployeeSidePanel extends StatelessWidget {
-  const EmployeeSidePanel({super.key});
+  final VoidCallback onNewEmployeePressed;
+  // final VoidCallback onDeleteEmployeePressed;
+
+  const EmployeeSidePanel({
+    super.key,
+    required this.onNewEmployeePressed,
+    // required this.onDeleteEmployeePressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -10,9 +17,16 @@ class EmployeeSidePanel extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
         children: [
-          Text("New Employee"),
-          Spacer(),
-          Text("Delete Employee")
+          const Spacer(),
+          TextButton(
+            onPressed: onNewEmployeePressed,
+            child: const Text("New Employee"),
+          ),
+          const Spacer(),
+          // TextButton(
+          //   onPressed: onDeleteEmployeePressed,
+          //   child: const Text("Delete Employee"),
+          // ),
         ],
       ),
     );
