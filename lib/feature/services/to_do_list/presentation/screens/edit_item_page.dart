@@ -7,7 +7,7 @@ import 'package:business_manager/core/enums/piority_level_enum.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:business_manager/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
-import 'package:business_manager/feature/services/to_do_list/presentation/widgets/date_picker.dart';
+import 'package:business_manager/core/widgets/date_picker/date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

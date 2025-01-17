@@ -23,6 +23,35 @@ class EmployeeManagementBloc
 
     on<MarkTaskAsDone>(_onMarkAsDoneTask);
     on<CheckForOverdueTasks>((event, emit) {});
+    on<UpdateEmployeeTask>((event, emit) async {
+      final employee = _employeeList.firstWhere(
+            (e) => e.employeeID == event.employeeID,
+        orElse: () => throw StateError("Employee not found"),
+      );
+
+      // Update the task within the employee's task list
+      final updatedTasks = employee.employeeTaskList.map((task) {
+        if (task.taskTitle == event.updatedTask.taskTitle) {
+          return event.updatedTask;
+        }
+        return task;
+      }).toList();
+
+      // Create an updated employee with the modified task list
+      final updatedEmployee = EmployeeModel(
+        employeeID: employee.employeeID,
+        employeeFirstName: employee.employeeFirstName,
+        employeeLastName: employee.employeeLastName,
+        employeeEmail: employee.employeeEmail,
+        employeeRole: employee.employeeRole,
+        employeeHourlyRate: employee.employeeHourlyRate,
+        employeeDateJoined: employee.employeeDateJoined,
+        employeeTaskList: updatedTasks,
+      );
+
+      // Emit the updated state
+      add(UpdateEmployee(updatedEmployee: updatedEmployee));
+    });
   }
 
   Future<void> _onInitialLoad(
@@ -73,13 +102,15 @@ class EmployeeManagementBloc
   }
 
   Future<void> _onAddEmployeeTask(
-    AddEmployeeTask event,
-    Emitter<EmployeeManagementState> emit,
-  ) async {
+      AddEmployeeTask event,
+      Emitter<EmployeeManagementState> emit,
+      ) async {
     final employee = _employeeList.firstWhere(
-        (e) => e.employeeEmail == event.employeeEmail,
-        orElse: () => throw StateError("Employee not found"));
+          (e) => e.employeeID == event.employeeID,
+      orElse: () => throw StateError("Employee not found"),
+    );
     final updatedEmployee = EmployeeModel(
+      employeeID: employee.employeeID,
       employeeFirstName: employee.employeeFirstName,
       employeeLastName: employee.employeeLastName,
       employeeEmail: employee.employeeEmail,
@@ -92,13 +123,15 @@ class EmployeeManagementBloc
   }
 
   Future<void> _onRemoveEmployeeTask(
-    RemoveEmployeeTask event,
-    Emitter<EmployeeManagementState> emit,
-  ) async {
+      RemoveEmployeeTask event,
+      Emitter<EmployeeManagementState> emit,
+      ) async {
     final employee = _employeeList.firstWhere(
-        (e) => e.employeeEmail == event.employeeEmail,
-        orElse: () => throw StateError("Employee not found"));
+          (e) => e.employeeID == event.employeeID,
+      orElse: () => throw StateError("Employee not found"),
+    );
     final updatedEmployee = EmployeeModel(
+      employeeID: employee.employeeID,
       employeeFirstName: employee.employeeFirstName,
       employeeLastName: employee.employeeLastName,
       employeeEmail: employee.employeeEmail,
@@ -112,38 +145,39 @@ class EmployeeManagementBloc
   }
 
   Future<void> _onMarkAsDoneTask(
-    MarkTaskAsDone event,
-    Emitter<EmployeeManagementState> emit,
-  ) async {
+      MarkTaskAsDone event,
+      Emitter<EmployeeManagementState> emit,
+      ) async {
     final employee = _employeeList.firstWhere(
-        (e) => e.employeeEmail == event.employeeEmail,
-        orElse: () => throw StateError("Employee not found"));
-    if (employee != null) {
-      final updatedTasks = employee.employeeTaskList.map((task) {
-        if (task.taskTitle == event.taskTitle) {
-          return EmployeeTaskModel(
-            taskTitle: task.taskTitle,
-            taskDescription: task.taskDescription,
-            taskDuration: task.taskDuration,
-            employeeDateJoined: task.employeeDateJoined,
-            employeeCheckInTime: task.employeeCheckInTime,
-            employeeCheckOutTime: task.employeeCheckOutTime,
-            isDone: true,
-          );
-        }
-        return task;
-      }).toList();
+          (e) => e.employeeID == event.employeeID,
+      orElse: () => throw StateError("Employee not found"),
+    );
+    final updatedTasks = employee.employeeTaskList.map((task) {
+      if (task.taskTitle == event.taskTitle) {
+        return EmployeeTaskModel(
+          taskTitle: task.taskTitle,
+          taskDescription: task.taskDescription,
+          taskDuration: task.taskDuration,
 
-      final updatedEmployee = EmployeeModel(
-        employeeFirstName: employee.employeeFirstName,
-        employeeLastName: employee.employeeLastName,
-        employeeEmail: employee.employeeEmail,
-        employeeRole: employee.employeeRole,
-        employeeHourlyRate: employee.employeeHourlyRate,
-        employeeDateJoined: employee.employeeDateJoined,
-        employeeTaskList: updatedTasks,
-      );
-      add(UpdateEmployee(updatedEmployee: updatedEmployee));
-    }
+          employeeCheckInTime: task.employeeCheckInTime,
+          employeeCheckOutTime: task.employeeCheckOutTime,
+          isDone: true,
+        );
+      }
+      return task;
+    }).toList();
+
+    final updatedEmployee = EmployeeModel(
+      employeeID: employee.employeeID,
+      employeeFirstName: employee.employeeFirstName,
+      employeeLastName: employee.employeeLastName,
+      employeeEmail: employee.employeeEmail,
+      employeeRole: employee.employeeRole,
+      employeeHourlyRate: employee.employeeHourlyRate,
+      employeeDateJoined: employee.employeeDateJoined,
+      employeeTaskList: updatedTasks,
+    );
+    add(UpdateEmployee(updatedEmployee: updatedEmployee));
   }
+
 }

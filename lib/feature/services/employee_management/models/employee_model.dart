@@ -2,6 +2,7 @@ import 'package:business_manager/feature/services/employee_management/models/emp
 import 'package:equatable/equatable.dart';
 
 class EmployeeModel extends Equatable {
+  String? employeeID;
   final String employeeFirstName;
   final String employeeLastName;
   final String employeeEmail;
@@ -10,7 +11,8 @@ class EmployeeModel extends Equatable {
   final DateTime employeeDateJoined;
   final List<EmployeeTaskModel> employeeTaskList;
 
-  const EmployeeModel({
+  EmployeeModel({
+    this.employeeID,
     required this.employeeFirstName,
     required this.employeeLastName,
     required this.employeeEmail,
@@ -25,6 +27,7 @@ class EmployeeModel extends Equatable {
   @override
   @override
   List<Object?> get props => [
+        employeeID,
         employeeFirstName,
         employeeLastName,
         employeeEmail,

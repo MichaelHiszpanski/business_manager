@@ -1,19 +1,21 @@
 import 'package:equatable/equatable.dart';
 
 class EmployeeTaskModel extends Equatable {
+  String? taskID;
   final String taskTitle;
   final String taskDescription;
   final double taskDuration;
-  final DateTime employeeDateJoined;
+
   final DateTime? employeeCheckInTime;
   final DateTime? employeeCheckOutTime;
   final bool isDone;
 
-  const EmployeeTaskModel({
+  EmployeeTaskModel({
+    this.taskID,
     required this.taskTitle,
     required this.taskDescription,
     required this.taskDuration,
-    required this.employeeDateJoined,
+
     this.employeeCheckInTime,
     this.employeeCheckOutTime,
     required this.isDone,
@@ -27,7 +29,7 @@ class EmployeeTaskModel extends Equatable {
         taskTitle,
         taskDescription,
         taskDuration,
-        employeeDateJoined,
+
         employeeCheckInTime,
         employeeCheckOutTime,
         isDone

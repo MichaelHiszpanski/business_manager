@@ -54,8 +54,8 @@ class AppRoutes {
     loadAppDataScreen: (context) => const LoadAppDataScreen(),
     workManagerScreen: (context) => const WorkManagerScreen(),
     addNewEventScreen: (context) => const AddNewEventScreen(
-          isLastDateVisible: true,
-        ),
+      isLastDateVisible: true,
+    ),
     invoiceManagerScreen: (context) => const InvoiceManagerScreen(),
     informationScreen: (context) => const InformationsScreen(),
     addBusinessOwnerScreen: (context) => const AddBusinessOwnerScreen(),

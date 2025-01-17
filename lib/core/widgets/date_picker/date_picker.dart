@@ -7,9 +7,13 @@ import 'package:flutter/material.dart';
 class DatePicker extends StatefulWidget {
   final ValueChanged<DateTime?> onDateSelected;
   final DateTime? selectedDate;
+  String? buttonText;
 
-  const DatePicker(
-      {super.key, required this.onDateSelected, this.selectedDate});
+  DatePicker(
+      {super.key,
+      required this.onDateSelected,
+      this.selectedDate,
+      this.buttonText});
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -53,7 +57,7 @@ class _DatePickerState extends State<DatePicker> {
         const SizedBox(height: 10),
         CustomFloatingButton(
           onPressed: () => _datePicker(context),
-          buttonText: 'Pick Expiration Date',
+          buttonText: widget.buttonText ?? 'Pick Expiration Date',
           backgroundColor: Pallete.gradient3,
         ),
       ],
