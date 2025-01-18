@@ -1,4 +1,5 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_task_model.dart';
@@ -8,14 +9,14 @@ class TaskDetailsDialog extends StatefulWidget {
   final EmployeeTaskModel task;
   final String employeeID;
   final VoidCallback onDelete;
-  final VoidCallback onSave;
+  // final VoidCallback onSave;
 
   const TaskDetailsDialog({
     Key? key,
     required this.task,
     required this.employeeID,
     required this.onDelete,
-    required this.onSave,
+    // required this.onSave,
   }) : super(key: key);
 
   @override
@@ -41,6 +42,7 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
       taskTitle: widget.task.taskTitle,
       taskDescription: widget.task.taskDescription,
       taskDuration: widget.task.taskDuration,
+      employeeID: widget.employeeID,
       employeeCheckInTime: widget.task.employeeCheckInTime,
       employeeCheckOutTime: widget.task.employeeCheckOutTime,
       isDone: _isCompleted,
@@ -62,21 +64,34 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Description: ${widget.task.taskDescription}"),
+          Text(
+            "Description: ${widget.task.taskDescription}",
+            style: context.text.titleSmall,
+          ),
           const SizedBox(height: 8),
-          Text("Duration: ${widget.task.taskDuration} hours"),
+          Text(
+            "Duration: ${widget.task.taskDuration} hours",
+            style: context.text.labelLarge,
+          ),
           const SizedBox(height: 8),
           if (widget.task.employeeCheckInTime != null)
             Text(
-                "Check-In Time: ${DateFormatHelper.dateFomrat(widget.task.employeeCheckInTime)}"),
+              "Check-In Time: ${DateFormatHelper.dateFomrat(widget.task.employeeCheckInTime)}",
+              style: context.text.labelLarge,
+            ),
           if (widget.task.employeeCheckOutTime != null)
             Text(
-                "Check-Out Time: ${DateFormatHelper.dateFomrat(widget.task.employeeCheckOutTime)}"),
+              "Check-Out Time: ${DateFormatHelper.dateFomrat(widget.task.employeeCheckOutTime)}",
+              style: context.text.labelLarge,
+            ),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Status: ${_isCompleted ? 'Completed' : 'Pending'}"),
+              Text(
+                "Status: ${_isCompleted ? 'Completed' : 'Pending'}",
+                style: context.text.titleSmall,
+              ),
               Switch(
                 value: _isCompleted,
                 onChanged: (value) {
@@ -97,12 +112,9 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Cancel"),
+          child: const Text("Close"),
         ),
-        TextButton(
-          onPressed: widget.onSave,
-          child: const Text("Save"),
-        ),
+
       ],
     );
   }

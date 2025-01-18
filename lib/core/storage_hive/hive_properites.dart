@@ -8,6 +8,8 @@ class HiveProperties {
   static const int clientDetailsID = 6;
   static const int invoiceItemsID = 7;
   static const int bankDetailsID = 8;
+  static const int employeeModelID = 9;
+  static const int employeeTaskModelID = 10;
 }
 
 class HiveToDoListProperties {

@@ -77,7 +77,7 @@ class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
             decoration: const InputDecoration(labelText: 'Employee hourly rate'),
             validator: _validateField,
           ),
-          const SizedBox(height: Constants.padding16),
+          const SizedBox(height: Constants.padding24),
           DatePicker(
             onDateSelected: (selectedDate) {
               setState(() {

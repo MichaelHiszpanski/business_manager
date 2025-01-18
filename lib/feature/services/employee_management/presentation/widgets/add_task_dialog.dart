@@ -1,4 +1,6 @@
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
+import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
 import 'package:business_manager/core/widgets/date_picker/date_picker.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_task_model.dart';
@@ -18,6 +20,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   final _taskTitleController = TextEditingController();
   final _taskDescriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final String _error = "Field cannot be empty";
 
   DateTime? _checkInTime;
   DateTime? _checkOutTime;
@@ -35,25 +38,22 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
               TextFormField(
                 controller: _taskTitleController,
                 decoration: const InputDecoration(labelText: "Task Title"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Task title is required";
-                  }
-                  return null;
-                },
+                validator: _validateField,
+                maxLength: 100,
+                minLines: 1,
+                maxLines: 10,
               ),
               TextFormField(
                 controller: _taskDescriptionController,
-                decoration:
-                    const InputDecoration(labelText: "Task Description"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Task description is required";
-                  }
-                  return null;
-                },
+                decoration: const InputDecoration(
+                  labelText: "Task Description",
+                  border: OutlineInputBorder(),
+                ),
+                validator: _validateField,
+                minLines: 1,
+                maxLength: 200,
+                maxLines: 10,
               ),
-              const SizedBox(height: Constants.padding16),
               const SizedBox(height: Constants.padding16),
               DatePicker(
                 onDateSelected: (selectedDate) {
@@ -79,35 +79,61 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Cancel"),
-        ),
         ElevatedButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              final newTask = EmployeeTaskModel(
-                taskTitle: _taskTitleController.text.trim(),
-                taskDescription: _taskDescriptionController.text.trim(),
-                taskDuration: 0.0,
-                employeeCheckInTime: _checkInTime,
-                employeeCheckOutTime: _checkOutTime,
-                isDone: false,
-              );
-
-              context.read<EmployeeManagementBloc>().add(
-                    AddEmployeeTask(
-                      employeeID: widget.employeeID,
-                      task: newTask,
-                    ),
-                  );
-              Navigator.of(context).pop();
-            }
-          },
-          child: const Text("Add"),
+          onPressed: () => Navigator.of(context).pop(),
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all(Colors.red),
+          ),
+          child: Text(
+            "Cancel",
+            style: context.text.bodyMedium,
+          ),
+        ),
+        ButtonWrapperOne(
+          child: ElevatedButton(
+            onPressed: _addEmployeeTask,
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(Colors.transparent),
+              elevation: WidgetStateProperty.all(0),
+            ),
+            child: Text(
+              "Add",
+              style: context.text.bodyMedium,
+            ),
+          ),
         ),
       ],
     );
+  }
+
+  String? _validateField(String? value) {
+    if (value == null || value.isEmpty) {
+      return _error;
+    }
+
+    return null;
+  }
+
+  void _addEmployeeTask() {
+    if (_formKey.currentState!.validate()) {
+      final newTask = EmployeeTaskModel(
+        taskTitle: _taskTitleController.text.trim(),
+        taskDescription: _taskDescriptionController.text.trim(),
+        taskDuration: 0.0,
+        employeeID: widget.employeeID,
+        employeeCheckInTime: _checkInTime,
+        employeeCheckOutTime: _checkOutTime,
+        isDone: false,
+      );
+
+      context.read<EmployeeManagementBloc>().add(
+        AddEmployeeTask(
+          employeeID: widget.employeeID,
+          task: newTask,
+        ),
+      );
+      Navigator.of(context).pop();
+    }
   }
 
   @override

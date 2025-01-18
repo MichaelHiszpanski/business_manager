@@ -53,11 +53,19 @@ TextTheme getTextTheme(Color defaultTextColor) {
       color: defaultTextColor,
       fontFamily: AppFontFamily.orbitron,
     ),
-    bodyMedium: TextStyle(
+    titleSmall: TextStyle(
+      fontSize: 14,
+      height: 1.25,
+      fontWeight: FontWeight.w500,
+      color: defaultTextColor,
+      fontFamily: AppFontFamily.orbitron,
+    ),
+    bodyMedium: const TextStyle(
       fontSize: 16,
       height: 1.25,
-      fontWeight: FontWeight.w400,
-      color: defaultTextColor,
+      fontWeight: FontWeight.bold,
+      fontFamily: AppFontFamily.orbitron,
+      color: Colors.white,
     ),
     bodySmall: TextStyle(
       fontSize: 14,

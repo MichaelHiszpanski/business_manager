@@ -104,8 +104,14 @@ class EmployeeDetailsScreen extends StatelessWidget {
                         );
                       }
 
-                      return SizedBox(
+                      return Container(
                         height: MediaQuery.of(context).size.height * 0.3,
+                        decoration: BoxDecoration(
+                          color: Colors.black87,
+                          borderRadius:
+                              BorderRadius.circular(Constants.padding16),
+                        ),
+                        padding: const EdgeInsets.all(Constants.padding16),
                         child: ListView.builder(
                           itemCount: updatedEmployee.employeeTaskList.length,
                           itemBuilder: (context, index) {
@@ -125,10 +131,10 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                         task.taskTitle,
                                       );
                                     },
-                                    onSave: () {
-                                      _saveTaskDetails(
-                                          context, model.employeeID!, task);
-                                    },
+                                    // onSave: () {
+                                    //   _saveTaskDetails(
+                                    //       context, model.employeeID!, task);
+                                    // },
                                   ),
                                 );
                               },
@@ -140,6 +146,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                     const Icon(
                                       Icons.task,
                                       size: 24,
+                                      color: Colors.white,
                                     ),
                                     const SizedBox(width: Constants.padding8),
                                     Expanded(
@@ -175,7 +182,9 @@ class EmployeeDetailsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: Constants.padding16),
                 CustomFloatingButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _deleteEmployee(context, model.employeeID!);
+                  },
                   buttonText: "Delete Employee",
                   backgroundColor: Colors.red,
                 ),
@@ -209,6 +218,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
       taskTitle: task.taskTitle,
       taskDescription: task.taskDescription,
       taskDuration: task.taskDuration,
+      employeeID: employeeID,
       employeeCheckInTime: task.employeeCheckInTime,
       employeeCheckOutTime: task.employeeCheckOutTime,
       isDone: task.isDone,
@@ -224,6 +234,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Task updated successfully!")),
     );
+    Navigator.of(context).pop();
   }
 
   void _updatedEmployeeDetails(
@@ -234,6 +245,44 @@ class EmployeeDetailsScreen extends StatelessWidget {
       AppRoutes.employeeAddNewScreen,
       arguments: {
         'model': employee,
+      },
+    );
+  }
+
+  void _deleteEmployee(BuildContext context, String employeeID) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            "Confirm Delete",
+            style: TextStyle(color: Colors.red),
+          ),
+          content: const Text(
+            "Are you sure you want to delete this employee?",
+            style: TextStyle(color: Colors.black87),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Cancel"),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              onPressed: () {
+                context.read<EmployeeManagementBloc>().add(
+                      RemoveEmployee(employeeID: employeeID),
+                    );
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                "Delete",
+                style: context.text.bodyMedium,
+              ),
+            ),
+          ],
+        );
       },
     );
   }

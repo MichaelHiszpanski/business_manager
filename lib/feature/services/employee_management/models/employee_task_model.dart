@@ -5,7 +5,7 @@ class EmployeeTaskModel extends Equatable {
   final String taskTitle;
   final String taskDescription;
   final double taskDuration;
-
+  final String employeeID;
   final DateTime? employeeCheckInTime;
   final DateTime? employeeCheckOutTime;
   final bool isDone;
@@ -15,7 +15,7 @@ class EmployeeTaskModel extends Equatable {
     required this.taskTitle,
     required this.taskDescription,
     required this.taskDuration,
-
+    required this.employeeID,
     this.employeeCheckInTime,
     this.employeeCheckOutTime,
     required this.isDone,
@@ -29,7 +29,7 @@ class EmployeeTaskModel extends Equatable {
         taskTitle,
         taskDescription,
         taskDuration,
-
+        employeeID,
         employeeCheckInTime,
         employeeCheckOutTime,
         isDone

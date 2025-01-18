@@ -22,12 +22,12 @@ class AddEmployee extends EmployeeManagementEvent {
 }
 
 class RemoveEmployee extends EmployeeManagementEvent {
-  final String employeeEmail;
+  final String employeeID;
 
-  const RemoveEmployee({required this.employeeEmail});
+  const RemoveEmployee({required this.employeeID});
 
   @override
-  List<Object?> get props => [employeeEmail];
+  List<Object?> get props => [employeeID];
 }
 
 class UpdateEmployee extends EmployeeManagementEvent {

@@ -1,6 +1,7 @@
 import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/feature/services/invoice_manager/bloc/invoice_manager_bloc.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/bank_details_model.dart';
@@ -330,14 +331,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                                   BorderRadius.circular(Constants.padding24),
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             'Continue',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: AppFontFamily.orbitron,
-                              color: Colors.white,
-                            ),
+                            style: context.text.bodyMedium,
                           ),
                         ),
                       ),

@@ -107,6 +107,7 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
                       : "Update Employee",
                   style: context.text.headlineMedium,
                 ),
+                const SizedBox(height: Constants.padding16),
                 EmployeeDetailsInputs(
                   employeeFirstName: _employeeFirstName,
                   employeeLastName: _employeeLastName,
