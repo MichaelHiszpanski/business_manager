@@ -39,9 +39,9 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                      'From: ${DateFormatHelper.dateFomrat(meeting.startDate)}'),
+                      'From: ${DateFormatHelper.dateFormatWithTime(meeting.startDate)}'),
                   Text(
-                      'To: ${DateFormatHelper.dateFomrat(meeting.finishDate)}'),
+                      'To: ${DateFormatHelper.dateFormatWithTime(meeting.finishDate)}'),
                   Text('All Day: ${meeting.isAllDay ? 'Yes' : 'No'}'),
                   Text('Content: ${meeting.eventDescription}'),
                 ],

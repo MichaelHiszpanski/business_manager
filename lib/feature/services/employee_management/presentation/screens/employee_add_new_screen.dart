@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
@@ -79,10 +78,8 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
           .read<EmployeeManagementBloc>()
           .add(UpdateEmployee(updatedEmployee: updatedEmployee));
     }
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      AppRoutes.employeeManagementScreen,
-      (route) => false,
-    );
+
+    Navigator.of(context).pop();
   }
 
   @override

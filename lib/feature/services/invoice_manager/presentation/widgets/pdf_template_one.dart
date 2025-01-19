@@ -51,7 +51,7 @@ class PdfTemplateOne {
                       pw.SizedBox(height: 8),
                       pw.Text(
                           // "Date: ${DateTime.now().toString().split(' ')[0]}"
-                          "Date: ${DateFormatHelper.dateFomrat(pdfData.invoiceDateTimeCreated)}"),
+                          "Date: ${DateFormatHelper.dateFormatWithTime(pdfData.invoiceDateTimeCreated)}"),
                       pw.Text("Invoice #: ${pdfData.invoiceNumber}"),
                     ],
                   ),

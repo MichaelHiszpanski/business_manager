@@ -1,4 +1,5 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
+import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class TaskDetailsDialog extends StatefulWidget {
   final EmployeeTaskModel task;
   final String employeeID;
   final VoidCallback onDelete;
+
   // final VoidCallback onSave;
 
   const TaskDetailsDialog({
@@ -68,21 +70,22 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
             "Description: ${widget.task.taskDescription}",
             style: context.text.titleSmall,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: Constants.padding16),
           Text(
             "Duration: ${widget.task.taskDuration} hours",
             style: context.text.labelLarge,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: Constants.padding16),
           if (widget.task.employeeCheckInTime != null)
             Text(
-              "Check-In Time: ${DateFormatHelper.dateFomrat(widget.task.employeeCheckInTime)}",
-              style: context.text.labelLarge,
+              "Check-In Time: ${DateFormatHelper.dateFormat(widget.task.employeeCheckInTime)}",
+              style: context.text.titleSmall,
             ),
+          const SizedBox(height: Constants.padding16),
           if (widget.task.employeeCheckOutTime != null)
             Text(
-              "Check-Out Time: ${DateFormatHelper.dateFomrat(widget.task.employeeCheckOutTime)}",
-              style: context.text.labelLarge,
+              "Check-Out Time: ${DateFormatHelper.dateFormat(widget.task.employeeCheckOutTime)}",
+              style: context.text.titleSmall,
             ),
           const SizedBox(height: 8),
           Row(
@@ -114,7 +117,10 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
           onPressed: () => Navigator.of(context).pop(),
           child: const Text("Close"),
         ),
-
+        // TextButton(
+        //   onPressed: widget.onSave,
+        //   child: const Text("Save"),
+        // ),
       ],
     );
   }

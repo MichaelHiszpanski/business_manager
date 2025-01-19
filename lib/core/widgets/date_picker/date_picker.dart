@@ -51,7 +51,7 @@ class _DatePickerState extends State<DatePicker> {
         Text(
           _expiredDateSelected == null
               ? 'No Date Selected! ${_expiredDateSelected ?? ""}'
-              : 'Selected: ${DateFormatHelper.dateFomrat(_expiredDateSelected)}',
+              : 'Selected: ${DateFormatHelper.dateFormatWithTime(_expiredDateSelected)}',
           style: context.text.titleMedium,
         ),
         const SizedBox(height: 10),

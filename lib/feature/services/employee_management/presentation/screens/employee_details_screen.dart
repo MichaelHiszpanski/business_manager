@@ -64,7 +64,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                 EmployeeDisplayRow(
                   icon: Icons.data_exploration,
                   text:
-                      " ${DateFormatHelper.dateFomrat(model.employeeDateJoined)} ",
+                      " ${DateFormatHelper.dateFormatWithTime(model.employeeDateJoined)} ",
                 ),
                 const SizedBox(height: Constants.padding8),
                 Row(
@@ -212,7 +212,10 @@ class EmployeeDetailsScreen extends StatelessWidget {
   }
 
   void _saveTaskDetails(
-      BuildContext context, String employeeID, EmployeeTaskModel task) {
+    BuildContext context,
+    String employeeID,
+    EmployeeTaskModel task,
+  ) {
     final updatedTask = EmployeeTaskModel(
       taskID: task.taskID,
       taskTitle: task.taskTitle,

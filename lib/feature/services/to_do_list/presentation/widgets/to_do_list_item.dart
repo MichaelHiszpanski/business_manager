@@ -109,7 +109,7 @@ class ToDoListItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                        'Expired on: ${DateFormatHelper.dateFomrat(todo.expiredDate)}')
+                        'Expired on: ${DateFormatHelper.dateFormatWithTime(todo.expiredDate)}')
                   ],
                 ),
               ),

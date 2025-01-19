@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 
 class EmployeeSidePanel extends StatelessWidget {
   final VoidCallback onNewEmployeePressed;
-  // final VoidCallback onDeleteEmployeePressed;
 
   const EmployeeSidePanel({
     super.key,
     required this.onNewEmployeePressed,
-    // required this.onDeleteEmployeePressed,
   });
 
   @override
@@ -23,10 +21,6 @@ class EmployeeSidePanel extends StatelessWidget {
             child: const Text("New Employee"),
           ),
           const Spacer(),
-          // TextButton(
-          //   onPressed: onDeleteEmployeePressed,
-          //   child: const Text("Delete Employee"),
-          // ),
         ],
       ),
     );

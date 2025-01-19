@@ -25,7 +25,47 @@ class ChartContainer extends StatelessWidget {
         child: BarChart(
           BarChartData(
             gridData: const FlGridData(show: false),
-            titlesData: const FlTitlesData(show: false),
+            titlesData: FlTitlesData(
+              leftTitles: const AxisTitles(
+                sideTitles: SideTitles(showTitles: false),
+              ),
+              topTitles: const AxisTitles(
+                sideTitles: SideTitles(showTitles: false),
+              ),
+              rightTitles: const AxisTitles(
+                sideTitles: SideTitles(showTitles: false),
+              ),
+              bottomTitles: AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: true,
+                  getTitlesWidget: (value, meta) {
+                    String text = '';
+                    switch (value.toInt()) {
+                      case 0:
+                        text =
+                            employeesNumber?.toStringAsFixed(0) ?? '0.0';
+                        break;
+                      case 1:
+                        text = taskNumber?.toStringAsFixed(0) ?? '0.0';
+                        break;
+                      case 2:
+                        text = taskDoneNumber?.toStringAsFixed(0) ?? '0.0';
+                        break;
+                      case 3:
+                        text = otherNumber?.toStringAsFixed(0) ?? '0.0';
+                        break;
+                    }
+                    return Text(
+                      text,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.black,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
             borderData: FlBorderData(show: false),
             barGroups: [
               BarChartGroupData(
@@ -74,47 +114,3 @@ class ChartContainer extends StatelessWidget {
     );
   }
 }
-
-// Flexible(
-//   child: Container(
-//
-//     height: MediaQuery.of(context).size.height * 0.4,
-//     color: Colors.transparent,
-//     padding: const EdgeInsets.all(16.0),
-//     child: LineChart(
-//       LineChartData(
-//         gridData: FlGridData(show: true),
-//         // Show grid lines
-//         titlesData: const FlTitlesData(show: false),
-//         // Show axis titles
-//         borderData: FlBorderData(show: false),
-//         // Show border
-//         minX: 0,
-//         maxX: 7,
-//         minY: 0,
-//         maxY: 6,
-//         lineBarsData: [
-//           LineChartBarData(
-//             spots: [
-//               FlSpot(0, 1),
-//               FlSpot(1, 2),
-//               FlSpot(2, 1.5),
-//               FlSpot(3, 3.2),
-//               FlSpot(4, 2.8),
-//               FlSpot(5, 4),
-//               FlSpot(6, 3.5),
-//             ],
-//             isCurved: true,
-//             color: Colors.blue,
-//             barWidth: 3,
-//             belowBarData: BarAreaData(
-//               show: true,
-//               color: Colors.blue.withOpacity(0.3),
-//             ),
-//             dotData: FlDotData(show: false),
-//           ),
-//         ],
-//       ),
-//     ),
-//   ),
-// ),

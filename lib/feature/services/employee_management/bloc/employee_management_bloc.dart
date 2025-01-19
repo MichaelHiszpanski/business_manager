@@ -20,38 +20,9 @@ class EmployeeManagementBloc
     on<LoadEmployeeList>(_onLoadedEmployeeList);
     on<AddEmployeeTask>(_onAddEmployeeTask);
     on<RemoveEmployeeTask>(_onRemoveEmployeeTask);
-
     on<MarkTaskAsDone>(_onMarkAsDoneTask);
     on<CheckForOverdueTasks>((event, emit) {});
-    on<UpdateEmployeeTask>((event, emit) async {
-      final employee = _employeeList.firstWhere(
-        (e) => e.employeeID == event.employeeID,
-        orElse: () => throw StateError("Employee not found"),
-      );
-
-      // Update the task within the employee's task list
-      final updatedTasks = employee.employeeTaskList.map((task) {
-        if (task.taskTitle == event.updatedTask.taskTitle) {
-          return event.updatedTask;
-        }
-        return task;
-      }).toList();
-
-      // Create an updated employee with the modified task list
-      final updatedEmployee = EmployeeModel(
-        employeeID: employee.employeeID,
-        employeeFirstName: employee.employeeFirstName,
-        employeeLastName: employee.employeeLastName,
-        employeeEmail: employee.employeeEmail,
-        employeeRole: employee.employeeRole,
-        employeeHourlyRate: employee.employeeHourlyRate,
-        employeeDateJoined: employee.employeeDateJoined,
-        employeeTaskList: updatedTasks,
-      );
-
-      // Emit the updated state
-      add(UpdateEmployee(updatedEmployee: updatedEmployee));
-    });
+    on<UpdateEmployeeTask>(_onUpdateEmployeeTask);
   }
 
   Future<void> _onInitialLoad(
@@ -69,14 +40,6 @@ class EmployeeManagementBloc
     emit(EmployeeManagementLoaded(employeeDataList: List.from(_employeeList)));
   }
 
-  // Future<void> _onRemoveEmployee(
-  //     RemoveEmployee event,
-  //     Emitter<EmployeeManagementState> emit,
-  //     ) async {
-  //   _employeeList.removeWhere(
-  //           (employee) => employee.employeeEmail == event.employeeEmail);
-  //   emit(EmployeeManagementLoaded(employeeDataList: List.from(_employeeList)));
-  // }
   Future<void> _onRemoveEmployee(
     RemoveEmployee event,
     Emitter<EmployeeManagementState> emit,
@@ -185,6 +148,36 @@ class EmployeeManagementBloc
       employeeDateJoined: employee.employeeDateJoined,
       employeeTaskList: updatedTasks,
     );
+    add(UpdateEmployee(updatedEmployee: updatedEmployee));
+  }
+
+  Future<void> _onUpdateEmployeeTask(
+    UpdateEmployeeTask event,
+    Emitter<EmployeeManagementState> emit,
+  ) async {
+    final employee = _employeeList.firstWhere(
+      (e) => e.employeeID == event.employeeID,
+      orElse: () => throw StateError("Employee not found"),
+    );
+
+    final updatedTasks = employee.employeeTaskList.map((task) {
+      if (task.taskTitle == event.updatedTask.taskTitle) {
+        return event.updatedTask;
+      }
+      return task;
+    }).toList();
+
+    final updatedEmployee = EmployeeModel(
+      employeeID: employee.employeeID,
+      employeeFirstName: employee.employeeFirstName,
+      employeeLastName: employee.employeeLastName,
+      employeeEmail: employee.employeeEmail,
+      employeeRole: employee.employeeRole,
+      employeeHourlyRate: employee.employeeHourlyRate,
+      employeeDateJoined: employee.employeeDateJoined,
+      employeeTaskList: updatedTasks,
+    );
+
     add(UpdateEmployee(updatedEmployee: updatedEmployee));
   }
 }
