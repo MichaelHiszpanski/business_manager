@@ -41,7 +41,6 @@ class EmployeeManagementBloc
     LoadEmployeeList event,
     Emitter<EmployeeManagementState> emit,
   ) async {
-    print("Loaded: $_employeeList");
     emit(EmployeeManagementLoading());
 
     Box box = await Hive.openBox(
@@ -50,11 +49,8 @@ class EmployeeManagementBloc
     final List<dynamic>? employeeListHive = await box
         .get(HiveEmployeeDetailsProperties.TO_EMPLOYEE_DETAILS_DATA_KEY);
 
-    print(await box.keys);
-    print(await box.values);
-    debugPrint("Loaded: $_employeeList");
     _employeeList.clear();
-    print("Loaded: $_employeeList");
+
     if (employeeListHive != null) {
       List<EmployeeModel> employeeModel = employeeListHive.map((dynamic item) {
         final employeeModelHive = item as EmployeeDetailsHive;
@@ -72,7 +68,7 @@ class EmployeeManagementBloc
           );
         }).toList();
         return EmployeeModel(
-          employeeID: employeeModelHive.employeeID,
+            employeeID: employeeModelHive.employeeID,
             employeeFirstName: employeeModelHive.employeeFirstName,
             employeeLastName: employeeModelHive.employeeLastName,
             employeeEmail: employeeModelHive.employeeEmail,
@@ -81,13 +77,11 @@ class EmployeeManagementBloc
             employeeDateJoined: employeeModelHive.employeeDateJoined,
             employeeTaskList: taskList);
       }).toList();
-      // print("Adding employee: ${event.employee}");
-      print("Loaded: $_employeeList");
+
       _employeeList.addAll(employeeModel);
       emit(
           EmployeeManagementLoaded(employeeDataList: List.from(_employeeList)));
-    }
-    else {
+    } else {
       emit(EmployeeManagementError());
       _employeeList.clear();
     }
@@ -100,14 +94,14 @@ class EmployeeManagementBloc
     final box = await Hive.openBox(
         HiveEmployeeDetailsProperties.TO_EMPLOYEE_DETAILS_DATA_BOX);
     List<dynamic>? getExistingHiveData =
-        box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
+        box.get(HiveEmployeeDetailsProperties.TO_EMPLOYEE_DETAILS_DATA_KEY);
     List<EmployeeDetailsHive> employeeList = [];
     _employeeList.add(event.employee);
     if (getExistingHiveData != null) {
       employeeList = getExistingHiveData.cast<EmployeeDetailsHive>();
     }
     employeeList.add(EmployeeDetailsHive(
-     employeeID: event.employee.employeeID,
+      employeeID: event.employee.employeeID,
       employeeFirstName: event.employee.employeeFirstName,
       employeeLastName: event.employee.employeeLastName,
       employeeEmail: event.employee.employeeEmail,
@@ -143,7 +137,7 @@ class EmployeeManagementBloc
     final box = await Hive.openBox(
         HiveEmployeeDetailsProperties.TO_EMPLOYEE_DETAILS_DATA_BOX);
     List<dynamic>? getExistingHiveData =
-        box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
+        box.get(HiveEmployeeDetailsProperties.TO_EMPLOYEE_DETAILS_DATA_KEY);
 
     _employeeList
         .removeWhere((employee) => employee.employeeID == event.employeeID);
@@ -169,10 +163,57 @@ class EmployeeManagementBloc
     UpdateEmployee event,
     Emitter<EmployeeManagementState> emit,
   ) async {
-    final index = _employeeList.indexWhere((employee) =>
-        employee.employeeEmail == event.updatedEmployee.employeeEmail);
+    final index = _employeeList.indexWhere(
+        (employee) => employee.employeeID == event.updatedEmployee.employeeID);
+
     if (index != -1) {
       _employeeList[index] = event.updatedEmployee;
+
+      final box = await Hive.openBox(
+          HiveEmployeeDetailsProperties.TO_EMPLOYEE_DETAILS_DATA_BOX);
+      List<dynamic>? getExistingHiveData =
+          box.get(HiveEmployeeDetailsProperties.TO_EMPLOYEE_DETAILS_DATA_KEY);
+
+      List<EmployeeDetailsHive> employeeList = [];
+
+      if (getExistingHiveData != null) {
+        employeeList = getExistingHiveData.cast<EmployeeDetailsHive>();
+        employeeList = employeeList.map((item) {
+          if (item.employeeID == event.updatedEmployee.employeeID) {
+            final updatedTasks = event.updatedEmployee.employeeTaskList.map(
+              (task) {
+                return EmployeeTaskHive(
+                  taskTitle: task.taskTitle,
+                  taskDescription: task.taskDescription,
+                  taskDuration: task.taskDuration,
+                  employeeID: task.employeeID,
+                  employeeCheckInTime: task.employeeCheckInTime,
+                  employeeCheckOutTime: task.employeeCheckOutTime,
+                  isDone: task.isDone,
+                );
+              },
+            ).toList();
+
+            return EmployeeDetailsHive(
+              employeeID: event.updatedEmployee.employeeID,
+              employeeFirstName: event.updatedEmployee.employeeFirstName,
+              employeeLastName: event.updatedEmployee.employeeLastName,
+              employeeEmail: event.updatedEmployee.employeeEmail,
+              employeeRole: event.updatedEmployee.employeeRole,
+              employeeHourlyRate: event.updatedEmployee.employeeHourlyRate,
+              employeeDateJoined: event.updatedEmployee.employeeDateJoined,
+              employeeTaskList: updatedTasks,
+            );
+          }
+          return item;
+        }).toList();
+      }
+
+      await box.put(
+        HiveEmployeeDetailsProperties.TO_EMPLOYEE_DETAILS_DATA_KEY,
+        employeeList,
+      );
+
       emit(
         EmployeeManagementLoaded(
           employeeDataList: List.from(_employeeList),
@@ -189,6 +230,10 @@ class EmployeeManagementBloc
       (e) => e.employeeID == event.employeeID,
       orElse: () => throw StateError("Employee not found"),
     );
+
+    final updatedTasks = List<EmployeeTaskModel>.from(employee.employeeTaskList)
+      ..add(event.task);
+
     final updatedEmployee = EmployeeModel(
       employeeID: employee.employeeID,
       employeeFirstName: employee.employeeFirstName,
@@ -197,9 +242,48 @@ class EmployeeManagementBloc
       employeeRole: employee.employeeRole,
       employeeHourlyRate: employee.employeeHourlyRate,
       employeeDateJoined: employee.employeeDateJoined,
-      employeeTaskList: List.from(employee.employeeTaskList)..add(event.task),
+      employeeTaskList: updatedTasks,
     );
-    add(UpdateEmployee(updatedEmployee: updatedEmployee));
+
+    final box = await Hive.openBox(
+        HiveEmployeeDetailsProperties.TO_EMPLOYEE_DETAILS_DATA_BOX);
+    final existingTaskData = List<EmployeeDetailsHive>.from(
+        box.get(HiveEmployeeDetailsProperties.TO_EMPLOYEE_DETAILS_DATA_KEY) ??
+            []);
+
+    final updatedData = existingTaskData.map((model) {
+      if (model.employeeID == updatedEmployee.employeeID) {
+        return EmployeeDetailsHive(
+          employeeID: updatedEmployee.employeeID,
+          employeeFirstName: updatedEmployee.employeeFirstName,
+          employeeLastName: updatedEmployee.employeeLastName,
+          employeeEmail: updatedEmployee.employeeEmail,
+          employeeRole: updatedEmployee.employeeRole,
+          employeeHourlyRate: updatedEmployee.employeeHourlyRate,
+          employeeDateJoined: updatedEmployee.employeeDateJoined,
+          employeeTaskList: updatedTasks.map((task) {
+            return EmployeeTaskHive(
+              taskTitle: task.taskTitle,
+              taskDescription: task.taskDescription,
+              taskDuration: task.taskDuration,
+              employeeID: task.employeeID,
+              employeeCheckInTime: task.employeeCheckInTime,
+              employeeCheckOutTime: task.employeeCheckOutTime,
+              isDone: task.isDone,
+            );
+          }).toList(),
+        );
+      }
+      return model;
+    }).toList();
+
+    await box.put(HiveEmployeeDetailsProperties.TO_EMPLOYEE_DETAILS_DATA_KEY,
+        updatedData);
+
+    _employeeList[_employeeList.indexWhere(
+        (e) => e.employeeID == updatedEmployee.employeeID)] = updatedEmployee;
+
+    emit(EmployeeManagementLoaded(employeeDataList: List.from(_employeeList)));
   }
 
   Future<void> _onRemoveEmployeeTask(

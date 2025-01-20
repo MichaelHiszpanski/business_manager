@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:business_manager/core/helpers/date_format_helper.dart';
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
-import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
@@ -11,7 +9,7 @@ import 'package:business_manager/feature/services/employee_management/bloc/emplo
 import 'package:business_manager/feature/services/employee_management/models/employee_model.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_task_model.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/widgets/add_task_dialog.dart';
-import 'package:business_manager/feature/services/employee_management/presentation/widgets/employee_display_row.dart';
+import 'package:business_manager/feature/services/employee_management/presentation/widgets/employee_details_display.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/widgets/task_details_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,14 +21,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
-    // if (!args.containsKey('model')) {
-    //   return Center(
-    //     child: Text(
-    //       "Invalid Employee Details or ID.",
-    //       style: context.text.headlineLarge,
-    //     ),
-    //   );
-    // }
+
     final EmployeeModel model = args['model'];
 
     return Scaffold(
@@ -44,35 +35,17 @@ class EmployeeDetailsScreen extends StatelessWidget {
             ),
             child: Column(
               children: [
-                EmployeeDisplayRow(
-                  icon: Icons.person,
-                  text: " ${model.employeeFirstName} ${model.employeeLastName}",
-                ),
-                const SizedBox(height: Constants.padding16),
-                EmployeeDisplayRow(
-                  icon: Icons.perm_identity,
-                  text: " ${model.employeeID} ",
-                ),
-                const SizedBox(height: Constants.padding16),
-                EmployeeDisplayRow(
-                  icon: Icons.sensor_occupied,
-                  text: " ${model.employeeRole} ",
-                ),
-                const SizedBox(height: Constants.padding16),
-                EmployeeDisplayRow(
-                  icon: Icons.email,
-                  text: " ${model.employeeEmail} ",
-                ),
-                const SizedBox(height: Constants.padding16),
-                EmployeeDisplayRow(
-                  icon: Icons.rate_review,
-                  text: " ${model.employeeHourlyRate} ",
-                ),
-                const SizedBox(height: Constants.padding16),
-                EmployeeDisplayRow(
-                  icon: Icons.data_exploration,
-                  text:
-                      " ${DateFormatHelper.dateFormatWithTime(model.employeeDateJoined)} ",
+                BlocBuilder<EmployeeManagementBloc, EmployeeManagementState>(
+                  builder: (context, state) {
+                    if (state is EmployeeManagementLoaded) {
+                      final updatedEmployee = state.employeeDataList.firstWhere(
+                        (employee) => employee.employeeID == model.employeeID,
+                        orElse: () => model,
+                      );
+                      return EmployeeDetailsDisplay(employee: updatedEmployee);
+                    }
+                    return const Center(child: CircularProgressIndicator());
+                  },
                 ),
                 const SizedBox(height: Constants.padding8),
                 Row(
@@ -168,9 +141,13 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                             );
-                          },
+                          }
+
+                          ,
                         ),
                       );
+                    }else if (state is EmployeeManagementError) {
+
                     }
 
                     return const Center(
