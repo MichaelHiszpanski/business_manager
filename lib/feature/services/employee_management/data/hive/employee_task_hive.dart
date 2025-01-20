@@ -5,28 +5,28 @@ part 'employee_task_hive.g.dart';
 
 @HiveType(typeId: HiveProperties.employeeTaskModelID)
 class EmployeeTaskHive {
-  @HiveField(0)
+  @HiveField(HiveEmployeeTaskProperties.taskID)
   final String? taskID;
 
-  @HiveField(1)
+  @HiveField(HiveEmployeeTaskProperties.taskTitle)
   final String taskTitle;
 
-  @HiveField(2)
+  @HiveField(HiveEmployeeTaskProperties.taskDescription)
   final String taskDescription;
 
-  @HiveField(3)
+  @HiveField(HiveEmployeeTaskProperties.taskDuration)
   final double taskDuration;
 
-  @HiveField(4)
+  @HiveField(HiveEmployeeTaskProperties.employeeID)
   final String employeeID;
 
-  @HiveField(5)
+  @HiveField(HiveEmployeeTaskProperties.employeeCheckInTime)
   final DateTime? employeeCheckInTime;
 
-  @HiveField(6)
+  @HiveField(HiveEmployeeTaskProperties.employeeCheckOutTime)
   final DateTime? employeeCheckOutTime;
 
-  @HiveField(7)
+  @HiveField(HiveEmployeeTaskProperties.isDone)
   final bool isDone;
 
   EmployeeTaskHive({

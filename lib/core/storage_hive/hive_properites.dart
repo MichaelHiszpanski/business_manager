@@ -77,3 +77,31 @@ class HiveBankDetailsProperties {
   static const int sortCode = 1;
   static const int accountNo = 2;
 }
+
+class HiveEmployeeDetailsProperties {
+  static const String TO_EMPLOYEE_DETAILS_DATA_BOX =
+      "TO_EMPLOYEE_DETAILS_DATA_BOX";
+  static const String TO_EMPLOYEE_DETAILS_DATA_KEY =
+      "TO_EMPLOYEE_DETAILS_DATA_KEY";
+  static const int employeeID = 0;
+  static const int employeeFirstName = 1;
+  static const int employeeLastName = 2;
+  static const int employeeEmail = 3;
+  static const int employeeRole = 4;
+  static const int employeeHourlyRate = 5;
+  static const int employeeDateJoined = 6;
+  static const int employeeTaskList = 7;
+}
+
+class HiveEmployeeTaskProperties {
+  static const String TO_EMPLOYEE_TASK_DATA_BOX = "TO_EMPLOYEE_TASK_DATA_BOX";
+  static const String TO_EMPLOYEE_TASK_DATA_KEY = "TO_EMPLOYEE_TASK_DATA_KEY";
+  static const int taskID = 0;
+  static const int taskTitle = 1;
+  static const int taskDescription = 2;
+  static const int taskDuration = 3;
+  static const int employeeID = 4;
+  static const int employeeCheckInTime = 5;
+  static const int employeeCheckOutTime = 6;
+  static const int isDone = 7;
+}

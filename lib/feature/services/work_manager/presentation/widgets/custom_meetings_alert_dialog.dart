@@ -1,4 +1,6 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
+import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/feature/services/work_manager/bloc/work_manager_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:business_manager/feature/services/work_manager/models/meeting_model.dart';
@@ -34,16 +36,33 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
           itemBuilder: (BuildContext context, int index) {
             final Meeting meeting = widget.meetings[index];
             return ListTile(
-              title: Text(meeting.eventName),
+              title: Text(
+                meeting.eventName,
+                style: context.text.headlineSmall,
+              ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  const SizedBox(height: Constants.padding16),
                   Text(
-                      'From: ${DateFormatHelper.dateFormatWithTime(meeting.startDate)}'),
+                    'From: ${DateFormatHelper.dateFormatWithTime(meeting.startDate)}',
+                    style: context.text.titleSmall,
+                  ),
+                  const SizedBox(height: Constants.padding8),
                   Text(
-                      'To: ${DateFormatHelper.dateFormatWithTime(meeting.finishDate)}'),
-                  Text('All Day: ${meeting.isAllDay ? 'Yes' : 'No'}'),
-                  Text('Content: ${meeting.eventDescription}'),
+                    'To: ${DateFormatHelper.dateFormatWithTime(meeting.finishDate)}',
+                    style: context.text.titleSmall,
+                  ),
+                  const SizedBox(height: Constants.padding8),
+                  Text(
+                    'All Day: ${meeting.isAllDay ? 'Yes' : 'No'}',
+                    style: context.text.titleSmall,
+                  ),
+                  const SizedBox(height: Constants.padding8),
+                  Text(
+                    'Content: ${meeting.eventDescription}',
+                    style: context.text.titleSmall,
+                  ),
                 ],
               ),
               selectedColor:

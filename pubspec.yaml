@@ -1,9 +1,9 @@
 name: business_manager
-description: "A new Flutter project."
+description: "Business Manager."
 
 publish_to: "none"
 
-version: 1.0.0+1
+version: 2.0.1+1
 # sdk: '>=3.4.3 <4.0.0'
 environment:
   sdk: ">=3.3.2 <4.0.0"
@@ -76,7 +76,7 @@ flutter:
     - assets/images/home4.png
     - assets/images/space2.jpeg
     - assets/myfile.html
-    - assets/.env
+    - .env
 
   fonts:
     - family: Suse

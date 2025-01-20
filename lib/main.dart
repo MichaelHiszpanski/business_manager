@@ -17,7 +17,7 @@ import 'core/tools/flutter_helper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: 'assets/.env');
+  await dotenv.load(fileName: '.env');
   tz.initializeTimeZones();
 
   await HiveRegisterAdapter.register();

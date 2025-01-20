@@ -6,6 +6,7 @@ import 'package:business_manager/feature/services/employee_management/bloc/emplo
 import 'package:business_manager/feature/services/employee_management/models/employee_task_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 class AddTaskDialog extends StatefulWidget {
   final String employeeID;
@@ -21,6 +22,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   final _taskDescriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final String _error = "Field cannot be empty";
+  final uuid = const Uuid();
 
   DateTime? _checkInTime;
   DateTime? _checkOutTime;
@@ -117,6 +119,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   void _addEmployeeTask() {
     if (_formKey.currentState!.validate()) {
       final newTask = EmployeeTaskModel(
+        taskID: uuid.v4(),
         taskTitle: _taskTitleController.text.trim(),
         taskDescription: _taskDescriptionController.text.trim(),
         taskDuration: 0.0,
@@ -127,11 +130,11 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
       );
 
       context.read<EmployeeManagementBloc>().add(
-        AddEmployeeTask(
-          employeeID: widget.employeeID,
-          task: newTask,
-        ),
-      );
+            AddEmployeeTask(
+              employeeID: widget.employeeID,
+              task: newTask,
+            ),
+          );
       Navigator.of(context).pop();
     }
   }

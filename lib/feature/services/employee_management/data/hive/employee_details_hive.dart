@@ -5,32 +5,32 @@ import 'employee_task_hive.dart';
 part 'employee_details_hive.g.dart';
 
 @HiveType(typeId: HiveProperties.employeeModelID)
-class EmployeeHive {
-  @HiveField(0)
+class EmployeeDetailsHive {
+  @HiveField(HiveEmployeeDetailsProperties.employeeID)
   final String? employeeID;
 
-  @HiveField(1)
+  @HiveField(HiveEmployeeDetailsProperties.employeeFirstName)
   final String employeeFirstName;
 
-  @HiveField(2)
+  @HiveField(HiveEmployeeDetailsProperties.employeeLastName)
   final String employeeLastName;
 
-  @HiveField(3)
+  @HiveField(HiveEmployeeDetailsProperties.employeeEmail)
   final String employeeEmail;
 
-  @HiveField(4)
+  @HiveField(HiveEmployeeDetailsProperties.employeeRole)
   final String employeeRole;
 
-  @HiveField(5)
+  @HiveField(HiveEmployeeDetailsProperties.employeeHourlyRate)
   final double employeeHourlyRate;
 
-  @HiveField(6)
+  @HiveField(HiveEmployeeDetailsProperties.employeeDateJoined)
   final DateTime employeeDateJoined;
 
-  @HiveField(7)
+  @HiveField(HiveEmployeeDetailsProperties.employeeTaskList)
   final List<EmployeeTaskHive> employeeTaskList;
 
-  EmployeeHive({
+  EmployeeDetailsHive({
     this.employeeID,
     required this.employeeFirstName,
     required this.employeeLastName,

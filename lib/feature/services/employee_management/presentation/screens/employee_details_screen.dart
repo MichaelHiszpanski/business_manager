@@ -23,6 +23,14 @@ class EmployeeDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
+    // if (!args.containsKey('model')) {
+    //   return Center(
+    //     child: Text(
+    //       "Invalid Employee Details or ID.",
+    //       style: context.text.headlineLarge,
+    //     ),
+    //   );
+    // }
     final EmployeeModel model = args['model'];
 
     return Scaffold(
@@ -262,7 +270,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
             style: TextStyle(color: Colors.red),
           ),
           content: const Text(
-            "Are you sure you want to delete this employee?",
+            "Do you want to Delete this Employee?",
             style: TextStyle(color: Colors.black87),
           ),
           actions: [

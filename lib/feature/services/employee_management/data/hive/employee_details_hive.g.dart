@@ -6,17 +6,17 @@ part of 'employee_details_hive.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class EmployeeHiveAdapter extends TypeAdapter<EmployeeHive> {
+class EmployeeDetailsHiveAdapter extends TypeAdapter<EmployeeDetailsHive> {
   @override
   final int typeId = 9;
 
   @override
-  EmployeeHive read(BinaryReader reader) {
+  EmployeeDetailsHive read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return EmployeeHive(
+    return EmployeeDetailsHive(
       employeeID: fields[0] as String?,
       employeeFirstName: fields[1] as String,
       employeeLastName: fields[2] as String,
@@ -29,7 +29,7 @@ class EmployeeHiveAdapter extends TypeAdapter<EmployeeHive> {
   }
 
   @override
-  void write(BinaryWriter writer, EmployeeHive obj) {
+  void write(BinaryWriter writer, EmployeeDetailsHive obj) {
     writer
       ..writeByte(8)
       ..writeByte(0)
@@ -56,7 +56,7 @@ class EmployeeHiveAdapter extends TypeAdapter<EmployeeHive> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is EmployeeHiveAdapter &&
+      other is EmployeeDetailsHiveAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

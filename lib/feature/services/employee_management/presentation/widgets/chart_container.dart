@@ -43,16 +43,16 @@ class ChartContainer extends StatelessWidget {
                     switch (value.toInt()) {
                       case 0:
                         text =
-                            employeesNumber?.toStringAsFixed(0) ?? '0.0';
+                            'E ${employeesNumber?.toStringAsFixed(0)}' ?? '0.1';
                         break;
                       case 1:
-                        text = taskNumber?.toStringAsFixed(0) ?? '0.0';
+                        text = "T ${taskNumber?.toStringAsFixed(0)}" ?? '0.1';
                         break;
                       case 2:
-                        text = taskDoneNumber?.toStringAsFixed(0) ?? '0.0';
+                        text = taskDoneNumber?.toStringAsFixed(0) ?? '0.1';
                         break;
                       case 3:
-                        text = otherNumber?.toStringAsFixed(0) ?? '0.0';
+                        text = otherNumber?.toStringAsFixed(0) ?? '0.1';
                         break;
                     }
                     return Text(

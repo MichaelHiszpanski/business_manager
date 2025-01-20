@@ -1,4 +1,6 @@
 import 'package:business_manager/core/storage_hive/color_adapter/color_adapter_hive.dart';
+import 'package:business_manager/feature/services/employee_management/data/hive/employee_details_hive.dart';
+import 'package:business_manager/feature/services/employee_management/data/hive/employee_task_hive.dart';
 import 'package:business_manager/feature/services/invoice_manager/data/hive/bank_hive/bank_details_hive.dart';
 import 'package:business_manager/feature/services/invoice_manager/data/hive/business_hive/business_details_hive.dart';
 import 'package:business_manager/feature/services/invoice_manager/data/hive/client_hive/client_details_hive.dart';
@@ -31,6 +33,12 @@ class HiveRegisterAdapter {
     }
     if (!Hive.isAdapterRegistered(BankDetailsHiveAdapter().typeId)) {
       Hive.registerAdapter(BankDetailsHiveAdapter());
+    }
+    if (!Hive.isAdapterRegistered(EmployeeDetailsHiveAdapter().typeId)) {
+      Hive.registerAdapter(EmployeeDetailsHiveAdapter());
+    }
+    if (!Hive.isAdapterRegistered(EmployeeTaskHiveAdapter().typeId)) {
+      Hive.registerAdapter(EmployeeTaskHiveAdapter());
     }
   }
 }
