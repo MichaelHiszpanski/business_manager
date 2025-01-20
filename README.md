@@ -22,7 +22,7 @@ This mobile application is built using **Flutter**, a versatile framework for cr
 
 ---
 
-#### **Calendar Event Planner**
+#### **Wrok Manager with Calendar**
 - **Event Scheduling**: Plan events and meetings directly in the app.
 - **Daily, Weekly, and Monthly Views**: A user-friendly calendar interface allows easy navigation and event planning.
 
