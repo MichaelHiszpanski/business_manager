@@ -54,9 +54,9 @@ TextTheme getTextTheme(Color defaultTextColor) {
       fontFamily: AppFontFamily.orbitron,
     ),
     titleSmall: TextStyle(
-      fontSize: 14,
+      fontSize: 16,
       height: 1.25,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.bold,
       color: defaultTextColor,
       fontFamily: AppFontFamily.orbitron,
     ),

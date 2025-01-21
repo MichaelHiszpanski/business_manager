@@ -17,11 +17,11 @@ class EmployeeDetailsDisplay extends StatelessWidget {
           icon: Icons.person,
           text: " ${employee.employeeFirstName} ${employee.employeeLastName}",
         ),
-        const SizedBox(height: Constants.padding16),
-        EmployeeDisplayRow(
-          icon: Icons.perm_identity,
-          text: " ${employee.employeeID} ",
-        ),
+        // const SizedBox(height: Constants.padding16),
+        // EmployeeDisplayRow(
+        //   icon: Icons.perm_identity,
+        //   text: " ${employee.employeeID} ",
+        // ),
         const SizedBox(height: Constants.padding16),
         EmployeeDisplayRow(
           icon: Icons.sensor_occupied,

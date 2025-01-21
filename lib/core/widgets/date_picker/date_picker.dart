@@ -7,13 +7,18 @@ import 'package:flutter/material.dart';
 class DatePicker extends StatefulWidget {
   final ValueChanged<DateTime?> onDateSelected;
   final DateTime? selectedDate;
+  DateTime? startingDate;
   String? buttonText;
+  Color? backgroundColor;
 
-  DatePicker(
-      {super.key,
-      required this.onDateSelected,
-      this.selectedDate,
-      this.buttonText});
+  DatePicker({
+    super.key,
+    required this.onDateSelected,
+    this.selectedDate,
+    this.buttonText,
+    this.startingDate,
+    this.backgroundColor,
+  });
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -32,7 +37,7 @@ class _DatePickerState extends State<DatePicker> {
     final DateTime? calendarPicker = await showDatePicker(
       context: context,
       initialDate: _expiredDateSelected ?? DateTime.now(),
-      firstDate: DateTime.now(),
+      firstDate: widget.startingDate ?? DateTime.now(),
       lastDate: DateTime(2099),
     );
     if (calendarPicker != null && calendarPicker != _expiredDateSelected) {
@@ -51,14 +56,14 @@ class _DatePickerState extends State<DatePicker> {
         Text(
           _expiredDateSelected == null
               ? 'No Date Selected! ${_expiredDateSelected ?? ""}'
-              : 'Selected: ${DateFormatHelper.dateFormatWithTime(_expiredDateSelected)}',
+              : 'Selected: ${DateFormatHelper.dateFormat(_expiredDateSelected)}',
           style: context.text.titleMedium,
         ),
         const SizedBox(height: 10),
         CustomFloatingButton(
           onPressed: () => _datePicker(context),
           buttonText: widget.buttonText ?? 'Pick Expiration Date',
-          backgroundColor: Pallete.gradient3,
+          backgroundColor: widget.backgroundColor ?? Pallete.gradient3,
         ),
       ],
     );

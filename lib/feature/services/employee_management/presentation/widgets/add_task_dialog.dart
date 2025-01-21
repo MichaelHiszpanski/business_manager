@@ -1,6 +1,7 @@
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
+import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_two.dart';
 import 'package:business_manager/core/widgets/date_picker/date_picker.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_task_model.dart';
@@ -30,7 +31,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Add Task"),
+      title:  Text("Add Task",style: context.text.headlineMedium,),
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -45,6 +46,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 minLines: 1,
                 maxLines: 10,
               ),
+              const SizedBox(height: Constants.padding16),
               TextFormField(
                 controller: _taskDescriptionController,
                 decoration: const InputDecoration(
@@ -57,25 +59,34 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 maxLines: 10,
               ),
               const SizedBox(height: Constants.padding16),
-              DatePicker(
-                onDateSelected: (selectedDate) {
-                  setState(() {
-                    _checkInTime = selectedDate;
-                  });
-                },
-                selectedDate: _checkInTime,
-                buttonText: "Check-In Time",
+              ButtonWrapperTwo(
+                child: DatePicker(
+                  onDateSelected: (selectedDate) {
+                    setState(() {
+                      _checkInTime = selectedDate;
+                    });
+                  },
+                  selectedDate: _checkInTime,
+                  buttonText: "Check-In Time",
+                  startingDate: DateTime(1980),
+                  backgroundColor: Colors.transparent,
+                ),
               ),
               const SizedBox(height: Constants.padding16),
-              DatePicker(
-                onDateSelected: (selectedDate) {
-                  setState(() {
-                    _checkOutTime = selectedDate;
-                  });
-                },
-                selectedDate: _checkOutTime,
-                buttonText: "Check-Out Time",
+              ButtonWrapperTwo(
+                child: DatePicker(
+                  onDateSelected: (selectedDate) {
+                    setState(() {
+                      _checkOutTime = selectedDate;
+                    });
+                  },
+                  selectedDate: _checkOutTime,
+                  buttonText: "Check-Out Time",
+                  startingDate: DateTime(1980),
+                  backgroundColor: Colors.transparent,
+                ),
               ),
+              const SizedBox(height: Constants.padding16),
             ],
           ),
         ),

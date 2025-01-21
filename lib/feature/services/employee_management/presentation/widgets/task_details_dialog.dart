@@ -1,6 +1,8 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
+import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_two.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_task_model.dart';
@@ -61,20 +63,23 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.task.taskTitle),
+      title: Text(
+        widget.task.taskTitle,
+        style: context.text.headlineMedium,
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Description: ${widget.task.taskDescription}",
-            style: context.text.titleSmall,
+            style: context.text.bodyLarge,
           ),
           const SizedBox(height: Constants.padding16),
-          Text(
-            "Duration: ${widget.task.taskDuration} hours",
-            style: context.text.labelLarge,
-          ),
+          // Text(
+          //   "Duration: ${widget.task.taskDuration} hours",
+          //   style: context.text.bodyLarge,
+          // ),
           const SizedBox(height: Constants.padding16),
           if (widget.task.employeeCheckInTime != null)
             Text(
@@ -88,20 +93,28 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
               style: context.text.titleSmall,
             ),
           const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Status: ${_isCompleted ? 'Completed' : 'Pending'}",
-                style: context.text.titleSmall,
-              ),
-              Switch(
-                value: _isCompleted,
-                onChanged: (value) {
-                  _toggleTaskStatus(context);
-                },
-              ),
-            ],
+          ButtonWrapperTwo(
+            startColor: _isCompleted ? Colors.orange : Pallete.gradient2,
+            endColor: _isCompleted ? Colors.white38 : Colors.lightBlue,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    "Status: ${_isCompleted ? 'Completed' : 'Pending'}",
+                    style: _isCompleted
+                        ? context.text.titleSmall
+                        : context.text.bodyMedium,
+                  ),
+                ),
+                Switch(
+                  value: _isCompleted,
+                  onChanged: (value) {
+                    _toggleTaskStatus(context);
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -111,11 +124,20 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.red,
           ),
-          child: const Text("Delete"),
+          child: Text(
+            "Delete",
+            style: context.text.bodyMedium,
+          ),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Close"),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green,
+          ),
+          child: Text(
+            "Close",
+            style: context.text.bodyMedium,
+          ),
         ),
         // TextButton(
         //   onPressed: widget.onSave,

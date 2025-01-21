@@ -28,7 +28,7 @@ class CustomFloatingButton extends StatelessWidget {
               vertical: 8.0,
             ),
           ),
-          elevation: WidgetStateProperty.all<double>(6.0),
+          // elevation: WidgetStateProperty.all<double>(6.0),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Constants.padding24),

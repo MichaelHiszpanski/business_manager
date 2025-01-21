@@ -24,6 +24,7 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EmployeeManagementBloc, EmployeeManagementState>(
@@ -34,59 +35,59 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
           return Container(
             key: const Key("wheelKey"),
             height: MediaQuery.of(context).size.height * 0.48,
-            decoration: const BoxDecoration(color: Pallete.colorTwo),
+            decoration: const BoxDecoration(color: Pallete.colorSix),
             child: employeeList.isEmpty
                 ? Center(
-              child: Text(
-                "Add New Employee!!",
-                style: context.text.headlineLarge,
-              ),
-            )
-                : ListWheelScrollView.useDelegate(
-              itemExtent: 50,
-              useMagnifier: true,
-              magnification: 1.5,
-              diameterRatio: 1.5,
-              physics: const FixedExtentScrollPhysics(),
-              onSelectedItemChanged: (index) {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-              childDelegate: ListWheelChildBuilderDelegate(
-                builder: (context, index) {
-                  if (index < 0 || index >= employeeList.length) {
-                    return Text(
-                      "No Employee",
-                      style: context.text.titleMedium,
-                    );
-                  }
-
-                  final employee = employeeList[index];
-                  return InkWell(
-                    onTap: () {
-                      _navigateToProfile(index, employee);
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      color: selectedIndex == index
-                          ? Colors.grey
-                          : Colors.transparent,
-                      child: Text(
-                        "${employee.employeeFirstName} ${employee.employeeLastName}",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: selectedIndex == index
-                              ? Colors.white
-                              : Colors.white,
-                        ),
-                      ),
+                    child: Text(
+                      "Add New Employee!!",
+                      style: context.text.headlineLarge,
                     ),
-                  );
-                },
-                childCount: employeeList.length,
-              ),
-            ),
+                  )
+                : ListWheelScrollView.useDelegate(
+                    itemExtent: 50,
+                    useMagnifier: true,
+                    magnification: 1.5,
+                    diameterRatio: 1.5,
+                    physics: const FixedExtentScrollPhysics(),
+                    onSelectedItemChanged: (index) {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                    },
+                    childDelegate: ListWheelChildBuilderDelegate(
+                      builder: (context, index) {
+                        if (index < 0 || index >= employeeList.length) {
+                          return Text(
+                            "No Employee",
+                            style: context.text.titleMedium,
+                          );
+                        }
+
+                        final employee = employeeList[index];
+                        return InkWell(
+                          onTap: () {
+                            _navigateToProfile(index, employee);
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            color: selectedIndex == index
+                                ? Colors.black38
+                                : Colors.transparent,
+                            child: Text(
+                              "${employee.employeeFirstName} ${employee.employeeLastName}",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: selectedIndex == index
+                                    ? Colors.white
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      childCount: employeeList.length,
+                    ),
+                  ),
           );
         } else if (state is EmployeeManagementInitial) {
           return const Center(child: CircularProgressIndicator());
