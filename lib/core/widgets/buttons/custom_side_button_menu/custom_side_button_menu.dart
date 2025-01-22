@@ -6,7 +6,12 @@ import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class CustomSideButtonMenu extends StatefulWidget {
-  const CustomSideButtonMenu({super.key});
+  final bool isUserSignedIn;
+
+  const CustomSideButtonMenu({
+    super.key,
+    required this.isUserSignedIn,
+  });
 
   @override
   State<CustomSideButtonMenu> createState() => _CustomSideButtonMenuState();
@@ -88,28 +93,30 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
               onTap: () => _onTap(1),
               color: Colors.green[400] ?? Colors.green,
             ),
-            AnimatedItemContainerSideMenu(
-              key: Key('icon3'),
-              minDuration: 275,
-              maxDuration: 875,
-              icon: Icons.people,
-              alignment: alignment3,
-              toggleButton: toggleButton,
-              size: size1,
-              onTap: () => _onTap(2),
-              color: Colors.blue[400] ?? Colors.blue,
-            ),
-            AnimatedItemContainerSideMenu(
-              key: const Key('icon4'),
-              minDuration: 275,
-              maxDuration: 675,
-              icon: Icons.work_history,
-              alignment: alignment4,
-              toggleButton: toggleButton,
-              size: size1,
-              onTap: () => _onTap(3),
-              color: Colors.purple[400] ?? Colors.yellow,
-            ),
+            if (widget.isUserSignedIn) ...[
+              AnimatedItemContainerSideMenu(
+                key: Key('icon3'),
+                minDuration: 275,
+                maxDuration: 875,
+                icon: Icons.people,
+                alignment: alignment3,
+                toggleButton: toggleButton,
+                size: size1,
+                onTap: () => _onTap(2),
+                color: Colors.blue[400] ?? Colors.blue,
+              ),
+              AnimatedItemContainerSideMenu(
+                key: const Key('icon4'),
+                minDuration: 275,
+                maxDuration: 675,
+                icon: Icons.work_history,
+                alignment: alignment4,
+                toggleButton: toggleButton,
+                size: size1,
+                onTap: () => _onTap(3),
+                color: Colors.purple[400] ?? Colors.yellow,
+              ),
+            ],
             AnimatedItemContainerSideMenu(
               key: const Key('icon5'),
               minDuration: 520,

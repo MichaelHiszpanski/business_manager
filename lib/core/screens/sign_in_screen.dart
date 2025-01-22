@@ -6,6 +6,7 @@ import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:business_manager/core/widgets/layouts/height_layout.dart';
 import 'package:business_manager/core/widgets/outlined_text_field/outlined_text_field.dart';
 import 'package:business_manager/main.dart';
 import 'package:flutter/foundation.dart';
@@ -63,11 +64,8 @@ class _SignInScreenState extends State<SignInScreen> {
         );
       }
     } catch (error) {
-      if (kDebugMode) {
-        print('Error signing in with Supabase: $error');
-      }
       setState(() {
-        _errorMessage = error.toString();
+        _errorMessage = "Failed to sign in. Please check your credentials.";
       });
     } finally {
       setState(() {
@@ -94,80 +92,160 @@ class _SignInScreenState extends State<SignInScreen> {
         title: context.strings.sign_in,
         onMenuPressed: () {},
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(Constants.padding16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            OutlinedTextField(
-              labelText: context.strings.email,
-              hintText: context.strings.enter_emial,
-              inputValue: _emailController,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/signin2.png',
+              fit: BoxFit.cover,
             ),
-            const SizedBox(height: Constants.padding16),
-            OutlinedTextField(
-              labelText: context.strings.password,
-              hintText: context.strings.enter_password,
-              inputValue: _passwordController,
-            ),
-            const SizedBox(height: Constants.padding16),
-            Container(
-              width: double.maxFinite,
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 2,
-                    blurRadius: 6,
-                    offset: const Offset(0, 5),
+          ),
+          HeightLayout(
+            childWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Spacer(),
+                if (_errorMessage != null && _errorMessage != "") ...[
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(Constants.padding4),
+                    decoration: const BoxDecoration(
+                      color: Colors.white38,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(Constants.radius25),
+                      ),
+                    ),
+                    child: Text(
+                      _errorMessage!,
+                      textAlign: TextAlign.center,
+                      style: context.text.bodyLarge?.copyWith(
+                        color: Colors.red,
+                        fontWeight: FontWeight.w700,
+                        height: 1.5,
+                      ),
+                    ),
                   ),
                 ],
-              ),
-              child: ButtonWrapperOne(
-                child: ElevatedButton(
-                  onPressed: _isLoading ? null : _signInWithSupabase,
-                  style: ButtonStyle(
-                    backgroundColor:
-                        WidgetStateProperty.all(Colors.transparent),
-                  ),
-                  child: Text(
-                    context.strings.sign_in_with_email,
-                    style: context.text.displayMedium,
+                const SizedBox(height: Constants.padding16),
+                Text(
+                  "Business Manager",
+                  style: context.text.headlineMedium?.copyWith(),
+                ),
+                const SizedBox(height: Constants.padding16),
+                Text(
+                  "Sign-In",
+                  style: context.text.headlineLarge?.copyWith(
+                    color: Pallete.gradient1,
                   ),
                 ),
-              ),
+                const SizedBox(height: Constants.padding16 * 3),
+                OutlinedTextField(
+                  labelText: context.strings.email,
+                  hintText: context.strings.enter_emial,
+                  inputValue: _emailController,
+                ),
+                const SizedBox(height: Constants.padding16),
+                OutlinedTextField(
+                  labelText: context.strings.password,
+                  hintText: context.strings.enter_password,
+                  inputValue: _passwordController,
+                ),
+                const SizedBox(height: Constants.padding16 * 4),
+                Container(
+                  width: double.maxFinite,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 2,
+                        blurRadius: 6,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: ButtonWrapperOne(
+                    child: ElevatedButton(
+                      onPressed: _isLoading ? null : _signInWithSupabase,
+                      style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.all(Colors.transparent),
+                      ),
+                      child: Text(
+                        context.strings.sign_in_with_email,
+                        style: context.text.displayMedium,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: Constants.padding16 * 2),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(Constants.padding4),
+                  decoration: const BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(Constants.radius25),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        "You don`t have an account?",
+                        style: context.text.bodyLarge?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          height: 1.5,
+                        ),
+                        textAlign: TextAlign.center,
+                        softWrap: true,
+                      ),
+                      Text(
+                        "Go to website and ...",
+                        style: context.text.bodyLarge?.copyWith(
+                          color: Pallete.gradient1,
+                          fontWeight: FontWeight.w700,
+                          height: 1.5,
+                        ),
+                        textAlign: TextAlign.center,
+                        softWrap: true,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: Constants.padding16),
+                Container(
+                  width: double.maxFinite,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Constants.radius10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 3,
+                        blurRadius: 6,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: ElevatedButton(
+                    onPressed: _launchURL,
+                    style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all(Pallete.gradient1),
+                    ),
+                    child: Text(
+                      context.strings.sign_up,
+                      style: context.text.displayMedium,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+              ],
             ),
-            const SizedBox(height: Constants.padding16),
-            Container(
-              width: double.maxFinite,
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Constants.radius10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 2,
-                    blurRadius: 6,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: ElevatedButton(
-                onPressed: _launchURL,
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Pallete.gradient3),
-                ),
-                child: Text(
-                  context.strings.sign_up,
-                  style: context.text.displayMedium,
-                ),
-              ),
-            ),
-            const SizedBox(height: Constants.padding16),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

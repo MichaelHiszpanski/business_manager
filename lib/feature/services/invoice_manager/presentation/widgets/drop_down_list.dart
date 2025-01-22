@@ -43,7 +43,7 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
           ),
         ],
       ),
-      iconDisabledColor: Pallete.gradient1,
+      iconDisabledColor:Colors.white,
       dropdownColor: Colors.white,
       borderRadius: const BorderRadius.all(
         Radius.circular(

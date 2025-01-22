@@ -1,10 +1,10 @@
 import 'package:business_manager/core/screens/informations_screen.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
+import 'package:business_manager/core/screens/profile_screen.dart';
 import 'package:business_manager/core/screens/sign_in_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_add_new_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_details_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_management_screen.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/screens/add_business_owner_screen.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/screens/invoice_manager_screen.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/screens/add_item_page.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/screens/to_do_list_screen.dart';
@@ -18,6 +18,7 @@ class AppRoutes {
   static const String loadAppDataScreen = '/core/screens/load_app_data_screen';
   static const String informationScreen = '/core/screens/informations_screen';
   static const String signIn = '/core/screens/sign_in';
+  static const String profile = '/core/screens/profile_screen';
 
   //TO-DO LIST
   static const String toDoPage =
@@ -35,8 +36,6 @@ class AppRoutes {
   //INVOICE-MANAGER
   static const String invoiceManagerScreen =
       '/services/invoice_manager/presentation/screens/invoice_manager';
-  static const String addBusinessOwnerScreen =
-      '/services/invoice_manager/presentation/screens/add_business_owner_screen.dart';
 
   //Employee Management
   static const String employeeManagementScreen =
@@ -50,15 +49,15 @@ class AppRoutes {
     homePage: (context) => const HomePage(title: "Home Page"),
     toDoPage: (context) => const ToDoListScreen(),
     signIn: (context) => const SignInScreen(),
+    profile: (context) => const ProfileScreen(),
     addItemPage: (context) => AddItemPage(),
     loadAppDataScreen: (context) => const LoadAppDataScreen(),
     workManagerScreen: (context) => const WorkManagerScreen(),
     addNewEventScreen: (context) => const AddNewEventScreen(
-      isLastDateVisible: true,
-    ),
+          isLastDateVisible: true,
+        ),
     invoiceManagerScreen: (context) => const InvoiceManagerScreen(),
     informationScreen: (context) => const InformationsScreen(),
-    addBusinessOwnerScreen: (context) => const AddBusinessOwnerScreen(),
     employeeManagementScreen: (context) => const EmployeeManagementScreen(),
     employeeDetailsScreen: (context) => const EmployeeDetailsScreen(),
     employeeAddNewScreen: (context) => const EmployeeAddNewScreen(),

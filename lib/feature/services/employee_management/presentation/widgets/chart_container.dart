@@ -49,10 +49,10 @@ class ChartContainer extends StatelessWidget {
                         text = "T ${taskNumber?.toStringAsFixed(0)}" ?? '0.1';
                         break;
                       case 2:
-                        text = taskDoneNumber?.toStringAsFixed(0) ?? '0.1';
+                        text = "D ${taskDoneNumber?.toStringAsFixed(0)}" ?? '0.1';
                         break;
                       case 3:
-                        text = otherNumber?.toStringAsFixed(0) ?? '0.1';
+                        text = "N ${otherNumber?.toStringAsFixed(0)}" ?? '0.1';
                         break;
                     }
                     return Text(
@@ -83,7 +83,7 @@ class ChartContainer extends StatelessWidget {
                 barRods: [
                   BarChartRodData(
                     toY: taskNumber ?? 0.1,
-                    color: Colors.green,
+                    color:Colors.orange,
                     width: 16,
                   ),
                 ],
@@ -93,7 +93,7 @@ class ChartContainer extends StatelessWidget {
                 barRods: [
                   BarChartRodData(
                       toY: taskDoneNumber ?? 0.1,
-                      color: Colors.orange,
+                      color:  Colors.green,
                       width: 16),
                 ],
               ),

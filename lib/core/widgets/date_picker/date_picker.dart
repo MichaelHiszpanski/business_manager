@@ -63,7 +63,7 @@ class _DatePickerState extends State<DatePicker> {
         CustomFloatingButton(
           onPressed: () => _datePicker(context),
           buttonText: widget.buttonText ?? 'Pick Expiration Date',
-          backgroundColor: widget.backgroundColor ?? Pallete.gradient3,
+          backgroundColor: widget.backgroundColor ?? Pallete.gradient1,
         ),
       ],
     );

@@ -96,24 +96,27 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
           ButtonWrapperTwo(
             startColor: _isCompleted ? Colors.orange : Pallete.gradient2,
             endColor: _isCompleted ? Colors.white38 : Colors.lightBlue,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    "Status: ${_isCompleted ? 'Completed' : 'Pending'}",
-                    style: _isCompleted
-                        ? context.text.titleSmall
-                        : context.text.bodyMedium,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.48,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      "Status: ${_isCompleted ? 'Completed' : 'Pending'}",
+                      style: _isCompleted
+                          ? context.text.titleSmall
+                          : context.text.bodyMedium,
+                    ),
                   ),
-                ),
-                Switch(
-                  value: _isCompleted,
-                  onChanged: (value) {
-                    _toggleTaskStatus(context);
-                  },
-                ),
-              ],
+                  Switch(
+                    value: _isCompleted,
+                    onChanged: (value) {
+                      _toggleTaskStatus(context);
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ],

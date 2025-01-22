@@ -12,11 +12,11 @@ TextTheme getTextTheme(Color defaultTextColor) {
       color: Colors.white,
       fontFamily: AppFontFamily.orbitron,
     ),
-    displaySmall: TextStyle(
+    displaySmall:const TextStyle(
       fontSize: 18,
       height: 1.3,
-      fontWeight: FontWeight.w500,
-      color: defaultTextColor,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
     ),
     headlineLarge: const TextStyle(
       fontSize: 32,

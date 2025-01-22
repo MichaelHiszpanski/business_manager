@@ -85,6 +85,7 @@ class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
               });
             },
             selectedDate: _localEmployeeDateJoined,
+            startingDate: DateTime(1980),
           ),
           const SizedBox(height: Constants.padding24),
           ButtonWrapperOne(

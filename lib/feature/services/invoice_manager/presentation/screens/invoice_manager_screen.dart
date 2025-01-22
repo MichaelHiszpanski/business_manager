@@ -97,9 +97,18 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final TextEditingController _sortCode = TextEditingController();
   final TextEditingController _accountNo = TextEditingController();
 
+  DateTime? _invoiceDateCreated;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   _invoiceDateCreated = DateTime.now();
+  // }
+
   InvoiceOneModel _createInvoiceOneData() {
     return InvoiceOneModel(
-      invoiceDateTimeCreated: DateTime.now(),
+      invoiceDateTimeCreated: _invoiceDateCreated??DateTime.now(),
       invoiceNumber: _invoiceNumber.text,
       businessDetailsModel: BusinessDetailsModel(
         businessName: _selectedBusinessDetails.businessName,
@@ -261,6 +270,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                           invoiceNumber: _invoiceNumber,
                           thankYouMessage: _thankYouMessage,
                           paymentDueDays: _paymentDueDays,
+                          invoiceStartDate: _invoiceDateCreated,
                           onSaveData: () {},
                         ),
                       ],

@@ -1,4 +1,5 @@
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
+import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 
 import 'package:business_manager/core/widgets/buttons/custom_side_button_menu/custom_side_button_menu.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'core/theme/app_font_family.dart';
 import 'main.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,6 +39,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _initializeNotifications() async {
     await Permission.notification.request();
   }
+
   Future<void> _checkUserSignInStatus() async {
     final user = Supabase.instance.client.auth.currentUser;
     setState(() {
@@ -44,15 +47,66 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _handleProfile() {
+    MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.profile);
+  }
+
+  Future<void> _handleLogout() async {
+    await Supabase.instance.client.auth.signOut();
+    setState(() {
+      isUserSignedIn = false;
+    });
+  }
+
   void _handleFloatingActionButtonPress() {
     if (isUserSignedIn) {
-
       // MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.profilePage);
     } else {
-
       MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.signIn);
     }
   }
+
+  void _showDropdownMenu(BuildContext context) {
+    showMenu(
+      context: context,
+      position: const RelativeRect.fromLTRB(100, 0, 85, 100),
+      menuPadding: const EdgeInsets.all(Constants.padding8),
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Constants.radius15),
+      ),
+      color: Colors.black38,
+      popUpAnimationStyle: AnimationStyle(
+          curve: Curves.easeInOutSine,
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(seconds: 1)),
+      items: [
+        PopupMenuItem(
+          value: 'profile',
+          child: Text(
+            'Profile',
+            style: context.text.titleSmall?.copyWith(
+                fontFamily: AppFontFamily.orbitron, color: Colors.white),
+          ),
+        ),
+        PopupMenuItem(
+          value: 'logout',
+          child: Text(
+            'Log Out',
+            style: context.text.titleSmall?.copyWith(
+                fontFamily: AppFontFamily.orbitron, color: Colors.white),
+          ),
+        ),
+      ],
+    ).then((value) {
+      if (value == 'profile') {
+        _handleProfile();
+      } else if (value == 'logout') {
+        _handleLogout();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,27 +126,30 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   "Business Manager",
                   style: context.text.headlineLarge,
-
                 ),
-                const CustomSideButtonMenu(),
+                CustomSideButtonMenu(
+                  isUserSignedIn: isUserSignedIn,
+                ),
               ],
             ),
           ),
           Positioned(
             top: MediaQuery.of(context).padding.top + 20,
             right: 20,
-            child: CustomFloatingActionButton(
-              icon:   isUserSignedIn
-                ? Icons.person
-                : Icons.login,
-              onPressed: _handleFloatingActionButtonPress,
-              heroTag: "heroTagHome",
-            ),
+            child: isUserSignedIn
+                ? CustomFloatingActionButton(
+                    icon: Icons.person,
+                    onPressed: () => _showDropdownMenu(context),
+                    heroTag: "heroTagHome",
+                  )
+                : CustomFloatingActionButton(
+                    icon: Icons.login,
+                    onPressed: _handleFloatingActionButtonPress,
+                    heroTag: "heroTagHome",
+                  ),
           ),
         ],
       ),
     );
   }
-
-
 }

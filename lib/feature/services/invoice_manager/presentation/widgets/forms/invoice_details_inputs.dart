@@ -1,6 +1,7 @@
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
+import 'package:business_manager/core/widgets/date_picker/date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,6 +9,7 @@ class InvoiceDetailsInputs extends StatefulWidget {
   final TextEditingController invoiceNumber;
   final TextEditingController thankYouMessage;
   final TextEditingController paymentDueDays;
+  DateTime? invoiceStartDate;
   final VoidCallback onSaveData;
 
   InvoiceDetailsInputs({
@@ -16,6 +18,7 @@ class InvoiceDetailsInputs extends StatefulWidget {
     required this.thankYouMessage,
     TextEditingController? paymentDueDays,
     required this.onSaveData,
+    this.invoiceStartDate,
   }) : paymentDueDays = paymentDueDays ?? TextEditingController(text: "30");
 
   @override
@@ -53,6 +56,18 @@ class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
               ),
             ],
             validator: _validateDueDays,
+          ),
+          const SizedBox(height: Constants.padding16),
+          DatePicker(
+            onDateSelected: (selectedDate) {
+              setState(() {
+                widget.invoiceStartDate = selectedDate;
+              });
+            },
+            selectedDate: widget.invoiceStartDate,
+            buttonText: "Pick Start Date",
+            startingDate: DateTime(2000),
+            backgroundColor: Colors.red,
           ),
           const SizedBox(height: Constants.padding16),
           CustomFloatingButton(
