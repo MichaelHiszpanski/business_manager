@@ -21,9 +21,8 @@ class EmployeeDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
-
     final EmployeeModel model = args['model'];
-
+    late bool isTaskDone = false;
     return Scaffold(
       appBar: CustomAppBar(title: "Employee Details", onMenuPressed: () {}),
       body: SingleChildScrollView(
@@ -47,7 +46,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                     return const Center(child: CircularProgressIndicator());
                   },
                 ),
-                const SizedBox(height: Constants.padding8),
+                const SizedBox(height: Constants.padding16),
                 Row(
                   children: [
                     Text(
@@ -55,22 +54,29 @@ class EmployeeDetailsScreen extends StatelessWidget {
                       style: context.text.headlineMedium,
                     ),
                     const Spacer(),
-                    IconButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AddTaskDialog(employeeID: model.employeeID!);
-                          },
-                        );
-                      },
-                      icon: const Icon(Icons.add),
-                      iconSize: 32,
-                      tooltip: "Add Task",
+                    SizedBox(
+                      height: 40,
+                      width: 40,
+                      child: FloatingActionButton(
+                        backgroundColor: Colors.amber,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AddTaskDialog(
+                                  employeeID: model.employeeID!);
+                            },
+                          );
+                        },
+                        child: const Icon(
+                          Icons.add,
+                          size: 30,
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(height: Constants.padding8),
+                const SizedBox(height: Constants.padding16),
                 BlocBuilder<EmployeeManagementBloc, EmployeeManagementState>(
                   builder: (context, state) {
                     if (state is EmployeeManagementLoaded) {
@@ -98,6 +104,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final task =
                                 updatedEmployee.employeeTaskList[index];
+                            isTaskDone = task.isDone;
                             return GestureDetector(
                               onTap: () {
                                 showDialog(
@@ -124,31 +131,34 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 4.0),
                                 child: Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.task,
                                       size: 24,
-                                      color: Colors.white,
+                                      color: isTaskDone
+                                          ? Colors.green
+                                          : Colors.red,
                                     ),
                                     const SizedBox(width: Constants.padding8),
                                     Expanded(
                                       child: Text(
                                         task.taskTitle,
-                                        style: context.text.bodyMedium,
+                                        style: context.text.bodyMedium?.copyWith(
+                                          color:  isTaskDone
+                                              ? Colors.green
+                                              : Colors.red,
+                                        ),
                                         overflow: TextOverflow.ellipsis,
+
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                             );
-                          }
-
-                          ,
+                          },
                         ),
                       );
-                    }else if (state is EmployeeManagementError) {
-
-                    }
+                    } else if (state is EmployeeManagementError) {}
 
                     return const Center(
                       child: CircularProgressIndicator(),

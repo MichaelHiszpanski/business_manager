@@ -69,7 +69,7 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             "Description: ${widget.task.taskDescription}",
@@ -81,21 +81,54 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
           //   style: context.text.bodyLarge,
           // ),
           const SizedBox(height: Constants.padding16),
-          if (widget.task.employeeCheckInTime != null)
-            Text(
-              "Check-In Time: ${DateFormatHelper.dateFormat(widget.task.employeeCheckInTime)}",
-              style: context.text.titleSmall,
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(
+              Constants.padding8,
             ),
+            decoration: BoxDecoration(
+              color: Pallete.gradient1,
+              borderRadius: BorderRadius.circular(Constants.radius15),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 2,
+                  blurRadius: 6,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (widget.task.employeeCheckInTime != null)
+                  Text(
+                    "  Check-In Time: ${DateFormatHelper.dateFormat(widget.task.employeeCheckInTime)}",
+                    style: context.text.bodyLarge?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                const SizedBox(
+                  height: Constants.padding4,
+                ),
+                if (widget.task.employeeCheckOutTime != null)
+                  Text(
+                    "  Check-Out Time: ${DateFormatHelper.dateFormat(widget.task.employeeCheckOutTime)}",
+                    style: context.text.bodyLarge?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+
+              ],
+            ),
+          ),
           const SizedBox(height: Constants.padding16),
-          if (widget.task.employeeCheckOutTime != null)
-            Text(
-              "Check-Out Time: ${DateFormatHelper.dateFormat(widget.task.employeeCheckOutTime)}",
-              style: context.text.titleSmall,
-            ),
-          const SizedBox(height: 8),
           ButtonWrapperTwo(
-            startColor: _isCompleted ? Colors.orange : Pallete.gradient2,
-            endColor: _isCompleted ? Colors.white38 : Colors.lightBlue,
+            startColor: _isCompleted ? Colors.green : Colors.red,
+            endColor: _isCompleted ? Colors.lightGreen : Colors.redAccent,
             child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.48,
               child: Row(

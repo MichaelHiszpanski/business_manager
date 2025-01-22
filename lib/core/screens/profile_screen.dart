@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:business_manager/core/helpers/date_format_helper.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
@@ -60,10 +61,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Text(
                 "Profile",
                 style: context.text.headlineLarge?.copyWith(
-                  color: Pallete.gradient1,
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold
-                ),
+                    color: Pallete.gradient1,
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: Constants.padding16 * 5),
               Container(
@@ -99,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            "Created At: ${_user?.createdAt ?? 'N/A'}",
+                            "Created At: ${DateFormatHelper.dateFormatFromString(_user?.createdAt)}",
                             style: context.text.bodyMedium?.copyWith(
                               color: Colors.black87,
                             ),
@@ -177,7 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: Constants.padding16*4),
+              const SizedBox(height: Constants.padding16 * 4),
               const Spacer(),
             ],
           ))
