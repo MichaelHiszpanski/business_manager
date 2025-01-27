@@ -12,8 +12,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'core/theme/app_font_family.dart';
-import 'main.dart';
+import '../theme/app_font_family.dart';
+import '../../main.dart';
 
 class HomePage extends StatefulWidget {
   final String title;

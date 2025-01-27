@@ -1,7 +1,7 @@
 import 'package:business_manager/core/screens/informations_screen.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
-import 'package:business_manager/core/screens/profile_screen.dart';
-import 'package:business_manager/core/screens/sign_in_screen.dart';
+import 'package:business_manager/feature/auth/profile/profile_screen.dart';
+import 'package:business_manager/feature/auth/sign_in/sign_in_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_add_new_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_details_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_management_screen.dart';
@@ -11,7 +11,7 @@ import 'package:business_manager/feature/services/to_do_list/presentation/screen
 import 'package:business_manager/feature/services/work_manager/presentation/screens/add_new_event_screen.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/screens/work_manager_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:business_manager/home_page.dart';
+import 'package:business_manager/core/screens/home_screen.dart';
 
 class AppRoutes {
   static const String homePage = '/home_page';

@@ -2,7 +2,7 @@ import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/main_utils/bloc_provider/bloc_provider.dart';
 import 'package:business_manager/core/storage_hive/hive_register_adapter.dart';
 import 'package:business_manager/core/theme/app_theme.dart';
-import 'package:business_manager/home_page.dart';
+import 'package:business_manager/core/screens/home_screen.dart';
 import 'package:business_manager/observer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';

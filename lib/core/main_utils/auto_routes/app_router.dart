@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:business_manager/core/screens/informations_screen.dart';
-import 'package:business_manager/core/screens/sign_in_screen.dart';
+import 'package:business_manager/feature/auth/sign_in/sign_in_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_add_new_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_details_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_management_screen.dart';
