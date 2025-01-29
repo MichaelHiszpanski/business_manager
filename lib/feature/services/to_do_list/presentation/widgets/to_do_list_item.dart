@@ -3,7 +3,7 @@ import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
-import 'package:business_manager/feature/services/to_do_list/presentation/screens/edit_item_page.dart';
+import 'package:business_manager/feature/services/to_do_list/presentation/screens/edit_item_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,7 +66,7 @@ class ToDoListItem extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => EditItemPage(todo: todo),
+                          builder: (context) => EditItemScreen(todo: todo),
                         ),
                       );
                     },

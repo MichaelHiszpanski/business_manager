@@ -196,7 +196,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
 
     switch (iconIndex) {
       case 0:
-        MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.toDoPage);
+        MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.toDoScreen);
 
         break;
       case 1:

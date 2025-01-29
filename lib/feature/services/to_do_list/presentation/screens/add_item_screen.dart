@@ -16,12 +16,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
-class AddItemPage extends StatefulWidget {
+class AddItemScreen extends StatefulWidget {
   @override
-  State<AddItemPage> createState() => _AddItemPageState();
+  State<AddItemScreen> createState() => _AddItemScreenState();
 }
 
-class _AddItemPageState extends State<AddItemPage> {
+class _AddItemScreenState extends State<AddItemScreen> {
   final _globalKey = GlobalKey<FormState>();
 
   final _titleController = TextEditingController();

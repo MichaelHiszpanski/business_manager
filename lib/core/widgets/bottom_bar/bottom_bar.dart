@@ -40,7 +40,7 @@ class _BottomBarState extends State<BottomBar> {
             MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.homePage);
             break;
           case 1:
-            MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.toDoPage);
+            MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.toDoScreen);
             break;
 
           case 2:

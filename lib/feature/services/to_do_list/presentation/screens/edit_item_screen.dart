@@ -11,16 +11,16 @@ import 'package:business_manager/core/widgets/date_picker/date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class EditItemPage extends StatefulWidget {
+class EditItemScreen extends StatefulWidget {
   final ToDoItem todo;
 
-  const EditItemPage({Key? key, required this.todo}) : super(key: key);
+  const EditItemScreen({Key? key, required this.todo}) : super(key: key);
 
   @override
-  State<EditItemPage> createState() => _EditItemPageState();
+  State<EditItemScreen> createState() => _EditItemScreenState();
 }
 
-class _EditItemPageState extends State<EditItemPage> {
+class _EditItemScreenState extends State<EditItemScreen> {
   final _formKey = GlobalKey<FormState>();
 
   late TextEditingController _titleController;

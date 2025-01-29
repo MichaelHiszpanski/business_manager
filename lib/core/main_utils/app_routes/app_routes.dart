@@ -6,7 +6,7 @@ import 'package:business_manager/feature/services/employee_management/presentati
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_details_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_management_screen.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/screens/invoice_manager_screen.dart';
-import 'package:business_manager/feature/services/to_do_list/presentation/screens/add_item_page.dart';
+import 'package:business_manager/feature/services/to_do_list/presentation/screens/add_item_screen.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/screens/to_do_list_screen.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/screens/add_new_event_screen.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/screens/work_manager_screen.dart';
@@ -21,10 +21,10 @@ class AppRoutes {
   static const String profile = '/core/screens/profile_screen';
 
   //TO-DO LIST
-  static const String toDoPage =
-      '/services/to_do_list/presentation/screens/to_do_page';
-  static const String addItemPage =
-      '/services/to_do_list/presentation/screens/add_item_page';
+  static const String toDoScreen =
+      '/services/to_do_list/presentation/screens/to_do_list_screen';
+  static const String addItemScreen =
+      '/services/to_do_list/presentation/screens/add_item_screen';
 
   //WORK-MANAGER
   static const String workManagerScreen =
@@ -47,10 +47,10 @@ class AppRoutes {
 
   static final routes = <String, WidgetBuilder>{
     homePage: (context) => const HomePage(title: "Home Page"),
-    toDoPage: (context) => const ToDoListScreen(),
+    toDoScreen: (context) => const ToDoListScreen(),
     signIn: (context) => const SignInScreen(),
     profile: (context) => const ProfileScreen(),
-    addItemPage: (context) => AddItemPage(),
+    addItemScreen: (context) => AddItemScreen(),
     loadAppDataScreen: (context) => const LoadAppDataScreen(),
     workManagerScreen: (context) => const WorkManagerScreen(),
     addNewEventScreen: (context) => const AddNewEventScreen(
