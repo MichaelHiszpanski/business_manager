@@ -82,13 +82,12 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
                               widget.onRemoveItem!(item);
+                              _cloeDropDown();
                               if (_itemSelected == item) {
                                 setState(() {
                                   _itemSelected = null;
                                 });
-                                _cloeDropDown();
                               }
-
                               setStateDropdown(() {});
                             },
                           ),
@@ -113,6 +112,8 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
       ),
     );
   }
+
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/widgets/custom_dialog/custom_dialog.dart';
 import 'package:business_manager/feature/services/invoice_manager/bloc/invoice_manager_bloc.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/business_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/drop_down_list.dart';
@@ -50,9 +51,26 @@ class _StepOneState extends State<StepOne> {
     super.initState();
     selectedBusinessDetails = widget.initialSelectedBusinessDetails;
   }
-  void _removeBusiness(BusinessDetailsModel business) {
-    context.read<InvoiceManagerBloc>().add(InvoiceManagerRemoveBusiness(businessID: business.businessName));
+
+  void _removeBusiness(BuildContext context, BusinessDetailsModel business) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDialog(
+          title: "Confirm Delete",
+          content: "Do you want to delete this business?",
+          onConfirm: () {
+            context.read<InvoiceManagerBloc>().add(
+                  InvoiceManagerRemoveBusiness(
+                    businessID: business.businessID ?? business.businessName,
+                  ),
+                );
+          },
+        );
+      },
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -87,7 +105,8 @@ class _StepOneState extends State<StepOne> {
                       });
                       widget.onBusinessSelected(selectedBusinessDetails);
                     },
-                    onRemoveItem: _removeBusiness,
+                    onRemoveItem: (business) =>
+                        _removeBusiness(context, business),
                   ),
                 ],
               );

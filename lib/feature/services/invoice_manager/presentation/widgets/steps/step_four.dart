@@ -1,5 +1,6 @@
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/widgets/custom_dialog/custom_dialog.dart';
 import 'package:business_manager/feature/services/invoice_manager/bloc/invoice_manager_bloc.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/bank_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/drop_down_list.dart';
@@ -35,10 +36,23 @@ class StepFour extends StatefulWidget {
 class _StepFourState extends State<StepFour> {
   late BankDetailsModel? selectedBankDetails;
 
-  void _removeBank(BankDetailsModel bank) {
-    context
-        .read<InvoiceManagerBloc>()
-        .add(InvoiceManagerRemoveBank(bankID: bank.bankID ?? bank.bankName));
+  void _removeBank(BuildContext context, BankDetailsModel bank) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDialog(
+          title: "Confirm Delete",
+          content: "Do you want to delete this Bank?",
+          onConfirm: () {
+            context.read<InvoiceManagerBloc>().add(
+                  InvoiceManagerRemoveBank(
+                    bankID: bank.bankID ?? bank.bankName,
+                  ),
+                );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -75,7 +89,7 @@ class _StepFourState extends State<StepFour> {
                       });
                       widget.onBankSelected(selectedBankDetails);
                     },
-                    onRemoveItem: _removeBank,
+                    onRemoveItem: (bank) => _removeBank(context, bank),
                   ),
                 ],
               );

@@ -422,8 +422,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       floatingActionButton: Stack(
         children: <Widget>[
           Positioned(
-            bottom: 60,
-            right: 0,
+            top: MediaQuery.of(context).padding.top +
+                MediaQuery.of(context).size.height * 0.15,
+            right: 20,
             child: (_currentStep == _totalSteps && _isFormValid)
                 ? InvoiceCustomFloatingButton(
                     createInvoiceData: _createInvoiceOneData,

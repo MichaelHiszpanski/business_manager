@@ -1,6 +1,7 @@
 import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/widgets/custom_dialog/custom_dialog.dart';
 import 'package:business_manager/feature/services/invoice_manager/bloc/invoice_manager_bloc.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/drop_down_list.dart';
@@ -50,9 +51,23 @@ class _StepTwoState extends State<StepTwo> {
     selectedClientDetails = widget.initialSelectedClientDetails;
   }
 
-  void _removeClient(ClientDetailsModel client) {
-    context.read<InvoiceManagerBloc>().add(InvoiceManagerRemoveClient(
-        clientID: client.clinetID ?? client.clientFirstName));
+  void _removeClient(BuildContext context, ClientDetailsModel client) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDialog(
+          title: "Confirm Delete",
+          content: "Do you want to delete this client?",
+          onConfirm: () {
+            context.read<InvoiceManagerBloc>().add(
+                  InvoiceManagerRemoveClient(
+                    clientID: client.clinetID ?? client.clientFirstName,
+                  ),
+                );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -90,7 +105,7 @@ class _StepTwoState extends State<StepTwo> {
                       });
                       widget.onClientSelected(selectedClientDetails);
                     },
-                    onRemoveItem: _removeClient,
+                    onRemoveItem: (client) => _removeClient(context, client),
                   ),
                 ],
               );

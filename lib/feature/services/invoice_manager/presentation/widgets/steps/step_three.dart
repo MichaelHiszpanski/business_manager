@@ -2,6 +2,7 @@ import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
+import 'package:business_manager/core/widgets/custom_dialog/custom_dialog.dart';
 import 'package:business_manager/feature/services/invoice_manager/bloc/invoice_manager_bloc.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/drop_down_list.dart';
@@ -46,18 +47,29 @@ class StepThree extends StatefulWidget {
 class _StepThreeState extends State<StepThree> {
   late InvoiceItemModel? selectedItemDetails;
 
-  // final List<InvoiceItemModel> _itemsAddedToInvoiceList = [];
-
   @override
   void initState() {
     super.initState();
     selectedItemDetails = widget.initialSelectedItemDetails;
   }
 
-  void _removeItem(InvoiceItemModel item) {
-    context
-        .read<InvoiceManagerBloc>()
-        .add(InvoiceManagerRemoveItem(itemID: item.itemID ?? item.displayName));
+  void _removeItem(BuildContext context, InvoiceItemModel item) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDialog(
+          title: "Confirm Delete",
+          content: "Do you want to delete this item?",
+          onConfirm: () {
+            context.read<InvoiceManagerBloc>().add(
+                  InvoiceManagerRemoveItem(
+                    itemID: item.itemID ?? item.description,
+                  ),
+                );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -94,7 +106,7 @@ class _StepThreeState extends State<StepThree> {
                       });
                       widget.onItemSelected(selectedItemDetails);
                     },
-                    onRemoveItem: _removeItem,
+                    onRemoveItem: (item) => _removeItem(context, item),
                   ),
                 ],
               );

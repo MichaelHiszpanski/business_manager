@@ -309,12 +309,12 @@ class InvoiceManagerBloc
       List<BusinessDetailsHive> updatedBusinessList =
           existingBusinessList.cast<BusinessDetailsHive>();
       updatedBusinessList
-          .removeWhere((business) => business.businessName == event.businessID);
+          .removeWhere((business) => business.businessID == event.businessID);
 
       await box.put(HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY,
           updatedBusinessList);
       _businessCurrentList
-          .removeWhere((business) => business.businessName == event.businessID);
+          .removeWhere((business) => business.businessID == event.businessID);
     }
 
     emit(InvoiceManagerLoaded(
@@ -340,12 +340,12 @@ class InvoiceManagerBloc
       List<ClientsDetailsHive> updatedClientList =
           existingClientList.cast<ClientsDetailsHive>();
       updatedClientList
-          .removeWhere((client) => client.clientFirstName == event.clientID);
+          .removeWhere((client) => client.clientID == event.clientID);
 
       await box.put(
           HiveClientDetailsProperties.TO_CLIENT_DETAILS_DATA_KEY, updatedClientList);
       _clientCurrentList
-          .removeWhere((client) => client.clientFirstName == event.clientID);
+          .removeWhere((client) => client.clinetID == event.clientID);
     }
 
     emit(InvoiceManagerLoaded(
@@ -370,12 +370,12 @@ class InvoiceManagerBloc
     if (existingItemList != null) {
       List<InvoiceItemsHive> updatedItemListList =
           existingItemList.cast<InvoiceItemsHive>();
-      updatedItemListList.removeWhere((item) => item.description == event.itemID);
+      updatedItemListList.removeWhere((item) => item.itemID == event.itemID);
 
       await box.put(
           HiveInvoiceItemsProperties.TO_INVOICE_ITEMS_DATA_KEY, updatedItemListList);
       _invoiceItemsCurrentList
-          .removeWhere((item) => item.description == event.itemID);
+          .removeWhere((item) => item.itemID == event.itemID);
     }
 
     emit(InvoiceManagerLoaded(
@@ -400,11 +400,11 @@ class InvoiceManagerBloc
     if (existingBankList != null) {
       List<BankDetailsHive> updatedBankDetailsList =
           existingBankList.cast<BankDetailsHive>();
-      updatedBankDetailsList.removeWhere((bank) => bank.bankName == event.bankID);
+      updatedBankDetailsList.removeWhere((bank) => bank.bankID == event.bankID);
 
       await box.put(
           HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_KEY, updatedBankDetailsList);
-      _bankCurrentList.removeWhere((bank) => bank.bankName == event.bankID);
+      _bankCurrentList.removeWhere((bank) => bank.bankID == event.bankID);
     }
 
     emit(InvoiceManagerLoaded(
