@@ -9,17 +9,19 @@ class InvoiceDetailsInputs extends StatefulWidget {
   final TextEditingController invoiceNumber;
   final TextEditingController thankYouMessage;
   final TextEditingController paymentDueDays;
-  DateTime? invoiceStartDate;
   final VoidCallback onSaveData;
+  final Function(bool) onFormValidated;
+  final Function(DateTime) onDateSelected;
 
-  InvoiceDetailsInputs({
-    super.key,
-    required this.invoiceNumber,
-    required this.thankYouMessage,
-    TextEditingController? paymentDueDays,
-    required this.onSaveData,
-    this.invoiceStartDate,
-  }) : paymentDueDays = paymentDueDays ?? TextEditingController(text: "30");
+  InvoiceDetailsInputs(
+      {super.key,
+      required this.invoiceNumber,
+      required this.thankYouMessage,
+      TextEditingController? paymentDueDays,
+      required this.onSaveData,
+      required this.onFormValidated,
+      required this.onDateSelected})
+      : paymentDueDays = paymentDueDays ?? TextEditingController(text: "30");
 
   @override
   State<InvoiceDetailsInputs> createState() => _InvoiceDetailsInputsState();
@@ -28,12 +30,20 @@ class InvoiceDetailsInputs extends StatefulWidget {
 class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
   final _keyForm = GlobalKey<FormState>();
   final String _error = "";
+  late DateTime _invoiceStartDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _invoiceStartDate = DateTime.now();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _keyForm,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
             controller: widget.invoiceNumber,
@@ -61,11 +71,11 @@ class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
           DatePicker(
             onDateSelected: (selectedDate) {
               setState(() {
-                widget.invoiceStartDate = selectedDate;
+                widget.onDateSelected(selectedDate!);
               });
             },
-            selectedDate: widget.invoiceStartDate,
-            buttonText: "Pick Start Date",
+            selectedDate: _invoiceStartDate,
+            buttonText: "Pick Invoice Date",
             startingDate: DateTime(2000),
             backgroundColor: Colors.red,
           ),
@@ -74,9 +84,10 @@ class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
             onPressed: () {
               if (_keyForm.currentState!.validate()) {
                 widget.onSaveData();
+                widget.onFormValidated(true);
               }
             },
-            buttonText: 'Save',
+            buttonText: 'Apply',
             backgroundColor: Pallete.gradient3,
           ),
         ],

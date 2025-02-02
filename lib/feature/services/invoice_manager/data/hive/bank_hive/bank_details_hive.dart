@@ -5,6 +5,9 @@ part 'bank_details_hive.g.dart';
 
 @HiveType(typeId: HiveProperties.bankDetailsID)
 class BankDetailsHive {
+  @HiveField(HiveBankDetailsProperties.bankID)
+  String? bankID;
+
   @HiveField(HiveBankDetailsProperties.bankName)
   final String bankName;
 
@@ -15,6 +18,7 @@ class BankDetailsHive {
   final String accountNo;
 
   BankDetailsHive({
+    this.bankID,
     required this.bankName,
     required this.sortCode,
     required this.accountNo,
@@ -22,7 +26,7 @@ class BankDetailsHive {
 
   @override
   String toString() {
-    return 'BusinessDetailsHive(bankName: $bankName, sortCode: $sortCode, '
+    return 'BusinessDetailsHive(bankID: $bankID, bankName: $bankName, sortCode: $sortCode, '
         'accountNo: $accountNo';
   }
 }

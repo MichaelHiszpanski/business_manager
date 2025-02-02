@@ -2,6 +2,7 @@ import 'package:business_manager/feature/services/invoice_manager/models/invoice
 import 'package:equatable/equatable.dart';
 
 class ClientDetailsModel extends Equatable {
+  String? clinetID;
   final String clientFirstName;
   final String clientLastName;
   final String clientStreet;
@@ -10,7 +11,8 @@ class ClientDetailsModel extends Equatable {
   final String clientMobile;
   final String clientEmail;
 
-  const ClientDetailsModel({
+   ClientDetailsModel({
+    this.clinetID,
     required this.clientFirstName,
     required this.clientLastName,
     required this.clientStreet,
@@ -24,6 +26,7 @@ class ClientDetailsModel extends Equatable {
 
   @override
   List<Object?> get props => [
+        clinetID,
         clientFirstName,
         clientLastName,
         clientStreet,

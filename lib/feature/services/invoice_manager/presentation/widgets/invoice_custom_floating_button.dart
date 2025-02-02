@@ -1,3 +1,4 @@
+import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
@@ -20,7 +21,7 @@ class InvoiceCustomFloatingButton extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
         backgroundColor:
-            WidgetStateProperty.all(Pallete.colorSix.withOpacity(0.60)),
+            WidgetStateProperty.all(Pallete.colorOne.withOpacity(0.99)),
       ),
       onPressed: () async {
         try {
@@ -67,10 +68,10 @@ class InvoiceCustomFloatingButton extends StatelessWidget {
         child: Text(
           'Preview PDF',
           style: TextStyle(
-            color: Pallete.colorOne,
-            fontSize: 22,
+            color: Colors.white,
+            fontSize: 24,
             fontWeight: FontWeight.w200,
-            fontFamily: "Jaro",
+            fontFamily: AppFontFamily.orbitron,
           ),
         ),
       ),

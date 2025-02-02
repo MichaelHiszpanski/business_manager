@@ -27,15 +27,6 @@ class _EmployeeManagementScreenState extends State<EmployeeManagementScreen> {
     context.read<EmployeeManagementBloc>().add(const LoadEmployeeList());
   }
 
-  void _navigateToProfile(int index, EmployeeModel employee) {
-    Navigator.of(context).pushNamed(
-      AppRoutes.employeeDetailsScreen,
-      arguments: {
-        'model': employee,
-      },
-    );
-  }
-
   void _handleNewEmployee() {
     Navigator.of(context).pushNamed(AppRoutes.employeeAddNewScreen);
   }

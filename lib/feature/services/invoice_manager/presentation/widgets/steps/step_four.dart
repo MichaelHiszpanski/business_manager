@@ -35,6 +35,12 @@ class StepFour extends StatefulWidget {
 class _StepFourState extends State<StepFour> {
   late BankDetailsModel? selectedBankDetails;
 
+  void _removeBank(BankDetailsModel bank) {
+    context
+        .read<InvoiceManagerBloc>()
+        .add(InvoiceManagerRemoveBank(bankID: bank.bankID ?? bank.bankName));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -56,7 +62,7 @@ class _StepFourState extends State<StepFour> {
                     style: TextStyle(
                       fontFamily: "Orbitron",
                       fontSize: 18,
-                      color: Pallete.colorFive,
+                      color: Pallete.colorOne,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -69,6 +75,7 @@ class _StepFourState extends State<StepFour> {
                       });
                       widget.onBankSelected(selectedBankDetails);
                     },
+                    onRemoveItem: _removeBank,
                   ),
                 ],
               );

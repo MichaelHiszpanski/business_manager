@@ -20,6 +20,7 @@ import 'package:business_manager/feature/services/invoice_manager/presentation/w
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 class InvoiceManagerScreen extends StatefulWidget {
   const InvoiceManagerScreen({super.key});
@@ -37,8 +38,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   double _currentItemQuantity = 0;
   int _currentStep = 0;
   int _totalSteps = 4;
+  final uuid = const Uuid();
 
-  BusinessDetailsModel _selectedBusinessDetails = const BusinessDetailsModel(
+  BusinessDetailsModel _selectedBusinessDetails = BusinessDetailsModel(
     businessName: "",
     businessFirstName: "",
     businessLastName: "",
@@ -48,7 +50,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     businessOwnerMobile: "",
     businessOwnerEmail: "",
   );
-  ClientDetailsModel _selectedClientDetails = const ClientDetailsModel(
+  ClientDetailsModel _selectedClientDetails = ClientDetailsModel(
     clientFirstName: "",
     clientLastName: "",
     clientStreet: "",
@@ -57,7 +59,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     clientEmail: "",
     clientMobile: "",
   );
-  InvoiceItemModel _selectedItemDetails = const InvoiceItemModel(
+  InvoiceItemModel _selectedItemDetails = InvoiceItemModel(
     description: "",
     quantity: "",
     itemPrice: "",
@@ -65,7 +67,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   );
 
   BankDetailsModel _selectedBankDetails =
-      const BankDetailsModel(bankName: "", sortCode: "", accountNo: "");
+      BankDetailsModel(bankName: "", sortCode: "", accountNo: "");
 
   final TextEditingController _businessName = TextEditingController();
   final TextEditingController _businessOwnerFirstName = TextEditingController();
@@ -99,16 +101,11 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
 
   DateTime? _invoiceDateCreated;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //
-  //   _invoiceDateCreated = DateTime.now();
-  // }
+  bool _isFormValid = false;
 
   InvoiceOneModel _createInvoiceOneData() {
     return InvoiceOneModel(
-      invoiceDateTimeCreated: _invoiceDateCreated??DateTime.now(),
+      invoiceDateTimeCreated: _invoiceDateCreated ?? DateTime.now(),
       invoiceNumber: _invoiceNumber.text,
       businessDetailsModel: BusinessDetailsModel(
         businessName: _selectedBusinessDetails.businessName,
@@ -149,6 +146,18 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     });
   }
 
+  void _onFormValidated(bool isValid) {
+    setState(() {
+      _isFormValid = isValid;
+    });
+  }
+
+  void _onDateSelected(DateTime selectedDate) {
+    setState(() {
+      _invoiceDateCreated = selectedDate;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,7 +173,8 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           gradient: LinearGradient(
             colors: [
               Colors.white,
-              Pallete.colorOne.withOpacity(0.75),
+              Pallete.colorSix.withOpacity(0.55),
+              // Pallete.colorOne.withOpacity(0.75),
             ],
             begin: Alignment.bottomLeft,
             end: Alignment.topCenter,
@@ -225,7 +235,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 content: StepThree(
                   itemsList: _itemsList,
                   initialSelectedItemDetails: _selectedItemDetails,
-                  updateQuantity: updateQuantity,
+                  updateQuantity: _updateQuantity,
                   currentItemQuantity: _currentItemQuantity,
                   saveInvoiceData: _saveInvoiceData,
                   itemDescription: _itemDescription,
@@ -237,6 +247,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                       _selectedItemDetails = selectedItem!;
                     });
                   },
+                  invoiceAddedItemsList: _invoiceAddedItemsList,
                 ),
                 stepStyle: _stepStyle(),
               ),
@@ -263,19 +274,28 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 content: Column(
                   children: [
                     const SizedBox(height: Constants.padding16),
-                    ExpansionTileWrapper(
-                      title: "Invoice Details",
-                      children: [
-                        InvoiceDetailsInputs(
-                          invoiceNumber: _invoiceNumber,
-                          thankYouMessage: _thankYouMessage,
-                          paymentDueDays: _paymentDueDays,
-                          invoiceStartDate: _invoiceDateCreated,
-                          onSaveData: () {},
-                        ),
-                      ],
+                    // ExpansionTileWrapper(
+                    //   title: "Invoice Details",
+                    //   children: [
+                    //     InvoiceDetailsInputs(
+                    //       invoiceNumber: _invoiceNumber,
+                    //       thankYouMessage: _thankYouMessage,
+                    //       paymentDueDays: _paymentDueDays,
+                    //       onSaveData: () {},
+                    //       onFormValidated: _onFormValidated,
+                    //       onDateSelected: _onDateSelected,
+                    //     ),
+                    //   ],
+                    // ),
+                    InvoiceDetailsInputs(
+                      invoiceNumber: _invoiceNumber,
+                      thankYouMessage: _thankYouMessage,
+                      paymentDueDays: _paymentDueDays,
+                      onSaveData: () {},
+                      onFormValidated: _onFormValidated,
+                      onDateSelected: _onDateSelected,
                     ),
-                    const SizedBox(height: Constants.padding16),
+                    const SizedBox(height: Constants.padding8),
                   ],
                 ),
                 stepStyle: _stepStyle(),
@@ -404,7 +424,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           Positioned(
             bottom: 60,
             right: 0,
-            child: _currentStep == _totalSteps
+            child: (_currentStep == _totalSteps && _isFormValid)
                 ? InvoiceCustomFloatingButton(
                     createInvoiceData: _createInvoiceOneData,
                   )
@@ -417,6 +437,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
 
   void _saveBusinessDetails() {
     final newBusiness = BusinessDetailsModel(
+      businessID: uuid.v4(),
       businessName: _businessName.text,
       businessFirstName: _businessOwnerFirstName.text,
       businessLastName: _businessOwnerLastName.text,
@@ -436,6 +457,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           (_businessesList
               .every((item) => item.businessName != _businessName.text))) {
         _businessesList.add(newBusiness);
+        _businessName.clear();
         _businessOwnerFirstName.clear();
         _businessOwnerLastName.clear();
         _businessOwnerStreet.clear();
@@ -449,6 +471,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
 
   void _saveClientDetails() {
     final newClient = ClientDetailsModel(
+      clinetID: uuid.v4(),
       clientFirstName: _clientFirstName.text,
       clientLastName: _clientLastName.text,
       clientStreet: _clientStreet.text,
@@ -476,6 +499,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
 
   void _saveBankDetails() {
     final newBank = BankDetailsModel(
+        bankID: uuid.v4(),
         bankName: _bankName.text,
         sortCode: _sortCode.text,
         accountNo: _accountNo.text);
@@ -494,6 +518,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
 
   void _saveNewItem() {
     final newItem = InvoiceItemModel(
+        itemID: uuid.v4(),
         description: _itemDescription.text,
         quantity: _itemQuantity.text,
         itemPrice: _itemPrice.text,
@@ -534,15 +559,18 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     });
   }
 
-  void updateQuantity(bool isIncrement, int maximumQuantity) {
+  void _updateQuantity(bool isIncrement, int maximumQuantity,
+      {bool resetQuantity = false}) {
     setState(() {
-      if (isIncrement) {
+      if (resetQuantity) {
+        _currentItemQuantity = 0;
+      } else if (isIncrement) {
         if (_currentItemQuantity < maximumQuantity) {
-          _currentItemQuantity = _currentItemQuantity + 0.5;
+          _currentItemQuantity += 0.5;
         }
       } else {
         if (_currentItemQuantity > 0) {
-          _currentItemQuantity = _currentItemQuantity - 0.5;
+          _currentItemQuantity -= 0.5;
         }
       }
     });

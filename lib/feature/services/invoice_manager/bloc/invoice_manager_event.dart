@@ -20,6 +20,15 @@ class InvoiceManagerAddBusiness extends InvoiceManagerEvent {
   List<Object> get props => [businessDetailsData];
 }
 
+class InvoiceManagerRemoveBusiness extends InvoiceManagerEvent {
+  final String businessID;
+
+  const InvoiceManagerRemoveBusiness({required this.businessID});
+
+  @override
+  List<Object> get props => [businessID];
+}
+
 class InvoiceManagerAddClient extends InvoiceManagerEvent {
   final ClientDetailsModel clientDetailsData;
 
@@ -27,6 +36,15 @@ class InvoiceManagerAddClient extends InvoiceManagerEvent {
 
   @override
   List<Object> get props => [clientDetailsData];
+}
+
+class InvoiceManagerRemoveClient extends InvoiceManagerEvent {
+  final String clientID;
+
+  const InvoiceManagerRemoveClient({required this.clientID});
+
+  @override
+  List<Object> get props => [clientID];
 }
 
 class InvoiceManagerAddItem extends InvoiceManagerEvent {
@@ -38,6 +56,15 @@ class InvoiceManagerAddItem extends InvoiceManagerEvent {
   List<Object> get props => [invoiceItemData];
 }
 
+class InvoiceManagerRemoveItem extends InvoiceManagerEvent {
+  final String itemID;
+
+  const InvoiceManagerRemoveItem({required this.itemID});
+
+  @override
+  List<Object> get props => [itemID];
+}
+
 class InvoiceManagerAddBank extends InvoiceManagerEvent {
   final BankDetailsModel bankDetailsData;
 
@@ -45,6 +72,15 @@ class InvoiceManagerAddBank extends InvoiceManagerEvent {
 
   @override
   List<Object> get props => [bankDetailsData];
+}
+
+class InvoiceManagerRemoveBank extends InvoiceManagerEvent {
+  final String bankID;
+
+  const InvoiceManagerRemoveBank({required this.bankID});
+
+  @override
+  List<Object> get props => [bankID];
 }
 
 class InvoiceManagerDisplay extends InvoiceManagerEvent {

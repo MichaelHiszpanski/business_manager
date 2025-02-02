@@ -28,6 +28,10 @@ class InvoiceManagerBloc
     on<InvoiceManagerAddClient>(_addClientDetails);
     on<InvoiceManagerAddItem>(_addItemsDetails);
     on<InvoiceManagerAddBank>(_addBankDetails);
+    on<InvoiceManagerRemoveBusiness>(_onRemoveBusiness);
+    on<InvoiceManagerRemoveClient>(_onRemoveClient);
+    on<InvoiceManagerRemoveItem>(_onRemoveItem);
+    on<InvoiceManagerRemoveBank>(_onRemoveBank);
     add(const InitialInvoiceManager());
   }
 
@@ -288,5 +292,126 @@ class InvoiceManagerBloc
         bankDetailsDataList: List.from(_bankCurrentList),
       ),
     );
+  }
+
+  Future<void> _onRemoveBusiness(
+    InvoiceManagerRemoveBusiness event,
+    Emitter<InvoiceManagerState> emit,
+  ) async {
+    emit(InvoiceManagerLoading());
+
+    final box = await Hive.openBox(
+        HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_BOX);
+    List<dynamic>? existingBusinessList =
+        box.get(HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY);
+
+    if (existingBusinessList != null) {
+      List<BusinessDetailsHive> updatedBusinessList =
+          existingBusinessList.cast<BusinessDetailsHive>();
+      updatedBusinessList
+          .removeWhere((business) => business.businessName == event.businessID);
+
+      await box.put(HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY,
+          updatedBusinessList);
+      _businessCurrentList
+          .removeWhere((business) => business.businessName == event.businessID);
+    }
+
+    emit(InvoiceManagerLoaded(
+      businessDetailsDataList: List.from(_businessCurrentList),
+      clientDetailsDataList: _clientCurrentList,
+      invoiceItemsList: _invoiceItemsCurrentList,
+      bankDetailsDataList: _bankCurrentList,
+    ));
+  }
+
+  Future<void> _onRemoveClient(
+    InvoiceManagerRemoveClient event,
+    Emitter<InvoiceManagerState> emit,
+  ) async {
+    emit(InvoiceManagerLoading());
+
+    final box = await Hive.openBox(
+        HiveClientDetailsProperties.TO_CLIENT_DETAILS_DATA_BOX);
+    List<dynamic>? existingClientList =
+        box.get(HiveClientDetailsProperties.TO_CLIENT_DETAILS_DATA_KEY);
+
+    if (existingClientList != null) {
+      List<ClientsDetailsHive> updatedClientList =
+          existingClientList.cast<ClientsDetailsHive>();
+      updatedClientList
+          .removeWhere((client) => client.clientFirstName == event.clientID);
+
+      await box.put(
+          HiveClientDetailsProperties.TO_CLIENT_DETAILS_DATA_KEY, updatedClientList);
+      _clientCurrentList
+          .removeWhere((client) => client.clientFirstName == event.clientID);
+    }
+
+    emit(InvoiceManagerLoaded(
+      businessDetailsDataList: _businessCurrentList,
+      clientDetailsDataList: List.from(_clientCurrentList),
+      invoiceItemsList: _invoiceItemsCurrentList,
+      bankDetailsDataList: _bankCurrentList,
+    ));
+  }
+
+  Future<void> _onRemoveItem(
+    InvoiceManagerRemoveItem event,
+    Emitter<InvoiceManagerState> emit,
+  ) async {
+    emit(InvoiceManagerLoading());
+
+    final box = await Hive.openBox(
+        HiveInvoiceItemsProperties.TO_INVOICE_ITEMS_DATA_BOX);
+    List<dynamic>? existingItemList =
+        box.get(HiveInvoiceItemsProperties.TO_INVOICE_ITEMS_DATA_KEY);
+
+    if (existingItemList != null) {
+      List<InvoiceItemsHive> updatedItemListList =
+          existingItemList.cast<InvoiceItemsHive>();
+      updatedItemListList.removeWhere((item) => item.description == event.itemID);
+
+      await box.put(
+          HiveInvoiceItemsProperties.TO_INVOICE_ITEMS_DATA_KEY, updatedItemListList);
+      _invoiceItemsCurrentList
+          .removeWhere((item) => item.description == event.itemID);
+    }
+
+    emit(InvoiceManagerLoaded(
+      businessDetailsDataList: _businessCurrentList,
+      clientDetailsDataList: _clientCurrentList,
+      invoiceItemsList: List.from(_invoiceItemsCurrentList),
+      bankDetailsDataList: _bankCurrentList,
+    ));
+  }
+
+  Future<void> _onRemoveBank(
+    InvoiceManagerRemoveBank event,
+    Emitter<InvoiceManagerState> emit,
+  ) async {
+    emit(InvoiceManagerLoading());
+
+    final box =
+        await Hive.openBox(HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_BOX);
+    List<dynamic>? existingBankList =
+        box.get(HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_KEY);
+
+    if (existingBankList != null) {
+      List<BankDetailsHive> updatedBankDetailsList =
+          existingBankList.cast<BankDetailsHive>();
+      updatedBankDetailsList.removeWhere((bank) => bank.bankName == event.bankID);
+
+      await box.put(
+          HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_KEY, updatedBankDetailsList);
+      _bankCurrentList.removeWhere((bank) => bank.bankName == event.bankID);
+    }
+
+    emit(InvoiceManagerLoaded(
+      businessDetailsDataList: _businessCurrentList,
+      clientDetailsDataList: _clientCurrentList,
+      invoiceItemsList: _invoiceItemsCurrentList,
+      bankDetailsDataList: List.from(_bankCurrentList),
+    ));
   }
 }

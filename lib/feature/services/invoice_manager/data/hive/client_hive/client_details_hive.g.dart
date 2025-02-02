@@ -17,33 +17,36 @@ class ClientsDetailsHiveAdapter extends TypeAdapter<ClientsDetailsHive> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ClientsDetailsHive(
-      clientFirstName: fields[0] as String,
-      clientLastName: fields[1] as String,
-      clientOwnerStreet: fields[2] as String,
-      clientOwnerPostCode: fields[3] as String,
-      clientOwnerCity: fields[4] as String,
-      clientOwnerMobile: fields[5] as String,
-      clientOwnerEmail: fields[6] as String,
+      clientID: fields[0] as String?,
+      clientFirstName: fields[1] as String,
+      clientLastName: fields[2] as String,
+      clientOwnerStreet: fields[3] as String,
+      clientOwnerPostCode: fields[4] as String,
+      clientOwnerCity: fields[5] as String,
+      clientOwnerMobile: fields[6] as String,
+      clientOwnerEmail: fields[7] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ClientsDetailsHive obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
-      ..write(obj.clientFirstName)
+      ..write(obj.clientID)
       ..writeByte(1)
-      ..write(obj.clientLastName)
+      ..write(obj.clientFirstName)
       ..writeByte(2)
-      ..write(obj.clientOwnerStreet)
+      ..write(obj.clientLastName)
       ..writeByte(3)
-      ..write(obj.clientOwnerPostCode)
+      ..write(obj.clientOwnerStreet)
       ..writeByte(4)
-      ..write(obj.clientOwnerCity)
+      ..write(obj.clientOwnerPostCode)
       ..writeByte(5)
-      ..write(obj.clientOwnerMobile)
+      ..write(obj.clientOwnerCity)
       ..writeByte(6)
+      ..write(obj.clientOwnerMobile)
+      ..writeByte(7)
       ..write(obj.clientOwnerEmail);
   }
 

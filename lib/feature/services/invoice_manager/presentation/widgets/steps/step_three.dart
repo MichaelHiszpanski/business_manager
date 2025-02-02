@@ -1,6 +1,7 @@
 import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/feature/services/invoice_manager/bloc/invoice_manager_bloc.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/drop_down_list.dart';
@@ -10,7 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StepThree extends StatefulWidget {
-  final Function(bool isIncrement, int maximumQuantity) updateQuantity;
+  final Function(bool isIncrement, int maximumQuantity, {bool resetQuantity})
+      updateQuantity;
   final List<InvoiceItemModel> itemsList;
   final InvoiceItemModel? initialSelectedItemDetails;
   final void Function(InvoiceItemModel?) onItemSelected;
@@ -18,10 +20,9 @@ class StepThree extends StatefulWidget {
   final VoidCallback saveInvoiceData;
   final VoidCallback saveNewItem;
   final TextEditingController itemDescription;
-
   final TextEditingController itemPrice;
-
   final TextEditingController itemTotalCount;
+  final List<InvoiceItemModel> invoiceAddedItemsList;
 
   StepThree({
     super.key,
@@ -35,6 +36,7 @@ class StepThree extends StatefulWidget {
     required this.itemPrice,
     required this.itemTotalCount,
     required this.saveNewItem,
+    required this.invoiceAddedItemsList,
   });
 
   @override
@@ -44,10 +46,18 @@ class StepThree extends StatefulWidget {
 class _StepThreeState extends State<StepThree> {
   late InvoiceItemModel? selectedItemDetails;
 
+  // final List<InvoiceItemModel> _itemsAddedToInvoiceList = [];
+
   @override
   void initState() {
     super.initState();
     selectedItemDetails = widget.initialSelectedItemDetails;
+  }
+
+  void _removeItem(InvoiceItemModel item) {
+    context
+        .read<InvoiceManagerBloc>()
+        .add(InvoiceManagerRemoveItem(itemID: item.itemID ?? item.displayName));
   }
 
   @override
@@ -71,7 +81,7 @@ class _StepThreeState extends State<StepThree> {
                     style: TextStyle(
                       fontFamily: "Orbitron",
                       fontSize: 18,
-                      color: Pallete.colorFive,
+                      color: Pallete.colorOne,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -84,6 +94,7 @@ class _StepThreeState extends State<StepThree> {
                       });
                       widget.onItemSelected(selectedItemDetails);
                     },
+                    onRemoveItem: _removeItem,
                   ),
                 ],
               );
@@ -109,13 +120,23 @@ class _StepThreeState extends State<StepThree> {
                 int.tryParse(selectedItemDetails!.totalItems) ?? 10,
               ),
             ),
-            Text("Quantity: ${widget.currentItemQuantity.toString()}"),
+            Text(
+              "Quantity: ${widget.currentItemQuantity.toString()}",
+              style: const TextStyle(
+                color: Pallete.colorFive,
+              ),
+            ),
             const Spacer(),
           ],
         ),
         const SizedBox(height: Constants.padding16),
         ElevatedButton(
           onPressed: widget.saveInvoiceData,
+          //     () {
+          //   _addItemToItemsAddedToInvoiceList();
+          //   widget.saveInvoiceData();
+          //
+          // },
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.all(Pallete.colorFive),
           ),
@@ -129,6 +150,37 @@ class _StepThreeState extends State<StepThree> {
           ),
         ),
         const SizedBox(height: Constants.padding16),
+        if (widget.invoiceAddedItemsList.isNotEmpty) ...[
+          const Text(
+            "Items Added to Invoice:",
+            style: TextStyle(
+              fontFamily: "Orbitron",
+              fontSize: 18,
+              color: Pallete.colorOne,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: Constants.padding8),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Pallete.colorSix.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Pallete.colorFive, width: 1),
+            ),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: widget.invoiceAddedItemsList.length,
+              itemBuilder: (context, index) {
+                final item = widget.invoiceAddedItemsList[index];
+                return _itemList(index, item);
+              },
+            ),
+          ),
+          const SizedBox(height: Constants.padding16),
+        ],
+        // const SizedBox(height: Constants.padding16),
         ExpansionTileWrapper(
           title: "Add New Item",
           children: [
@@ -142,6 +194,30 @@ class _StepThreeState extends State<StepThree> {
         ),
         const SizedBox(height: Constants.padding16),
       ],
+    );
+  }
+
+  Widget _itemList(
+    int index,
+    InvoiceItemModel item,
+  ) {
+    return ListTile(
+      title: Text(
+        item.description,
+        style: context.text.titleSmall,
+      ),
+      subtitle: Text(
+        "Total: ${item.quantity} x ${item.itemPrice} Price: ${(double.parse(item.quantity) * double.parse(item.itemPrice)).toStringAsFixed(2)}",
+        style: context.text.labelLarge,
+      ),
+      trailing: IconButton(
+        icon: const Icon(Icons.delete, color: Pallete.colorFive),
+        onPressed: () {
+          setState(() {
+            widget.invoiceAddedItemsList.removeAt(index);
+          });
+        },
+      ),
     );
   }
 }

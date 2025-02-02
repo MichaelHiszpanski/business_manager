@@ -17,21 +17,24 @@ class BankDetailsHiveAdapter extends TypeAdapter<BankDetailsHive> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BankDetailsHive(
-      bankName: fields[0] as String,
-      sortCode: fields[1] as String,
-      accountNo: fields[2] as String,
+      bankID: fields[0] as String?,
+      bankName: fields[1] as String,
+      sortCode: fields[2] as String,
+      accountNo: fields[3] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, BankDetailsHive obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.bankName)
+      ..write(obj.bankID)
       ..writeByte(1)
-      ..write(obj.sortCode)
+      ..write(obj.bankName)
       ..writeByte(2)
+      ..write(obj.sortCode)
+      ..writeByte(3)
       ..write(obj.accountNo);
   }
 

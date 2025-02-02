@@ -17,36 +17,39 @@ class BusinessDetailsHiveAdapter extends TypeAdapter<BusinessDetailsHive> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BusinessDetailsHive(
-      businessName: fields[0] as String,
-      businessFirstName: fields[1] as String,
-      businessLastName: fields[2] as String,
-      businessOwnerStreet: fields[3] as String,
-      businessOwnerPostCode: fields[4] as String,
-      businessOwnerCity: fields[5] as String,
-      businessOwnerMobile: fields[6] as String,
-      businessOwnerEmail: fields[7] as String,
+      businessID: fields[0] as String?,
+      businessName: fields[1] as String,
+      businessFirstName: fields[2] as String,
+      businessLastName: fields[3] as String,
+      businessOwnerStreet: fields[4] as String,
+      businessOwnerPostCode: fields[5] as String,
+      businessOwnerCity: fields[6] as String,
+      businessOwnerMobile: fields[7] as String,
+      businessOwnerEmail: fields[8] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, BusinessDetailsHive obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
-      ..write(obj.businessName)
+      ..write(obj.businessID)
       ..writeByte(1)
-      ..write(obj.businessFirstName)
+      ..write(obj.businessName)
       ..writeByte(2)
-      ..write(obj.businessLastName)
+      ..write(obj.businessFirstName)
       ..writeByte(3)
-      ..write(obj.businessOwnerStreet)
+      ..write(obj.businessLastName)
       ..writeByte(4)
-      ..write(obj.businessOwnerPostCode)
+      ..write(obj.businessOwnerStreet)
       ..writeByte(5)
-      ..write(obj.businessOwnerCity)
+      ..write(obj.businessOwnerPostCode)
       ..writeByte(6)
-      ..write(obj.businessOwnerMobile)
+      ..write(obj.businessOwnerCity)
       ..writeByte(7)
+      ..write(obj.businessOwnerMobile)
+      ..writeByte(8)
       ..write(obj.businessOwnerEmail);
   }
 

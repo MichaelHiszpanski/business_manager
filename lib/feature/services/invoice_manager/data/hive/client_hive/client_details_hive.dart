@@ -5,6 +5,9 @@ part 'client_details_hive.g.dart';
 
 @HiveType(typeId: HiveProperties.clientDetailsID)
 class ClientsDetailsHive {
+  @HiveField(HiveClientDetailsProperties.clientID)
+  String? clientID;
+
   @HiveField(HiveClientDetailsProperties.clientFirstName)
   final String clientFirstName;
 
@@ -27,6 +30,7 @@ class ClientsDetailsHive {
   final String clientOwnerEmail;
 
   ClientsDetailsHive({
+    this.clientID,
     required this.clientFirstName,
     required this.clientLastName,
     required this.clientOwnerStreet,
@@ -38,9 +42,9 @@ class ClientsDetailsHive {
 
   @override
   String toString() {
-    return 'BusinessDetailsHive( businessFirstName: $clientFirstName, '
-        'businessLastName: $clientLastName, businessOwnerStreet: $clientOwnerStreet, '
-        'businessOwnerPostCode: $clientOwnerPostCode, businessOwnerCity: $clientOwnerCity, '
-        'businessOwnerMobile: $clientOwnerMobile, businessOwnerEmail: $clientOwnerEmail)';
+    return 'ClientDetailsHive(clientID: $clientID, clientFirstName: $clientFirstName, '
+        'clientLastName: $clientLastName, clientOwnerStreet: $clientOwnerStreet, '
+        'clientOwnerPostCode: $clientOwnerPostCode, clientOwnerCity: $clientOwnerCity, '
+        'clientOwnerMobile: $clientOwnerMobile, clientOwnerEmail: $clientOwnerEmail)';
   }
 }

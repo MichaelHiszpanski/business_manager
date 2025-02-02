@@ -6,6 +6,8 @@ import 'package:business_manager/feature/services/employee_management/presentati
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_management_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../feature/auth/profile/profile_screen.dart';
+
 part 'app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: "Screen,Route")

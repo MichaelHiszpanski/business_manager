@@ -39,43 +39,47 @@ class HiveBusinessDetailsProperties {
       "TO_BUSINESS_DETAILS_DATA_BOX";
   static const String TO_BUSINESS_DETAILS_DATA_KEY =
       "TO_BUSINESS_DETAILS_DATA_KEY";
-  static const int businessName = 0;
-  static const int businessFirstName = 1;
-  static const int businessLastName = 2;
-  static const int businessOwnerStreet = 3;
-  static const int businessOwnerPostCode = 4;
-  static const int businessOwnerCity = 5;
-  static const int businessOwnerMobile = 6;
-  static const int businessOwnerEmail = 7;
+  static const int businessID = 0;
+  static const int businessName = 1;
+  static const int businessFirstName = 2;
+  static const int businessLastName = 3;
+  static const int businessOwnerStreet = 4;
+  static const int businessOwnerPostCode = 5;
+  static const int businessOwnerCity = 6;
+  static const int businessOwnerMobile = 7;
+  static const int businessOwnerEmail = 8;
 }
 
 class HiveClientDetailsProperties {
   static const String TO_CLIENT_DETAILS_DATA_BOX = "TO_CLIENT_DETAILS_DATA_BOX";
   static const String TO_CLIENT_DETAILS_DATA_KEY = "TO_CLIENT_DETAILS_DATA_KEY";
-  static const int clientFirstName = 0;
-  static const int clientLastName = 1;
-  static const int clientOwnerStreet = 2;
-  static const int clientOwnerPostCode = 3;
-  static const int clientOwnerCity = 4;
-  static const int clientOwnerMobile = 5;
-  static const int clientOwnerEmail = 6;
+  static const int clientID = 0;
+  static const int clientFirstName = 1;
+  static const int clientLastName = 2;
+  static const int clientOwnerStreet = 3;
+  static const int clientOwnerPostCode = 4;
+  static const int clientOwnerCity = 5;
+  static const int clientOwnerMobile = 6;
+  static const int clientOwnerEmail = 7;
 }
 
 class HiveInvoiceItemsProperties {
   static const String TO_INVOICE_ITEMS_DATA_BOX = "TO_INVOICE_ITEMS_DATA_BOX";
   static const String TO_INVOICE_ITEMS_DATA_KEY = "TO_INVOICE_ITEMS_DATA_KEY";
-  static const int description = 0;
-  static const int quantity = 1;
-  static const int itemPrice = 2;
-  static const int totalItems = 3;
+  static const int itemID = 0;
+  static const int description = 1;
+  static const int quantity = 2;
+  static const int itemPrice = 3;
+  static const int totalItems = 4;
 }
 
 class HiveBankDetailsProperties {
   static const String TO_BANK_DETAILS_DATA_BOX = "TO_BANK_DETAILS_DATA_BOX";
   static const String TO_BANK_DETAILS_DATA_KEY = "TO_BANK_DETAILS_DATA_KEY";
-  static const int bankName = 0;
-  static const int sortCode = 1;
-  static const int accountNo = 2;
+  static const int bankID = 0;
+  static const int bankName = 1;
+  static const int sortCode = 2;
+  static const int accountNo = 3;
 }
 
 class HiveEmployeeDetailsProperties {

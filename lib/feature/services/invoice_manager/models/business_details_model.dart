@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class BusinessDetailsModel extends Equatable {
+  String? businessID;
   final String businessName;
   final String businessFirstName;
   final String businessLastName;
@@ -10,7 +11,8 @@ class BusinessDetailsModel extends Equatable {
   final String businessOwnerMobile;
   final String businessOwnerEmail;
 
-  const BusinessDetailsModel({
+  BusinessDetailsModel({
+    this.businessID,
     required this.businessName,
     required this.businessFirstName,
     required this.businessLastName,

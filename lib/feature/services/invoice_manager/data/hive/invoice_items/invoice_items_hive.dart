@@ -5,6 +5,9 @@ part 'invoice_items_hive.g.dart';
 
 @HiveType(typeId: HiveProperties.invoiceItemsID)
 class InvoiceItemsHive {
+  @HiveField(HiveInvoiceItemsProperties.itemID)
+  String? itemID;
+
   @HiveField(HiveInvoiceItemsProperties.description)
   final String description;
 
@@ -18,6 +21,7 @@ class InvoiceItemsHive {
   final String totalItems;
 
   InvoiceItemsHive({
+    this.itemID,
     required this.description,
     required this.quantity,
     required this.itemPrice,
@@ -26,7 +30,7 @@ class InvoiceItemsHive {
 
   @override
   String toString() {
-    return 'BusinessDetailsHive(description: $description, quantity: $quantity, '
+    return 'InvoiceItemsHive(itemID: $itemID, description: $description, quantity: $quantity, '
         'itemPrice: $itemPrice, totalItems: $totalItems)';
   }
 }

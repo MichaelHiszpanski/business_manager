@@ -50,7 +50,9 @@ class _StepOneState extends State<StepOne> {
     super.initState();
     selectedBusinessDetails = widget.initialSelectedBusinessDetails;
   }
-
+  void _removeBusiness(BusinessDetailsModel business) {
+    context.read<InvoiceManagerBloc>().add(InvoiceManagerRemoveBusiness(businessID: business.businessName));
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -72,8 +74,8 @@ class _StepOneState extends State<StepOne> {
                     style: TextStyle(
                       fontFamily: "Orbitron",
                       fontSize: 18,
-                      color: Pallete.colorFive,
-                      fontWeight: FontWeight.w600,
+                      color: Pallete.colorOne,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   DropDownList<BusinessDetailsModel>(
@@ -85,6 +87,7 @@ class _StepOneState extends State<StepOne> {
                       });
                       widget.onBusinessSelected(selectedBusinessDetails);
                     },
+                    onRemoveItem: _removeBusiness,
                   ),
                 ],
               );
@@ -96,7 +99,7 @@ class _StepOneState extends State<StepOne> {
         ),
         const SizedBox(height: Constants.padding16),
         ExpansionTileWrapper(
-          title: "New Business",
+          title: "Add new Business",
           children: [
             PersonalDetailsInputs(
               isBusinessInputText: true,

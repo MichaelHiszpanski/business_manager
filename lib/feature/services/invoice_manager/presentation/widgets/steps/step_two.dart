@@ -50,6 +50,11 @@ class _StepTwoState extends State<StepTwo> {
     selectedClientDetails = widget.initialSelectedClientDetails;
   }
 
+  void _removeClient(ClientDetailsModel client) {
+    context.read<InvoiceManagerBloc>().add(InvoiceManagerRemoveClient(
+        clientID: client.clinetID ?? client.clientFirstName));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -64,7 +69,7 @@ class _StepTwoState extends State<StepTwo> {
               widget.clientsList.clear();
               widget.clientsList.addAll(state.clientDetailsDataList);
 
-              return  Column(
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
@@ -72,8 +77,8 @@ class _StepTwoState extends State<StepTwo> {
                     style: TextStyle(
                       fontFamily: AppFontFamily.orbitron,
                       fontSize: 18,
-                      color: Pallete.colorFive,
-                        fontWeight: FontWeight.w600,
+                      color: Pallete.colorOne,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   DropDownList<ClientDetailsModel>(
@@ -85,6 +90,7 @@ class _StepTwoState extends State<StepTwo> {
                       });
                       widget.onClientSelected(selectedClientDetails);
                     },
+                    onRemoveItem: _removeClient,
                   ),
                 ],
               );
@@ -96,7 +102,7 @@ class _StepTwoState extends State<StepTwo> {
         ),
         const SizedBox(height: Constants.padding16),
         ExpansionTileWrapper(
-          title: "New Client",
+          title: "Add new Client",
           children: [
             PersonalDetailsInputs(
               firstName: widget.clientFirstName,
