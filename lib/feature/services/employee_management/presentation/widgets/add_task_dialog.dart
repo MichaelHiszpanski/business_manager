@@ -31,7 +31,10 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title:  Text("Add Task",style: context.text.headlineMedium,),
+      title: Text(
+        "Add Task",
+        style: context.text.headlineMedium,
+      ),
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -44,7 +47,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 validator: _validateField,
                 maxLength: 50,
                 minLines: 1,
-                maxLines:5,
+                maxLines: 5,
               ),
               const SizedBox(height: Constants.padding16),
               TextFormField(
@@ -59,32 +62,29 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 maxLines: 10,
               ),
               const SizedBox(height: Constants.padding16),
-              ButtonWrapperTwo(
-                child: DatePicker(
-                  onDateSelected: (selectedDate) {
-                    setState(() {
-                      _checkInTime = selectedDate;
-                    });
-                  },
-                  selectedDate: _checkInTime,
-                  buttonText: "Check-In Time",
-                  startingDate: DateTime(1980),
-                  backgroundColor: Colors.transparent,
-                ),
+              DatePicker(
+                onDateSelected: (selectedDate) {
+                  setState(() {
+                    _checkInTime = selectedDate;
+                  });
+                },
+                selectedDate: _checkInTime,
+                buttonText: "Check-In Time",
+                startingDate: DateTime(1980),
+                backgroundColor: Colors.green,
               ),
               const SizedBox(height: Constants.padding16),
-              ButtonWrapperTwo(
-                child: DatePicker(
-                  onDateSelected: (selectedDate) {
-                    setState(() {
-                      _checkOutTime = selectedDate;
-                    });
-                  },
-                  selectedDate: _checkOutTime,
-                  buttonText: "Check-Out Time",
-                  startingDate: DateTime(1980),
-                  backgroundColor: Colors.transparent,
-                ),
+              DatePicker(
+                onDateSelected: (selectedDate) {
+                  setState(() {
+                    _checkOutTime = selectedDate;
+                  });
+                },
+                selectedDate: _checkOutTime,
+                buttonText: "Check-Out Time",
+                startingDate: DateTime(1980),
+                backgroundColor: Colors.blue,
+
               ),
               const SizedBox(height: Constants.padding16),
             ],

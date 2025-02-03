@@ -1,14 +1,12 @@
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
-
 import 'package:business_manager/core/widgets/buttons/custom_side_button_menu/custom_side_button_menu.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/widgets/custom_floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 import 'package:permission_handler/permission_handler.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -28,7 +26,6 @@ class _HomePageState extends State<HomePage> {
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
   bool isUserSignedIn = false;
 
-  @override
   @override
   void initState() {
     super.initState();
@@ -59,11 +56,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _handleFloatingActionButtonPress() {
-    if (isUserSignedIn) {
-      // MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.profilePage);
-    } else {
-      MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.signIn);
-    }
+    MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.signIn);
   }
 
   void _showDropdownMenu(BuildContext context) {
@@ -123,9 +116,23 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  "Business Manager",
-                  style: context.text.headlineLarge,
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(200.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white.withOpacity(0.5),
+                        blurRadius: 10.0,
+                        offset: const Offset(4, 4),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    "Business Manager",
+                    style: context.text.headlineLarge
+                        ?.copyWith(color: Pallete.gradient1),
+                  ),
                 ),
                 CustomSideButtonMenu(
                   isUserSignedIn: isUserSignedIn,
@@ -137,15 +144,41 @@ class _HomePageState extends State<HomePage> {
             top: MediaQuery.of(context).padding.top + 20,
             right: 20,
             child: isUserSignedIn
-                ? CustomFloatingActionButton(
-                    icon: Icons.person,
-                    onPressed: () => _showDropdownMenu(context),
-                    heroTag: "heroTagHome",
+                ? Container(
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(200.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.green.withOpacity(0.8),
+                          blurRadius: 10.0,
+                          offset: const Offset(5, 4),
+                        ),
+                      ],
+                    ),
+                    child: CustomFloatingActionButton(
+                      icon: Icons.person,
+                      onPressed: () => _showDropdownMenu(context),
+                      heroTag: "heroTagHome",
+                    ),
                   )
-                : CustomFloatingActionButton(
-                    icon: Icons.login,
-                    onPressed: _handleFloatingActionButtonPress,
-                    heroTag: "heroTagHome",
+                : Container(
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(200.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.red.withOpacity(0.8),
+                          blurRadius: 10.0,
+                          offset: const Offset(4, 4),
+                        ),
+                      ],
+                    ),
+                    child: CustomFloatingActionButton(
+                      icon: Icons.login,
+                      onPressed: _handleFloatingActionButtonPress,
+                      heroTag: "heroTagHome",
+                    ),
                   ),
           ),
         ],

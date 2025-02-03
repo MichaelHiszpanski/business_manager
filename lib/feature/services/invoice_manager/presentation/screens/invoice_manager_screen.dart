@@ -106,7 +106,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   InvoiceOneModel _createInvoiceOneData() {
     return InvoiceOneModel(
       invoiceDateTimeCreated: _invoiceDateCreated ?? DateTime.now(),
-      invoiceNumber: _invoiceNumber.text,
+      invoiceNumber: _invoiceNumber.text.isNotEmpty
+          ? _invoiceNumber.text
+          : "INV-${DateTime.now().millisecondsSinceEpoch}",
       businessDetailsModel: BusinessDetailsModel(
         businessName: _selectedBusinessDetails.businessName,
         businessFirstName: _selectedBusinessDetails.businessFirstName,
@@ -123,8 +125,8 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         clientStreet: _selectedClientDetails.clientStreet,
         clientPostCode: _selectedClientDetails.clientPostCode,
         clientCity: _selectedClientDetails.clientCity,
-        clientEmail: _selectedClientDetails.clientMobile,
-        clientMobile: _selectedClientDetails.clientEmail,
+        clientEmail: _selectedClientDetails.clientEmail,
+        clientMobile: _selectedClientDetails.clientMobile,
       ),
       bankDetailsModel: BankDetailsModel(
         bankName: _selectedBankDetails.bankName,
@@ -132,30 +134,12 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         accountNo: _selectedBankDetails.accountNo,
       ),
       invoiceItemsList: _invoiceAddedItemsList,
-      thankYouMessage: _thankYouMessage.text,
+      thankYouMessage: _thankYouMessage.text.isNotEmpty
+          ? _thankYouMessage.text
+          : "Thank you for your business!",
       paymentDueDays: "Payment is due within ${_paymentDueDays.text} days.",
       subTotalPrice: calculateSubTotalPrice(),
     );
-  }
-
-  double calculateSubTotalPrice() {
-    return _invoiceAddedItemsList.fold(0.0, (total, item) {
-      final price = double.tryParse(item.itemPrice) ?? 0.0;
-      final quantity = double.tryParse(item.quantity) ?? 0.0;
-      return total + (price * quantity);
-    });
-  }
-
-  void _onFormValidated(bool isValid) {
-    setState(() {
-      _isFormValid = isValid;
-    });
-  }
-
-  void _onDateSelected(DateTime selectedDate) {
-    setState(() {
-      _invoiceDateCreated = selectedDate;
-    });
   }
 
   @override
@@ -168,7 +152,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       ),
       body: Container(
         height: double.infinity,
-        // decoration: BoxDecoration(color: Pallete.colorTwo.withOpacity(0.25)),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -274,19 +257,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 content: Column(
                   children: [
                     const SizedBox(height: Constants.padding16),
-                    // ExpansionTileWrapper(
-                    //   title: "Invoice Details",
-                    //   children: [
-                    //     InvoiceDetailsInputs(
-                    //       invoiceNumber: _invoiceNumber,
-                    //       thankYouMessage: _thankYouMessage,
-                    //       paymentDueDays: _paymentDueDays,
-                    //       onSaveData: () {},
-                    //       onFormValidated: _onFormValidated,
-                    //       onDateSelected: _onDateSelected,
-                    //     ),
-                    //   ],
-                    // ),
                     InvoiceDetailsInputs(
                       invoiceNumber: _invoiceNumber,
                       thankYouMessage: _thankYouMessage,
@@ -434,6 +404,26 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         ],
       ),
     );
+  }
+
+  double calculateSubTotalPrice() {
+    return _invoiceAddedItemsList.fold(0.0, (total, item) {
+      final price = double.tryParse(item.itemPrice) ?? 0.0;
+      final quantity = double.tryParse(item.quantity) ?? 0.0;
+      return total + (price * quantity);
+    });
+  }
+
+  void _onFormValidated(bool isValid) {
+    setState(() {
+      _isFormValid = isValid;
+    });
+  }
+
+  void _onDateSelected(DateTime selectedDate) {
+    setState(() {
+      _invoiceDateCreated = selectedDate;
+    });
   }
 
   void _saveBusinessDetails() {

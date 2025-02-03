@@ -69,9 +69,17 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
                   endHour: 24,
                   timeFormat: 'h:mm a',
                   timeRulerSize: 60,
+                  timeTextStyle: TextStyle(color: Colors.black),
+                ),
+                viewHeaderStyle: const ViewHeaderStyle(
+                  dateTextStyle: TextStyle(color: Colors.black),
                 ),
                 dataSource: MeetingDataListManager(state.meetings),
                 onTap: (details) => _onCalendarEventClicked(context, details),
+                appointmentTextStyle: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 12,
+                ),
               ),
             );
           } else {

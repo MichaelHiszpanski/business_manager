@@ -39,7 +39,7 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
             child: employeeList.isEmpty
                 ? Center(
                     child: Text(
-                      "Add New Employee!!",
+                      "Add New Employee.",
                       style: context.text.headlineLarge,
                     ),
                   )

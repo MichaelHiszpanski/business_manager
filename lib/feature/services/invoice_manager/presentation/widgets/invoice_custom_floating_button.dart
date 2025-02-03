@@ -24,7 +24,9 @@ class InvoiceCustomFloatingButton extends StatelessWidget {
       onPressed: () async {
         try {
           final pdfData = createInvoiceData();
-          final pdfDocument = PdfTemplateOne(pdfData: pdfData).generatePdf();
+
+
+          final pdfDocument = await PdfTemplateOne(pdfData: pdfData).generatePdf();
 
           final pdfBytes = await pdfDocument.save();
           Navigator.of(context).push(

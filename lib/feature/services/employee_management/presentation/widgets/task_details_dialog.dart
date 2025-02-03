@@ -65,21 +65,16 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
     return AlertDialog(
       title: Text(
         widget.task.taskTitle,
-        style: context.text.headlineMedium,
+        style: context.text.headlineSmall,
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Description: ${widget.task.taskDescription}",
             style: context.text.bodyLarge,
           ),
-          const SizedBox(height: Constants.padding16),
-          // Text(
-          //   "Duration: ${widget.task.taskDuration} hours",
-          //   style: context.text.bodyLarge,
-          // ),
           const SizedBox(height: Constants.padding16),
           Container(
             width: double.infinity,
@@ -87,7 +82,7 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
               Constants.padding8,
             ),
             decoration: BoxDecoration(
-              color: Pallete.gradient1,
+              color: Pallete.colorFive,
               borderRadius: BorderRadius.circular(Constants.radius15),
               boxShadow: [
                 BoxShadow(
@@ -104,7 +99,7 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
               children: [
                 if (widget.task.employeeCheckInTime != null)
                   Text(
-                    "  Check-In Time: ${DateFormatHelper.dateFormat(widget.task.employeeCheckInTime)}",
+                    "  Check-In    : ${DateFormatHelper.dateFormat(widget.task.employeeCheckInTime)}",
                     style: context.text.bodyLarge?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -115,7 +110,7 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
                 ),
                 if (widget.task.employeeCheckOutTime != null)
                   Text(
-                    "  Check-Out Time: ${DateFormatHelper.dateFormat(widget.task.employeeCheckOutTime)}",
+                    "  Check-Out : ${DateFormatHelper.dateFormat(widget.task.employeeCheckOutTime)}",
                     style: context.text.bodyLarge?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,

@@ -144,8 +144,8 @@ class PdfTemplateOne {
               ),
               pw.SizedBox(height: 32),
               pw.Text(
-                "Thank you for your business!",
-                style: pw.TextStyle(fontSize: 16),
+                pdfData.thankYouMessage,
+                style: const pw.TextStyle(fontSize: 16),
               ),
               pw.Text(
                 " ${pdfData.paymentDueDays}.",

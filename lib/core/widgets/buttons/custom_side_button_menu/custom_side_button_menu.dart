@@ -135,7 +135,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                 child: Transform.rotate(
                   angle: _animation.value * pi * (3 / 4),
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 675),
+                    duration: const Duration(milliseconds: 875),
                     curve: Curves.easeOut,
                     height: toggleButton ? 200.0 : 160.0,
                     width: toggleButton ? 200.0 : 160.0,
@@ -144,9 +144,11 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                       borderRadius: BorderRadius.circular(200.0),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
+                          color: toggleButton
+                              ? Colors.red.withOpacity(0.5)
+                              : Colors.green.withOpacity(0.5),
                           blurRadius: 10.0,
-                          offset: const Offset(8, 4),
+                          offset: const Offset(4, 4),
                         ),
                       ],
                     ),
@@ -163,9 +165,13 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                                 });
                               }
                             : null,
-                        icon: Image.asset(
-                          "assets/images/earth.png",
-                          height: 280.0,
+                        icon: ClipOval(
+                          child: Image.asset(
+                            "assets/images/earth3.png",
+                            height: 280.0,
+                            width: 280.0,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),

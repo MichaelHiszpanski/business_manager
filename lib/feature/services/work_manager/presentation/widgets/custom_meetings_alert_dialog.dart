@@ -1,4 +1,5 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/feature/services/work_manager/bloc/work_manager_bloc.dart';
@@ -27,7 +28,10 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Meeting Details'),
+      title: const Text(
+        'Meeting Details',
+        style: TextStyle(color: Colors.green),
+      ),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView.builder(
@@ -45,28 +49,26 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
                 children: <Widget>[
                   const SizedBox(height: Constants.padding16),
                   Text(
-                    'From: ${DateFormatHelper.dateFormatWithTime(meeting.startDate)}',
-                    style: context.text.titleSmall,
-                  ),
-                  const SizedBox(height: Constants.padding8),
-                  Text(
-                    'To: ${DateFormatHelper.dateFormatWithTime(meeting.finishDate)}',
-                    style: context.text.titleSmall,
-                  ),
-                  const SizedBox(height: Constants.padding8),
-                  Text(
-                    'All Day: ${meeting.isAllDay ? 'Yes' : 'No'}',
-                    style: context.text.titleSmall,
-                  ),
-                  const SizedBox(height: Constants.padding8),
-                  Text(
                     'Content: ${meeting.eventDescription}',
-                    style: context.text.titleSmall,
+                    style: context.text.bodyLarge
+                        ?.copyWith(color: Pallete.gradient1),
                   ),
+                  const SizedBox(height: Constants.padding16),
+                  Text(
+                    'From: ${DateFormatHelper.dateFormatWithTime(meeting.startDate)}',
+                    style: context.text.bodyLarge,
+                  ),
+                  const SizedBox(height: Constants.padding8),
+                  Text(
+                    'To:      ${DateFormatHelper.dateFormatWithTime(meeting.finishDate)}',
+                    style: context.text.bodyLarge,
+                  ),
+                  const SizedBox(height: Constants.padding8),
                 ],
               ),
               selectedColor:
                   _selectedIndex != null ? Colors.red.withOpacity(0.8) : null,
+              selectedTileColor: Colors.red.withOpacity(0.4),
               onTap: () {
                 setState(() {
                   _selectedIndex = index;
