@@ -1,3 +1,4 @@
+import 'package:business_manager/core/helpers/validations_helper.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
@@ -35,7 +36,6 @@ class PersonalDetailsInputs extends StatefulWidget {
 
 class _PersonalDetailsInputsState extends State<PersonalDetailsInputs> {
   final _keyForm = GlobalKey<FormState>();
-  final String _error = "";
 
   @override
   Widget build(BuildContext context) {
@@ -47,43 +47,43 @@ class _PersonalDetailsInputsState extends State<PersonalDetailsInputs> {
             TextFormField(
               controller: widget.businessName,
               decoration: const InputDecoration(labelText: 'Business Name'),
-              validator:  _validateField,
+              validator: ValidationsHelper.validateTextField,
             ),
           ],
           TextFormField(
             controller: widget.firstName,
             decoration: const InputDecoration(labelText: 'First name'),
-            validator:  _validateField,
+            validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
             controller: widget.lastName,
             decoration: const InputDecoration(labelText: 'Last Name'),
-            validator:  _validateField,
+            validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
             controller: widget.street,
             decoration: const InputDecoration(labelText: 'Street Name'),
-            validator:  _validateField,
+            validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
             controller: widget.city,
             decoration: const InputDecoration(labelText: 'City Name'),
-            validator:  _validateField,
+            validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
             controller: widget.postCode,
             decoration: const InputDecoration(labelText: 'Post Code'),
-            validator:  _validateField,
+            validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
             controller: widget.mobile,
             decoration: const InputDecoration(labelText: 'Mobile Number'),
-            validator:  _validateField,
+            validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
             controller: widget.email,
             decoration: const InputDecoration(labelText: 'Email:'),
-            validator:  _validateField,
+            validator: ValidationsHelper.validateTextField,
           ),
           const SizedBox(height: Constants.padding24),
           CustomFloatingButton(
@@ -100,11 +100,5 @@ class _PersonalDetailsInputsState extends State<PersonalDetailsInputs> {
     );
   }
 
-  String? _validateField(String? value) {
-    if (value == null || value.isEmpty) {
-      return _error;
-    }
 
-    return null;
-  }
 }

@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
-import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -77,8 +76,8 @@ class _InformationsScreenState extends State<InformationsScreen> {
             ),
             _getRow(
               icon: Icons.people,
-              title: 'HR Management',
-              description: 'Manage employee details and records.',
+              title: 'Employee Management',
+              description: 'Manage employee details and tasks.',
             ),
             const SizedBox(height: 3*Constants.padding16),
             Container(

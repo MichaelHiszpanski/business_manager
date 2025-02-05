@@ -1,4 +1,5 @@
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
+import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
@@ -38,9 +39,16 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
             decoration: const BoxDecoration(color: Pallete.colorSix),
             child: employeeList.isEmpty
                 ? Center(
-                    child: Text(
-                      "Add New Employee.",
-                      style: context.text.headlineLarge,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Add New Employee.",
+                          style: context.text.headlineLarge?.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 : ListWheelScrollView.useDelegate(
@@ -90,9 +98,9 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
                   ),
           );
         } else if (state is EmployeeManagementInitial) {
-          return const Center(child: CircularProgressIndicator());
+          return const LoadAppDataScreen();
         } else {
-          return const Center(child: Text("Failed to load employees."));
+          return const Center(child: Text("Failed to load Employees!"));
         }
       },
     );

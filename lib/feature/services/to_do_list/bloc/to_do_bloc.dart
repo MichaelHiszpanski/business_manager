@@ -88,24 +88,43 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
   }
 
+  // FutureOr<void> _onRemoveToDoListItem(
+  //     RemoveToDoListItem event, Emitter<ToDoState> emit) async {
+  //   Box box = await Hive.openBox(HiveToDoListProperties.TO_DO_LIST_DATA_BOX);
+  //   List<dynamic>? getExistingHiveData =
+  //       box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
+  //   final now = DateTime.now();
+  //
+  //   _toDoList.removeWhere((todo) => todo.id == event.id);
+  //
+  //   if (getExistingHiveData != null) {
+  //     List<ToDoItemHive> toDoNewList = getExistingHiveData.cast<ToDoItemHive>();
+  //     _toDoList.removeWhere((todo) {
+  //       final isExpired = todo.expiredDate.isBefore(now);
+  //       if (isExpired) {
+  //         toDoNewList.removeWhere((hiveItem) => hiveItem.id == todo.id);
+  //       }
+  //       return isExpired;
+  //     });
+  //
+  //     await box.put(HiveToDoListProperties.TO_DO_LIST_DATA_KEY, toDoNewList);
+  //   }
+  //
+  //   NotificationHelper.cancelNotification(event.id.hashCode);
+  //
+  //   emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
+  // }
   FutureOr<void> _onRemoveToDoListItem(
       RemoveToDoListItem event, Emitter<ToDoState> emit) async {
     Box box = await Hive.openBox(HiveToDoListProperties.TO_DO_LIST_DATA_BOX);
     List<dynamic>? getExistingHiveData =
         box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
-    final now = DateTime.now();
 
     _toDoList.removeWhere((todo) => todo.id == event.id);
 
     if (getExistingHiveData != null) {
       List<ToDoItemHive> toDoNewList = getExistingHiveData.cast<ToDoItemHive>();
-      _toDoList.removeWhere((todo) {
-        final isExpired = todo.expiredDate.isBefore(now);
-        if (isExpired) {
-          toDoNewList.removeWhere((hiveItem) => hiveItem.id == todo.id);
-        }
-        return isExpired;
-      });
+      toDoNewList.removeWhere((hiveItem) => hiveItem.id == event.id);
 
       await box.put(HiveToDoListProperties.TO_DO_LIST_DATA_KEY, toDoNewList);
     }
@@ -151,6 +170,7 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     final now = DateTime.now();
     _toDoList.removeWhere((todo) => todo.expiredDate.isBefore(now));
     _notificationAlertListGenerator(_toDoList);
+    print("test1");
     emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
   }
 
@@ -160,12 +180,16 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     List<ToDoItem> tasksWithLessThan24HoursLeft = [];
 
     for (var item in toDoList) {
+      print("test2");
       final difference = item.expiredDate.difference(now);
       if (item.priority == PriorityLevelEnum.MEDIUM ||
           item.priority == PriorityLevelEnum.HIGH) {
+        print("test2.1? ${difference.inHours} ${item.expiredDate} ${now}");
         if (difference.inHours >= 24 && difference.inHours < 72) {
+          print("test3");
           tasksBetweenOneAndThreeDaysLeft.add(item);
         } else if (difference.inHours < 24) {
+          print("test24");
           tasksWithLessThan24HoursLeft.add(item);
         }
       }
@@ -178,7 +202,7 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
         id: 1,
         title: 'Tasks due in less than 3 days',
         body: tasksSummary,
-        scheduledDate: DateTime.now().add(Duration(seconds: 5)),
+        scheduledDate: DateTime.now().add(const Duration(minutes: 5)),
       );
     }
 
@@ -189,7 +213,7 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
         id: 2,
         title: 'Urgent! Tasks due in less than 24 hours',
         body: body,
-        scheduledDate: DateTime.now().add(Duration(seconds: 5)),
+        scheduledDate: DateTime.now().add(const Duration(minutes: 5)),
       );
     }
   }

@@ -60,8 +60,17 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
               color: Colors.transparent,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(Constants.padding16),
+                  border: widget.itemList.isNotEmpty
+                      ? Border.all(
+                          color: Pallete.gradient1,
+                          width: 1.0,
+                        )
+                      : Border.all(
+                          color: Colors.transparent,
+                          width: 0.0,
+                        ),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -73,10 +82,10 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
                             widget.getFullNameDetails(item),
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              fontFamily: AppFontFamily.suse,
-                              fontSize: 18,
-                              color: Pallete.gradient1,
-                            ),
+                                fontFamily: AppFontFamily.suse,
+                                fontSize: 18,
+                                color: Pallete.colorOne,
+                                fontWeight: FontWeight.w400),
                           ),
                           trailing: IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
@@ -112,8 +121,6 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
       ),
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {

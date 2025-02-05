@@ -1,4 +1,5 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/feature/services/to_do_list/bloc/to_do_bloc.dart';
@@ -15,9 +16,13 @@ class ToDoListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(
+        vertical: Constants.padding4,
+        horizontal: Constants.padding12,
+      ),
       child: Container(
         decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.85),
           border: Border.all(
             color: PriorityDropdown.getPriorityColor(todo.priority),
             width: 3,
@@ -27,39 +32,38 @@ class ToDoListItem extends StatelessWidget {
             Radius.circular(Constants.radius10),
           ),
         ),
-        child: ListTile(
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.end,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: Constants.padding8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                        const TextSpan(
-                          text: 'Priority: ',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                          text: todo.priority.toString().split('.').last,
-                          style: TextStyle(
-                            color: PriorityDropdown.getPriorityColor(
-                              todo.priority,
+                  Expanded(
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: 'Priority: ',
+                            style: TextStyle(
+                              color: Colors.black,
                             ),
                           ),
-                        ),
-                      ],
+                          TextSpan(
+                            text: todo.priority.toString().split('.').last,
+                            style: TextStyle(
+                              color: PriorityDropdown.getPriorityColor(
+                                  todo.priority),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  const Spacer(),
                   IconButton(
                     icon: const Icon(Icons.edit),
-                    padding: const EdgeInsets.all(0),
                     constraints: const BoxConstraints(),
                     iconSize: 20,
                     color: Colors.orange,
@@ -73,7 +77,6 @@ class ToDoListItem extends StatelessWidget {
                   ),
                   IconButton(
                     icon: const Icon(Icons.delete),
-                    padding: const EdgeInsets.all(0),
                     constraints: const BoxConstraints(),
                     iconSize: 20,
                     color: Colors.red,
@@ -85,73 +88,57 @@ class ToDoListItem extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(
-                todo.title,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: Constants.padding8),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  todo.title,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Pallete.gradient1),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-            ],
-          ),
-          subtitle: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
+            ),
+            Padding(
+              padding: const EdgeInsets.all(Constants.padding8),
+              child: SizedBox(
+                width: double.infinity,
+                height: 100,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       'Content: ${todo.content}',
                       style: const TextStyle(color: Colors.black54),
-                      maxLines: 8,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                        'Expired on: ${DateFormatHelper.dateFormatWithTime(todo.expiredDate)}')
+                    const Spacer(),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          'Expired on: ${DateFormatHelper.dateFormatWithTime(todo.expiredDate)}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              //  Container(
-              // width: 80,
-              //  child:
-              //      Row(
-              //        mainAxisSize: MainAxisSize.min,
-              //        mainAxisAlignment: MainAxisAlignment.end,
-              //        children: [
-              //          IconButton(
-              //            icon:const Icon(Icons.edit),
-              //            padding:const EdgeInsets.all(0),
-              //            constraints:const BoxConstraints(),
-              //            iconSize: 20,
-              //            color: Colors.orange,
-              //            onPressed: () {
-              //              Navigator.of(context).push(
-              //                MaterialPageRoute(
-              //                  builder: (context) => EditItemPage(todo: todo),
-              //                ),
-              //              );
-              //            },
-              //          ),
-              //          IconButton(
-              //            icon: const Icon(Icons.delete),
-              //            padding:const EdgeInsets.all(0),
-              //            constraints:const BoxConstraints(),
-              //            iconSize: 20,
-              //            color: Colors.red,
-              //            onPressed: () {
-              //              context.read<ToDoBloc>().add(
-              //                    RemoveToDoListItem(id: todo.id),
-              //                  );
-              //            },
-              //          ),
-              //        ],
-              //      ),
-              //
-              //  ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

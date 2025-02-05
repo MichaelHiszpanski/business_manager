@@ -29,7 +29,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   void initState() {
     super.initState();
 
-    BlocProvider.of<ToDoBloc>(context).add(LoadToDoList());
+    BlocProvider.of<ToDoBloc>(context).add(const LoadToDoList());
   }
 
   List<ToDoItem> _filteredToDos(List<ToDoItem> toDoList) {
@@ -40,7 +40,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
         return toDoList
           ..sort((a, b) => a.dateTimeAdded.compareTo(b.dateTimeAdded));
       case FilterMenuToDoListEnum.PRIORITY:
-        return toDoList
+        return List.from(toDoList)
           ..sort((a, b) => b.priority.index.compareTo(a.priority.index));
       case FilterMenuToDoListEnum.HIGH:
         return toDoList
@@ -83,35 +83,61 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
         onMenuPressed: _filterShowModalBottomSheet,
         isActionButtonAvailable: true,
       ),
-      body: BlocBuilder<ToDoBloc, ToDoState>(
-        builder: (context, state) {
-          if (state is ToDoInitial) {
-            return const Center(child: Text('Nothing to do yet...'));
-          } else if (state is ToDoLoading) {
-            return const LoadAppDataScreen();
-          } else if (state is ToDoLoadSuccess) {
-            final toDoList = _filteredToDos(state.toDoList);
-            if (toDoList.isEmpty) {
-              return const Center(child: Text('Nothing to do yet...'));
-            }
-            BlocProvider.of<ToDoBloc>(context)
-                .add(const CheckForExpiredItems());
-            return ListView.builder(
-              itemCount: toDoList.length,
-              itemBuilder: (context, index) {
-                final todo = toDoList[index];
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/to_do_bg.jpg',
+              fit: BoxFit.fill,
+            ),
+          ),
+          BlocBuilder<ToDoBloc, ToDoState>(
+            builder: (context, state) {
+              if (state is ToDoInitial) {
+                return const Center(child: Text('Nothing to do yet...'));
+              } else if (state is ToDoLoading) {
+                return const LoadAppDataScreen();
+              } else if (state is ToDoLoadSuccess) {
+                final toDoList = _filteredToDos(state.toDoList);
+                if (toDoList.isEmpty) {
+                  return const Center(child: Text('Nothing to do yet...'));
+                }
+                BlocProvider.of<ToDoBloc>(context)
+                    .add(const CheckForExpiredItems());
 
-                return ToDoListItem(todo: todo);
-              },
-            );
-          } else if (state is ToDoError) {
-            return const Center(
-              child: Text('Failed to load ToDo List . Please try again later.'),
-            );
-          } else {
-            return const LoadAppDataScreen();
-          }
-        },
+                // return ListView.builder(
+                //   itemCount: toDoList.length,
+                //   itemBuilder: (context, index) {
+                //     final todo = toDoList[index];
+                //
+                //     return ToDoListItem(todo: todo);
+                //   },
+                // );
+                return ListWheelScrollView.useDelegate(
+                  itemExtent: 210,
+                  physics: const FixedExtentScrollPhysics(),
+                  diameterRatio: 5,
+                  squeeze: 1,
+                  childDelegate: ListWheelChildBuilderDelegate(
+                    childCount: toDoList.length,
+                    builder: (context, index) {
+                      final todo = toDoList[index];
+
+                      return ToDoListItem(todo: todo);
+                    },
+                  ),
+                );
+              } else if (state is ToDoError) {
+                return const Center(
+                  child: Text(
+                      'Failed to load ToDo List . Please try again later.'),
+                );
+              } else {
+                return const LoadAppDataScreen();
+              }
+            },
+          ),
+        ],
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 60.0),

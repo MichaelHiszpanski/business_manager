@@ -1,3 +1,4 @@
+import 'package:business_manager/core/helpers/validations_helper.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
@@ -29,7 +30,7 @@ class InvoiceDetailsInputs extends StatefulWidget {
 
 class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
   final _keyForm = GlobalKey<FormState>();
-  final String _error = "";
+  final String _error = "Field cannot be empty.";
   late DateTime _invoiceStartDate;
 
   @override
@@ -48,7 +49,7 @@ class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
           TextFormField(
             controller: widget.invoiceNumber,
             decoration: const InputDecoration(labelText: 'Invoice Number'),
-            validator: _validateInvoiceNumber,
+            validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
             controller: widget.thankYouMessage,
@@ -95,13 +96,6 @@ class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
     );
   }
 
-  String? _validateInvoiceNumber(String? value) {
-    if (value == null || value.isEmpty) {
-      return _error;
-    }
-
-    return null;
-  }
 
   String? _validateDueDays(String? value) {
     if (value == null || value.isEmpty) {

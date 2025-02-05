@@ -85,6 +85,7 @@ flutter:
     - assets/images/space2.jpeg
     - assets/images/signin1.jpg
     - assets/images/signin2.png
+    - assets/images/to_do_bg.jpg
     - assets/myfile.html
     - .env
 

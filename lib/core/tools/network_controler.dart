@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 class NetworkController extends GetxController {
   final Connectivity _connectivity = Connectivity();
 
+  static RxBool isNetworkConnected = true.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -19,7 +21,8 @@ class NetworkController extends GetxController {
   }
 
   void _updateConnectionStatus(ConnectivityResult connectivityResults) {
-    if (connectivityResults == ConnectivityResult.none) {
+    isNetworkConnected.value = connectivityResults != ConnectivityResult.none;
+    if (!isNetworkConnected.value) {
       Get.rawSnackbar(
         messageText: const Align(
           alignment: Alignment.center,

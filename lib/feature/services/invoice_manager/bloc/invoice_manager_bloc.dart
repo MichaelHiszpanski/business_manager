@@ -152,6 +152,7 @@ class InvoiceManagerBloc
     _businessCurrentList.add(event.businessDetailsData);
 
     businessDetailList.add(BusinessDetailsHive(
+      businessID: event.businessDetailsData.businessID,
       businessName: event.businessDetailsData.businessName,
       businessFirstName: event.businessDetailsData.businessFirstName,
       businessLastName: event.businessDetailsData.businessLastName,
@@ -194,6 +195,7 @@ class InvoiceManagerBloc
     _clientCurrentList.add(event.clientDetailsData);
 
     clientDetailsList.add(ClientsDetailsHive(
+      clientID: event.clientDetailsData.clinetID,
       clientFirstName: event.clientDetailsData.clientFirstName,
       clientLastName: event.clientDetailsData.clientLastName,
       clientOwnerStreet: event.clientDetailsData.clientStreet,
@@ -236,6 +238,7 @@ class InvoiceManagerBloc
 
     invoiceItemsList.add(
       InvoiceItemsHive(
+        itemID: event.invoiceItemData.itemID,
         description: event.invoiceItemData.description,
         quantity: event.invoiceItemData.quantity,
         itemPrice: event.invoiceItemData.itemPrice,
@@ -275,6 +278,7 @@ class InvoiceManagerBloc
     _bankCurrentList.add(event.bankDetailsData);
 
     bankDetailsList.add(BankDetailsHive(
+        bankID: event.bankDetailsData.bankID,
         bankName: event.bankDetailsData.bankName,
         sortCode: event.bankDetailsData.sortCode,
         accountNo: event.bankDetailsData.accountNo));
@@ -305,16 +309,17 @@ class InvoiceManagerBloc
     List<dynamic>? existingBusinessList =
         box.get(HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY);
 
+    _businessCurrentList
+        .removeWhere((business) => business.businessID == event.businessID);
     if (existingBusinessList != null) {
       List<BusinessDetailsHive> updatedBusinessList =
           existingBusinessList.cast<BusinessDetailsHive>();
+
       updatedBusinessList
-          .removeWhere((business) => business.businessID == event.businessID);
+          .removeWhere((hiveItem) => hiveItem.businessID == event.businessID);
 
       await box.put(HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY,
           updatedBusinessList);
-      _businessCurrentList
-          .removeWhere((business) => business.businessID == event.businessID);
     }
 
     emit(InvoiceManagerLoaded(
@@ -342,8 +347,8 @@ class InvoiceManagerBloc
       updatedClientList
           .removeWhere((client) => client.clientID == event.clientID);
 
-      await box.put(
-          HiveClientDetailsProperties.TO_CLIENT_DETAILS_DATA_KEY, updatedClientList);
+      await box.put(HiveClientDetailsProperties.TO_CLIENT_DETAILS_DATA_KEY,
+          updatedClientList);
       _clientCurrentList
           .removeWhere((client) => client.clinetID == event.clientID);
     }
@@ -372,8 +377,8 @@ class InvoiceManagerBloc
           existingItemList.cast<InvoiceItemsHive>();
       updatedItemListList.removeWhere((item) => item.itemID == event.itemID);
 
-      await box.put(
-          HiveInvoiceItemsProperties.TO_INVOICE_ITEMS_DATA_KEY, updatedItemListList);
+      await box.put(HiveInvoiceItemsProperties.TO_INVOICE_ITEMS_DATA_KEY,
+          updatedItemListList);
       _invoiceItemsCurrentList
           .removeWhere((item) => item.itemID == event.itemID);
     }
@@ -402,8 +407,8 @@ class InvoiceManagerBloc
           existingBankList.cast<BankDetailsHive>();
       updatedBankDetailsList.removeWhere((bank) => bank.bankID == event.bankID);
 
-      await box.put(
-          HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_KEY, updatedBankDetailsList);
+      await box.put(HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_KEY,
+          updatedBankDetailsList);
       _bankCurrentList.removeWhere((bank) => bank.bankID == event.bankID);
     }
 

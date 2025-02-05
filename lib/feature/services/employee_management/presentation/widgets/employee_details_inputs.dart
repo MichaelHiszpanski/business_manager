@@ -1,4 +1,5 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
+import 'package:business_manager/core/helpers/validations_helper.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
@@ -15,7 +16,6 @@ class EmployeeDetailsInputs extends StatefulWidget {
   late DateTime employeeDateJoined;
   final VoidCallback onSaveData;
 
-
   EmployeeDetailsInputs({
     super.key,
     required this.employeeFirstName,
@@ -25,7 +25,6 @@ class EmployeeDetailsInputs extends StatefulWidget {
     required this.employeeHourlyRate,
     required this.employeeDateJoined,
     required this.onSaveData,
-
   });
 
   @override
@@ -34,10 +33,7 @@ class EmployeeDetailsInputs extends StatefulWidget {
 
 class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
   final _keyForm = GlobalKey<FormState>();
-  final String _error = "This field is required";
   late DateTime _localEmployeeDateJoined;
-
-
 
   @override
   void initState() {
@@ -51,43 +47,42 @@ class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
       key: _keyForm,
       child: Column(
         children: [
-
           TextFormField(
             controller: widget.employeeFirstName,
             decoration: const InputDecoration(labelText: 'Employee first name'),
-            validator: _validateField,
+            validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
             controller: widget.employeeLastName,
             decoration: const InputDecoration(labelText: 'Employee last Name'),
-            validator: _validateField,
+            validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
             controller: widget.employeeEmail,
             decoration: const InputDecoration(labelText: 'Employee email'),
-            validator: _validateField,
+            validator: ValidationsHelper.validateEmail,
           ),
           TextFormField(
             controller: widget.employeeRole,
             decoration: const InputDecoration(labelText: 'Employee role'),
-            validator: _validateField,
+            validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
             controller: widget.employeeHourlyRate,
-            decoration: const InputDecoration(labelText: 'Employee hourly rate'),
-            validator: _validateField,
+            decoration:
+                const InputDecoration(labelText: 'Employee hourly rate'),
+            validator: ValidationsHelper.validateTextField,
           ),
           const SizedBox(height: Constants.padding24),
           DatePicker(
-            onDateSelected: (selectedDate) {
-              setState(() {
-                _localEmployeeDateJoined = selectedDate ?? DateTime.now();
-              });
-            },
-            selectedDate: _localEmployeeDateJoined,
-            startingDate: DateTime(1980),
-              buttonText:"Joined Date"
-          ),
+              onDateSelected: (selectedDate) {
+                setState(() {
+                  _localEmployeeDateJoined = selectedDate ?? DateTime.now();
+                });
+              },
+              selectedDate: _localEmployeeDateJoined,
+              startingDate: DateTime(1980),
+              buttonText: "Joined Date"),
           const SizedBox(height: Constants.padding24),
           ButtonWrapperOne(
             child: CustomFloatingButton(
@@ -103,13 +98,5 @@ class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
         ],
       ),
     );
-  }
-
-  String? _validateField(String? value) {
-    if (value == null || value.isEmpty) {
-      return _error;
-    }
-
-    return null;
   }
 }
