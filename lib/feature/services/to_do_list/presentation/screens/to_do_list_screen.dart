@@ -1,6 +1,8 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/theme/colors.dart';
+import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/bottom_bar/bottom_bar.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
@@ -100,7 +102,14 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
               } else if (state is ToDoLoadSuccess) {
                 final toDoList = _filteredToDos(state.toDoList);
                 if (toDoList.isEmpty) {
-                  return const Center(child: Text('Nothing to do yet...'));
+                  return Center(
+                    child: Text(
+                      'Nothing to do yet...',
+                      style: context.text.headlineMedium?.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
                 }
                 BlocProvider.of<ToDoBloc>(context)
                     .add(const CheckForExpiredItems());
@@ -128,9 +137,16 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                   ),
                 );
               } else if (state is ToDoError) {
-                return const Center(
-                  child: Text(
-                      'Failed to load ToDo List . Please try again later.'),
+                return Padding(
+                  padding: const EdgeInsets.all(Constants.padding16),
+                  child: Center(
+                    child: Text(
+                      'Failed to load ToDo List . Please try again later.',
+                      style: context.text.headlineSmall?.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 );
               } else {
                 return const LoadAppDataScreen();

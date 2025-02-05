@@ -58,8 +58,8 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
 
       emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
     } else {
-      emit(ToDoError());
-      _toDoList.clear();
+      emit(const ToDoLoadSuccess(toDoList: []));
+
     }
   }
 

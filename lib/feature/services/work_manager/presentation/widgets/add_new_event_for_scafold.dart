@@ -1,5 +1,6 @@
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/color_selector.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/custom_dropdown_hours.dart';
@@ -63,9 +64,9 @@ class AddNewEventForScafold extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                const SizedBox(height: 16),
-                Text('Add New Event'),
-                const SizedBox(height: 16),
+                const SizedBox(height: Constants.padding16),
+            Text('Set Up a New Event Range',style: context.text.headlineSmall,),
+                const SizedBox(height: 2* Constants.padding16),
                 TextFormField(
                   controller: controllerName,
                   decoration: const InputDecoration(

@@ -5,7 +5,7 @@ import 'package:business_manager/core/widgets/buttons/custom_floating_button.dar
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class InvoiceBankDetailsInputs extends StatelessWidget {
+class InvoiceBankDetailsInputs extends StatefulWidget {
   final VoidCallback onSaveData;
   final TextEditingController bankName;
   final TextEditingController sortCode;
@@ -19,21 +19,25 @@ class InvoiceBankDetailsInputs extends StatelessWidget {
     required this.accountNo,
   });
 
-  final _formKey = GlobalKey<FormState>();
+  @override
+  State<InvoiceBankDetailsInputs> createState() => _InvoiceBankDetailsInputsState();
+}
 
+class _InvoiceBankDetailsInputsState extends State<InvoiceBankDetailsInputs> {
+  final _keyForm = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      key: _keyForm,
       child: Column(
         children: [
           TextFormField(
-            controller: bankName,
+            controller: widget.bankName,
             decoration: const InputDecoration(labelText: 'Bank Name'),
             validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
-            controller: sortCode,
+            controller: widget.sortCode,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(labelText: 'Sort Code'),
             inputFormatters: [
@@ -42,7 +46,7 @@ class InvoiceBankDetailsInputs extends StatelessWidget {
             validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
-            controller: accountNo,
+            controller: widget.accountNo,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(labelText: 'Account Number'),
             inputFormatters: [
@@ -52,7 +56,11 @@ class InvoiceBankDetailsInputs extends StatelessWidget {
           ),
           const SizedBox(height: Constants.padding16),
           CustomFloatingButton(
-            onPressed: onSaveData,
+            onPressed: () {
+              if (_keyForm.currentState!.validate()) {
+                widget.onSaveData();
+              }
+            },
             buttonText: 'Save',
             backgroundColor: Pallete.gradient3,
           ),

@@ -144,9 +144,11 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                       borderRadius: BorderRadius.circular(200.0),
                       boxShadow: [
                         BoxShadow(
-                          color: toggleButton
-                              ? Colors.red.withOpacity(0.5)
-                              : Colors.green.withOpacity(0.5),
+                          color: widget.isUserSignedIn
+                              ? toggleButton
+                                  ? Colors.blue.withOpacity(0.5)
+                                  : Colors.green.withOpacity(0.5)
+                              : Colors.red.withOpacity(0.5),
                           blurRadius: 10.0,
                           offset: const Offset(4, 4),
                         ),

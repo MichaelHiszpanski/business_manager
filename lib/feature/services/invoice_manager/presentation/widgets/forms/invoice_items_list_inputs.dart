@@ -5,7 +5,7 @@ import 'package:business_manager/core/widgets/buttons/custom_floating_button.dar
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class InvoiceItemsListInputs extends StatelessWidget {
+class InvoiceItemsListInputs extends StatefulWidget {
   final VoidCallback onSaveData;
   final TextEditingController description;
   final TextEditingController itemPrice;
@@ -18,6 +18,12 @@ class InvoiceItemsListInputs extends StatelessWidget {
     required this.itemPrice,
     required this.totalItems,
   });
+
+  @override
+  State<InvoiceItemsListInputs> createState() => _InvoiceItemsListInputsState();
+}
+
+class _InvoiceItemsListInputsState extends State<InvoiceItemsListInputs> {
   final _keyForm = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -26,56 +32,60 @@ class InvoiceItemsListInputs extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
-            controller: description,
+            controller: widget.description,
             decoration: const InputDecoration(labelText: 'Item description'),
             validator: ValidationsHelper.validateTextField,
           ),
           TextFormField(
-            controller: itemPrice,
+            controller: widget.itemPrice,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(labelText: 'Item price'),
-            // validator: (value) {
-            //   if (value == null || value.isEmpty) {
-            //     return 'Please enter a price';
-            //   }
-            //
-            //   final parsedValue = int.tryParse(value);
-            //
-            //   if (parsedValue == null) {
-            //     return 'Invalid number format';
-            //   } else if (parsedValue < 1) {
-            //     return 'Price must be at least 1';
-            //   } else if (parsedValue > 1000000000) {
-            //     return 'Price cannot exceed 1,000,000,000';
-            //   }
-            //   return null;
-            // },
-            validator: ValidationsHelper.validateTextField,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a price';
+              }
+
+              final parsedValue = int.tryParse(value);
+
+              if (parsedValue == null) {
+                return 'Invalid number format';
+              } else if (parsedValue < 1) {
+                return 'Price must be at least 1';
+              } else if (parsedValue > 1000000000) {
+                return 'Price cannot exceed 1,000,000,000';
+              }
+              return null;
+            },
+
           ),
           TextFormField(
-            controller: totalItems,
+            controller: widget.totalItems,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(labelText: 'Total Items.'),
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
             ],
-            // validator: (value) {
-            //   if (value == null || value.isEmpty) {
-            //     return 'Please enter a value';
-            //   }
-            //   final intValue = int.tryParse(value);
-            //   if (intValue == null ||
-            //       intValue < 1 ||
-            //       intValue > int.parse(totalItems.text)) {
-            //     return 'Enter a value between 1 and ${totalItems.text}';
-            //   }
-            //   return null;
-            // },
-            validator: ValidationsHelper.validateTextField,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a value';
+              }
+              final intValue = int.tryParse(value);
+              if (intValue == null ||
+                  intValue < 1 ||
+                  intValue > int.parse(widget.totalItems.text)) {
+                return 'Enter a value between 1 and ${widget.totalItems.text}';
+              }
+              return null;
+            },
+
           ),
           const SizedBox(height: Constants.padding16),
           CustomFloatingButton(
-            onPressed: onSaveData,
+            onPressed: () {
+              if (_keyForm.currentState!.validate()) {
+                widget.onSaveData();
+              }
+            },
             buttonText: 'Save',
             backgroundColor: Pallete.gradient3,
           ),

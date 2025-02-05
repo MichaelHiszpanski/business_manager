@@ -62,7 +62,7 @@ class _StepOneState extends State<StepOne> {
           onConfirm: () {
             context.read<InvoiceManagerBloc>().add(
                   InvoiceManagerRemoveBusiness(
-                    businessID: business.businessID ?? business.businessName,
+                    businessID: business.businessID!,
                   ),
                 );
           },

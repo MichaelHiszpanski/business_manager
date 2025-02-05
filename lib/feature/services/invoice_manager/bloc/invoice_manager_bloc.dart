@@ -309,8 +309,6 @@ class InvoiceManagerBloc
     List<dynamic>? existingBusinessList =
         box.get(HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY);
 
-    _businessCurrentList
-        .removeWhere((business) => business.businessID == event.businessID);
     if (existingBusinessList != null) {
       List<BusinessDetailsHive> updatedBusinessList =
           existingBusinessList.cast<BusinessDetailsHive>();
@@ -320,6 +318,9 @@ class InvoiceManagerBloc
 
       await box.put(HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY,
           updatedBusinessList);
+
+      _businessCurrentList
+          .removeWhere((business) => business.businessID == event.businessID);
     }
 
     emit(InvoiceManagerLoaded(
@@ -329,6 +330,39 @@ class InvoiceManagerBloc
       bankDetailsDataList: _bankCurrentList,
     ));
   }
+
+  // Future<void> _onRemoveBusiness(
+  //   InvoiceManagerRemoveBusiness event,
+  //   Emitter<InvoiceManagerState> emit,
+  // ) async {
+  //   emit(InvoiceManagerLoading());
+  //
+  //   final box = await Hive.openBox(
+  //       HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_BOX);
+  //   List<dynamic>? existingBusinessList =
+  //       box.get(HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY);
+  //
+  //
+  //   if (existingBusinessList != null) {
+  //     List<BusinessDetailsHive> updatedBusinessList =
+  //         existingBusinessList.cast<BusinessDetailsHive>();
+  //
+  //     updatedBusinessList
+  //         .removeWhere((hiveItem) => hiveItem.businessID == event.businessID);
+  //
+  //     await box.put(HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY,
+  //         updatedBusinessList);
+  //     _businessCurrentList
+  //         .removeWhere((business) => business.businessID == event.businessID);
+  //   }
+  //
+  //   emit(InvoiceManagerLoaded(
+  //     businessDetailsDataList: List.from(_businessCurrentList),
+  //     clientDetailsDataList: _clientCurrentList,
+  //     invoiceItemsList: _invoiceItemsCurrentList,
+  //     bankDetailsDataList: _bankCurrentList,
+  //   ));
+  // }
 
   Future<void> _onRemoveClient(
     InvoiceManagerRemoveClient event,
