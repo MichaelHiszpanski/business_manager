@@ -13,14 +13,11 @@ class TaskDetailsDialog extends StatefulWidget {
   final String employeeID;
   final VoidCallback onDelete;
 
-  // final VoidCallback onSave;
-
   const TaskDetailsDialog({
     Key? key,
     required this.task,
     required this.employeeID,
     required this.onDelete,
-    // required this.onSave,
   }) : super(key: key);
 
   @override
@@ -76,32 +73,33 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
             style: context.text.bodyLarge,
           ),
           const SizedBox(height: Constants.padding16),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(
-              Constants.padding8,
-            ),
-            decoration: BoxDecoration(
-              color: Pallete.colorFive,
-              borderRadius: BorderRadius.circular(Constants.radius15),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  spreadRadius: 2,
-                  blurRadius: 6,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+          // Container(
+          //   width: double.infinity,
+          //   padding: const EdgeInsets.all(
+          //     Constants.padding8,
+          //   ),
+          //   decoration: BoxDecoration(
+          //     color: Pallete.colorFive,
+          //     borderRadius: BorderRadius.circular(Constants.radius15),
+          //     boxShadow: [
+          //       BoxShadow(
+          //         color: Colors.black.withOpacity(0.2),
+          //         spreadRadius: 2,
+          //         blurRadius: 6,
+          //         offset: const Offset(0, 3),
+          //       ),
+          //     ],
+          //   ),
+          //  child:
+          //   Column(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
                 if (widget.task.employeeCheckInTime != null)
                   Text(
                     "  Check-In    : ${DateFormatHelper.dateFormat(widget.task.employeeCheckInTime)}",
                     style: context.text.bodyLarge?.copyWith(
-                      color: Colors.white,
+                      color: Colors.green,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -112,14 +110,13 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
                   Text(
                     "  Check-Out : ${DateFormatHelper.dateFormat(widget.task.employeeCheckOutTime)}",
                     style: context.text.bodyLarge?.copyWith(
-                      color: Colors.white,
+                      color: Colors.blue,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-
-              ],
-            ),
-          ),
+            //   ],
+            // ),
+         // ),
           const SizedBox(height: Constants.padding16),
           ButtonWrapperTwo(
             startColor: _isCompleted ? Colors.green : Colors.red,

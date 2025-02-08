@@ -119,10 +119,6 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                         task.taskTitle,
                                       );
                                     },
-                                    // onSave: () {
-                                    //   _saveTaskDetails(
-                                    //       context, model.employeeID!, task);
-                                    // },
                                   ),
                                 );
                               },
@@ -142,13 +138,13 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                     Expanded(
                                       child: Text(
                                         task.taskTitle,
-                                        style: context.text.bodyMedium?.copyWith(
-                                          color:  isTaskDone
+                                        style:
+                                            context.text.bodyMedium?.copyWith(
+                                          color: isTaskDone
                                               ? Colors.green
                                               : Colors.red,
                                         ),
                                         overflow: TextOverflow.ellipsis,
-
                                       ),
                                     ),
                                   ],

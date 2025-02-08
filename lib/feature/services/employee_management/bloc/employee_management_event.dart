@@ -74,15 +74,7 @@ class UpdateEmployeeTask extends EmployeeManagementEvent {
   @override
   List<Object?> get props => [employeeID, updatedTask];
 }
-class MarkTaskAsDone extends EmployeeManagementEvent {
-  final String employeeID;
-  final String taskTitle;
 
-  const MarkTaskAsDone({required this.employeeID, required this.taskTitle});
-
-  @override
-  List<Object?> get props => [employeeID, taskTitle];
-}
 
 class CheckForOverdueTasks extends EmployeeManagementEvent {
   const CheckForOverdueTasks();
