@@ -95,28 +95,28 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
           //     mainAxisAlignment: MainAxisAlignment.start,
           //     crossAxisAlignment: CrossAxisAlignment.start,
           //     children: [
-                if (widget.task.employeeCheckInTime != null)
-                  Text(
-                    "  Check-In    : ${DateFormatHelper.dateFormat(widget.task.employeeCheckInTime)}",
-                    style: context.text.bodyLarge?.copyWith(
-                      color: Colors.green,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                const SizedBox(
-                  height: Constants.padding4,
-                ),
-                if (widget.task.employeeCheckOutTime != null)
-                  Text(
-                    "  Check-Out : ${DateFormatHelper.dateFormat(widget.task.employeeCheckOutTime)}",
-                    style: context.text.bodyLarge?.copyWith(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-            //   ],
-            // ),
-         // ),
+          if (widget.task.employeeCheckInTime != null)
+            Text(
+              "  Check-In    : ${DateFormatHelper.dateFormat(widget.task.employeeCheckInTime)}",
+              style: context.text.bodyLarge?.copyWith(
+                color: Colors.green,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          const SizedBox(
+            height: Constants.padding4,
+          ),
+          if (widget.task.employeeCheckOutTime != null)
+            Text(
+              "  Check-Out : ${DateFormatHelper.dateFormat(widget.task.employeeCheckOutTime)}",
+              style: context.text.bodyLarge?.copyWith(
+                color: Colors.blue,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          //   ],
+          // ),
+          // ),
           const SizedBox(height: Constants.padding16),
           ButtonWrapperTwo(
             startColor: _isCompleted ? Colors.green : Colors.red,

@@ -101,4 +101,16 @@ class SupabaseBucketManager {
       throw error;
     }
   }
+
+  void _uploadPDF(File pdfFile) async {
+    final supabaseManager = SupabaseBucketManager();
+    try {
+      final path = 'invoices/${DateTime.now().toIso8601String()}.pdf';
+      await supabaseManager.uploadFile(pdfFile, path);
+      print('PDF uploaded successfully!');
+    } catch (e) {
+      print('Error uploading PDF: $e');
+    }
+  }
+
 }

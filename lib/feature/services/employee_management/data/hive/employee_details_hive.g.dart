@@ -22,7 +22,7 @@ class EmployeeDetailsHiveAdapter extends TypeAdapter<EmployeeDetailsHive> {
       employeeLastName: fields[2] as String,
       employeeEmail: fields[3] as String,
       employeeRole: fields[4] as String,
-      employeeHourlyRate: fields[5] as double,
+      tasksDone: fields[5] as double,
       employeeDateJoined: fields[6] as DateTime,
       employeeTaskList: (fields[7] as List).cast<EmployeeTaskHive>(),
     );
@@ -43,7 +43,7 @@ class EmployeeDetailsHiveAdapter extends TypeAdapter<EmployeeDetailsHive> {
       ..writeByte(4)
       ..write(obj.employeeRole)
       ..writeByte(5)
-      ..write(obj.employeeHourlyRate)
+      ..write(obj.tasksDone)
       ..writeByte(6)
       ..write(obj.employeeDateJoined)
       ..writeByte(7)

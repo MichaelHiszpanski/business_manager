@@ -7,7 +7,7 @@ class EmployeeModel extends Equatable {
   final String employeeLastName;
   final String employeeEmail;
   final String employeeRole;
-  final double employeeHourlyRate;
+  final double tasksDone;
   final DateTime employeeDateJoined;
   final List<EmployeeTaskModel> employeeTaskList;
 
@@ -17,7 +17,7 @@ class EmployeeModel extends Equatable {
     required this.employeeLastName,
     required this.employeeEmail,
     required this.employeeRole,
-    required this.employeeHourlyRate,
+    required this.tasksDone,
     required this.employeeDateJoined,
     required this.employeeTaskList,
   });
@@ -32,7 +32,7 @@ class EmployeeModel extends Equatable {
         employeeLastName,
         employeeEmail,
         employeeRole,
-        employeeHourlyRate,
+        tasksDone,
         employeeDateJoined,
         employeeTaskList,
       ];

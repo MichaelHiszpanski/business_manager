@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 class EmployeeDetailsDisplay extends StatelessWidget {
   final EmployeeModel employee;
-  const EmployeeDetailsDisplay({super.key, required this.employee});
 
+  const EmployeeDetailsDisplay({super.key, required this.employee});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +17,6 @@ class EmployeeDetailsDisplay extends StatelessWidget {
           icon: Icons.person,
           text: " ${employee.employeeFirstName} ${employee.employeeLastName}",
         ),
-        // const SizedBox(height: Constants.padding16),
-        // EmployeeDisplayRow(
-        //   icon: Icons.perm_identity,
-        //   text: " ${employee.employeeID} ",
-        // ),
         const SizedBox(height: Constants.padding16),
         EmployeeDisplayRow(
           icon: Icons.sensor_occupied,
@@ -35,13 +30,13 @@ class EmployeeDetailsDisplay extends StatelessWidget {
         const SizedBox(height: Constants.padding16),
         EmployeeDisplayRow(
           icon: Icons.rate_review,
-          text: " ${employee.employeeHourlyRate} ",
+          text: " ${employee.tasksDone.toInt()} ",
         ),
         const SizedBox(height: Constants.padding16),
         EmployeeDisplayRow(
           icon: Icons.data_exploration,
           text:
-          " ${DateFormatHelper.dateFormatWithTime(employee.employeeDateJoined)} ",
+              " ${DateFormatHelper.dateFormatWithTime(employee.employeeDateJoined)} ",
         ),
       ],
     );

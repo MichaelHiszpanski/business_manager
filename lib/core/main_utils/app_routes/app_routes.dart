@@ -6,6 +6,7 @@ import 'package:business_manager/feature/services/employee_management/presentati
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_details_screen.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/screens/employee_management_screen.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/screens/invoice_manager_screen.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/screens/invoices_list_screen.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/screens/add_item_screen.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/screens/to_do_list_screen.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/screens/add_new_event_screen.dart';
@@ -36,6 +37,8 @@ class AppRoutes {
   //INVOICE-MANAGER
   static const String invoiceManagerScreen =
       '/services/invoice_manager/presentation/screens/invoice_manager';
+  static const String invoicesListScreen =
+  '/services/invoice_manager/presentation/screens/invoices_list_screen';
 
   //Employee Management
   static const String employeeManagementScreen =
@@ -57,6 +60,7 @@ class AppRoutes {
           isLastDateVisible: true,
         ),
     invoiceManagerScreen: (context) => const InvoiceManagerScreen(),
+    invoicesListScreen:(context)=>const InvoicesListScreen(),
     informationScreen: (context) => const InformationsScreen(),
     employeeManagementScreen: (context) => const EmployeeManagementScreen(),
     employeeDetailsScreen: (context) => const EmployeeDetailsScreen(),

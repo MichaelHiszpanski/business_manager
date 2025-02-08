@@ -52,7 +52,7 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
     _employeeLastName.text = employee.employeeLastName;
     _employeeEmail.text = employee.employeeEmail;
     _employeeRole.text = employee.employeeRole;
-    _employeeHourlyRate.text = employee.employeeHourlyRate.toString();
+    _employeeHourlyRate.text = employee.tasksDone.toString();
     _employeeDateJoined = employee.employeeDateJoined;
   }
 
@@ -63,7 +63,7 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
       employeeLastName: _employeeLastName.text.trim(),
       employeeEmail: _employeeEmail.text.trim(),
       employeeRole: _employeeRole.text.trim(),
-      employeeHourlyRate:
+      tasksDone:
           double.tryParse(_employeeHourlyRate.text.trim()) ?? 0.0,
       employeeDateJoined: _employeeDateJoined,
       employeeTaskList: _existingEmployee?.employeeTaskList ?? [],
@@ -84,9 +84,10 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isExistingEmployee = _existingEmployee == null;
     return Scaffold(
       appBar: CustomAppBar(
-        title: _existingEmployee == null ? "New Employee" : "Update Employee",
+        title: isExistingEmployee ? "New Employee" : "Update Employee",
         onMenuPressed: () {},
       ),
       body: SingleChildScrollView(
@@ -99,9 +100,7 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
             child: Column(
               children: [
                 Text(
-                  _existingEmployee == null
-                      ? "New Employee"
-                      : "Update Employee",
+                  isExistingEmployee ? "New Employee" : "Update Employee",
                   style: context.text.headlineMedium,
                 ),
                 const SizedBox(height: Constants.padding16),
@@ -110,9 +109,10 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
                   employeeLastName: _employeeLastName,
                   employeeEmail: _employeeEmail,
                   employeeRole: _employeeRole,
-                  employeeHourlyRate: _employeeHourlyRate,
+                  tasksDone: _employeeHourlyRate,
                   employeeDateJoined: _employeeDateJoined,
                   onSaveData: _saveUpdateEmployee,
+                  existingEmployee: isExistingEmployee,
                 ),
               ],
             ),

@@ -92,7 +92,7 @@ class HiveEmployeeDetailsProperties {
   static const int employeeLastName = 2;
   static const int employeeEmail = 3;
   static const int employeeRole = 4;
-  static const int employeeHourlyRate = 5;
+  static const int tasksDone = 5;
   static const int employeeDateJoined = 6;
   static const int employeeTaskList = 7;
 }

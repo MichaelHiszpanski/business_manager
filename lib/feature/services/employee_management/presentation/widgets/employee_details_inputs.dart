@@ -12,9 +12,10 @@ class EmployeeDetailsInputs extends StatefulWidget {
   final TextEditingController employeeLastName;
   final TextEditingController employeeEmail;
   final TextEditingController employeeRole;
-  final TextEditingController employeeHourlyRate;
+  final TextEditingController tasksDone;
   late DateTime employeeDateJoined;
   final VoidCallback onSaveData;
+  final bool existingEmployee;
 
   EmployeeDetailsInputs({
     super.key,
@@ -22,9 +23,10 @@ class EmployeeDetailsInputs extends StatefulWidget {
     required this.employeeLastName,
     required this.employeeEmail,
     required this.employeeRole,
-    required this.employeeHourlyRate,
+    required this.tasksDone,
     required this.employeeDateJoined,
     required this.onSaveData,
+    required this.existingEmployee,
   });
 
   @override
@@ -47,33 +49,40 @@ class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
       key: _keyForm,
       child: Column(
         children: [
+          const SizedBox(height: Constants.padding16),
           TextFormField(
             controller: widget.employeeFirstName,
             decoration: const InputDecoration(labelText: 'Employee first name'),
             validator: ValidationsHelper.validateTextField,
           ),
+          const SizedBox(height: Constants.padding16),
           TextFormField(
             controller: widget.employeeLastName,
             decoration: const InputDecoration(labelText: 'Employee last Name'),
             validator: ValidationsHelper.validateTextField,
           ),
+          const SizedBox(height: Constants.padding16),
           TextFormField(
             controller: widget.employeeEmail,
             decoration: const InputDecoration(labelText: 'Employee email'),
             validator: ValidationsHelper.validateEmail,
           ),
+          const SizedBox(height: Constants.padding16),
           TextFormField(
             controller: widget.employeeRole,
             decoration: const InputDecoration(labelText: 'Employee role'),
             validator: ValidationsHelper.validateTextField,
           ),
-          TextFormField(
-            controller: widget.employeeHourlyRate,
-            decoration:
-                const InputDecoration(labelText: 'Employee hourly rate'),
-            validator: ValidationsHelper.validateTextField,
-          ),
-          const SizedBox(height: Constants.padding24),
+          // if (!widget.existingEmployee) ...[
+          //   TextFormField(
+          //     controller: widget.tasksDone,
+          //     decoration: const InputDecoration(labelText: 'Tasks done'),
+          //     // validator: ValidationsHelper.validateTextField,
+          //     // initialValue: "0",
+          //     readOnly: true,
+          //   ),
+          // ],
+          const SizedBox(height: Constants.padding24*2),
           DatePicker(
               onDateSelected: (selectedDate) {
                 setState(() {
@@ -83,7 +92,7 @@ class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
               selectedDate: _localEmployeeDateJoined,
               startingDate: DateTime(1980),
               buttonText: "Joined Date"),
-          const SizedBox(height: Constants.padding24),
+          const SizedBox(height: Constants.padding24*2),
           ButtonWrapperOne(
             child: CustomFloatingButton(
               onPressed: () {

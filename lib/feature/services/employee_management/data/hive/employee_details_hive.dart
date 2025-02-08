@@ -21,8 +21,8 @@ class EmployeeDetailsHive {
   @HiveField(HiveEmployeeDetailsProperties.employeeRole)
   final String employeeRole;
 
-  @HiveField(HiveEmployeeDetailsProperties.employeeHourlyRate)
-  final double employeeHourlyRate;
+  @HiveField(HiveEmployeeDetailsProperties.tasksDone)
+  final double tasksDone;
 
   @HiveField(HiveEmployeeDetailsProperties.employeeDateJoined)
   final DateTime employeeDateJoined;
@@ -36,7 +36,7 @@ class EmployeeDetailsHive {
     required this.employeeLastName,
     required this.employeeEmail,
     required this.employeeRole,
-    required this.employeeHourlyRate,
+    required this.tasksDone,
     required this.employeeDateJoined,
     required this.employeeTaskList,
   });
@@ -45,7 +45,7 @@ class EmployeeDetailsHive {
   String toString() {
     return 'EmployeeHive(employeeID: $employeeID, employeeFirstName: $employeeFirstName, '
         'employeeLastName: $employeeLastName, employeeEmail: $employeeEmail, '
-        'employeeRole: $employeeRole, employeeHourlyRate: $employeeHourlyRate, '
+        'employeeRole: $employeeRole, employeeHourlyRate: $tasksDone, '
         'employeeDateJoined: $employeeDateJoined, employeeTaskList: $employeeTaskList)';
   }
 }
