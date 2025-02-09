@@ -411,25 +411,32 @@ class EmployeeManagementBloc
       (e) => e.employeeID == event.employeeID,
     );
 
+    if (employeeIndex == -1) {
+      return;
+    }
+
     final employee = _employeeList[employeeIndex];
 
+    final String taskID = event.updatedTask.taskID ?? "";
+
     bool isTaskNewlyCompleted = event.updatedTask.isDone &&
-        !employee.tasksDone
-            .any((task) => task.taskID == event.updatedTask.taskID);
+        !employee.tasksDone.any((task) => task.taskID == taskID);
 
     final updatedTasks = employee.employeeTaskList.map((task) {
-      if (task.taskID == event.updatedTask.taskID) {
+      if (task.taskID == taskID) {
         return event.updatedTask;
       }
       return task;
     }).toList();
 
-    final updatedTasksDone = List<TaskDoneModel>.from(employee.tasksDone);
+    List<TaskDoneModel> updatedTasksDone =
+        List<TaskDoneModel>.from(employee.tasksDone);
+
     if (isTaskNewlyCompleted) {
       updatedTasksDone.add(TaskDoneModel(
         employeeID: employee.employeeID,
         isDone: true,
-        taskID: event.updatedTask.taskID ?? "Zonk",
+        taskID: taskID,
       ));
     }
 

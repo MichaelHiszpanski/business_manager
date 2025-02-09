@@ -21,7 +21,6 @@ class EmployeeDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
     final EmployeeModel model = args['model'];
-    late bool isTaskDone = false;
     return Scaffold(
       appBar: CustomAppBar(title: "Employee Details", onMenuPressed: () {}),
       body: SingleChildScrollView(

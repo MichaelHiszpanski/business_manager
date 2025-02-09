@@ -36,7 +36,7 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
     setState(() {
       _isCompleted = !_isCompleted;
     });
-
+    print(" updatedTask 1 ${widget.task.taskID}");
     final updatedTask = EmployeeTaskModel(
       taskID: widget.task.taskID,
       taskTitle: widget.task.taskTitle,
@@ -49,11 +49,11 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
     );
 
     context.read<EmployeeManagementBloc>().add(
-          UpdateEmployeeTask(
-            employeeID: widget.employeeID,
-            updatedTask: updatedTask,
-          ),
-        );
+      UpdateEmployeeTask(
+        employeeID: widget.employeeID,
+        updatedTask: updatedTask,
+      ),
+    );
   }
 
   @override
