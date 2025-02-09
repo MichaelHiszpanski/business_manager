@@ -49,7 +49,7 @@ class AppRoutes {
       '/services/employee_management/presentation/screens/employee_add_new_screen.dart';
 
   static final routes = <String, WidgetBuilder>{
-    homePage: (context) => const HomePage(title: "Home Page"),
+    homePage: (context) => const HomePage(),
     toDoScreen: (context) => const ToDoListScreen(),
     signIn: (context) => const SignInScreen(),
     profile: (context) => const ProfileScreen(),

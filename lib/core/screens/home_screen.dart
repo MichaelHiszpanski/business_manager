@@ -14,9 +14,7 @@ import '../theme/app_font_family.dart';
 import '../../main.dart';
 
 class HomePage extends StatefulWidget {
-  final String title;
-
-  const HomePage({super.key, required this.title});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();

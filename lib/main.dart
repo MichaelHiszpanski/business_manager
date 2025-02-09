@@ -1,4 +1,3 @@
-import 'package:business_manager/core/helpers/local_notification_helper.dart';
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/main_utils/bloc_provider/bloc_provider.dart';
 import 'package:business_manager/core/storage_hive/hive_register_adapter.dart';
@@ -25,7 +24,6 @@ Future<void> main() async {
 
   await HiveRegisterAdapter.register();
 
-
   await Supabase.initialize(
     url: SupabaseConfig.supabaseUrl,
     anonKey: SupabaseConfig.supabaseAnonKey,
@@ -43,7 +41,6 @@ Future<void> main() async {
   // await NotificationHelper.initialize();
   DependencyInjection.init();
   runApp(const MainApp());
-
 }
 
 class MainApp extends StatelessWidget {
@@ -66,9 +63,7 @@ class MainApp extends StatelessWidget {
         theme: getAppTheme(),
         locale: const Locale('en'),
         routes: AppRoutes.routes,
-        home: const Scaffold(
-          body: Center(child: HomePage(title: "title")),
-        ),
+        home: const HomePage(),
       ),
       //)
     );

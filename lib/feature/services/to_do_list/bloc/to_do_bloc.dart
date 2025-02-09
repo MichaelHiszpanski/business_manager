@@ -88,32 +88,7 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
   }
 
-  // FutureOr<void> _onRemoveToDoListItem(
-  //     RemoveToDoListItem event, Emitter<ToDoState> emit) async {
-  //   Box box = await Hive.openBox(HiveToDoListProperties.TO_DO_LIST_DATA_BOX);
-  //   List<dynamic>? getExistingHiveData =
-  //       box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
-  //   final now = DateTime.now();
-  //
-  //   _toDoList.removeWhere((todo) => todo.id == event.id);
-  //
-  //   if (getExistingHiveData != null) {
-  //     List<ToDoItemHive> toDoNewList = getExistingHiveData.cast<ToDoItemHive>();
-  //     _toDoList.removeWhere((todo) {
-  //       final isExpired = todo.expiredDate.isBefore(now);
-  //       if (isExpired) {
-  //         toDoNewList.removeWhere((hiveItem) => hiveItem.id == todo.id);
-  //       }
-  //       return isExpired;
-  //     });
-  //
-  //     await box.put(HiveToDoListProperties.TO_DO_LIST_DATA_KEY, toDoNewList);
-  //   }
-  //
-  //   NotificationHelper.cancelNotification(event.id.hashCode);
-  //
-  //   emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
-  // }
+
   FutureOr<void> _onRemoveToDoListItem(
       RemoveToDoListItem event, Emitter<ToDoState> emit) async {
     Box box = await Hive.openBox(HiveToDoListProperties.TO_DO_LIST_DATA_BOX);
