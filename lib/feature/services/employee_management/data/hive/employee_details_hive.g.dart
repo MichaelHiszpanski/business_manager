@@ -22,7 +22,7 @@ class EmployeeDetailsHiveAdapter extends TypeAdapter<EmployeeDetailsHive> {
       employeeLastName: fields[2] as String,
       employeeEmail: fields[3] as String,
       employeeRole: fields[4] as String,
-      tasksDone: fields[5] as double,
+      tasksDone: (fields[5] as List).cast<TasksDoneHive>(),
       employeeDateJoined: fields[6] as DateTime,
       employeeTaskList: (fields[7] as List).cast<EmployeeTaskHive>(),
     );

@@ -1,4 +1,5 @@
 import 'package:business_manager/feature/services/employee_management/models/employee_task_model.dart';
+import 'package:business_manager/feature/services/employee_management/models/task_done_model.dart';
 import 'package:equatable/equatable.dart';
 
 class EmployeeModel extends Equatable {
@@ -7,7 +8,8 @@ class EmployeeModel extends Equatable {
   final String employeeLastName;
   final String employeeEmail;
   final String employeeRole;
-  final double tasksDone;
+  // final double tasksDone;
+  final List<TaskDoneModel> tasksDone;
   final DateTime employeeDateJoined;
   final List<EmployeeTaskModel> employeeTaskList;
 

@@ -30,7 +30,9 @@ class EmployeeDetailsDisplay extends StatelessWidget {
         const SizedBox(height: Constants.padding16),
         EmployeeDisplayRow(
           icon: Icons.rate_review,
-          text: " ${employee.tasksDone.toInt()} ",
+          text: employee.tasksDone.isNotEmpty
+              ? " ${employee.tasksDone.length} "
+              : "No tasks done yet",
         ),
         const SizedBox(height: Constants.padding16),
         EmployeeDisplayRow(

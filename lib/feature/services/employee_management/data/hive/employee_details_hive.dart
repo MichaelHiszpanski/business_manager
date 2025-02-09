@@ -1,4 +1,6 @@
 import 'package:business_manager/core/storage_hive/hive_properites.dart';
+import 'package:business_manager/feature/services/employee_management/data/hive/tasks_done_hive.dart';
+import 'package:business_manager/feature/services/employee_management/models/task_done_model.dart';
 import 'package:hive/hive.dart';
 import 'employee_task_hive.dart';
 
@@ -22,7 +24,7 @@ class EmployeeDetailsHive {
   final String employeeRole;
 
   @HiveField(HiveEmployeeDetailsProperties.tasksDone)
-  final double tasksDone;
+  final List<TasksDoneHive> tasksDone;
 
   @HiveField(HiveEmployeeDetailsProperties.employeeDateJoined)
   final DateTime employeeDateJoined;

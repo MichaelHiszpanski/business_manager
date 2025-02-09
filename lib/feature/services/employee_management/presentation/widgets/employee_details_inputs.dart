@@ -12,10 +12,8 @@ class EmployeeDetailsInputs extends StatefulWidget {
   final TextEditingController employeeLastName;
   final TextEditingController employeeEmail;
   final TextEditingController employeeRole;
-  final TextEditingController tasksDone;
   late DateTime employeeDateJoined;
   final VoidCallback onSaveData;
-  final bool existingEmployee;
 
   EmployeeDetailsInputs({
     super.key,
@@ -23,10 +21,8 @@ class EmployeeDetailsInputs extends StatefulWidget {
     required this.employeeLastName,
     required this.employeeEmail,
     required this.employeeRole,
-    required this.tasksDone,
     required this.employeeDateJoined,
     required this.onSaveData,
-    required this.existingEmployee,
   });
 
   @override
@@ -73,16 +69,7 @@ class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
             decoration: const InputDecoration(labelText: 'Employee role'),
             validator: ValidationsHelper.validateTextField,
           ),
-          // if (!widget.existingEmployee) ...[
-          //   TextFormField(
-          //     controller: widget.tasksDone,
-          //     decoration: const InputDecoration(labelText: 'Tasks done'),
-          //     // validator: ValidationsHelper.validateTextField,
-          //     // initialValue: "0",
-          //     readOnly: true,
-          //   ),
-          // ],
-          const SizedBox(height: Constants.padding24*2),
+          const SizedBox(height: Constants.padding24 * 2),
           DatePicker(
               onDateSelected: (selectedDate) {
                 setState(() {
@@ -92,7 +79,7 @@ class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
               selectedDate: _localEmployeeDateJoined,
               startingDate: DateTime(1980),
               buttonText: "Joined Date"),
-          const SizedBox(height: Constants.padding24*2),
+          const SizedBox(height: Constants.padding24 * 2),
           ButtonWrapperOne(
             child: CustomFloatingButton(
               onPressed: () {

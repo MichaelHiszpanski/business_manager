@@ -22,7 +22,7 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
   final TextEditingController _employeeLastName = TextEditingController();
   final TextEditingController _employeeEmail = TextEditingController();
   final TextEditingController _employeeRole = TextEditingController();
-  final TextEditingController _employeeHourlyRate = TextEditingController();
+
   late DateTime _employeeDateJoined;
 
   final uuid = const Uuid();
@@ -52,7 +52,6 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
     _employeeLastName.text = employee.employeeLastName;
     _employeeEmail.text = employee.employeeEmail;
     _employeeRole.text = employee.employeeRole;
-    _employeeHourlyRate.text = employee.tasksDone.toString();
     _employeeDateJoined = employee.employeeDateJoined;
   }
 
@@ -63,8 +62,7 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
       employeeLastName: _employeeLastName.text.trim(),
       employeeEmail: _employeeEmail.text.trim(),
       employeeRole: _employeeRole.text.trim(),
-      tasksDone:
-          double.tryParse(_employeeHourlyRate.text.trim()) ?? 0.0,
+      tasksDone: [],
       employeeDateJoined: _employeeDateJoined,
       employeeTaskList: _existingEmployee?.employeeTaskList ?? [],
     );
@@ -109,10 +107,8 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
                   employeeLastName: _employeeLastName,
                   employeeEmail: _employeeEmail,
                   employeeRole: _employeeRole,
-                  tasksDone: _employeeHourlyRate,
                   employeeDateJoined: _employeeDateJoined,
                   onSaveData: _saveUpdateEmployee,
-                  existingEmployee: isExistingEmployee,
                 ),
               ],
             ),

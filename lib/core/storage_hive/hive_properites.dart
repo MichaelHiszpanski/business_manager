@@ -10,6 +10,7 @@ class HiveProperties {
   static const int bankDetailsID = 8;
   static const int employeeModelID = 9;
   static const int employeeTaskModelID = 10;
+  static const int employeeTaskDoneID = 11;
 }
 
 class HiveToDoListProperties {
@@ -108,4 +109,12 @@ class HiveEmployeeTaskProperties {
   static const int employeeCheckInTime = 5;
   static const int employeeCheckOutTime = 6;
   static const int isDone = 7;
+}
+
+class HiveTasksDoneProperties {
+  static const String TO_TASKS_DONE_DATA_BOX = "TO_TASKS_DONE_DATA_BOX";
+  static const String TO_TASKS_DONE_DATA_KEY = "TO_TASKS_DONE_DATA_KEY";
+  static const int  employeeID= 0;
+  static const int isDone = 1;
+  static const int taskID = 2;
 }

@@ -202,34 +202,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
     Navigator.of(context).pop();
   }
 
-  void _saveTaskDetails(
-    BuildContext context,
-    String employeeID,
-    EmployeeTaskModel task,
-  ) {
-    final updatedTask = EmployeeTaskModel(
-      taskID: task.taskID,
-      taskTitle: task.taskTitle,
-      taskDescription: task.taskDescription,
-      taskDuration: task.taskDuration,
-      employeeID: employeeID,
-      employeeCheckInTime: task.employeeCheckInTime,
-      employeeCheckOutTime: task.employeeCheckOutTime,
-      isDone: task.isDone,
-    );
 
-    context.read<EmployeeManagementBloc>().add(
-          UpdateEmployeeTask(
-            employeeID: employeeID,
-            updatedTask: updatedTask,
-          ),
-        );
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Task updated successfully!")),
-    );
-    Navigator.of(context).pop();
-  }
 
   void _updatedEmployeeDetails(
     BuildContext context,

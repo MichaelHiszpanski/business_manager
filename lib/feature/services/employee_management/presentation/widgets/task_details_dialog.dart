@@ -73,28 +73,6 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
             style: context.text.bodyLarge,
           ),
           const SizedBox(height: Constants.padding16),
-          // Container(
-          //   width: double.infinity,
-          //   padding: const EdgeInsets.all(
-          //     Constants.padding8,
-          //   ),
-          //   decoration: BoxDecoration(
-          //     color: Pallete.colorFive,
-          //     borderRadius: BorderRadius.circular(Constants.radius15),
-          //     boxShadow: [
-          //       BoxShadow(
-          //         color: Colors.black.withOpacity(0.2),
-          //         spreadRadius: 2,
-          //         blurRadius: 6,
-          //         offset: const Offset(0, 3),
-          //       ),
-          //     ],
-          //   ),
-          //  child:
-          //   Column(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
           if (widget.task.employeeCheckInTime != null)
             Text(
               "  Check-In    : ${DateFormatHelper.dateFormat(widget.task.employeeCheckInTime)}",
@@ -114,9 +92,6 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-          //   ],
-          // ),
-          // ),
           const SizedBox(height: Constants.padding16),
           ButtonWrapperTwo(
             startColor: _isCompleted ? Colors.green : Colors.red,
