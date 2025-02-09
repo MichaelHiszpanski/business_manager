@@ -79,7 +79,9 @@ class _HomePageState extends State<HomePage> {
           child: Text(
             'Profile',
             style: context.text.titleSmall?.copyWith(
-                fontFamily: AppFontFamily.orbitron, color: Colors.white),
+              fontFamily: AppFontFamily.orbitron,
+              color: Colors.white,
+            ),
           ),
         ),
         PopupMenuItem(
@@ -87,7 +89,9 @@ class _HomePageState extends State<HomePage> {
           child: Text(
             'Log Out',
             style: context.text.titleSmall?.copyWith(
-                fontFamily: AppFontFamily.orbitron, color: Colors.white),
+              fontFamily: AppFontFamily.orbitron,
+              color: Colors.white,
+            ),
           ),
         ),
       ],

@@ -35,7 +35,7 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
 
           return Container(
             key: const Key("wheelKey"),
-            height: MediaQuery.of(context).size.height * 0.48,
+            height: MediaQuery.of(context).size.height * 0.52,
             decoration: const BoxDecoration(color: Pallete.colorSix),
             child: employeeList.isEmpty
                 ? Center(

@@ -18,7 +18,6 @@ class EmployeeSidePanel extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(),
-
           ElevatedButton.icon(
             onPressed: onNewEmployeePressed,
             icon: const Icon(

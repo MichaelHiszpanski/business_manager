@@ -7,10 +7,9 @@ import 'package:business_manager/core/widgets/buttons/custom_floating_button.dar
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_model.dart';
-import 'package:business_manager/feature/services/employee_management/models/employee_task_model.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/widgets/add_task_dialog.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/widgets/employee_details_display.dart';
-import 'package:business_manager/feature/services/employee_management/presentation/widgets/task_details_dialog.dart';
+import 'package:business_manager/feature/services/employee_management/presentation/widgets/employee_tasks_list_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -64,7 +63,8 @@ class EmployeeDetailsScreen extends StatelessWidget {
                             context: context,
                             builder: (context) {
                               return AddTaskDialog(
-                                  employeeID: model.employeeID!);
+                                employeeID: model.employeeID!,
+                              );
                             },
                           );
                         },
@@ -91,68 +91,9 @@ class EmployeeDetailsScreen extends StatelessWidget {
                         );
                       }
 
-                      return Container(
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        decoration: BoxDecoration(
-                          color: Colors.black87,
-                          borderRadius:
-                              BorderRadius.circular(Constants.padding16),
-                        ),
-                        padding: const EdgeInsets.all(Constants.padding16),
-                        child: ListView.builder(
-                          itemCount: updatedEmployee.employeeTaskList.length,
-                          itemBuilder: (context, index) {
-                            final task =
-                                updatedEmployee.employeeTaskList[index];
-                            isTaskDone = task.isDone;
-                            return GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => TaskDetailsDialog(
-                                    task: task,
-                                    employeeID: model.employeeID!,
-                                    onDelete: () {
-                                      _deleteTask(
-                                        context,
-                                        model.employeeID!,
-                                        task.taskTitle,
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4.0),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.task,
-                                      size: 24,
-                                      color: isTaskDone
-                                          ? Colors.green
-                                          : Colors.red,
-                                    ),
-                                    const SizedBox(width: Constants.padding8),
-                                    Expanded(
-                                      child: Text(
-                                        task.taskTitle,
-                                        style:
-                                            context.text.bodyMedium?.copyWith(
-                                          color: isTaskDone
-                                              ? Colors.green
-                                              : Colors.red,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                      return EmployeeTasksListContainer(
+                        updatedEmployee: updatedEmployee,
+                        model: model,
                       );
                     } else if (state is EmployeeManagementError) {}
 
@@ -187,22 +128,6 @@ class EmployeeDetailsScreen extends StatelessWidget {
       ),
     );
   }
-
-  void _deleteTask(
-    BuildContext context,
-    String employeeID,
-    String taskTitle,
-  ) {
-    context.read<EmployeeManagementBloc>().add(
-          RemoveEmployeeTask(
-            employeeID: employeeID,
-            taskTitle: taskTitle,
-          ),
-        );
-    Navigator.of(context).pop();
-  }
-
-
 
   void _updatedEmployeeDetails(
     BuildContext context,

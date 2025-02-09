@@ -1,5 +1,4 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
-import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_two.dart';
@@ -142,10 +141,6 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
             style: context.text.bodyMedium,
           ),
         ),
-        // TextButton(
-        //   onPressed: widget.onSave,
-        //   child: const Text("Save"),
-        // ),
       ],
     );
   }
