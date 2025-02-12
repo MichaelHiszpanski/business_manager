@@ -21,13 +21,13 @@ class EmployeeDisplayRow extends StatelessWidget {
         Icon(
           icon,
           size: 32,
-          color: Pallete.gradient1,
+          color: Pallete.gradient2,
         ),
         const SizedBox(width: Constants.padding16),
         Expanded(
           child: Text(
             text,
-            style: textStyle ?? Theme.of(context).textTheme.titleMedium,
+            style: textStyle ?? Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
           ),
         ),
       ],

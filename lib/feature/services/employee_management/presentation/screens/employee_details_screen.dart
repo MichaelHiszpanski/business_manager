@@ -4,6 +4,7 @@ import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
+import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_model.dart';
@@ -30,98 +31,126 @@ class EmployeeDetailsScreen extends StatelessWidget {
               horizontal: Constants.padding32,
               vertical: Constants.padding16,
             ),
-            child: Column(
-              children: [
-                BlocBuilder<EmployeeManagementBloc, EmployeeManagementState>(
-                  builder: (context, state) {
-                    if (state is EmployeeManagementLoaded) {
-                      final updatedEmployee = state.employeeDataList.firstWhere(
-                        (employee) => employee.employeeID == model.employeeID,
-                        orElse: () => model,
-                      );
-                      return EmployeeDetailsDisplay(employee: updatedEmployee);
-                    }
-                    return const Center(child: CircularProgressIndicator());
-                  },
-                ),
-                const SizedBox(height: Constants.padding16),
-                Row(
-                  children: [
-                    Text(
-                      "Tasks",
-                      style: context.text.headlineMedium,
-                    ),
-                    const Spacer(),
-                    SizedBox(
-                      height: 40,
-                      width: 40,
-                      child: FloatingActionButton(
-                        backgroundColor: Colors.amber,
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AddTaskDialog(
-                                employeeID: model.employeeID!,
-                              );
-                            },
-                          );
-                        },
-                        child: const Icon(
-                          Icons.add,
-                          size: 30,
+            child: IntrinsicHeight(
+              child: Column(
+                children: [
+                  BlocBuilder<EmployeeManagementBloc, EmployeeManagementState>(
+                    builder: (context, state) {
+                      if (state is EmployeeManagementLoaded) {
+                        final updatedEmployee =
+                            state.employeeDataList.firstWhere(
+                          (employee) => employee.employeeID == model.employeeID,
+                          orElse: () => model,
+                        );
+                        return EmployeeDetailsDisplay(
+                            employee: updatedEmployee);
+                      }
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                  ),
+                  const SizedBox(height: Constants.padding16),
+                  Row(
+                    children: [
+                      Text(
+                        "Tasks",
+                        style: context.text.headlineMedium,
+                      ),
+                      const Spacer(),
+                      SizedBox(
+                        height: 40,
+                        width: 40,
+                        child: FloatingActionButton(
+                          backgroundColor: Colors.green,
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AddTaskDialog(
+                                  employeeID: model.employeeID!,
+                                );
+                              },
+                            );
+                          },
+                          child: const Icon(
+                            Icons.add,
+                            size: 30,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: Constants.padding16),
-                BlocBuilder<EmployeeManagementBloc, EmployeeManagementState>(
-                  builder: (context, state) {
-                    if (state is EmployeeManagementLoaded) {
-                      final updatedEmployee = state.employeeDataList.firstWhere(
-                        (employee) => employee.employeeID == model.employeeID,
-                        orElse: () => model,
-                      );
+                    ],
+                  ),
+                  const SizedBox(height: Constants.padding16),
+                  Expanded(
+                    child: BlocBuilder<EmployeeManagementBloc,
+                        EmployeeManagementState>(
+                      builder: (context, state) {
+                        if (state is EmployeeManagementLoaded) {
+                          final updatedEmployee =
+                              state.employeeDataList.firstWhere(
+                            (employee) =>
+                                employee.employeeID == model.employeeID,
+                            orElse: () => model,
+                          );
 
-                      if (updatedEmployee.employeeTaskList.isEmpty) {
+                          if (updatedEmployee.employeeTaskList.isEmpty) {
+                            return const Center(
+                              child: Text("No tasks available."),
+                            );
+                          }
+
+                          return EmployeeTasksListContainer(
+                            updatedEmployee: updatedEmployee,
+                            model: model,
+                          );
+                        } else if (state is EmployeeManagementError) {}
+
                         return const Center(
-                          child: Text("No tasks available."),
+                          child: CircularProgressIndicator(),
                         );
-                      }
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: Constants.padding16),
 
-                      return EmployeeTasksListContainer(
-                        updatedEmployee: updatedEmployee,
-                        model: model,
-                      );
-                    } else if (state is EmployeeManagementError) {}
-
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  },
-                ),
-                const SizedBox(height: Constants.padding16),
-                ButtonWrapperOne(
-                  child: CustomFloatingButton(
+                  PrimaryButton(
                     onPressed: () {
                       _updatedEmployeeDetails(context, model);
                     },
                     buttonText: "Edit Employee Details",
-                    backgroundColor: Colors.transparent,
                   ),
-                ),
-                const SizedBox(height: Constants.padding16),
-                CustomFloatingButton(
-                  onPressed: () {
-                    _deleteEmployee(context, model.employeeID!);
-                  },
-                  buttonText: "Delete Employee",
-                  backgroundColor: Colors.red,
-                ),
-                const SizedBox(height: Constants.padding16 * 4),
-              ],
+                  const SizedBox(height: Constants.padding16),
+                  CustomFloatingButton(
+                    onPressed: () {
+                      _deleteEmployee(context, model.employeeID!);
+                    },
+                    buttonText: "Delete Employee",
+                    backgroundColor: Colors.red,
+                  ),
+                  const SizedBox(height: Constants.padding16 * 4),
+                ],
+              ),
             ),
+          ),
+        ),
+      ),
+      floatingActionButton: SizedBox(
+        height: 40,
+        width: 40,
+        child: FloatingActionButton(
+          backgroundColor: Colors.green,
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AddTaskDialog(
+                  employeeID: model.employeeID!,
+                );
+              },
+            );
+          },
+          child: const Icon(
+            Icons.add,
+            size: 30,
           ),
         ),
       ),
