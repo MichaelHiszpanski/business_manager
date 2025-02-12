@@ -10,7 +10,7 @@ class EmployeeTasksListContainer extends StatelessWidget {
   final EmployeeModel updatedEmployee;
   final EmployeeModel model;
 
-  EmployeeTasksListContainer({
+  const EmployeeTasksListContainer({
     super.key,
     required this.updatedEmployee,
     required this.model,
