@@ -4,6 +4,7 @@ import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
+import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/date_picker/date_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -80,17 +81,14 @@ class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
               startingDate: DateTime(1980),
               buttonText: "Joined Date"),
           const SizedBox(height: Constants.padding24 * 2),
-          ButtonWrapperOne(
-            child: CustomFloatingButton(
-              onPressed: () {
-                if (_keyForm.currentState!.validate()) {
-                  widget.onSaveData();
-                }
-              },
-              buttonText: 'Save',
-              backgroundColor: Colors.transparent,
-            ),
-          ),
+          PrimaryButton(
+            onPressed: () {
+              if (_keyForm.currentState!.validate()) {
+                widget.onSaveData();
+              }
+            },
+            buttonText: 'Save',
+          )
         ],
       ),
     );

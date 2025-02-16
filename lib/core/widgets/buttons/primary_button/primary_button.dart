@@ -17,23 +17,36 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: ButtonWrapperOne(
-        child: InkWell(
-          onTap: onPressed,
+      child: Container(
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Constants.padding24),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 32.0,
-              vertical: 12.0,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.orange.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 6,
+              offset: const Offset(0, 4),
             ),
-            child: Center(
-              child: Text(
-                buttonText,
-                style: const TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFontFamily.orbitron,
-                  color: Colors.white,
+          ],
+        ),
+        child: ButtonWrapperOne(
+          child: InkWell(
+            onTap: onPressed,
+            borderRadius: BorderRadius.circular(Constants.padding24),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 32.0,
+                vertical: 12.0,
+              ),
+              child: Center(
+                child: Text(
+                  buttonText,
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: AppFontFamily.orbitron,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

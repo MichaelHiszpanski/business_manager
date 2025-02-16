@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
+import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
-import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
@@ -115,7 +115,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                     employee.employeeID == model.employeeID,
                                 orElse: () => model,
                               );
-                  
+
                               if (updatedEmployee.employeeTaskList.isEmpty) {
                                 return Container(
                                   width: double.infinity,
@@ -130,16 +130,19 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.all(Constants.padding16),
                                   child: const Center(
-                                      child: Text("No tasks available.")),
+                                    child: Text("No tasks available."),
+                                  ),
                                 );
                               }
-                  
+
                               return EmployeeTasksListContainer(
                                 updatedEmployee: updatedEmployee,
                                 model: model,
                               );
-                            } else if (state is EmployeeManagementError) {}
-                  
+                            } else if (state is EmployeeManagementError) {
+                              return const LoadAppDataScreen();
+                            }
+
                             return const Center(
                               child: CircularProgressIndicator(),
                             );
@@ -170,27 +173,6 @@ class EmployeeDetailsScreen extends StatelessWidget {
           ),
         ],
       ),
-      // floatingActionButton: SizedBox(
-      //   height: 40,
-      //   width: 40,
-      //   child: FloatingActionButton(
-      //     backgroundColor: Colors.green,
-      //     onPressed: () {
-      //       showDialog(
-      //         context: context,
-      //         builder: (context) {
-      //           return AddTaskDialog(
-      //             employeeID: model.employeeID!,
-      //           );
-      //         },
-      //       );
-      //     },
-      //     child: const Icon(
-      //       Icons.add,
-      //       size: 30,
-      //     ),
-      //   ),
-      // ),
     );
   }
 
@@ -230,7 +212,6 @@ class EmployeeDetailsScreen extends StatelessWidget {
                 context.read<EmployeeManagementBloc>().add(
                       RemoveEmployee(employeeID: employeeID),
                     );
-                Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
               child: Text(

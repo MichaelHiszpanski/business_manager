@@ -5,7 +5,6 @@ import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/core/widgets/layouts/height_layout.dart';
-import 'package:business_manager/feature/auth/user/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -42,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Profile",
+        title: context.strings.profile_name,
         onMenuPressed: () {},
       ),
       body: Stack(
@@ -59,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               const Spacer(),
               Text(
-                "Profile",
+                context.strings.profile_name,
                 style: context.text.headlineLarge?.copyWith(
                     color: Pallete.gradient1,
                     fontSize: 36,
@@ -85,21 +84,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Email: ${_user?.email ?? 'N/A'}",
+                            "${context.strings.profile_email_label}: "
+                            "${_user?.email ?? context.strings.profile_email_placeholder}",
                             style: context.text.bodyMedium?.copyWith(
                               color: Colors.black87,
                             ),
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            "User ID: ${_user?.id ?? 'N/A'}",
+                            "${context.strings.profile_user_id_label}:"
+                            "${_user?.id ?? context.strings.profile_email_placeholder}",
                             style: context.text.bodyMedium?.copyWith(
                               color: Colors.black87,
                             ),
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            "Created At: ${DateFormatHelper.dateFormatFromString(_user?.createdAt)}",
+                            "${context.strings.profile_user_created_at}:"
+                            "${DateFormatHelper.dateFormatFromString(_user?.createdAt)}",
                             style: context.text.bodyMedium?.copyWith(
                               color: Colors.black87,
                             ),
@@ -109,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       )
                     : Center(
                         child: Text(
-                          "No user logged in.",
+                          context.strings.profile_no_user_message,
                           style: context.text.bodyMedium?.copyWith(
                             color: Colors.black87,
                           ),
@@ -129,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   children: [
                     Text(
-                      "To restart your password",
+                      context.strings.profile_password_reset_instruction,
                       style: context.text.bodyLarge?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
@@ -139,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       softWrap: true,
                     ),
                     Text(
-                      "Go to website and ...",
+                      context.strings.profile_go_to_website_message,
                       style: context.text.bodyLarge?.copyWith(
                         color: Pallete.gradient1,
                         fontWeight: FontWeight.w700,
@@ -172,7 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     backgroundColor: WidgetStateProperty.all(Pallete.gradient1),
                   ),
                   child: Text(
-                    "Reset Password",
+                    context.strings.profile_button_reset_password,
                     style: context.text.displaySmall,
                   ),
                 ),
