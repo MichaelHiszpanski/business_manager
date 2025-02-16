@@ -72,12 +72,12 @@ class _SignInScreenState extends State<SignInScreen> {
                 ],
                 const SizedBox(height: Constants.padding16),
                 Text(
-                  "Business Manager",
+                  context.strings.app_name,
                   style: context.text.headlineMedium?.copyWith(),
                 ),
                 const SizedBox(height: Constants.padding16),
                 Text(
-                  "Sign-In",
+                  context.strings.sign_in,
                   style: context.text.headlineLarge?.copyWith(
                     color: Pallete.gradient1,
                   ),
@@ -115,7 +115,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: Column(
                     children: [
                       Text(
-                        "You don`t have an account?",
+                        context.strings.sign_in_no_account_message,
                         style: context.text.bodyLarge?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
@@ -125,7 +125,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         softWrap: true,
                       ),
                       Text(
-                        "Go to website and ...",
+                        context.strings.sign_in_go_to_website_message,
                         style: context.text.bodyLarge?.copyWith(
                           color: Pallete.gradient1,
                           fontWeight: FontWeight.w700,
@@ -192,7 +192,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
       if (user == null) {
         setState(() {
-          _errorMessage = "Failed to sign in. Please check your credentials.";
+          _errorMessage = context.strings.sign_in_error_sign_in_failed;
         });
         return;
       }
@@ -209,7 +209,7 @@ class _SignInScreenState extends State<SignInScreen> {
       }
     } catch (error) {
       setState(() {
-        _errorMessage = "Failed to sign in. Please check your credentials.";
+        _errorMessage = context.strings.sign_in_error_sign_in_failed;
       });
     } finally {
       setState(() {

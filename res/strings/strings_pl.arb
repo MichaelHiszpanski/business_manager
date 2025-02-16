@@ -21,5 +21,15 @@
     "feature_work_manager_description": "Planuj i organizuj zadania za pomocą kalendarza.",
     "feature_employee_management_title": "Zarządzanie Pracownikami",
     "feature_employee_management_description": "Zarządzaj danymi pracowników i ich zadaniami.",
-    "button_open_website": "Otwórz stronę"
+    "button_open_website": "Otwórz stronę",
+    "loading_message": "Ładowanie danych, proszę czekać...",
+    "sign_in_button_sign_in": "Zaloguj się za pomocą e-maila",
+    "sign_in_button_sign_up": "Zarejestruj się",
+    "sign_in_email_hint": "Wprowadź swój email",
+    "sign_in_email_label": "Email",
+    "sign_in_error_sign_in_failed": "Nie udało się zalogować. Sprawdź swoje dane logowania.",
+    "sign_in_go_to_website_message": "Przejdź na stronę internetową i ...",
+    "sign_in_no_account_message": "Nie masz konta?",
+    "sign_in_password_hint": "Wprowadź swoje hasło",
+    "sign_in_password_label": "Hasło"
 }

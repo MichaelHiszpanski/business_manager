@@ -30,78 +30,6 @@ class _HomePageState extends State<HomePage> {
     _checkUserSignInStatus();
   }
 
-  Future<void> _initializeNotifications() async {
-    await Permission.notification.request();
-  }
-
-  Future<void> _checkUserSignInStatus() async {
-    final user = Supabase.instance.client.auth.currentUser;
-    setState(() {
-      isUserSignedIn = user != null;
-    });
-  }
-
-  void _handleProfile() {
-    MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.profile);
-  }
-
-  Future<void> _handleLogout() async {
-    await Supabase.instance.client.auth.signOut();
-    setState(() {
-      isUserSignedIn = false;
-    });
-  }
-
-  void _handleFloatingActionButtonPress() {
-    MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.signIn);
-  }
-
-  void _showDropdownMenu(BuildContext context) {
-    showMenu(
-      context: context,
-      position: const RelativeRect.fromLTRB(100, 0, 85, 100),
-      menuPadding: const EdgeInsets.all(Constants.padding8),
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Constants.radius15),
-      ),
-      color: Colors.black38,
-      popUpAnimationStyle: AnimationStyle(
-        curve: Curves.easeInOutSine,
-        duration: const Duration(milliseconds: 500),
-        reverseDuration: const Duration(seconds: 1),
-      ),
-      items: [
-        PopupMenuItem(
-          value: 'profile',
-          child: Text(
-            context.strings.profile_name,
-            style: context.text.titleSmall?.copyWith(
-              fontFamily: AppFontFamily.orbitron,
-              color: Colors.white,
-            ),
-          ),
-        ),
-        PopupMenuItem(
-          value: 'logout',
-          child: Text(
-            context.strings.log_out,
-            style: context.text.titleSmall?.copyWith(
-              fontFamily: AppFontFamily.orbitron,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ],
-    ).then((value) {
-      if (value == 'profile') {
-        _handleProfile();
-      } else if (value == 'logout') {
-        _handleLogout();
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -186,5 +114,77 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  Future<void> _initializeNotifications() async {
+    await Permission.notification.request();
+  }
+
+  Future<void> _checkUserSignInStatus() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    setState(() {
+      isUserSignedIn = user != null;
+    });
+  }
+
+  void _handleProfile() {
+    MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.profile);
+  }
+
+  Future<void> _handleLogout() async {
+    await Supabase.instance.client.auth.signOut();
+    setState(() {
+      isUserSignedIn = false;
+    });
+  }
+
+  void _handleFloatingActionButtonPress() {
+    MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.signIn);
+  }
+
+  void _showDropdownMenu(BuildContext context) {
+    showMenu(
+      context: context,
+      position: const RelativeRect.fromLTRB(100, 0, 85, 100),
+      menuPadding: const EdgeInsets.all(Constants.padding8),
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Constants.radius15),
+      ),
+      color: Colors.black38,
+      popUpAnimationStyle: AnimationStyle(
+        curve: Curves.easeInOutSine,
+        duration: const Duration(milliseconds: 500),
+        reverseDuration: const Duration(seconds: 1),
+      ),
+      items: [
+        PopupMenuItem(
+          value: 'profile',
+          child: Text(
+            context.strings.profile_name,
+            style: context.text.titleSmall?.copyWith(
+              fontFamily: AppFontFamily.orbitron,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        PopupMenuItem(
+          value: 'logout',
+          child: Text(
+            context.strings.log_out,
+            style: context.text.titleSmall?.copyWith(
+              fontFamily: AppFontFamily.orbitron,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+    ).then((value) {
+      if (value == 'profile') {
+        _handleProfile();
+      } else if (value == 'logout') {
+        _handleLogout();
+      }
+    });
   }
 }

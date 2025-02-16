@@ -21,5 +21,15 @@
     "feature_work_manager_description": "Plan and schedule using a calendar.",
     "feature_employee_management_title": "Employee Management",
     "feature_employee_management_description": "Manage employee details and tasks.",
-    "button_open_website": "Open website"
+    "button_open_website": "Open website",
+    "loading_message": "Loading data, please wait...",
+    "sign_in_button_sign_in": "Sign in with email",
+    "sign_in_button_sign_up": "Sign Up",
+    "sign_in_email_hint": "Enter your email",
+    "sign_in_email_label": "Email",
+    "sign_in_error_sign_in_failed": "Failed to sign in. Please check your credentials.",
+    "sign_in_go_to_website_message": "Go to website and ...",
+    "sign_in_no_account_message": "You don't have an account?",
+    "sign_in_password_hint": "Enter your password",
+    "sign_in_password_label": "Password"
 }
