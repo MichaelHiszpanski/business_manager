@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
+import 'package:business_manager/core/tools/app_properties.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
@@ -28,7 +29,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/employee_bg.jpg',
+              AppProperties.imageEmployeeDetails,
               fit: BoxFit.cover,
             ),
           ),

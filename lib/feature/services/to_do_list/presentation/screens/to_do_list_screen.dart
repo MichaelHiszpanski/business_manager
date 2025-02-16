@@ -1,5 +1,6 @@
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/theme/colors.dart';
+import 'package:business_manager/core/tools/app_properties.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
@@ -32,48 +33,6 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
     BlocProvider.of<ToDoBloc>(context).add(const LoadToDoList());
   }
 
-  List<ToDoItem> _filteredToDos(List<ToDoItem> toDoList) {
-    switch (_selectedFilter) {
-      case FilterMenuToDoListEnum.TITLE:
-        return toDoList..sort((a, b) => a.title.compareTo(b.title));
-      case FilterMenuToDoListEnum.DATE:
-        return toDoList
-          ..sort((a, b) => a.dateTimeAdded.compareTo(b.dateTimeAdded));
-      case FilterMenuToDoListEnum.PRIORITY:
-        return List.from(toDoList)
-          ..sort((a, b) => b.priority.index.compareTo(a.priority.index));
-      case FilterMenuToDoListEnum.HIGH:
-        return toDoList
-            .where((todo) => todo.priority == PriorityLevelEnum.HIGH)
-            .toList();
-      case FilterMenuToDoListEnum.MEDIUM:
-        return toDoList
-            .where((todo) => todo.priority == PriorityLevelEnum.MEDIUM)
-            .toList();
-      case FilterMenuToDoListEnum.LOW:
-        return toDoList
-            .where((todo) => todo.priority == PriorityLevelEnum.LOW)
-            .toList();
-      default:
-        return toDoList;
-    }
-  }
-
-  void _filterShowModalBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return FilterMenuToDoList(
-          onFilterSelected: (filter) {
-            setState(() {
-              _selectedFilter = filter;
-            });
-          },
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +46,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/to_do_bg.jpg',
+              AppProperties.imageToDoListScreen,
               fit: BoxFit.fill,
             ),
           ),
@@ -160,6 +119,48 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  List<ToDoItem> _filteredToDos(List<ToDoItem> toDoList) {
+    switch (_selectedFilter) {
+      case FilterMenuToDoListEnum.TITLE:
+        return toDoList..sort((a, b) => a.title.compareTo(b.title));
+      case FilterMenuToDoListEnum.DATE:
+        return toDoList
+          ..sort((a, b) => a.dateTimeAdded.compareTo(b.dateTimeAdded));
+      case FilterMenuToDoListEnum.PRIORITY:
+        return List.from(toDoList)
+          ..sort((a, b) => b.priority.index.compareTo(a.priority.index));
+      case FilterMenuToDoListEnum.HIGH:
+        return toDoList
+            .where((todo) => todo.priority == PriorityLevelEnum.HIGH)
+            .toList();
+      case FilterMenuToDoListEnum.MEDIUM:
+        return toDoList
+            .where((todo) => todo.priority == PriorityLevelEnum.MEDIUM)
+            .toList();
+      case FilterMenuToDoListEnum.LOW:
+        return toDoList
+            .where((todo) => todo.priority == PriorityLevelEnum.LOW)
+            .toList();
+      default:
+        return toDoList;
+    }
+  }
+
+  void _filterShowModalBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return FilterMenuToDoList(
+          onFilterSelected: (filter) {
+            setState(() {
+              _selectedFilter = filter;
+            });
+          },
+        );
+      },
     );
   }
 }

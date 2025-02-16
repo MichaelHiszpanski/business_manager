@@ -1,22 +1,11 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest_all.dart' as tz;
+
 class NotificationHelper {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  //static const platform = MethodChannel('flutter_local_notifications');
-  // static Future<void> initialize() async {
-  //   const AndroidInitializationSettings androidInitializationSettings =
-  //   AndroidInitializationSettings('@mipmap/ic_launcher');
-  //
-  //   const InitializationSettings initializationSettings =
-  //   InitializationSettings(android: androidInitializationSettings);
-  //
-  //   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  //   tz.initializeTimeZones();
-  // }
+
 
   static Future<void> scheduleNotification({
     required int id,

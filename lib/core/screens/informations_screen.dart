@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
+import 'package:business_manager/core/tools/app_properties.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
@@ -105,7 +106,7 @@ class _InformationsScreenState extends State<InformationsScreen> {
   }
 
   Future<void> _launchURL() async {
-    final Uri url = Uri.parse("https://business-manager-website.vercel.app/");
+    final Uri url = Uri.parse(AppProperties.websiteUrlHomePage);
     if (await canLaunchUrl(url)) {
       await launchUrl(
         url,

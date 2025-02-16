@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/main_utils/main_bloc/main_bloc.dart';
 import 'package:business_manager/core/theme/colors.dart';
+import 'package:business_manager/core/tools/app_properties.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/tools/network_controler.dart';
@@ -40,7 +41,7 @@ class _SignInScreenState extends State<SignInScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/signin2.png',
+              AppProperties.imageSignInScreen,
               fit: BoxFit.cover,
             ),
           ),
@@ -219,8 +220,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> _launchURL() async {
-    final Uri url =
-        Uri.parse("https://business-manager-website.vercel.app/sign-up");
+    final Uri url = Uri.parse(AppProperties.websiteUrlSignUpPage);
     if (await canLaunchUrl(url)) {
       await launchUrl(
         url,
