@@ -33,13 +33,13 @@ class EmployeeDetailsScreen extends StatelessWidget {
             ),
           ),
           SingleChildScrollView(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Constants.padding32,
-                  vertical: Constants.padding16,
-                ),
-                child: IntrinsicHeight(
+            child: IntrinsicHeight(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Constants.padding32,
+                    vertical: Constants.padding16,
+                  ),
                   child: Column(
                     children: [
                       BlocBuilder<EmployeeManagementBloc,
@@ -53,7 +53,8 @@ class EmployeeDetailsScreen extends StatelessWidget {
                               orElse: () => model,
                             );
                             return EmployeeDetailsDisplay(
-                                employee: updatedEmployee);
+                              employee: updatedEmployee,
+                            );
                           }
                           return const Center(
                               child: CircularProgressIndicator());
@@ -114,16 +115,17 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                     employee.employeeID == model.employeeID,
                                 orElse: () => model,
                               );
-
+                  
                               if (updatedEmployee.employeeTaskList.isEmpty) {
                                 return Container(
                                   width: double.infinity,
                                   height:
                                       MediaQuery.of(context).size.height * 0.3,
                                   decoration: BoxDecoration(
-                                    color: Colors.black87.withOpacity(0.6),
+                                    color: Colors.black.withOpacity(0.3),
                                     borderRadius: BorderRadius.circular(
-                                        Constants.padding16),
+                                      Constants.padding16,
+                                    ),
                                   ),
                                   padding:
                                       const EdgeInsets.all(Constants.padding16),
@@ -131,13 +133,13 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                       child: Text("No tasks available.")),
                                 );
                               }
-
+                  
                               return EmployeeTasksListContainer(
                                 updatedEmployee: updatedEmployee,
                                 model: model,
                               );
                             } else if (state is EmployeeManagementError) {}
-
+                  
                             return const Center(
                               child: CircularProgressIndicator(),
                             );

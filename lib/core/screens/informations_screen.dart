@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,7 +20,7 @@ class _InformationsScreenState extends State<InformationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Information's",
+        title: context.strings.title_info,
         onMenuPressed: () {},
       ),
       body: Padding(
@@ -29,57 +30,47 @@ class _InformationsScreenState extends State<InformationsScreen> {
         ),
         child: Column(
           children: [
-            const Text(
-              'Business Manager',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
-                fontFamily: AppFontFamily.orbitron,
-              ),
+            Text(
+              context.strings.app_name,
+              style:
+                  context.text.titleLarge?.copyWith(color: Colors.blueAccent),
             ),
             const SizedBox(height: Constants.padding24),
             Text(
-              'Business manager is a tool that will allow you to save time and improve your activities on the way to success.',
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.grey[900],
-                height: 1.5,
-                fontFamily: AppFontFamily.suse
+              context.strings.app_description,
+              style: context.text.displaySmall?.copyWith(
+                color: Colors.black87,
               ),
             ),
             const SizedBox(height: Constants.padding24),
-            const Text(
-              'Key Features:',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.w600,
-                color: Colors.black87,
-                fontFamily: AppFontFamily.orbitron,
-              ),
-            ),
+            Text(context.strings.key_features_title,
+                style: context.text.displaySmall?.copyWith(
+                  fontFamily: AppFontFamily.orbitron,
+                  color: Colors.black87,
+                )),
             const SizedBox(height: Constants.padding24),
             _getRow(
               icon: Icons.checklist,
-              title: 'To-Do List',
-              description: 'Organize and track your daily tasks.',
+              title: context.strings.feature_todo_list_title,
+              description: context.strings.feature_todo_list_description,
             ),
             _getRow(
               icon: Icons.receipt_long,
-              title: 'Invoice Manager',
-              description: 'Generate and manage invoices with ease.',
+              title: context.strings.feature_invoice_manager_title,
+              description: context.strings.feature_invoice_manager_description,
             ),
             _getRow(
               icon: Icons.calendar_today,
-              title: 'Work Manager',
-              description: 'Plan and schedule using a calendar.',
+              title: context.strings.feature_work_manager_title,
+              description: context.strings.feature_work_manager_description,
             ),
             _getRow(
               icon: Icons.people,
-              title: 'Employee Management',
-              description: 'Manage employee details and tasks.',
+              title: context.strings.feature_employee_management_title,
+              description:
+                  context.strings.feature_employee_management_description,
             ),
-            const SizedBox(height: 3*Constants.padding16),
+            const SizedBox(height: 3 * Constants.padding16),
             Container(
               width: double.maxFinite,
               height: 40,
@@ -99,13 +90,10 @@ class _InformationsScreenState extends State<InformationsScreen> {
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(Pallete.gradient1),
                 ),
-                child: const Text(
-                  "Open website",
-                  style: TextStyle(
-                    color: Pallete.whiteColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: AppFontFamily.suse,
+                child: Text(
+                  context.strings.button_open_website,
+                  style: context.text.headlineSmall?.copyWith(
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -152,10 +140,11 @@ class _InformationsScreenState extends State<InformationsScreen> {
                 Text(
                   title,
                   style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
-                      fontFamily: AppFontFamily.orbitron),
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                    fontFamily: AppFontFamily.orbitron,
+                  ),
                 ),
                 Text(
                   description,

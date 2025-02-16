@@ -33,7 +33,7 @@ TextTheme getTextTheme(Color defaultTextColor) {
       fontFamily: AppFontFamily.orbitron,
     ),
     headlineSmall: TextStyle(
-      fontSize: 19,
+      fontSize: 20,
       height: 1.25,
       fontWeight: FontWeight.w700,
       color: defaultTextColor,

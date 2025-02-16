@@ -5,5 +5,21 @@
     "password":"Password",
     "enter_emial":"Enter Emial",
     "enter_password":"Enter Password",
-     "sign_in_with_email": "Sign-In"
+    "sign_in_with_email": "Sign-In",
+    "profile_name": "Profile",
+    "log_out": "Log Out",
+    "app_title": "Business Manager",
+    "title_info": "Information's",
+    "app_name": "Business Manager",
+    "app_description": "Business manager is a tool that will allow you to save time and improve your activities on the way to success.",
+    "key_features_title": "Key Features:",
+    "feature_todo_list_title": "To-Do List",
+    "feature_todo_list_description": "Organize and track your daily tasks.",
+    "feature_invoice_manager_title": "Invoice Manager",
+    "feature_invoice_manager_description": "Generate and manage invoices with ease.",
+    "feature_work_manager_title": "Work Manager",
+    "feature_work_manager_description": "Plan and schedule using a calendar.",
+    "feature_employee_management_title": "Employee Management",
+    "feature_employee_management_description": "Manage employee details and tasks.",
+    "button_open_website": "Open website"
 }

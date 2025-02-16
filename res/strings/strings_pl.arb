@@ -5,5 +5,21 @@
     "password": "Hasło",
     "enter_email": "Wprowadź email",
     "enter_password": "Wprowadź hasło",
-     "sign_in_with_email": "Zaloguj się"
+     "sign_in_with_email": "Zaloguj się",
+    "profile_name": "Profil",
+    "log_out": "Wyloguj się",
+    "app_title": "Menedżer Biznesu",
+    "title_info": "Informacje",
+    "app_name": "Menedżer Biznesu",
+    "app_description": "Menedżer Biznesu to narzędzie, które pozwoli Ci zaoszczędzić czas i usprawnić działania na drodze do sukcesu.",
+    "key_features_title": "Kluczowe Funkcje:",
+    "feature_todo_list_title": "Lista Zadań",
+    "feature_todo_list_description": "Organizuj i śledź swoje codzienne zadania.",
+    "feature_invoice_manager_title": "Menedżer Faktur",
+    "feature_invoice_manager_description": "Generuj i zarządzaj fakturami z łatwością.",
+    "feature_work_manager_title": "Menedżer Pracy",
+    "feature_work_manager_description": "Planuj i organizuj zadania za pomocą kalendarza.",
+    "feature_employee_management_title": "Zarządzanie Pracownikami",
+    "feature_employee_management_description": "Zarządzaj danymi pracowników i ich zadaniami.",
+    "button_open_website": "Otwórz stronę"
 }

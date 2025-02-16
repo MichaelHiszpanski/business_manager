@@ -1,6 +1,7 @@
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
+import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/core/enums/piority_level_enum.dart';
@@ -69,7 +70,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
       body: SingleChildScrollView(
         reverse: true,
         child: Padding(
-          padding: const EdgeInsets.all(Constants.padding16),
+          padding: const EdgeInsets.all(Constants.padding32),
           child: Form(
             key: _formKey,
             child: Column(
@@ -113,13 +114,10 @@ class _EditItemScreenState extends State<EditItemScreen> {
                   },
                 ),
                 const SizedBox(height: 20),
-                ButtonWrapperOne(
-                  child: CustomFloatingButton(
-                    onPressed: _validateToDoItem,
-                    buttonText: ('Save Changes'),
-                    backgroundColor: Colors.transparent,
-                  ),
-                ),
+                PrimaryButton(
+                  onPressed: _validateToDoItem,
+                  buttonText: 'Save Changes',
+                )
               ],
             ),
           ),

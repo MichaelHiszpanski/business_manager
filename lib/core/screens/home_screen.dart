@@ -1,17 +1,16 @@
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
+import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_side_button_menu/custom_side_button_menu.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/widgets/custom_floating_action_button.dart';
+import 'package:business_manager/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../theme/app_font_family.dart';
-import '../../main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -68,14 +67,15 @@ class _HomePageState extends State<HomePage> {
       ),
       color: Colors.black38,
       popUpAnimationStyle: AnimationStyle(
-          curve: Curves.easeInOutSine,
-          duration: const Duration(milliseconds: 500),
-          reverseDuration: const Duration(seconds: 1)),
+        curve: Curves.easeInOutSine,
+        duration: const Duration(milliseconds: 500),
+        reverseDuration: const Duration(seconds: 1),
+      ),
       items: [
         PopupMenuItem(
           value: 'profile',
           child: Text(
-            'Profile',
+            context.strings.profile_name,
             style: context.text.titleSmall?.copyWith(
               fontFamily: AppFontFamily.orbitron,
               color: Colors.white,
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
         PopupMenuItem(
           value: 'logout',
           child: Text(
-            'Log Out',
+            context.strings.log_out,
             style: context.text.titleSmall?.copyWith(
               fontFamily: AppFontFamily.orbitron,
               color: Colors.white,
@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   child: Text(
-                    "Business Manager",
+                    context.strings.app_title,
                     style: context.text.headlineLarge
                         ?.copyWith(color: Pallete.gradient1),
                   ),
@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                     child: CustomFloatingActionButton(
                       icon: Icons.person,
                       onPressed: () => _showDropdownMenu(context),
-                      heroTag: "heroTagHome",
+                      heroTag: "heroTagPerson",
                     ),
                   )
                 : Container(
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                     child: CustomFloatingActionButton(
                       icon: Icons.login,
                       onPressed: _handleFloatingActionButtonPress,
-                      heroTag: "heroTagHome",
+                      heroTag: "heroTagLogin",
                     ),
                   ),
           ),
