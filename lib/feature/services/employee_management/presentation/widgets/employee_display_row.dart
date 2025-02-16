@@ -27,7 +27,11 @@ class EmployeeDisplayRow extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            style: textStyle ?? Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
+            style: textStyle ??
+                Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(color: Colors.white),
           ),
         ),
       ],

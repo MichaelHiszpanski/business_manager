@@ -14,12 +14,6 @@ class NetworkController extends GetxController {
     _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
-  Future<void> _checkInitialConnection() async {
-    ConnectivityResult connectivityResult =
-        await _connectivity.checkConnectivity();
-    _updateConnectionStatus(connectivityResult);
-  }
-
   void _updateConnectionStatus(ConnectivityResult connectivityResults) {
     isNetworkConnected.value = connectivityResults != ConnectivityResult.none;
     if (!isNetworkConnected.value) {
@@ -48,5 +42,11 @@ class NetworkController extends GetxController {
         Get.closeCurrentSnackbar();
       }
     }
+  }
+
+  Future<void> _checkInitialConnection() async {
+    ConnectivityResult connectivityResult =
+        await _connectivity.checkConnectivity();
+    _updateConnectionStatus(connectivityResult);
   }
 }

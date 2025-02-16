@@ -17,15 +17,6 @@ class EmployeeListDisplay extends StatefulWidget {
 class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
   int selectedIndex = -1;
 
-  void _navigateToProfile(int index, EmployeeModel employee) {
-    Navigator.of(context).pushNamed(
-      AppRoutes.employeeDetailsScreen,
-      arguments: {
-        'model': employee,
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EmployeeManagementBloc, EmployeeManagementState>(
@@ -33,75 +24,86 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
         if (state is EmployeeManagementLoaded) {
           final employeeList = state.employeeDataList;
 
-          return Container(
+          return SizedBox(
             key: const Key("wheelKey"),
             height: MediaQuery.of(context).size.height * 0.52,
-            decoration: const BoxDecoration(color: Pallete.colorSix),
-            child: employeeList.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Add New Employee.",
-                          style: context.text.headlineLarge?.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                : ListWheelScrollView.useDelegate(
-                    itemExtent: 50,
-                    useMagnifier: true,
-                    magnification: 1.5,
-                    diameterRatio: 1.5,
-                    physics: const FixedExtentScrollPhysics(),
-                    onSelectedItemChanged: (index) {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    childDelegate: ListWheelChildBuilderDelegate(
-                      builder: (context, index) {
-                        if (index < 0 || index >= employeeList.length) {
-                          return Text(
-                            "No Employee",
-                            style: context.text.titleMedium,
-                          );
-                        }
-
-                        final employee = employeeList[index];
-                        return InkWell(
-                          onTap: () {
-                            _navigateToProfile(index, employee);
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            color: selectedIndex == index
-                                ? Colors.black38
-                                : Colors.transparent,
-                            child: Text(
-                              "${employee.employeeFirstName} ${employee.employeeLastName}",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: selectedIndex == index
-                                    ? Colors.white
-                                    : Colors.white,
-                              ),
+            child: Container(
+              decoration: const BoxDecoration(color: Pallete.colorSix),
+              child: employeeList.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Add New Employee.",
+                            style: context.text.headlineLarge?.copyWith(
+                              color: Colors.white,
                             ),
                           ),
-                        );
+                        ],
+                      ),
+                    )
+                  : ListWheelScrollView.useDelegate(
+                      itemExtent: 50,
+                      useMagnifier: true,
+                      magnification: 1.5,
+                      diameterRatio: 1.5,
+                      physics: const FixedExtentScrollPhysics(),
+                      onSelectedItemChanged: (index) {
+                        setState(() {
+                          selectedIndex = index;
+                        });
                       },
-                      childCount: employeeList.length,
+                      childDelegate: ListWheelChildBuilderDelegate(
+                        builder: (context, index) {
+                          if (index < 0 || index >= employeeList.length) {
+                            return Text(
+                              "No Employee",
+                              style: context.text.titleMedium,
+                            );
+                          }
+
+                          final employee = employeeList[index];
+                          return InkWell(
+                            onTap: () {
+                              _navigateToProfile(index, employee);
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              color: selectedIndex == index
+                                  ? Colors.black38
+                                  : Colors.transparent,
+                              child: Text(
+                                "${employee.employeeFirstName} ${employee.employeeLastName}",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: selectedIndex == index
+                                      ? Colors.white
+                                      : Colors.white,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        childCount: employeeList.length,
+                      ),
                     ),
-                  ),
+            ),
           );
         } else if (state is EmployeeManagementInitial) {
           return const LoadAppDataScreen();
         } else {
           return const Center(child: Text("Failed to load Employees!"));
         }
+      },
+    );
+  }
+
+  void _navigateToProfile(int index, EmployeeModel employee) {
+    Navigator.of(context).pushNamed(
+      AppRoutes.employeeDetailsScreen,
+      arguments: {
+        'model': employee,
       },
     );
   }

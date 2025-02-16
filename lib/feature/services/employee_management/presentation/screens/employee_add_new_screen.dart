@@ -24,10 +24,8 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
   final TextEditingController _employeeRole = TextEditingController();
 
   late DateTime _employeeDateJoined;
-
   final uuid = const Uuid();
   EmployeeModel? _existingEmployee;
-
   bool _isInitialized = false;
 
   @override
@@ -45,39 +43,6 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
       }
       _isInitialized = true;
     }
-  }
-
-  void _defaultFieldsValue(EmployeeModel employee) {
-    _employeeFirstName.text = employee.employeeFirstName;
-    _employeeLastName.text = employee.employeeLastName;
-    _employeeEmail.text = employee.employeeEmail;
-    _employeeRole.text = employee.employeeRole;
-    _employeeDateJoined = employee.employeeDateJoined;
-  }
-
-  void _saveUpdateEmployee() {
-    final updatedEmployee = EmployeeModel(
-      employeeID: _existingEmployee?.employeeID ?? uuid.v4(),
-      employeeFirstName: _employeeFirstName.text.trim(),
-      employeeLastName: _employeeLastName.text.trim(),
-      employeeEmail: _employeeEmail.text.trim(),
-      employeeRole: _employeeRole.text.trim(),
-      tasksDone: [],
-      employeeDateJoined: _employeeDateJoined,
-      employeeTaskList: _existingEmployee?.employeeTaskList ?? [],
-    );
-
-    if (_existingEmployee == null) {
-      context
-          .read<EmployeeManagementBloc>()
-          .add(AddEmployee(employee: updatedEmployee));
-    } else {
-      context
-          .read<EmployeeManagementBloc>()
-          .add(UpdateEmployee(updatedEmployee: updatedEmployee));
-    }
-
-    Navigator.of(context).pop();
   }
 
   @override
@@ -116,5 +81,38 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
         ),
       ),
     );
+  }
+
+  void _defaultFieldsValue(EmployeeModel employee) {
+    _employeeFirstName.text = employee.employeeFirstName;
+    _employeeLastName.text = employee.employeeLastName;
+    _employeeEmail.text = employee.employeeEmail;
+    _employeeRole.text = employee.employeeRole;
+    _employeeDateJoined = employee.employeeDateJoined;
+  }
+
+  void _saveUpdateEmployee() {
+    final updatedEmployee = EmployeeModel(
+      employeeID: _existingEmployee?.employeeID ?? uuid.v4(),
+      employeeFirstName: _employeeFirstName.text.trim(),
+      employeeLastName: _employeeLastName.text.trim(),
+      employeeEmail: _employeeEmail.text.trim(),
+      employeeRole: _employeeRole.text.trim(),
+      tasksDone: [],
+      employeeDateJoined: _employeeDateJoined,
+      employeeTaskList: _existingEmployee?.employeeTaskList ?? [],
+    );
+
+    if (_existingEmployee == null) {
+      context
+          .read<EmployeeManagementBloc>()
+          .add(AddEmployee(employee: updatedEmployee));
+    } else {
+      context
+          .read<EmployeeManagementBloc>()
+          .add(UpdateEmployee(updatedEmployee: updatedEmployee));
+    }
+
+    Navigator.of(context).pop();
   }
 }

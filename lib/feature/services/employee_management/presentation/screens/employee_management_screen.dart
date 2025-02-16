@@ -39,79 +39,74 @@ class _EmployeeManagementScreenState extends State<EmployeeManagementScreen> {
         onMenuPressed: () {},
       ),
       body: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height,
-          ),
-          child: Column(
-            children: [
-              BlocBuilder<EmployeeManagementBloc, EmployeeManagementState>(
-                builder: (context, state) {
-                  if (state is EmployeeManagementLoaded) {
-                    final employeeList = state.employeeDataList;
+        child: Column(
+          children: [
+            BlocBuilder<EmployeeManagementBloc, EmployeeManagementState>(
+              builder: (context, state) {
+                if (state is EmployeeManagementLoaded) {
+                  final employeeList = state.employeeDataList;
 
-                    final employeesNumber = employeeList.length.toDouble();
-                    final taskNumber = employeeList.fold<double>(
-                      0,
-                      (sum, employee) =>
-                          sum + employee.employeeTaskList.length.toDouble(),
-                    );
-                    final tasksDone = employeeList.fold<double>(
-                      0,
-                      (sum, employee) =>
-                          sum +
-                          employee.employeeTaskList
-                              .where((task) => task.isDone)
-                              .length
-                              .toDouble(),
-                    );
+                  final employeesNumber = employeeList.length.toDouble();
+                  final taskNumber = employeeList.fold<double>(
+                    0,
+                    (sum, employee) =>
+                        sum + employee.employeeTaskList.length.toDouble(),
+                  );
+                  final tasksDone = employeeList.fold<double>(
+                    0,
+                    (sum, employee) =>
+                        sum +
+                        employee.employeeTaskList
+                            .where((task) => task.isDone)
+                            .length
+                            .toDouble(),
+                  );
 
-                    return Row(
-                      children: [
-                        EmployeeSidePanel(
-                          onNewEmployeePressed: _handleNewEmployee,
-                        ),
-                        ChartContainer(
-                          employeesNumber: employeesNumber,
-                          taskNumber: taskNumber,
-                          taskDoneNumber: tasksDone,
-                          otherNumber: taskNumber - tasksDone,
-                        ),
-                      ],
-                    );
-                  } else if (state is EmployeeManagementInitial) {
-                    return Row(
-                      children: [
-                        EmployeeSidePanel(
-                          onNewEmployeePressed: _handleNewEmployee,
-                        ),
-                        const ChartContainer(
-                          employeesNumber: 0,
-                        ),
-                      ],
-                    );
-                  } else if (state is EmployeeManagementError) {
-                    return Row(
-                      children: [
-                        EmployeeSidePanel(
-                          onNewEmployeePressed: _handleNewEmployee,
-                        ),
-                        const ChartContainer(
-                          employeesNumber: 0.0,
-                          taskNumber: 0.0,
-                          taskDoneNumber: 0.0,
-                          otherNumber: 0.0,
-                        ),
-                      ],
-                    );
-                  } else {
-                    return const Center(child: Text("Failed to load employees."));
-                  }
-                },
-              ),
-              const EmployeeListDisplay(),
-            ],
-          ),
+                  return Row(
+                    children: [
+                      EmployeeSidePanel(
+                        onNewEmployeePressed: _handleNewEmployee,
+                      ),
+                      ChartContainer(
+                        employeesNumber: employeesNumber,
+                        taskNumber: taskNumber,
+                        taskDoneNumber: tasksDone,
+                        otherNumber: taskNumber - tasksDone,
+                      ),
+                    ],
+                  );
+                } else if (state is EmployeeManagementInitial) {
+                  return Row(
+                    children: [
+                      EmployeeSidePanel(
+                        onNewEmployeePressed: _handleNewEmployee,
+                      ),
+                      const ChartContainer(
+                        employeesNumber: 0,
+                      ),
+                    ],
+                  );
+                } else if (state is EmployeeManagementError) {
+                  return Row(
+                    children: [
+                      EmployeeSidePanel(
+                        onNewEmployeePressed: _handleNewEmployee,
+                      ),
+                      const ChartContainer(
+                        employeesNumber: 0.0,
+                        taskNumber: 0.0,
+                        taskDoneNumber: 0.0,
+                        otherNumber: 0.0,
+                      ),
+                    ],
+                  );
+                } else {
+                  return const Center(child: Text("Failed to load employees."));
+                }
+              },
+            ),
+            const EmployeeListDisplay(),
+          ],
         ),
       ),
     );

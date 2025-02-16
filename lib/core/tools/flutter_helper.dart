@@ -29,9 +29,9 @@ extension BuildContextExtension on BuildContext {
 
 List<Locale> getSupportedLocales() {
   return const [
-    Locale('de'),
+    // Locale('de'),
     Locale('en'),
     Locale('pl'),
-    Locale('es'),
+    // Locale('es'),
   ];
 }

@@ -32,30 +32,6 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
     _isCompleted = widget.task.isDone;
   }
 
-  void _toggleTaskStatus(BuildContext context) {
-    setState(() {
-      _isCompleted = !_isCompleted;
-    });
-    print(" updatedTask 1 ${widget.task.taskID}");
-    final updatedTask = EmployeeTaskModel(
-      taskID: widget.task.taskID,
-      taskTitle: widget.task.taskTitle,
-      taskDescription: widget.task.taskDescription,
-      taskDuration: widget.task.taskDuration,
-      employeeID: widget.employeeID,
-      employeeCheckInTime: widget.task.employeeCheckInTime,
-      employeeCheckOutTime: widget.task.employeeCheckOutTime,
-      isDone: _isCompleted,
-    );
-
-    context.read<EmployeeManagementBloc>().add(
-      UpdateEmployeeTask(
-        employeeID: widget.employeeID,
-        updatedTask: updatedTask,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -143,5 +119,29 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
         ),
       ],
     );
+  }
+
+  void _toggleTaskStatus(BuildContext context) {
+    setState(() {
+      _isCompleted = !_isCompleted;
+    });
+
+    final updatedTask = EmployeeTaskModel(
+      taskID: widget.task.taskID,
+      taskTitle: widget.task.taskTitle,
+      taskDescription: widget.task.taskDescription,
+      taskDuration: widget.task.taskDuration,
+      employeeID: widget.employeeID,
+      employeeCheckInTime: widget.task.employeeCheckInTime,
+      employeeCheckOutTime: widget.task.employeeCheckOutTime,
+      isDone: _isCompleted,
+    );
+
+    context.read<EmployeeManagementBloc>().add(
+          UpdateEmployeeTask(
+            employeeID: widget.employeeID,
+            updatedTask: updatedTask,
+          ),
+        );
   }
 }

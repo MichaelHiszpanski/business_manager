@@ -10,6 +10,8 @@ class LoadAppDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         alignment: AlignmentDirectional.center,
         decoration: const BoxDecoration(color: Pallete.colorSix),
         padding: const EdgeInsets.only(left: 30.0, right: 30.0),
