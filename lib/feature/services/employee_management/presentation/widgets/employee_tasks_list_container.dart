@@ -16,20 +16,6 @@ class EmployeeTasksListContainer extends StatelessWidget {
     required this.model,
   });
 
-  void _deleteTask(
-    BuildContext context,
-    String employeeID,
-    String taskTitle,
-  ) {
-    context.read<EmployeeManagementBloc>().add(
-          RemoveEmployeeTask(
-            employeeID: employeeID,
-            taskTitle: taskTitle,
-          ),
-        );
-    Navigator.of(context).pop();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -87,5 +73,19 @@ class EmployeeTasksListContainer extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _deleteTask(
+    BuildContext context,
+    String employeeID,
+    String taskTitle,
+  ) {
+    context.read<EmployeeManagementBloc>().add(
+          RemoveEmployeeTask(
+            employeeID: employeeID,
+            taskTitle: taskTitle,
+          ),
+        );
+    Navigator.of(context).pop();
   }
 }

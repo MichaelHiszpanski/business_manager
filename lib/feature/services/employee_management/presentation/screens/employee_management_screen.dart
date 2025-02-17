@@ -27,10 +27,6 @@ class _EmployeeManagementScreenState extends State<EmployeeManagementScreen> {
     context.read<EmployeeManagementBloc>().add(const LoadEmployeeList());
   }
 
-  void _handleNewEmployee() {
-    Navigator.of(context).pushNamed(AppRoutes.employeeAddNewScreen);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,5 +106,9 @@ class _EmployeeManagementScreenState extends State<EmployeeManagementScreen> {
         ),
       ),
     );
+  }
+
+  void _handleNewEmployee() {
+    Navigator.of(context).pushNamed(AppRoutes.employeeAddNewScreen);
   }
 }

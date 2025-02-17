@@ -21,13 +21,16 @@ class LoadAppDataScreen extends StatelessWidget {
             children: [
               LinearProgressIndicator(
                 minHeight: 10.0,
-                color: Colors.red,
+                color: Colors.white,
+                backgroundColor: Colors.black,
                 borderRadius: BorderRadius.circular(Constants.radius10),
               ),
               const SizedBox(height: 20),
-              Text(
-                context.strings.loading_message,
-                style: context.text.titleLarge,
+              Flexible(
+                child: Text(
+                  context.strings.loading_message,
+                  style: context.text.titleLarge,
+                ),
               ),
             ],
           ),
