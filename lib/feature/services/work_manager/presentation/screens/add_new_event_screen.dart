@@ -33,18 +33,67 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // final arguments = ModalRoute.of(context)?.settings.arguments as Map?;
-    // if (arguments != null && arguments['selectedDate'] != null) {
-    //   DateTime selectedDate = arguments['selectedDate'];
-    //
-    //   _isLastDateVisible = arguments['isLastDateVisible'];
-    //   _fromSelectedDate = selectedDate;
-    //   _fromSelectedTime = TimeOfDay.fromDateTime(selectedDate);
-    // }
     if (widget.selectedDatetime != null) {
       _fromSelectedDate = widget.selectedDatetime;
       _fromSelectedTime = TimeOfDay.fromDateTime(widget.selectedDatetime!);
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.isLastDateVisible == true
+        ? AddNewEventForScafold(
+            formKey: _formKey,
+            selectedColor: _selectedColor,
+            controllerName: _controllerName,
+            controllerDescription: _controllerDescription,
+            onColorSelected: _onColorSelected,
+            isAllDay: _isAllDay,
+            addMeeting: _addMeeting,
+            fromSelectedDate: _fromSelectedDate,
+            fromSelectedTime: _fromSelectedTime,
+            toSelectedDate: _toSelectedDate,
+            toSelectedTime: _toSelectedTime,
+            selectFromDateTime: () => _selectFromDateTime(context),
+            selectToDateTime: () => _selectToDateTime(context),
+            eventDurationPerDay: _eventDurationPerDay,
+            onEventDurationPerDay: (selectedHours) {
+              setState(() {
+                _eventDurationPerDay = selectedHours;
+              });
+            },
+            onAllDay: (bool value) {
+              setState(() {
+                _isAllDay = value;
+              });
+            },
+          )
+        : AddNewEventForBottomSheet(
+            formKey: _formKey,
+            selectedColor: _selectedColor,
+            controllerName: _controllerName,
+            controllerDescription: _controllerDescription,
+            onColorSelected: _onColorSelected,
+            isAllDay: _isAllDay,
+            addMeeting: _addMeeting,
+            fromSelectedDate: _fromSelectedDate,
+            fromSelectedTime: _fromSelectedTime,
+            toSelectedDate: _toSelectedDate,
+            toSelectedTime: _toSelectedTime,
+            selectFromDateTime: () => _selectFromDateTime(context),
+            selectToDateTime: () => _selectToDateTime(context),
+            eventDurationPerDay: _eventDurationPerDay,
+            onEventDurationPerDay: (selectedHours) {
+              setState(() {
+                _eventDurationPerDay = selectedHours;
+              });
+            },
+            onAllDay: (bool value) {
+              setState(() {
+                _isAllDay = value;
+              });
+            },
+          );
   }
 
   void _onColorSelected(Color color) {
@@ -156,62 +205,5 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
     return date1.year == date2.year &&
         date1.month == date2.month &&
         date1.day == date2.day;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.isLastDateVisible == true
-        ? AddNewEventForScafold(
-            formKey: _formKey,
-            selectedColor: _selectedColor,
-            controllerName: _controllerName,
-            controllerDescription: _controllerDescription,
-            onColorSelected: _onColorSelected,
-            isAllDay: _isAllDay,
-            addMeeting: _addMeeting,
-            fromSelectedDate: _fromSelectedDate,
-            fromSelectedTime: _fromSelectedTime,
-            toSelectedDate: _toSelectedDate,
-            toSelectedTime: _toSelectedTime,
-            selectFromDateTime: () => _selectFromDateTime(context),
-            selectToDateTime: () => _selectToDateTime(context),
-            eventDurationPerDay: _eventDurationPerDay,
-            onEventDurationPerDay: (selectedHours) {
-              setState(() {
-                _eventDurationPerDay = selectedHours;
-              });
-            },
-            onAllDay: (bool value) {
-              setState(() {
-                _isAllDay = value;
-              });
-            },
-          )
-        : AddNewEventForBottomSheet(
-            formKey: _formKey,
-            selectedColor: _selectedColor,
-            controllerName: _controllerName,
-            controllerDescription: _controllerDescription,
-            onColorSelected: _onColorSelected,
-            isAllDay: _isAllDay,
-            addMeeting: _addMeeting,
-            fromSelectedDate: _fromSelectedDate,
-            fromSelectedTime: _fromSelectedTime,
-            toSelectedDate: _toSelectedDate,
-            toSelectedTime: _toSelectedTime,
-            selectFromDateTime: () => _selectFromDateTime(context),
-            selectToDateTime: () => _selectToDateTime(context),
-            eventDurationPerDay: _eventDurationPerDay,
-            onEventDurationPerDay: (selectedHours) {
-              setState(() {
-                _eventDurationPerDay = selectedHours;
-              });
-            },
-            onAllDay: (bool value) {
-              setState(() {
-                _isAllDay = value;
-              });
-            },
-          );
   }
 }

@@ -58,7 +58,7 @@ class _WorkManagerLeftCustomButtonState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 250.0,
       width: 250.0,
       child: Stack(
