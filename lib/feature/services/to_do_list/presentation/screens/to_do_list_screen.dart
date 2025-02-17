@@ -38,7 +38,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
     return Scaffold(
       backgroundColor: Pallete.whiteColor,
       appBar: CustomAppBar(
-        title: "To-Do Service",
+        title: context.strings.to_do_app_bar_title,
         onMenuPressed: _filterShowModalBottomSheet,
         isActionButtonAvailable: true,
       ),
@@ -53,7 +53,9 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
           BlocBuilder<ToDoBloc, ToDoState>(
             builder: (context, state) {
               if (state is ToDoInitial) {
-                return const Center(child: Text('Nothing to do yet...'));
+                return Center(
+                  child: Text(context.strings.to_do_list_empty_message),
+                );
               } else if (state is ToDoLoading) {
                 return const LoadAppDataScreen();
               } else if (state is ToDoLoadSuccess) {
@@ -61,7 +63,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                 if (toDoList.isEmpty) {
                   return Center(
                     child: Text(
-                      'Nothing to do yet...',
+                      context.strings.to_do_list_empty_message,
                       style: context.text.headlineMedium?.copyWith(
                         color: Colors.white,
                       ),
@@ -90,7 +92,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                   padding: const EdgeInsets.all(Constants.padding16),
                   child: Center(
                     child: Text(
-                      'Failed to load ToDo List . Please try again later.',
+                      context.strings.to_do_error_message,
                       style: context.text.headlineSmall?.copyWith(
                         color: Colors.white,
                       ),

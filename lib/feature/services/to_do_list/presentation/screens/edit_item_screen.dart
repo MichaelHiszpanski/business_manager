@@ -1,13 +1,11 @@
-import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
-import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/core/enums/piority_level_enum.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:business_manager/feature/services/to_do_list/bloc/to_do_bloc.dart';
-import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:business_manager/core/widgets/date_picker/date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,26 +43,11 @@ class _EditItemScreenState extends State<EditItemScreen> {
     super.dispose();
   }
 
-  void _validateToDoItem() {
-    if (_formKey.currentState!.validate()) {
-      final updatedToDo = ToDoItem(
-        id: widget.todo.id,
-        title: _titleController.text,
-        content: _contentController.text,
-        priority: _selectedPriority,
-        expiredDate: _expiredDateSelected,
-      );
-
-      context.read<ToDoBloc>().add(UpdateToDoList(toDo: updatedToDo));
-      Navigator.of(context).pop();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Edit ToDo Item',
+        title: context.strings.edit_item_app_bar_title,
         onMenuPressed: () {},
       ),
       body: SingleChildScrollView(
@@ -75,11 +58,11 @@ class _EditItemScreenState extends State<EditItemScreen> {
             key: _formKey,
             child: Column(
               children: [
-                const Text('Edit Event'),
+                Text(context.strings.edit_item_heading_edit_event),
                 TextFormField(
                   controller: _titleController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter title',
+                  decoration: InputDecoration(
+                    hintText: context.strings.edit_item_hint_title,
                   ),
                   validator: _validateValue,
                   maxLength: Constants.MAX_LENGHT_TEXT_TITLE,
@@ -87,8 +70,8 @@ class _EditItemScreenState extends State<EditItemScreen> {
                 const SizedBox(height: Constants.padding24),
                 TextFormField(
                   controller: _contentController,
-                  decoration: const InputDecoration(
-                    hintText: 'Content...',
+                  decoration: InputDecoration(
+                    hintText: context.strings.edit_item_hint_content,
                   ),
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
@@ -104,7 +87,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
                     });
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: Constants.padding16),
                 DatePicker(
                   selectedDate: _expiredDateSelected,
                   onDateSelected: (DateTime? selectedDate) {
@@ -113,10 +96,10 @@ class _EditItemScreenState extends State<EditItemScreen> {
                     });
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: Constants.padding16),
                 PrimaryButton(
                   onPressed: _validateToDoItem,
-                  buttonText: 'Save Changes',
+                  buttonText: context.strings.edit_item_button_save,
                 )
               ],
             ),
@@ -126,9 +109,24 @@ class _EditItemScreenState extends State<EditItemScreen> {
     );
   }
 
+  void _validateToDoItem() {
+    if (_formKey.currentState!.validate()) {
+      final updatedToDo = ToDoItem(
+        id: widget.todo.id,
+        title: _titleController.text,
+        content: _contentController.text,
+        priority: _selectedPriority,
+        expiredDate: _expiredDateSelected,
+      );
+
+      context.read<ToDoBloc>().add(UpdateToDoList(toDo: updatedToDo));
+      Navigator.of(context).pop();
+    }
+  }
+
   String? _validateValue(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter a value.';
+      return context.strings.edit_item_error_empty_field;
     }
     return null;
   }

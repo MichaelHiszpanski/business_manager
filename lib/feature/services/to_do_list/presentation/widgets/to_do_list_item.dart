@@ -1,6 +1,7 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
@@ -45,9 +46,9 @@ class ToDoListItem extends StatelessWidget {
                     child: Text.rich(
                       TextSpan(
                         children: [
-                          const TextSpan(
-                            text: 'Priority: ',
-                            style: TextStyle(
+                          TextSpan(
+                            text: context.strings.to_do_item_label_priority,
+                            style: const TextStyle(
                               color: Colors.black,
                             ),
                           ),
@@ -115,7 +116,7 @@ class ToDoListItem extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Content: ${todo.content}',
+                      '${context.strings.to_do_item_label_content} ${todo.content}',
                       style: const TextStyle(color: Colors.black54),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
@@ -126,7 +127,8 @@ class ToDoListItem extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          'Expired on: ${DateFormatHelper.dateFormatWithTime(todo.expiredDate)}',
+                          '${context.strings.to_do_item_label_expired_on} '
+                          '${DateFormatHelper.dateFormatWithTime(todo.expiredDate)}',
                           style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black,

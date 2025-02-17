@@ -18,34 +18,17 @@ class AddItemScreen extends StatefulWidget {
 
 class _AddItemScreenState extends State<AddItemScreen> {
   final _globalKey = GlobalKey<FormState>();
-
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
-
   final uuid = const Uuid();
   DateTime? _expiredDateSelected;
-
   PriorityLevelEnum _prioritySelected = PriorityLevelEnum.MEDIUM;
-
-  void _validateToDoItem() {
-    if (_globalKey.currentState!.validate()) {
-      final todo = ToDoItem(
-        id: uuid.v4(),
-        title: _titleController.text,
-        content: _contentController.text,
-        priority: _prioritySelected,
-        expiredDate: _expiredDateSelected,
-      );
-      context.read<ToDoBloc>().add(AddToDoListItem(todo: todo));
-      Navigator.of(context).pop();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Add ToDo Item',
+        title: context.strings.add_item_app_bar_title,
         onMenuPressed: () {},
       ),
       body: SingleChildScrollView(
@@ -57,13 +40,13 @@ class _AddItemScreenState extends State<AddItemScreen> {
             child: Column(
               children: [
                 Text(
-                  'New Event',
+                  context.strings.add_item_heading_new_event,
                   style: context.text.headlineLarge,
                 ),
                 TextFormField(
                   controller: _titleController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter title',
+                  decoration: InputDecoration(
+                    hintText: context.strings.add_item_hint_title,
                   ),
                   validator: _validateValue,
                   maxLength: Constants.MAX_LENGHT_TEXT_TITLE,
@@ -71,8 +54,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 const SizedBox(height: Constants.padding24),
                 TextFormField(
                   controller: _contentController,
-                  decoration: const InputDecoration(
-                    hintText: 'Content...',
+                  decoration: InputDecoration(
+                    hintText: context.strings.add_item_hint_content,
                   ),
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
@@ -100,7 +83,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 const SizedBox(height: Constants.padding24),
                 PrimaryButton(
                   onPressed: _validateToDoItem,
-                  buttonText: "Add ToDo",
+                  buttonText: context.strings.add_item_button_add,
                 )
               ],
             ),
@@ -110,9 +93,23 @@ class _AddItemScreenState extends State<AddItemScreen> {
     );
   }
 
+  void _validateToDoItem() {
+    if (_globalKey.currentState!.validate()) {
+      final todo = ToDoItem(
+        id: uuid.v4(),
+        title: _titleController.text,
+        content: _contentController.text,
+        priority: _prioritySelected,
+        expiredDate: _expiredDateSelected,
+      );
+      context.read<ToDoBloc>().add(AddToDoListItem(todo: todo));
+      Navigator.of(context).pop();
+    }
+  }
+
   String? _validateValue(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter text...';
+      return context.strings.add_item_error_empty_field;
     }
     return null;
   }

@@ -24,82 +24,84 @@ class _InformationsScreenState extends State<InformationsScreen> {
         title: context.strings.title_info,
         onMenuPressed: () {},
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Constants.padding16,
-          vertical: Constants.padding24,
-        ),
-        child: Column(
-          children: [
-            Text(
-              context.strings.app_name,
-              style:
-                  context.text.titleLarge?.copyWith(color: Colors.blueAccent),
-            ),
-            const SizedBox(height: Constants.padding24),
-            Text(
-              context.strings.app_description,
-              style: context.text.displaySmall?.copyWith(
-                color: Colors.black87,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Constants.padding16,
+            vertical: Constants.padding24,
+          ),
+          child: Column(
+            children: [
+              Text(
+                context.strings.app_name,
+                style:
+                    context.text.titleLarge?.copyWith(color: Colors.blueAccent),
               ),
-            ),
-            const SizedBox(height: Constants.padding24),
-            Text(context.strings.key_features_title,
+              const SizedBox(height: Constants.padding24),
+              Text(
+                context.strings.app_description,
                 style: context.text.displaySmall?.copyWith(
-                  fontFamily: AppFontFamily.orbitron,
                   color: Colors.black87,
-                )),
-            const SizedBox(height: Constants.padding24),
-            _getRow(
-              icon: Icons.checklist,
-              title: context.strings.feature_todo_list_title,
-              description: context.strings.feature_todo_list_description,
-            ),
-            _getRow(
-              icon: Icons.receipt_long,
-              title: context.strings.feature_invoice_manager_title,
-              description: context.strings.feature_invoice_manager_description,
-            ),
-            _getRow(
-              icon: Icons.calendar_today,
-              title: context.strings.feature_work_manager_title,
-              description: context.strings.feature_work_manager_description,
-            ),
-            _getRow(
-              icon: Icons.people,
-              title: context.strings.feature_employee_management_title,
-              description:
-                  context.strings.feature_employee_management_description,
-            ),
-            const SizedBox(height: 3 * Constants.padding16),
-            Container(
-              width: double.maxFinite,
-              height: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Constants.radius10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 2,
-                    blurRadius: 6,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: ElevatedButton(
-                onPressed: _launchURL,
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Pallete.gradient1),
-                ),
-                child: Text(
-                  context.strings.button_open_website,
-                  style: context.text.headlineSmall?.copyWith(
-                    color: Colors.white,
-                  ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: Constants.padding24),
+              Text(context.strings.key_features_title,
+                  style: context.text.displaySmall?.copyWith(
+                    fontFamily: AppFontFamily.orbitron,
+                    color: Colors.black87,
+                  )),
+              const SizedBox(height: Constants.padding24),
+              _getRow(
+                icon: Icons.checklist,
+                title: context.strings.feature_todo_list_title,
+                description: context.strings.feature_todo_list_description,
+              ),
+              _getRow(
+                icon: Icons.receipt_long,
+                title: context.strings.feature_invoice_manager_title,
+                description: context.strings.feature_invoice_manager_description,
+              ),
+              _getRow(
+                icon: Icons.calendar_today,
+                title: context.strings.feature_work_manager_title,
+                description: context.strings.feature_work_manager_description,
+              ),
+              _getRow(
+                icon: Icons.people,
+                title: context.strings.feature_employee_management_title,
+                description:
+                    context.strings.feature_employee_management_description,
+              ),
+              const SizedBox(height: 3 * Constants.padding16),
+              Container(
+                width: double.maxFinite,
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Constants.radius10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 2,
+                      blurRadius: 6,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: ElevatedButton(
+                  onPressed: _launchURL,
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(Pallete.gradient1),
+                  ),
+                  child: Text(
+                    context.strings.button_open_website,
+                    style: context.text.headlineSmall?.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -338,7 +338,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                         ),
                       ),
                     ],
-                    const SizedBox(width: 2 * Constants.padding16),
+                    const SizedBox(width:  Constants.padding16),
                     if (_currentStep > 0)
                       Container(
                         decoration: BoxDecoration(
