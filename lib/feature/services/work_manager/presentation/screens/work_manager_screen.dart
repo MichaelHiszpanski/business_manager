@@ -1,3 +1,4 @@
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/feature/services/work_manager/bloc/work_manager_bloc.dart';
 import 'package:business_manager/feature/services/work_manager/helpers/meeting_data_list_manager.dart';
@@ -33,7 +34,7 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Work Manager",
+        title: context.strings.work_manager_app_bar_title,
         onMenuPressed: () {},
       ),
       body: BlocBuilder<WorkManagerBloc, WorkManagerState>(
@@ -83,8 +84,8 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
               ),
             );
           } else {
-            return const Center(
-              child: Text("Something went wrong!"),
+            return Center(
+              child: Text(context.strings.work_manager_error_message),
             );
           }
         },

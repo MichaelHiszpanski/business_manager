@@ -1,3 +1,4 @@
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -29,7 +30,7 @@ class _ColorSelectorState extends State<ColorSelector> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Pick a color'),
+          title: Text(context.strings.work_manager_color_picker_title),
           content: SingleChildScrollView(
             child: ColorPicker(
               pickerColor: _selectedColor,
@@ -46,7 +47,8 @@ class _ColorSelectorState extends State<ColorSelector> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Select'),
+              child:
+                  Text(context.strings.work_manager_color_picker_button_select),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -62,9 +64,12 @@ class _ColorSelectorState extends State<ColorSelector> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Select Color:",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        Text(
+          context.strings.work_manager_color_picker_label,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
         const SizedBox(height: 10),
         Row(
@@ -79,7 +84,6 @@ class _ColorSelectorState extends State<ColorSelector> {
       ],
     );
   }
-
 
   Widget _buildColorButton(Color color) {
     return GestureDetector(
@@ -104,7 +108,6 @@ class _ColorSelectorState extends State<ColorSelector> {
     );
   }
 
-
   Widget _buildCustomColorPickerButton(BuildContext context) {
     return GestureDetector(
       onTap: () => _showColorPicker(context),
@@ -119,7 +122,10 @@ class _ColorSelectorState extends State<ColorSelector> {
             width: 2,
           ),
         ),
-        child: const Icon(Icons.colorize, color: Colors.white),
+        child: const Icon(
+          Icons.colorize,
+          color: Colors.white,
+        ),
       ),
     );
   }

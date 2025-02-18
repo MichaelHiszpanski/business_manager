@@ -1,5 +1,6 @@
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/color_selector.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/custom_dropdown_hours.dart';
@@ -59,16 +60,16 @@ class AddNewEventForBottomSheet extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             children: <Widget>[
               const SizedBox(height: 16),
-              Text('Add New Event'),
+              Text(context.strings.work_manager_add_event_title),
               const SizedBox(height: 16),
               TextFormField(
                 controller: controllerName,
-                decoration: const InputDecoration(
-                  labelText: 'Event Name',
+                decoration: InputDecoration(
+                  labelText: context.strings.work_manager_event_name_label,
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter an event name';
+                    return context.strings.work_manager_event_name_error;
                   }
                   return null;
                 },
@@ -76,8 +77,9 @@ class AddNewEventForBottomSheet extends StatelessWidget {
               ),
               TextFormField(
                 controller: controllerDescription,
-                decoration: const InputDecoration(
-                  labelText: 'Event Description',
+                decoration: InputDecoration(
+                  labelText:
+                      context.strings.work_manager_event_description_label,
                 ),
                 maxLength: Constants.MAX_LENGHT_TEXT_CONTENT,
                 maxLines: null,
@@ -86,7 +88,7 @@ class AddNewEventForBottomSheet extends StatelessWidget {
               Text(
                 fromSelectedDate != null && fromSelectedTime != null
                     ? '${fromSelectedDate!.toLocal().toString().split(' ')[0]} ${fromSelectedTime!.format(context)}'
-                    : 'Select Start Date & Time',
+                    : context.strings.work_manager_select_start_date_time,
               ),
               const SizedBox(height: 16),
               CustomDropDownHours(
@@ -100,14 +102,14 @@ class AddNewEventForBottomSheet extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               SwitchListTile(
-                title: const Text('All Day Event'),
+                title: Text(context.strings.work_manager_all_day_event_label),
                 value: isAllDay,
                 onChanged: onAllDay,
               ),
               const SizedBox(height: 16),
               CustomFloatingButton(
                 onPressed: addMeeting,
-                buttonText: 'Accept',
+                buttonText: context.strings.work_manager_button_accept,
                 backgroundColor: Pallete.gradient2,
               ),
               const SizedBox(height: 32),

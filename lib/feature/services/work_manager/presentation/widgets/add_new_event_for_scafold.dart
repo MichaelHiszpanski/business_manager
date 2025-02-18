@@ -49,15 +49,15 @@ class AddNewEventForScafold extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       height: screenHeight * 0.9,
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(Constants.padding16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(Constants.radius15),
       ),
       child: SingleChildScrollView(
         reverse: true,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
           child: Form(
             key: formKey,
             child: Column(
@@ -65,16 +65,19 @@ class AddNewEventForScafold extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 const SizedBox(height: Constants.padding16),
-            Text('Set Up a New Event Range',style: context.text.headlineSmall,),
-                const SizedBox(height: 2* Constants.padding16),
+                Text(
+                  context.strings.work_manager_setup_new_event_title,
+                  style: context.text.headlineSmall,
+                ),
+                const SizedBox(height: 2 * Constants.padding16),
                 TextFormField(
                   controller: controllerName,
-                  decoration: const InputDecoration(
-                    labelText: 'Event Name',
+                  decoration: InputDecoration(
+                    labelText: context.strings.work_manager_event_name_label,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter an event name';
+                      return context.strings.work_manager_event_name_error;
                     }
                     return null;
                   },
@@ -82,59 +85,64 @@ class AddNewEventForScafold extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: controllerDescription,
-                  decoration: const InputDecoration(
-                    labelText: 'Event Description',
+                  decoration: InputDecoration(
+                    labelText:
+                        context.strings.work_manager_event_description_label,
                   ),
                   maxLength: Constants.MAX_LENGHT_TEXT_CONTENT,
                   maxLines: null,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: Constants.padding16),
                 ListTile(
-                  title: const Text('From'),
-                  subtitle: Text(fromSelectedDate != null &&
-                          fromSelectedTime != null
-                      ? '${fromSelectedDate!.toLocal().toString().split(' ')[0]} ${fromSelectedTime!.format(context)}'
-                      : 'Select Start Date & Time'),
+                  title:
+                      Text(context.strings.work_manager_event_date_from_label),
+                  subtitle: Text(
+                    fromSelectedDate != null && fromSelectedTime != null
+                        ? '${fromSelectedDate!.toLocal().toString().split(' ')[0]} '
+                            '${fromSelectedTime!.format(context)}'
+                        : context.strings.work_manager_event_select_start_date,
+                  ),
                   trailing: IconButton(
                     icon: const Icon(Icons.calendar_today),
                     onPressed: selectFromDateTime,
                   ),
                 ),
                 ListTile(
-                  title: const Text('To'),
+                  title: Text(context.strings.work_manager_event_date_to_label),
                   subtitle: Text(
                     toSelectedDate != null && toSelectedTime != null
-                        ? '${toSelectedDate!.toLocal().toString().split(' ')[0]} ${toSelectedTime!.format(context)}'
-                        : 'Select End Date & Time',
+                        ? '${toSelectedDate!.toLocal().toString().split(' ')[0]} '
+                            '${toSelectedTime!.format(context)}'
+                        : context.strings.work_manager_event_select_end_date,
                   ),
                   trailing: IconButton(
                     icon: const Icon(Icons.calendar_today),
                     onPressed: selectToDateTime,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: Constants.padding16),
                 CustomDropDownHours(
                   value: eventDurationPerDay,
                   selectedHours: onEventDurationPerDay,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: Constants.padding16),
                 ColorSelector(
                   initialColor: selectedColor,
                   onColorSelected: onColorSelected,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: Constants.padding16),
                 SwitchListTile(
-                  title: const Text('All Day Event'),
+                  title: Text(context.strings.work_manager_all_day_event_label),
                   value: isAllDay,
                   onChanged: onAllDay,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: Constants.padding16),
                 CustomFloatingButton(
                   onPressed: addMeeting,
-                  buttonText: 'Accept',
+                  buttonText: context.strings.work_manager_button_accept,
                   backgroundColor: Pallete.gradient2,
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: Constants.padding32),
               ],
             ),
           ),
