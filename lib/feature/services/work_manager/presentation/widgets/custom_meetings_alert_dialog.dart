@@ -28,8 +28,8 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
-        'Meeting Details',
+      title: Text(
+        context.strings.work_manager_meeting_details_title,
         style: TextStyle(color: Colors.green),
       ),
       content: SizedBox(
@@ -49,18 +49,19 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
                 children: <Widget>[
                   const SizedBox(height: Constants.padding16),
                   Text(
-                    'Content: ${meeting.eventDescription}',
+                    '${context.strings.work_manager_meeting_content_label}'
+                    ' ${meeting.eventDescription}',
                     style: context.text.bodyLarge
                         ?.copyWith(color: Pallete.gradient1),
                   ),
                   const SizedBox(height: Constants.padding16),
                   Text(
-                    'From: ${DateFormatHelper.dateFormatWithTime(meeting.startDate)}',
+                    '${context.strings.work_manager_meeting_from_label} ${DateFormatHelper.dateFormatWithTime(meeting.startDate)}',
                     style: context.text.bodyLarge,
                   ),
                   const SizedBox(height: Constants.padding8),
                   Text(
-                    'To:      ${DateFormatHelper.dateFormatWithTime(meeting.finishDate)}',
+                    '${context.strings.work_manager_meeting_to_label}       ${DateFormatHelper.dateFormatWithTime(meeting.finishDate)}',
                     style: context.text.bodyLarge,
                   ),
                   const SizedBox(height: Constants.padding8),
@@ -81,7 +82,7 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
       ),
       actions: <Widget>[
         TextButton(
-            child: const Text('Select to Remove'),
+            child: Text(context.strings.work_manager_button_select_remove),
             onPressed: () {
               if (_selectedIndex != null) {
                 final meetingToRemove = widget.meetings[_selectedIndex!];
@@ -93,7 +94,7 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
               }
             }),
         TextButton(
-          child: const Text('Close'),
+          child: Text(context.strings.work_manager_button_close),
           onPressed: () {
             Navigator.of(context).pop();
           },

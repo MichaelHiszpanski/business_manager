@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class WorkManagerRightCustomButton extends StatefulWidget {
   final Function(int) onItemClicked;
+
   const WorkManagerRightCustomButton({super.key, required this.onItemClicked});
 
   @override
@@ -33,9 +34,10 @@ class _WorkManagerRightCustomButtonState
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this,
-        duration:const Duration(milliseconds: 300),
-        reverseDuration:const Duration(milliseconds: 250));
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+      reverseDuration: const Duration(milliseconds: 250),
+    );
 
     _animation = CurvedAnimation(
         parent: _controller,
@@ -56,77 +58,78 @@ class _WorkManagerRightCustomButtonState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 250.0,
-        width: 250.0,
-        child: Stack(
-          children: [
-            if (!toggleButton)
-              AnimatedItemContainer(
-                minDuration: 275,
-                maxDuration: 875,
-                icon: Icons.message,
-                alignment: alignment1,
-                toggleButton: toggleButton,
-                size: toggleButton ? 0 : size1,
-                onTap: () => _onTap(0),
-                backgroundColor: Colors.red,
-              ),
-            if (!toggleButton)
-              AnimatedItemContainer(
-                minDuration: 275,
-                maxDuration: 875,
-                icon: Icons.phone,
-                alignment: alignment2,
-                toggleButton: toggleButton,
-                size: toggleButton ? 0 : size2,
-                onTap: () => _onTap(1),
-                backgroundColor: Colors.orange,
-              ),
-            if (!toggleButton)
-              AnimatedItemContainer(
-                minDuration: 275,
-                maxDuration: 875,
-                icon: Icons.camera,
-                alignment: alignment3,
-                toggleButton: toggleButton,
-                size: toggleButton ? 0 : size3,
-                onTap: () => _onTap(2),
-                backgroundColor: Colors.yellow,
-              ),
-            Align(
-              alignment: defaultAlignment,
-              child: Transform.rotate(
-                angle: _animation.value * pi * (3 / 4),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 375),
-                  curve: Curves.easeOut,
-                  height: toggleButton ? 70.0 : 60.0,
-                  width: toggleButton ? 70.0 : 60.0,
-                  decoration: CustomBoxDecorations.customDecoration(),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: IconButton(
-                      splashColor: Colors.orange[400],
-                      splashRadius: 32.0,
-                      onPressed: isClickable
-                          ? () {
-                              setState(() {
-                                _onTap(999);
-                              });
-                            }
-                          : null,
-                      icon: const Icon(
-                        Icons.add_comment,
-                        size: 40,
-                      ),
+    return SizedBox(
+      height: 250.0,
+      width: 250.0,
+      child: Stack(
+        children: [
+          if (!toggleButton)
+            AnimatedItemContainer(
+              minDuration: 275,
+              maxDuration: 875,
+              icon: Icons.message,
+              alignment: alignment1,
+              toggleButton: toggleButton,
+              size: toggleButton ? 0 : size1,
+              onTap: () => _onTap(0),
+              backgroundColor: Colors.red,
+            ),
+          if (!toggleButton)
+            AnimatedItemContainer(
+              minDuration: 275,
+              maxDuration: 875,
+              icon: Icons.phone,
+              alignment: alignment2,
+              toggleButton: toggleButton,
+              size: toggleButton ? 0 : size2,
+              onTap: () => _onTap(1),
+              backgroundColor: Colors.orange,
+            ),
+          if (!toggleButton)
+            AnimatedItemContainer(
+              minDuration: 275,
+              maxDuration: 875,
+              icon: Icons.add_circle_outline,
+              alignment: alignment3,
+              toggleButton: toggleButton,
+              size: toggleButton ? 0 : size3,
+              onTap: () => _onTap(2),
+              backgroundColor: Colors.yellow,
+            ),
+          Align(
+            alignment: defaultAlignment,
+            child: Transform.rotate(
+              angle: _animation.value * pi * (3 / 4),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 375),
+                curve: Curves.easeOut,
+                height: toggleButton ? 70.0 : 60.0,
+                width: toggleButton ? 70.0 : 60.0,
+                decoration: CustomBoxDecorations.customDecoration(),
+                child: Material(
+                  color: Colors.transparent,
+                  child: IconButton(
+                    splashColor: Colors.orange[400],
+                    splashRadius: 32.0,
+                    onPressed: isClickable
+                        ? () {
+                            setState(() {
+                              _onTap(999);
+                            });
+                          }
+                        : null,
+                    icon: const Icon(
+                      Icons.add_comment,
+                      size: 40,
                     ),
                   ),
                 ),
               ),
-            )
-          ],
-        ));
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   void _onTap(int index) {
