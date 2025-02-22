@@ -38,7 +38,7 @@ Future<void> main() async {
       statusBarBrightness: Brightness.light,
     ),
   );
-  // await NotificationHelper.initialize();
+
   DependencyInjection.init();
   runApp(const MainApp());
 }

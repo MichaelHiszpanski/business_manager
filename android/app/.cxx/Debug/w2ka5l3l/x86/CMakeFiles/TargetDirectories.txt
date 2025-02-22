@@ -1,0 +1,2 @@
+/Users/michalhiszpanski/Documents/Flutter_Apps/business_manager/android/app/.cxx/Debug/w2ka5l3l/x86/CMakeFiles/edit_cache.dir
+/Users/michalhiszpanski/Documents/Flutter_Apps/business_manager/android/app/.cxx/Debug/w2ka5l3l/x86/CMakeFiles/rebuild_cache.dir

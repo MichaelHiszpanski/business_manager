@@ -8,7 +8,7 @@ import 'package:business_manager/feature/services/work_manager/presentation/widg
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/work_manager_left_custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart' as sf;
 
 import '../widgets/work_manager_right_custom_button.dart';
 
@@ -20,7 +20,7 @@ class WorkManagerScreen extends StatefulWidget {
 }
 
 class _WorkManagerScreenState extends State<WorkManagerScreen> {
-  CalendarView _calendarView = CalendarView.schedule;
+  sf.CalendarView _calendarView = sf.CalendarView.schedule;
   bool toggleButton = true;
 
   @override
@@ -42,10 +42,10 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
           if (state is WorkManagerInitial) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: SfCalendar(
+              child: sf.SfCalendar(
                 key: ValueKey(_calendarView),
                 view: _calendarView,
-                timeSlotViewSettings: const TimeSlotViewSettings(
+                timeSlotViewSettings: const sf.TimeSlotViewSettings(
                   timeIntervalHeight: 60,
                   timeInterval: Duration(minutes: 60),
                   startHour: 1,
@@ -60,10 +60,10 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
           } else if (state is WorkManagerLoaded) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: SfCalendar(
+              child: sf.SfCalendar(
                 key: ValueKey(_calendarView),
                 view: _calendarView,
-                timeSlotViewSettings: const TimeSlotViewSettings(
+                timeSlotViewSettings: const sf.TimeSlotViewSettings(
                   timeIntervalHeight: 60,
                   timeInterval: Duration(minutes: 60),
                   startHour: 1,
@@ -72,7 +72,7 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
                   timeRulerSize: 60,
                   timeTextStyle: TextStyle(color: Colors.black),
                 ),
-                viewHeaderStyle: const ViewHeaderStyle(
+                viewHeaderStyle: const sf.ViewHeaderStyle(
                   dateTextStyle: TextStyle(color: Colors.black),
                 ),
                 dataSource: MeetingDataListManager(state.meetings),
@@ -129,7 +129,7 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
   }
 
   void _onCalendarEventClicked(
-      BuildContext context, CalendarTapDetails details) {
+      BuildContext context, sf.CalendarTapDetails details) {
     if (details.appointments == null || details.appointments!.isEmpty) {
       if (details.date != null) {
         _showAddEventBottomSheet(context, details.date!, false);
@@ -150,18 +150,18 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
     switch (index) {
       case 0:
         setState(() {
-          _calendarView = CalendarView.day;
+          _calendarView = sf.CalendarView.day;
         });
         break;
       case 1:
         setState(() {
-          _calendarView = CalendarView.week;
+          _calendarView = sf.CalendarView.week;
         });
         break;
       case 2:
       default:
         setState(() {
-          _calendarView = CalendarView.month;
+          _calendarView = sf.CalendarView.month;
         });
         break;
     }
@@ -174,13 +174,13 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
         break;
       case 1:
         setState(() {
-          _calendarView = CalendarView.timelineMonth;
+          _calendarView = sf.CalendarView.timelineMonth;
         });
         break;
       case 2:
       default:
         setState(() {
-          _calendarView = CalendarView.schedule;
+          _calendarView = sf.CalendarView.schedule;
         });
         break;
     }

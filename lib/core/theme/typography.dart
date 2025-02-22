@@ -74,7 +74,7 @@ TextTheme getTextTheme(Color defaultTextColor) {
       color: defaultTextColor,
     ),
     labelLarge: TextStyle(
-      fontSize: 14,
+      fontSize: 16,
       height: 1.2,
       fontWeight: FontWeight.w400,
       color: defaultTextColor,

@@ -13,7 +13,7 @@ class EmployeeDetailsDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 7,
-      color: Colors.blueGrey,
+      color: Colors.white.withOpacity(0.8),
       shadowColor: Colors.red,
       // surfaceTintColor: Colors.red,
       shape: RoundedRectangleBorder(
@@ -26,22 +26,26 @@ class EmployeeDetailsDisplay extends StatelessWidget {
           children: [
             EmployeeDisplayRow(
               icon: Icons.person,
+              label: "Name",
               text:
                   " ${employee.employeeFirstName} ${employee.employeeLastName}",
             ),
             const SizedBox(height: Constants.padding16),
             EmployeeDisplayRow(
               icon: Icons.sensor_occupied,
+              label: "Role",
               text: " ${employee.employeeRole} ",
             ),
             const SizedBox(height: Constants.padding16),
             EmployeeDisplayRow(
               icon: Icons.email,
+              label: "Email",
               text: " ${employee.employeeEmail} ",
             ),
             const SizedBox(height: Constants.padding16),
             EmployeeDisplayRow(
               icon: Icons.rate_review,
+              label: "Tasks done",
               text: employee.tasksDone.isNotEmpty
                   ? " ${employee.tasksDone.length} "
                   : "No tasks done yet",
@@ -49,6 +53,7 @@ class EmployeeDetailsDisplay extends StatelessWidget {
             const SizedBox(height: Constants.padding16),
             EmployeeDisplayRow(
               icon: Icons.data_exploration,
+              label: "Joined",
               text:
                   " ${DateFormatHelper.dateFormatWithTime(employee.employeeDateJoined)} ",
             ),
