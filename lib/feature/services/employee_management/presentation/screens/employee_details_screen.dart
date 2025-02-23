@@ -58,7 +58,8 @@ class EmployeeDetailsScreen extends StatelessWidget {
                             );
                           }
                           return const Center(
-                              child: CircularProgressIndicator());
+                            child: CircularProgressIndicator(),
+                          );
                         },
                       ),
                       const SizedBox(height: Constants.padding16),
@@ -150,7 +151,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                      const SizedBox(height: Constants.padding16),
+                      const SizedBox(height: Constants.padding46),
                       PrimaryButton(
                         onPressed: () {
                           _updatedEmployeeDetails(context, model);

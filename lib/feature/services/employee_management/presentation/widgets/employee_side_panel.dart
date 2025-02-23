@@ -23,6 +23,7 @@ class EmployeeSidePanel extends StatelessWidget {
             icon: const Icon(
               Icons.person_add_alt_1,
               size: 32,
+              color: Colors.white,
             ),
             label: Text(
               "",
@@ -39,7 +40,7 @@ class EmployeeSidePanel extends StatelessWidget {
                 horizontal: 16,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Constants.padding42),
+                borderRadius: BorderRadius.circular(Constants.radius40),
               ),
             ),
           ),

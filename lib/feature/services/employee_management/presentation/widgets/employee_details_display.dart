@@ -13,13 +13,11 @@ class EmployeeDetailsDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 7,
-      color: Colors.white.withOpacity(0.8),
+      color: Colors.orange.withOpacity(0.5),
       shadowColor: Colors.red,
-      // surfaceTintColor: Colors.red,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Constants.radius15),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Padding(
         padding: const EdgeInsets.all(Constants.padding8),
         child: Column(
