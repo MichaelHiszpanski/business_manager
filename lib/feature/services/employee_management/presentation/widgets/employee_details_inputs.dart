@@ -47,24 +47,28 @@ class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
             controller: widget.employeeFirstName,
             decoration: const InputDecoration(labelText: 'Employee first name'),
             validator: ValidationsHelper.validateTextField,
+            maxLength: 50,
           ),
           const SizedBox(height: Constants.padding16),
           TextFormField(
             controller: widget.employeeLastName,
             decoration: const InputDecoration(labelText: 'Employee last Name'),
             validator: ValidationsHelper.validateTextField,
+            maxLength: 50,
           ),
           const SizedBox(height: Constants.padding16),
           TextFormField(
             controller: widget.employeeEmail,
             decoration: const InputDecoration(labelText: 'Employee email'),
             validator: ValidationsHelper.validateEmail,
+            maxLength: 50,
           ),
           const SizedBox(height: Constants.padding16),
           TextFormField(
             controller: widget.employeeRole,
             decoration: const InputDecoration(labelText: 'Employee role'),
             validator: ValidationsHelper.validateTextField,
+            maxLength: 30,
           ),
           const SizedBox(height: Constants.padding24 * 2),
           DatePicker(

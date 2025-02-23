@@ -1,8 +1,8 @@
 import 'package:business_manager/feature/services/work_manager/models/meeting_model.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart' as sf;
 
-class MeetingDataListManager extends CalendarDataSource {
+class MeetingDataListManager extends sf.CalendarDataSource {
   MeetingDataListManager(List<Meeting> source) {
     appointments = source;
   }

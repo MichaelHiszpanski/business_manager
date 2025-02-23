@@ -24,22 +24,16 @@ dependencies:
   connectivity_plus: ^4.0.0
   get: ^4.6.5
   intl: ^0.19.0
-  flutter_local_notifications: ^17.2.3
-  timezone: ^0.9.4
+  flutter_local_notifications: ^18.0.1
+  timezone: ^0.10.0
   permission_handler: ^11.1.0
   hive_flutter: ^1.1.0
   hive: ^2.0.0
-  syncfusion_flutter_calendar: ^26.2.12
+  syncfusion_flutter_calendar: ^28.2.6
   flutter_colorpicker: ^1.1.0
   flutter_launcher_icons: ^0.14.0
   flutter_widget_from_html_core: ^0.14.11
   url_launcher: ^6.0.0
-  firebase_storage: ^12.3.3
-  firebase_core: ^3.6.0
-  cloud_firestore: ^5.4.4
-  firebase_database: ^11.1.4
-  google_sign_in: ^6.2.2
-  firebase_auth: ^5.3.1
   shared_preferences: ^2.3.0
   pdf: ^3.11.1
   printing: ^5.13.2
@@ -47,6 +41,7 @@ dependencies:
   auto_route: ^9.2.2
   supabase_flutter: ^2.8.3
   fl_chart: ^0.69.0
+  auto_size_text: ^3.0.0
 
 flutter_icons:
   image_path: "assets/images/earth.png"

@@ -13,35 +13,37 @@ class EmployeeDetailsDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 7,
-      color: Colors.blueGrey,
+      color: Colors.orange.withOpacity(0.3),
       shadowColor: Colors.red,
-      // surfaceTintColor: Colors.red,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Constants.radius15),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Padding(
         padding: const EdgeInsets.all(Constants.padding8),
         child: Column(
           children: [
             EmployeeDisplayRow(
               icon: Icons.person,
+              label: "Full Name",
               text:
                   " ${employee.employeeFirstName} ${employee.employeeLastName}",
             ),
             const SizedBox(height: Constants.padding16),
             EmployeeDisplayRow(
               icon: Icons.sensor_occupied,
+              label: "Role",
               text: " ${employee.employeeRole} ",
             ),
             const SizedBox(height: Constants.padding16),
             EmployeeDisplayRow(
               icon: Icons.email,
+              label: "Email",
               text: " ${employee.employeeEmail} ",
             ),
             const SizedBox(height: Constants.padding16),
             EmployeeDisplayRow(
               icon: Icons.rate_review,
+              label: "Tasks done",
               text: employee.tasksDone.isNotEmpty
                   ? " ${employee.tasksDone.length} "
                   : "No tasks done yet",
@@ -49,8 +51,9 @@ class EmployeeDetailsDisplay extends StatelessWidget {
             const SizedBox(height: Constants.padding16),
             EmployeeDisplayRow(
               icon: Icons.data_exploration,
+              label: "Joined",
               text:
-                  " ${DateFormatHelper.dateFormatWithTime(employee.employeeDateJoined)} ",
+                  " ${DateFormatHelper.dateFormat(employee.employeeDateJoined)} ",
             ),
           ],
         ),
