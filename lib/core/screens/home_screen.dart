@@ -61,10 +61,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: Text(
                     context.strings.app_title,
-                    style: context.text.headlineLarge
+                    style: context.text.headlineMedium
                         ?.copyWith(color: Pallete.gradient1),
                   ),
                 ),
+                const SizedBox(height: Constants.padding16),
                 CustomSideButtonMenu(
                   isUserSignedIn: isUserSignedIn,
                 ),

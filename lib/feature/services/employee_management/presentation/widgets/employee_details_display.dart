@@ -13,7 +13,7 @@ class EmployeeDetailsDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 7,
-      color: Colors.orange.withOpacity(0.5),
+      color: Colors.orange.withOpacity(0.3),
       shadowColor: Colors.red,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Constants.radius15),
@@ -24,7 +24,7 @@ class EmployeeDetailsDisplay extends StatelessWidget {
           children: [
             EmployeeDisplayRow(
               icon: Icons.person,
-              label: "Name",
+              label: "Full Name",
               text:
                   " ${employee.employeeFirstName} ${employee.employeeLastName}",
             ),
@@ -53,7 +53,7 @@ class EmployeeDetailsDisplay extends StatelessWidget {
               icon: Icons.data_exploration,
               label: "Joined",
               text:
-                  " ${DateFormatHelper.dateFormatWithTime(employee.employeeDateJoined)} ",
+                  " ${DateFormatHelper.dateFormat(employee.employeeDateJoined)} ",
             ),
           ],
         ),

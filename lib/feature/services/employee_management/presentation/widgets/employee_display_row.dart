@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EmployeeDisplayRow extends StatelessWidget {
   final IconData icon;
@@ -25,7 +26,7 @@ class EmployeeDisplayRow extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Constants.radius15),
         gradient: const LinearGradient(
-          colors: [Pallete.colorTwo, Pallete.colorSeven],
+          colors: [Pallete.colorSix, Pallete.colorSeven],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -54,16 +55,17 @@ class EmployeeDisplayRow extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    ' $label',
+                    label,
                     style: textStyle ??
                         Theme.of(context).textTheme.labelLarge?.copyWith(
                               color: Pallete.gradient1,
                               fontWeight: FontWeight.w600,
                             ),
                   ),
-                  const SizedBox(width: Constants.padding4),
+
                   AutoSizeText(
-                    text,
+                    textAlign: TextAlign.start,
+                    text.trim(),
                     style: textStyle ??
                         Theme.of(context)
                             .textTheme
@@ -71,7 +73,7 @@ class EmployeeDisplayRow extends StatelessWidget {
                             ?.copyWith(color: Colors.black),
                     maxLines: 2,
                     minFontSize: 6,
-                    overflowReplacement: Text(text),
+                    // overflowReplacement: Text(text),
                   ),
                 ],
               ),

@@ -75,6 +75,7 @@ class _EmployeeAddNewScreenState extends State<EmployeeAddNewScreen> {
                   employeeDateJoined: _employeeDateJoined,
                   onSaveData: _saveUpdateEmployee,
                 ),
+                const SizedBox(height: Constants.padding46)
               ],
             ),
           ),
