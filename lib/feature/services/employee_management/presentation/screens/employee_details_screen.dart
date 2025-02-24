@@ -24,6 +24,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
     final EmployeeModel model = args['model'];
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: CustomAppBar(title: "Employee Details", onMenuPressed: () {}),
       body: Stack(
         children: [
@@ -43,6 +44,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
+                      const SizedBox(height: Constants.padding46 * 2.1),
                       BlocBuilder<EmployeeManagementBloc,
                           EmployeeManagementState>(
                         builder: (context, state) {

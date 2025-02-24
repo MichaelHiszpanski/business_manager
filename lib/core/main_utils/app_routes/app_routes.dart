@@ -1,4 +1,4 @@
-import 'package:business_manager/core/screens/informations_screen.dart';
+import 'package:business_manager/feature/auth/informations/information_screen.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/feature/auth/profile/profile_screen.dart';
 import 'package:business_manager/feature/auth/sign_in/sign_in_screen.dart';

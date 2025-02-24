@@ -47,9 +47,9 @@ TextTheme getTextTheme(Color defaultTextColor) {
       fontFamily: AppFontFamily.orbitron,
     ),
     titleMedium: TextStyle(
-      fontSize: 18,
+      fontSize: 20,
       height: 1.25,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       color: defaultTextColor,
       fontFamily: AppFontFamily.orbitron,
     ),
@@ -66,6 +66,12 @@ TextTheme getTextTheme(Color defaultTextColor) {
       fontWeight: FontWeight.bold,
       fontFamily: AppFontFamily.orbitron,
       color: Colors.white,
+    ),
+    bodyLarge: TextStyle(
+      fontSize: 18,
+      height: 1.2,
+      fontWeight: FontWeight.w700,
+      color: defaultTextColor,
     ),
     bodySmall: TextStyle(
       fontSize: 14,

@@ -9,8 +9,6 @@ import 'package:business_manager/feature/services/invoice_manager/models/busines
 import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/expansion_tile_wrapper.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/forms/invoice_bank_details_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/forms/invoice_details_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_four.dart';
@@ -145,6 +143,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Pallete.whiteColor,
       appBar: CustomAppBar(
         title: "Invoice Service",

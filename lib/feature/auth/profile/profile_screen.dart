@@ -26,20 +26,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _user = Supabase.instance.client.auth.currentUser;
   }
 
-  Future<void> _launchURL() async {
-    final Uri url =
-        Uri.parse("https://business-manager-website.vercel.app/reset-password");
-    if (await canLaunchUrl(url)) {
-      await launchUrl(
-        url,
-        mode: LaunchMode.externalApplication,
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: CustomAppBar(
         title: context.strings.profile_name,
         onMenuPressed: () {},
@@ -60,11 +50,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Text(
                 context.strings.profile_name,
                 style: context.text.headlineLarge?.copyWith(
-                    color: Pallete.gradient1,
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold),
+                  color: Pallete.gradient1,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(height: Constants.padding16 * 5),
+              const SizedBox(height: Constants.padding32 * 4),
               Container(
                 width: double.maxFinite,
                 padding: const EdgeInsets.all(Constants.padding16),
@@ -186,5 +177,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _launchURL() async {
+    final Uri url =
+        Uri.parse("https://business-manager-website.vercel.app/reset-password");
+    if (await canLaunchUrl(url)) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+    }
   }
 }
