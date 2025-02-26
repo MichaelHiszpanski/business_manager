@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/app_properties.dart';
@@ -29,18 +31,20 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   @override
   void initState() {
     super.initState();
-
     BlocProvider.of<ToDoBloc>(context).add(const LoadToDoList());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Pallete.whiteColor,
       appBar: CustomAppBar(
         title: context.strings.to_do_app_bar_title,
         onMenuPressed: _filterShowModalBottomSheet,
         isActionButtonAvailable: true,
+        titleFontColor: Colors.white,
+        iconArrowColor: Colors.white,
       ),
       body: Stack(
         children: [

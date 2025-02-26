@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/widgets/chart_container.dart';
@@ -32,6 +33,7 @@ class _EmployeeManagementScreenState extends State<EmployeeManagementScreen> {
       appBar: CustomAppBar(
         title: "Employee Management",
         onMenuPressed: () {},
+        iconArrowColor: Pallete.gradient1,
       ),
       body: SingleChildScrollView(
         child: Column(

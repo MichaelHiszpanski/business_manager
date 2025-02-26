@@ -1,12 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/app_properties.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:business_manager/core/widgets/layouts/bg_radial_container/bg_radial_container.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_model.dart';
 import 'package:business_manager/feature/services/employee_management/presentation/widgets/add_task_dialog.dart';
@@ -23,15 +25,30 @@ class EmployeeDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
     final EmployeeModel model = args['model'];
+
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: CustomAppBar(title: "Employee Details", onMenuPressed: () {}),
+      appBar: CustomAppBar(
+        title: "Employee Details",
+        onMenuPressed: () {},
+        iconArrowColor: Pallete.gradient1,
+        background: Colors.white,
+      ),
       body: Stack(
         children: [
-          Positioned.fill(
-            child: Image.asset(
-              AppProperties.imageEmployeeDetails,
-              fit: BoxFit.cover,
+          const Positioned.fill(
+            child: BgRadialContainer(
+              colors: [
+                Pallete.colorTwo,
+                Colors.white,
+                // Colors.red,
+                // Colors.orange,
+                // Colors.yellow,
+                // Colors.lightBlue,
+                // Colors.purpleAccent,
+                // Colors.grey,
+              ],
+              child: SizedBox.shrink(),
             ),
           ),
           SingleChildScrollView(
@@ -43,6 +60,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                     vertical: Constants.padding16,
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: Constants.padding46 * 2.1),
                       BlocBuilder<EmployeeManagementBloc,
@@ -107,7 +125,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: Constants.padding16),
+                      const SizedBox(height: Constants.padding16 * 8),
                       Expanded(
                         child: BlocBuilder<EmployeeManagementBloc,
                             EmployeeManagementState>(

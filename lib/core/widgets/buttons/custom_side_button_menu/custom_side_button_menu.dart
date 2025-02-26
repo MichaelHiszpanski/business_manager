@@ -72,7 +72,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
         child: Stack(
           children: [
             AnimatedItemContainerSideMenu(
-              key: Key('icon1'),
+              key: const Key('icon1'),
               minDuration: 275,
               maxDuration: 875,
               icon: Icons.checklist,
@@ -83,7 +83,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
               color: Colors.red[400] ?? Colors.red,
             ),
             AnimatedItemContainerSideMenu(
-              key: Key('icon2'),
+              key: const Key('icon2'),
               minDuration: 275,
               maxDuration: 875,
               icon: Icons.account_balance,
@@ -95,7 +95,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
             ),
             if (widget.isUserSignedIn) ...[
               AnimatedItemContainerSideMenu(
-                key: Key('icon3'),
+                key: const Key('icon3'),
                 minDuration: 275,
                 maxDuration: 875,
                 icon: Icons.people,
@@ -248,11 +248,11 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
       });
       Future.delayed(const Duration(milliseconds: 250), () {
         alignment4 = const Alignment(0.8, 0.0);
-        size3 = 50.0;
+        size3 = 60.0;
       });
       Future.delayed(const Duration(milliseconds: 300), () {
         alignment5 = const Alignment(0.0, -0.6);
-        size3 = 50.0;
+        size3 = 60.0;
       });
     } else {
       toggleButton = !toggleButton;

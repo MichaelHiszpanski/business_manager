@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class EmployeeDisplayRow extends StatelessWidget {
   final IconData icon;
@@ -62,14 +61,13 @@ class EmployeeDisplayRow extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                   ),
-
                   AutoSizeText(
                     textAlign: TextAlign.start,
                     text.trim(),
                     style: textStyle ??
                         Theme.of(context)
                             .textTheme
-                            .titleMedium
+                            .displaySmall
                             ?.copyWith(color: Colors.black),
                     maxLines: 2,
                     minFontSize: 6,
