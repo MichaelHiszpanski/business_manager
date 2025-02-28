@@ -64,7 +64,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                       child: Text(
                         context.strings.to_do_list_empty_message,
                         style: context.text.headlineMedium?.copyWith(
-                          color: Colors.black,
+                          color: Pallete.colorFive,
                         ),
                       ),
                     );
