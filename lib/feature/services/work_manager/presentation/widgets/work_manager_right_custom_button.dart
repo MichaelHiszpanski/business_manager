@@ -67,7 +67,7 @@ class _WorkManagerRightCustomButtonState
             AnimatedItemContainer(
               minDuration: 275,
               maxDuration: 875,
-              icon: Icons.message,
+              icon: Icons.event,
               alignment: alignment1,
               toggleButton: toggleButton,
               size: toggleButton ? 0 : size1,
@@ -78,7 +78,7 @@ class _WorkManagerRightCustomButtonState
             AnimatedItemContainer(
               minDuration: 275,
               maxDuration: 875,
-              icon: Icons.phone,
+              icon: Icons.next_week,
               alignment: alignment2,
               toggleButton: toggleButton,
               size: toggleButton ? 0 : size2,

@@ -27,6 +27,7 @@ class EmployeeTasksListContainer extends StatelessWidget {
       padding: const EdgeInsets.all(Constants.padding16),
       child: ListView.builder(
         itemCount: updatedEmployee.employeeTaskList.length,
+        padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
           final task = updatedEmployee.employeeTaskList[index];
           final bool isTaskDone = task.isDone;

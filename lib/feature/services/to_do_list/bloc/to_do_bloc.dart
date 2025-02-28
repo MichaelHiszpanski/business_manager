@@ -59,7 +59,6 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
       emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
     } else {
       emit(const ToDoLoadSuccess(toDoList: []));
-
     }
   }
 
@@ -87,7 +86,6 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     await box.put(HiveToDoListProperties.TO_DO_LIST_DATA_KEY, toDoNewList);
     emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
   }
-
 
   FutureOr<void> _onRemoveToDoListItem(
       RemoveToDoListItem event, Emitter<ToDoState> emit) async {
@@ -145,7 +143,7 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     final now = DateTime.now();
     _toDoList.removeWhere((todo) => todo.expiredDate.isBefore(now));
     _notificationAlertListGenerator(_toDoList);
-    print("test1");
+
     emit(ToDoLoadSuccess(toDoList: List.from(_toDoList)));
   }
 
@@ -155,16 +153,12 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     List<ToDoItem> tasksWithLessThan24HoursLeft = [];
 
     for (var item in toDoList) {
-      print("test2");
       final difference = item.expiredDate.difference(now);
       if (item.priority == PriorityLevelEnum.MEDIUM ||
           item.priority == PriorityLevelEnum.HIGH) {
-        print("test2.1? ${difference.inHours} ${item.expiredDate} ${now}");
         if (difference.inHours >= 24 && difference.inHours < 72) {
-          print("test3");
           tasksBetweenOneAndThreeDaysLeft.add(item);
         } else if (difference.inHours < 24) {
-          print("test24");
           tasksWithLessThan24HoursLeft.add(item);
         }
       }

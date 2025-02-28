@@ -42,7 +42,7 @@ class PrimaryButton extends StatelessWidget {
                 child: Text(
                   buttonText,
                   style: const TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 22.0,
                     fontWeight: FontWeight.bold,
                     fontFamily: AppFontFamily.orbitron,
                     color: Colors.white,

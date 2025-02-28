@@ -5,6 +5,7 @@ import 'package:business_manager/core/tools/app_properties.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_side_button_menu/custom_side_button_menu.dart';
+import 'package:business_manager/core/widgets/layouts/bg_linear_container/bg_linear_container.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/widgets/custom_floating_action_button.dart';
 import 'package:business_manager/main.dart';
 import 'package:flutter/material.dart';
@@ -37,39 +38,41 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.black45,
       body: Stack(
         children: [
-          Positioned.fill(
-            child: Image.asset(
-              AppProperties.imageHome,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(200.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white.withOpacity(0.5),
-                        blurRadius: 10.0,
-                        offset: const Offset(4, 4),
-                      ),
-                    ],
+          BgLinearContainer(
+            colors:const [
+              Pallete.gradient1,
+              Pallete.colorTwo,
+              Pallete.colorSix,
+              Pallete.colorSix
+            ],
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(200.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.white.withOpacity(0.5),
+                          blurRadius: 10.0,
+                          offset: const Offset(4, 4),
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      context.strings.app_title,
+                      style: context.text.headlineMedium
+                          ?.copyWith(color: Pallete.gradient1),
+                    ),
                   ),
-                  child: Text(
-                    context.strings.app_title,
-                    style: context.text.headlineMedium
-                        ?.copyWith(color: Pallete.gradient1),
+                  const SizedBox(height: Constants.padding16),
+                  CustomSideButtonMenu(
+                    isUserSignedIn: isUserSignedIn,
                   ),
-                ),
-                const SizedBox(height: Constants.padding16),
-                CustomSideButtonMenu(
-                  isUserSignedIn: isUserSignedIn,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Positioned(

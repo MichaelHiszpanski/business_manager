@@ -1,6 +1,7 @@
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/theme/colors.dart';
+import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_model.dart';
@@ -32,7 +33,6 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
               child: employeeList.isEmpty
                   ? Center(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "Add New Employee.",
@@ -43,49 +43,76 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
                         ],
                       ),
                     )
-                  : ListWheelScrollView.useDelegate(
-                      itemExtent: 50,
-                      useMagnifier: true,
-                      magnification: 1.5,
-                      diameterRatio: 1.5,
-                      physics: const FixedExtentScrollPhysics(),
-                      onSelectedItemChanged: (index) {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                      },
-                      childDelegate: ListWheelChildBuilderDelegate(
-                        builder: (context, index) {
-                          if (index < 0 || index >= employeeList.length) {
-                            return Text(
-                              "No Employee",
-                              style: context.text.titleMedium,
-                            );
-                          }
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Constants.padding16,
+                      ),
+                      child: ListWheelScrollView.useDelegate(
+                        itemExtent: 60,
+                        useMagnifier: true,
+                        magnification:1,
+                        diameterRatio: 2,
+                        physics: const FixedExtentScrollPhysics(),
+                        onSelectedItemChanged: (index) {
+                          setState(() {
+                            selectedIndex = index;
+                          });
+                        },
+                        childDelegate:
+                        ListWheelChildBuilderDelegate(
+                          builder: (context, index) {
+                            if (index < 0 || index >= employeeList.length) {
+                              return Text(
+                                "No Employee",
+                                style: context.text.titleMedium,
+                              );
+                            }
 
-                          final employee = employeeList[index];
-                          return InkWell(
-                            onTap: () {
-                              _navigateToProfile(index, employee);
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              color: selectedIndex == index
-                                  ? Colors.black38
-                                  : Colors.transparent,
-                              child: Text(
-                                "${employee.employeeFirstName} ${employee.employeeLastName}",
-                                style: TextStyle(
-                                  fontSize: 18,
+                            final employee = employeeList[index];
+                            return InkWell(
+                              onTap: () {
+                                _navigateToProfile(index, employee);
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(Constants.radius30)),
                                   color: selectedIndex == index
-                                      ? Colors.white
-                                      : Colors.white,
+                                      ? Colors.white70
+                                      : Colors.transparent,
+                                ),
+                                // padding: const EdgeInsets.symmetric(horizontal: 16.0),
+
+                                child: Row(
+                                  children: [
+                                    const SizedBox(width: Constants.padding4),
+                                    Icon(
+                                      Icons.person_4,
+                                      size: 34,
+                                      color: selectedIndex == index
+                                          ? Colors.black
+                                          : Pallete.gradient1,
+                                    ),
+                                    const SizedBox(width: Constants.padding16),
+                                    Expanded(
+                                      child: Text(
+                                        "${employee.employeeFirstName} ${employee.employeeLastName}",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: selectedIndex == index
+                                              ? Colors.black
+                                              : Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                        childCount: employeeList.length,
+                            );
+                          },
+                          childCount: employeeList.length,
+                        ),
                       ),
                     ),
             ),

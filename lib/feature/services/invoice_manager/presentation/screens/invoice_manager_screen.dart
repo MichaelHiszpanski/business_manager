@@ -3,14 +3,13 @@ import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:business_manager/core/widgets/layouts/bg_linear_container/bg_linear_container.dart';
 import 'package:business_manager/feature/services/invoice_manager/bloc/invoice_manager_bloc.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/bank_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/business_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/expansion_tile_wrapper.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/forms/invoice_bank_details_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/forms/invoice_details_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_four.dart';
@@ -145,24 +144,13 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Pallete.whiteColor,
       appBar: CustomAppBar(
         title: "Invoice Service",
         onMenuPressed: () {},
       ),
-      body: Container(
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              Pallete.colorSix.withOpacity(0.55),
-              // Pallete.colorOne.withOpacity(0.75),
-            ],
-            begin: Alignment.bottomLeft,
-            end: Alignment.topCenter,
-          ),
-        ),
+      body: BgLinearContainer(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
           child: Stepper(
@@ -338,7 +326,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                         ),
                       ),
                     ],
-                    const SizedBox(width:  Constants.padding16),
+                    const SizedBox(width: Constants.padding16),
                     if (_currentStep > 0)
                       Container(
                         decoration: BoxDecoration(
@@ -571,7 +559,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     return StepStyle(
         connectorColor: Pallete.colorSeven,
         gradient: const LinearGradient(
-          colors: [Pallete.colorSeven, Pallete.colorSix],
+          colors: [Pallete.colorTwo, Pallete.colorFour],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

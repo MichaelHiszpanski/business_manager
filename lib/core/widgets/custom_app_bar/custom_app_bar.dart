@@ -6,29 +6,35 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback onMenuPressed;
   final bool? isActionButtonAvailable;
+  final Color titleFontColor;
+  final Color iconArrowColor;
+  final Color background;
 
   const CustomAppBar({
     super.key,
     required this.title,
     required this.onMenuPressed,
     this.isActionButtonAvailable = false,
+    this.titleFontColor = Pallete.gradient1,
+    this.iconArrowColor = Pallete.colorOne,
+    this.background = Colors.transparent,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: background,
       title: Text(
         title,
-        style: const TextStyle(
-          color: Pallete.gradient1,
+        style: TextStyle(
+          color: titleFontColor,
           fontFamily: AppFontFamily.marker,
           fontSize: 24,
         ),
       ),
       iconTheme: IconThemeData(
-        color: Pallete.colorOne,
-        size: 28,
+        color: iconArrowColor,
+        size: 30,
         shadows: [
           BoxShadow(
             color: Colors.black38.withOpacity(0.2),
