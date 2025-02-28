@@ -3,7 +3,7 @@ import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
-import 'package:business_manager/core/widgets/layouts/bg_contaner/bg_container.dart';
+import 'package:business_manager/core/widgets/layouts/bg_linear_container/bg_linear_container.dart';
 import 'package:business_manager/feature/services/invoice_manager/bloc/invoice_manager_bloc.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/bank_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/business_details_model.dart';
@@ -150,7 +150,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         title: "Invoice Service",
         onMenuPressed: () {},
       ),
-      body: BgContainer(
+      body: BgLinearContainer(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: Constants.padding16),
           child: Stepper(

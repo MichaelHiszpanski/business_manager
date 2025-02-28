@@ -4,7 +4,7 @@ import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
-import 'package:business_manager/core/widgets/layouts/height_layout/height_layout.dart';
+import 'package:business_manager/core/widgets/layouts/bg_sweep_container/bg_sweep_container.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,24 +33,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: CustomAppBar(
         title: context.strings.profile_name,
         onMenuPressed: () {},
+        titleFontColor: Colors.white,
+        iconArrowColor: Colors.white,
       ),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/signin1.jpg',
-              fit: BoxFit.cover,
-            ),
-          ),
-          HeightLayout(
-              childWidget: Column(
+      body: BgSweepContainer(
+        colors: const [
+          Pallete.gradient1,
+          Colors.white,
+          Colors.red,
+          Colors.green,
+          Colors.blue
+        ],
+        child: Padding(
+          padding: const EdgeInsets.all(Constants.padding16),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const Spacer(),
               Text(
                 context.strings.profile_name,
                 style: context.text.headlineLarge?.copyWith(
-                  color: Pallete.gradient1,
+                  color: Pallete.colorOne,
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),
@@ -173,8 +176,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: Constants.padding16 * 4),
               const Spacer(),
             ],
-          ))
-        ],
+          ),
+        ),
       ),
     );
   }

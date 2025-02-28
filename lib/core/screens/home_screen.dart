@@ -5,7 +5,7 @@ import 'package:business_manager/core/tools/app_properties.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_side_button_menu/custom_side_button_menu.dart';
-import 'package:business_manager/core/widgets/layouts/bg_contaner/bg_container.dart';
+import 'package:business_manager/core/widgets/layouts/bg_linear_container/bg_linear_container.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/widgets/custom_floating_action_button.dart';
 import 'package:business_manager/main.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.black45,
       body: Stack(
         children: [
-          BgContainer(
+          BgLinearContainer(
             colors:const [
               Pallete.gradient1,
               Pallete.colorTwo,

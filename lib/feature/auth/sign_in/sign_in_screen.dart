@@ -8,7 +8,8 @@ import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/tools/network_controler.dart';
 import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
-import 'package:business_manager/core/widgets/layouts/height_layout/height_layout.dart';
+import 'package:business_manager/core/widgets/layouts/bg_sweep_container/bg_sweep_container.dart';
+import 'package:business_manager/core/widgets/layouts/center_column_layout/center_column_layout.dart';
 import 'package:business_manager/core/widgets/outlined_text_field/outlined_text_field.dart';
 import 'package:business_manager/main.dart';
 import 'package:flutter/material.dart';
@@ -33,143 +34,138 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: CustomAppBar(
         title: context.strings.sign_in,
         onMenuPressed: () {},
+        titleFontColor: Pallete.colorOne,
       ),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              AppProperties.imageSignInScreen,
-              fit: BoxFit.cover,
+      body: BgSweepContainer(
+        colors: const [
+          Colors.black,
+          Pallete.colorSix,
+          Pallete.colorSeven,
+          Pallete.gradient1,
+        ],
+        child: CenterColumnLayout(
+          children: [
+            if (_errorMessage != null && _errorMessage != "") ...[
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(Constants.padding4),
+                decoration: const BoxDecoration(
+                  color: Colors.white38,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(Constants.radius25),
+                  ),
+                ),
+                child: Text(
+                  _errorMessage!,
+                  textAlign: TextAlign.center,
+                  style: context.text.bodyLarge?.copyWith(
+                    color: Colors.red,
+                    fontWeight: FontWeight.w700,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ],
+            const SizedBox(height: Constants.padding16),
+            Text(
+              context.strings.app_name,
+              style: context.text.headlineMedium?.copyWith(),
             ),
-          ),
-          HeightLayout(
-            childWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Spacer(),
-                if (_errorMessage != null && _errorMessage != "") ...[
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(Constants.padding4),
-                    decoration: const BoxDecoration(
-                      color: Colors.white38,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(Constants.radius25),
-                      ),
-                    ),
-                    child: Text(
-                      _errorMessage!,
-                      textAlign: TextAlign.center,
-                      style: context.text.bodyLarge?.copyWith(
-                        color: Colors.red,
-                        fontWeight: FontWeight.w700,
-                        height: 1.5,
-                      ),
-                    ),
-                  ),
-                ],
-                const SizedBox(height: Constants.padding16),
-                Text(
-                  context.strings.app_name,
-                  style: context.text.headlineMedium?.copyWith(),
-                ),
-                const SizedBox(height: Constants.padding16),
-                Text(
-                  context.strings.sign_in,
-                  style: context.text.headlineLarge?.copyWith(
-                    color: Pallete.gradient1,
-                  ),
-                ),
-                const SizedBox(height: Constants.padding16 * 3),
-                OutlinedTextField(
-                  labelText: context.strings.email,
-                  hintText: context.strings.enter_emial,
-                  inputValue: _emailController,
-                ),
-                const SizedBox(height: Constants.padding16),
-                OutlinedTextField(
-                  labelText: context.strings.password,
-                  hintText: context.strings.enter_password,
-                  inputValue: _passwordController,
-                ),
-                const SizedBox(height: Constants.padding16 * 4),
-                PrimaryButton(
-                  onPressed: () => (_isLoading ||
-                          !NetworkController.isNetworkConnected.value)
+            const SizedBox(height: Constants.padding16),
+            Text(
+              context.strings.sign_in,
+              style: context.text.headlineLarge?.copyWith(
+                color: Pallete.gradient1,
+              ),
+            ),
+            const SizedBox(height: Constants.padding16 * 3),
+            OutlinedTextField(
+              labelText: context.strings.email,
+              hintText: context.strings.enter_emial,
+              inputValue: _emailController,
+            ),
+            const SizedBox(height: Constants.padding16),
+            OutlinedTextField(
+              labelText: context.strings.password,
+              hintText: context.strings.enter_password,
+              inputValue: _passwordController,
+            ),
+            const SizedBox(height: Constants.padding16 * 4),
+            PrimaryButton(
+              onPressed: () =>
+                  (_isLoading || !NetworkController.isNetworkConnected.value)
                       ? null
                       : _signInWithSupabase(),
-                  buttonText: context.strings.sign_in_with_email,
-                ),
-                const SizedBox(height: Constants.padding16 * 2),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(Constants.padding4),
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(Constants.radius25),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        context.strings.sign_in_no_account_message,
-                        style: context.text.bodyLarge?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          height: 1.5,
-                        ),
-                        textAlign: TextAlign.center,
-                        softWrap: true,
-                      ),
-                      Text(
-                        context.strings.sign_in_go_to_website_message,
-                        style: context.text.bodyLarge?.copyWith(
-                          color: Pallete.gradient1,
-                          fontWeight: FontWeight.w700,
-                          height: 1.5,
-                        ),
-                        textAlign: TextAlign.center,
-                        softWrap: true,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: Constants.padding16),
-                Container(
-                  width: double.maxFinite,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(Constants.radius10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 3,
-                        blurRadius: 6,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  child: ElevatedButton(
-                    onPressed: _launchURL,
-                    style: ButtonStyle(
-                      backgroundColor:
-                          WidgetStateProperty.all(Pallete.gradient1),
-                    ),
-                    child: Text(
-                      context.strings.sign_up,
-                      style: context.text.displayMedium,
-                    ),
-                  ),
-                ),
-                const Spacer(),
-              ],
+              buttonText: context.strings.sign_in_with_email,
             ),
-          ),
-        ],
+            const SizedBox(height: Constants.padding16 * 2),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(Constants.padding4),
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(Constants.radius25),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    context.strings.sign_in_no_account_message,
+                    style: context.text.bodyLarge?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                    ),
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                  ),
+                  Text(
+                    context.strings.sign_in_go_to_website_message,
+                    style: context.text.bodyLarge?.copyWith(
+                      color: Pallete.gradient1,
+                      fontWeight: FontWeight.w700,
+                      height: 1.5,
+                    ),
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: Constants.padding16),
+            Container(
+              width: double.maxFinite,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Constants.radius10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 3,
+                    blurRadius: 6,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: ElevatedButton(
+                onPressed: _launchURL,
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(Pallete.gradient1),
+                ),
+                child: Text(
+                  context.strings.sign_up,
+                  style: context.text.displayMedium,
+                ),
+              ),
+            ),
+            // const Spacer(),
+          ],
+        ),
       ),
     );
   }

@@ -1,13 +1,13 @@
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-class BgContainer extends StatelessWidget {
+class BgLinearContainer extends StatelessWidget {
   final Widget child;
   final List<Color>? colors;
   final Alignment? beginCustom;
   final Alignment? endCustom;
 
-  const BgContainer({
+  const BgLinearContainer({
     super.key,
     required this.child,
     this.colors,

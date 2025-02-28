@@ -125,7 +125,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: Constants.padding16 * 8),
+                      const SizedBox(height: Constants.padding32),
                       Expanded(
                         child: BlocBuilder<EmployeeManagementBloc,
                             EmployeeManagementState>(
@@ -234,6 +234,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                 context.read<EmployeeManagementBloc>().add(
                       RemoveEmployee(employeeID: employeeID),
                     );
+                Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
               child: Text(

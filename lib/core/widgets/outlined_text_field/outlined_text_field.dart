@@ -28,20 +28,20 @@ class _OutlinedTextFieldState extends State<OutlinedTextField> {
         labelStyle: const TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: Pallete.colorSix,
+          color: Pallete.colorOne,
         ),
         hintText: widget.hintText,
         filled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Constants.radius15),
           borderSide: const BorderSide(
-            color: Pallete.colorFour,
+            color: Pallete.colorOne,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Constants.radius15),
           borderSide: const BorderSide(
-            color: Pallete.colorFive,
+            color: Pallete.colorOne,
           ),
         ),
         focusedBorder: OutlineInputBorder(

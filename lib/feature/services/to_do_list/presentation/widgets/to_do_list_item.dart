@@ -23,10 +23,10 @@ class ToDoListItem extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.85),
+          color: Colors.white.withOpacity(0.55),
           border: Border.all(
             color: PriorityDropdown.getPriorityColor(todo.priority),
-            width: 3,
+            width: 4,
             style: BorderStyle.solid,
           ),
           borderRadius: const BorderRadius.all(
@@ -66,7 +66,7 @@ class ToDoListItem extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.edit),
                     constraints: const BoxConstraints(),
-                    iconSize: 20,
+                    iconSize: 22,
                     color: Colors.orange,
                     onPressed: () {
                       Navigator.of(context).push(
@@ -79,7 +79,7 @@ class ToDoListItem extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.delete),
                     constraints: const BoxConstraints(),
-                    iconSize: 20,
+                    iconSize: 22,
                     color: Colors.red,
                     onPressed: () {
                       context.read<ToDoBloc>().add(

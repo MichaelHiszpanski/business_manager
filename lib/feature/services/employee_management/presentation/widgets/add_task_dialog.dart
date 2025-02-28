@@ -37,56 +37,59 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                controller: _taskTitleController,
-                decoration: const InputDecoration(labelText: "Task Title"),
-                validator: _validateField,
-                maxLength: 50,
-                minLines: 1,
-                maxLines: 5,
-              ),
-              const SizedBox(height: Constants.padding16),
-              TextFormField(
-                controller: _taskDescriptionController,
-                decoration: const InputDecoration(
-                  labelText: "Task Description",
-                  border: OutlineInputBorder(),
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: _taskTitleController,
+                  decoration: const InputDecoration(labelText: "Task Title"),
+                  validator: _validateField,
+                  maxLength: 50,
+                  minLines: 1,
+                  maxLines: 5,
                 ),
-                validator: _validateField,
-                minLines: 2,
-                maxLength: 200,
-                maxLines: 10,
-              ),
-              const SizedBox(height: Constants.padding16),
-              DatePicker(
-                onDateSelected: (selectedDate) {
-                  setState(() {
-                    _checkInTime = selectedDate;
-                  });
-                },
-                selectedDate: _checkInTime,
-                buttonText: "Check-In Time",
-                startingDate: DateTime(1980),
-                backgroundColor: Colors.green,
-              ),
-              const SizedBox(height: Constants.padding16),
-              DatePicker(
-                onDateSelected: (selectedDate) {
-                  setState(() {
-                    _checkOutTime = selectedDate;
-                  });
-                },
-                selectedDate: _checkOutTime,
-                buttonText: "Check-Out Time",
-                startingDate: DateTime(1980),
-                backgroundColor: Colors.blue,
+                const SizedBox(height: Constants.padding16),
+                TextFormField(
+                  controller: _taskDescriptionController,
+                  decoration: const InputDecoration(
+                    labelText: "Task Description",
+                    // border: OutlineInputBorder(),
+                  ),
+                  validator: _validateField,
+                  minLines: 2,
+                  maxLength: 200,
+                  maxLines: 10,
+                ),
+                const SizedBox(height: Constants.padding32),
+                DatePicker(
+                  onDateSelected: (selectedDate) {
+                    setState(() {
+                      _checkInTime = selectedDate;
+                    });
+                  },
+                  selectedDate: _checkInTime,
+                  buttonText: "Check-In Time",
+                  startingDate: DateTime(1980),
+                  backgroundColor: Colors.green,
+                ),
+                const SizedBox(height: Constants.padding16),
+                DatePicker(
+                  onDateSelected: (selectedDate) {
+                    setState(() {
+                      _checkOutTime = selectedDate;
+                    });
+                  },
+                  selectedDate: _checkOutTime,
+                  buttonText: "Check-Out Time",
+                  startingDate: DateTime(1980),
+                  backgroundColor: Colors.blue,
 
-              ),
-              const SizedBox(height: Constants.padding16),
-            ],
+                ),
+                const SizedBox(height: Constants.padding16),
+              ],
+            ),
           ),
         ),
       ),
