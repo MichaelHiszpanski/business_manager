@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
@@ -8,6 +10,7 @@ import 'package:business_manager/core/widgets/filter_menu/filter_menu_to_do_list
 import 'package:business_manager/core/enums/fliter_menu_to_do_list_enum.dart';
 import 'package:business_manager/core/enums/piority_level_enum.dart';
 import 'package:business_manager/core/widgets/layouts/beam_container/beam_container.dart';
+import 'package:business_manager/core/widgets/layouts/bg_linear_container/bg_linear_container.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:business_manager/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/widgets/custom_floating_action_button.dart';
@@ -46,65 +49,80 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
         iconArrowColor: Colors.black,
         background: Colors.white,
       ),
-      body: BeamContainer(
-        children: [
-          Expanded(
-            child: BlocBuilder<ToDoBloc, ToDoState>(
-              builder: (context, state) {
-                if (state is ToDoInitial) {
+      body: BgLinearContainer(
+        child: Expanded(
+          child: BlocBuilder<ToDoBloc, ToDoState>(
+            builder: (context, state) {
+              if (state is ToDoInitial) {
+                return Center(
+                  child: Text(context.strings.to_do_list_empty_message),
+                );
+              } else if (state is ToDoLoading) {
+                return const LoadAppDataScreen();
+              } else if (state is ToDoLoadSuccess) {
+                final toDoList = _filteredToDos(state.toDoList);
+                if (toDoList.isEmpty) {
                   return Center(
-                    child: Text(context.strings.to_do_list_empty_message),
-                  );
-                } else if (state is ToDoLoading) {
-                  return const LoadAppDataScreen();
-                } else if (state is ToDoLoadSuccess) {
-                  final toDoList = _filteredToDos(state.toDoList);
-                  if (toDoList.isEmpty) {
-                    return Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Constants.padding16,
+                        vertical: Constants.padding8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(Constants.radius20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Pallete.colorSeven.withOpacity(0.5),
+                            blurRadius: 10.0,
+                            offset: const Offset(4, 4),
+                          ),
+                        ],
+                      ),
                       child: Text(
                         context.strings.to_do_list_empty_message,
                         style: context.text.headlineMedium?.copyWith(
-                          color: Pallete.colorFive,
-                        ),
-                      ),
-                    );
-                  }
-
-                  _checkForExpiredItems();
-
-                  return ListWheelScrollView.useDelegate(
-                    itemExtent: 210,
-                    physics: const FixedExtentScrollPhysics(),
-                    diameterRatio: 5,
-                    squeeze: 1,
-                    childDelegate: ListWheelChildBuilderDelegate(
-                      childCount: toDoList.length,
-                      builder: (context, index) {
-                        final todo = toDoList[index];
-
-                        return ToDoListItem(todo: todo);
-                      },
-                    ),
-                  );
-                } else if (state is ToDoError) {
-                  return Padding(
-                    padding: const EdgeInsets.all(Constants.padding16),
-                    child: Center(
-                      child: Text(
-                        context.strings.to_do_error_message,
-                        style: context.text.headlineSmall?.copyWith(
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     ),
                   );
-                } else {
-                  return const LoadAppDataScreen();
                 }
-              },
-            ),
+
+                _checkForExpiredItems();
+
+                return ListWheelScrollView.useDelegate(
+                  itemExtent: 210,
+                  physics: const FixedExtentScrollPhysics(),
+                  diameterRatio: 5,
+                  squeeze: 1,
+                  childDelegate: ListWheelChildBuilderDelegate(
+                    childCount: toDoList.length,
+                    builder: (context, index) {
+                      final todo = toDoList[index];
+
+                      return ToDoListItem(todo: todo);
+                    },
+                  ),
+                );
+              } else if (state is ToDoError) {
+                return Padding(
+                  padding: const EdgeInsets.all(Constants.padding16),
+                  child: Center(
+                    child: Text(
+                      context.strings.to_do_error_message,
+                      style: context.text.headlineSmall?.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return const LoadAppDataScreen();
+              }
+            },
           ),
-        ],
+        ),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 60.0),

@@ -30,6 +30,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordController = TextEditingController();
   String? _errorMessage;
   bool _isLoading = false;
+  bool _isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +94,9 @@ class _SignInScreenState extends State<SignInScreen> {
               labelText: context.strings.password,
               hintText: context.strings.enter_password,
               inputValue: _passwordController,
+              isPassword: true,
             ),
+
             const SizedBox(height: Constants.padding16 * 4),
             PrimaryButton(
               onPressed: () =>
