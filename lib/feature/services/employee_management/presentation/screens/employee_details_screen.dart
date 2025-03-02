@@ -46,7 +46,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                 // Colors.yellow,
                 // Colors.lightBlue,
                 // Colors.purpleAccent,
-                // Colors.grey,
+                Colors.grey,
               ],
               child: SizedBox.shrink(),
             ),
@@ -63,25 +63,6 @@ class EmployeeDetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: Constants.padding46 * 2.1),
-                      BlocBuilder<EmployeeManagementBloc,
-                          EmployeeManagementState>(
-                        builder: (context, state) {
-                          if (state is EmployeeManagementLoaded) {
-                            final updatedEmployee =
-                                state.employeeDataList.firstWhere(
-                              (employee) =>
-                                  employee.employeeID == model.employeeID,
-                              orElse: () => model,
-                            );
-                            return EmployeeDetailsDisplay(
-                              employee: updatedEmployee,
-                            );
-                          }
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
-                      ),
                       const SizedBox(height: Constants.padding16),
                       Row(
                         children: [
@@ -123,6 +104,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          const SizedBox(height: Constants.padding12),
                         ],
                       ),
                       const SizedBox(height: Constants.padding32),
@@ -142,7 +124,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                 return Container(
                                   width: double.infinity,
                                   height:
-                                      MediaQuery.of(context).size.height * 0.3,
+                                      MediaQuery.of(context).size.height * 0.4,
                                   decoration: BoxDecoration(
                                     color: Colors.black.withOpacity(0.3),
                                     borderRadius: BorderRadius.circular(
@@ -172,13 +154,33 @@ class EmployeeDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: Constants.padding46),
+                      BlocBuilder<EmployeeManagementBloc,
+                          EmployeeManagementState>(
+                        builder: (context, state) {
+                          if (state is EmployeeManagementLoaded) {
+                            final updatedEmployee =
+                                state.employeeDataList.firstWhere(
+                              (employee) =>
+                                  employee.employeeID == model.employeeID,
+                              orElse: () => model,
+                            );
+                            return EmployeeDetailsDisplay(
+                              employee: updatedEmployee,
+                            );
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: Constants.padding46),
                       PrimaryButton(
                         onPressed: () {
                           _updatedEmployeeDetails(context, model);
                         },
                         buttonText: "Edit Employee Details",
                       ),
-                      const SizedBox(height: Constants.padding16),
+                      const SizedBox(height: Constants.padding32),
                       CustomFloatingButton(
                         onPressed: () {
                           _deleteEmployee(context, model.employeeID!);
