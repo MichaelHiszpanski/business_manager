@@ -23,8 +23,9 @@ class EmployeeTasksListContainer extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * 0.4,
       decoration: BoxDecoration(
-        color: Pallete.colorSix.withOpacity(0.5),
+        color: Colors.white.withOpacity(0.7),
         borderRadius: BorderRadius.circular(Constants.padding16),
+        border: Border.all(color: Pallete.gradient1, width: 2.0),
       ),
       padding: const EdgeInsets.all(Constants.padding16),
       child: ListView.builder(

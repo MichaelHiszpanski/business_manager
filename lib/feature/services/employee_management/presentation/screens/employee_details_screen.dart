@@ -39,14 +39,14 @@ class EmployeeDetailsScreen extends StatelessWidget {
           const Positioned.fill(
             child: BgRadialContainer(
               colors: [
-                Pallete.colorTwo,
-                Colors.white,
+                Pallete.colorSix,
+                Colors.black87,
                 // Colors.red,
-                // Colors.orange,
+                Pallete.colorSix
                 // Colors.yellow,
                 // Colors.lightBlue,
                 // Colors.purpleAccent,
-                Colors.grey,
+                // Colors.grey,
               ],
               child: SizedBox.shrink(),
             ),
@@ -71,6 +71,8 @@ class EmployeeDetailsScreen extends StatelessWidget {
                               color: Colors.white,
                               borderRadius:
                                   BorderRadius.circular(Constants.radius30),
+                              border: Border.all(
+                                  color: Pallete.gradient1, width: 2.0),
                             ),
                             padding: const EdgeInsets.symmetric(
                               horizontal: Constants.padding16,
@@ -83,9 +85,22 @@ class EmployeeDetailsScreen extends StatelessWidget {
                             ),
                           ),
                           const Spacer(),
-                          SizedBox(
-                            height: 40,
+                          Container(
                             width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              // color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Pallete.gradient1.withOpacity(0.8),
+                                  spreadRadius: 1,
+                                  blurRadius: 7,
+                                  offset: const Offset(2, 2),
+                                ),
+                              ],
+                              borderRadius:
+                                  BorderRadius.circular(Constants.radius10),
+                            ),
                             child: FloatingActionButton(
                               backgroundColor: Colors.green,
                               onPressed: () {
