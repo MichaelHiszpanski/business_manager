@@ -12,6 +12,7 @@ import 'package:business_manager/feature/services/invoice_manager/models/invoice
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/forms/invoice_details_inputs.dart';
+import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/pdf_template_one.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_four.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_one.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_three.dart';
@@ -19,6 +20,8 @@ import 'package:business_manager/feature/services/invoice_manager/presentation/w
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 import 'package:uuid/uuid.dart';
 
 class InvoiceManagerScreen extends StatefulWidget {
@@ -98,9 +101,9 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final TextEditingController _sortCode = TextEditingController();
   final TextEditingController _accountNo = TextEditingController();
 
-  DateTime? _invoiceDateCreated;
+  final TextEditingController _pdfFileName = TextEditingController();
 
-  bool _isFormValid = false;
+  DateTime? _invoiceDateCreated;
 
   InvoiceOneModel _createInvoiceOneData() {
     return InvoiceOneModel(
@@ -226,17 +229,18 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 title: const SizedBox.shrink(),
                 isActive: _currentStep == 3,
                 content: StepFour(
-                    bankList: _bankList,
-                    saveBankDetails: _saveBankDetails,
-                    bankName: _bankName,
-                    sortCode: _sortCode,
-                    accountNo: _accountNo,
-                    onBankSelected: (BankDetailsModel? selectedItem) {
-                      setState(() {
-                        _selectedBankDetails = selectedItem!;
-                      });
-                    },
-                    initialSelectedBankDetails: _selectedBankDetails),
+                  bankList: _bankList,
+                  saveBankDetails: _saveBankDetails,
+                  bankName: _bankName,
+                  sortCode: _sortCode,
+                  accountNo: _accountNo,
+                  onBankSelected: (BankDetailsModel? selectedItem) {
+                    setState(() {
+                      _selectedBankDetails = selectedItem!;
+                    });
+                  },
+                  initialSelectedBankDetails: _selectedBankDetails,
+                ),
                 stepStyle: _stepStyle(),
               ),
               Step(
@@ -279,7 +283,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                 });
               }
             },
-            //  type: StepperType.horizontal,
             controlsBuilder: (BuildContext context, ControlsDetails details) {
               return Padding(
                 padding: const EdgeInsets.only(top: Constants.padding24),
@@ -377,20 +380,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           ),
         ),
       ),
-      floatingActionButton: Stack(
-        children: <Widget>[
-          Positioned(
-            top: MediaQuery.of(context).padding.top +
-                MediaQuery.of(context).size.height * 0.15,
-            right: 20,
-            child: (_currentStep == _totalSteps && _isFormValid)
-                ? InvoiceCustomFloatingButton(
-                    createInvoiceData: _createInvoiceOneData,
-                  )
-                : const SizedBox.shrink(),
-          ),
-        ],
-      ),
     );
   }
 
@@ -402,10 +391,89 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     });
   }
 
-  void _onFormValidated(bool isValid) {
-    setState(() {
-      _isFormValid = isValid;
-    });
+  void _onFormValidated(bool isValid) async {
+    if (isValid) {
+      final fileName = await showDialog<String>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Enter PDF file name'),
+            content: TextField(
+              controller: _pdfFileName,
+              decoration: const InputDecoration(
+                hintText: 'Invoice file name',
+              ),
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(null),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                child: Text(
+                  'Cancel',
+                  style: context.text.bodyMedium,
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final name = _pdfFileName.text.trim();
+                  if (name.isNotEmpty) {
+                    Navigator.of(context).pop(name);
+                  }
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                child: Text(
+                  'Confirm',
+                  style: context.text.bodyMedium,
+                ),
+              ),
+            ],
+          );
+        },
+      );
+
+      if (fileName != null && fileName.isNotEmpty) {
+        try {
+          final pdfData = _createInvoiceOneData();
+          final pdfDocument = PdfTemplateOne(pdfData: pdfData).generatePdf();
+          final pdfBytes = await pdfDocument.save();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => PdfPreview(
+                build: (format) => pdfBytes,
+                pdfFileName: "$fileName.pdf",
+                pdfPreviewPageDecoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey, width: 1),
+                  color: Colors.white,
+                ),
+                scrollViewDecoration: BoxDecoration(
+                  color: Colors.grey[100],
+                ),
+                previewPageMargin: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 16,
+                ),
+                padding: const EdgeInsets.only(bottom: 24),
+                enableScrollToPage: true,
+                actionBarTheme: PdfActionBarTheme(
+                  height: 160,
+                  backgroundColor: Colors.grey[800],
+                  iconColor: Colors.white,
+                  elevation: 6.0,
+                  actionSpacing: 8.0,
+                  alignment: WrapAlignment.center,
+                  runAlignment: WrapAlignment.start,
+                  crossAxisAlignment: WrapCrossAlignment.start,
+                ),
+              ),
+            ),
+          );
+        } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Failed to generate PDF')),
+          );
+        }
+      }
+    }
   }
 
   void _onDateSelected(DateTime selectedDate) {
@@ -478,10 +546,11 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
 
   void _saveBankDetails() {
     final newBank = BankDetailsModel(
-        bankID: uuid.v4(),
-        bankName: _bankName.text,
-        sortCode: _sortCode.text,
-        accountNo: _accountNo.text);
+      bankID: uuid.v4(),
+      bankName: _bankName.text,
+      sortCode: _sortCode.text,
+      accountNo: _accountNo.text,
+    );
     context
         .read<InvoiceManagerBloc>()
         .add(InvoiceManagerAddBank(bankDetailsData: newBank));
@@ -559,7 +628,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     return StepStyle(
         connectorColor: Pallete.colorSeven,
         gradient: const LinearGradient(
-          colors: [Pallete.colorTwo, Pallete.colorFour],
+          colors: [Colors.red, Colors.white],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

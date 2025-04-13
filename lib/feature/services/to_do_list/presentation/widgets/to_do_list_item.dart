@@ -2,6 +2,7 @@ import 'package:business_manager/core/helpers/date_format_helper.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
+import 'package:business_manager/core/widgets/custom_delete_dialog/custom_delete_dialog.dart';
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
@@ -56,7 +57,8 @@ class ToDoListItem extends StatelessWidget {
                             text: todo.priority.toString().split('.').last,
                             style: TextStyle(
                               color: PriorityDropdown.getPriorityColor(
-                                  todo.priority),
+                                todo.priority,
+                              ),
                             ),
                           ),
                         ],
@@ -82,9 +84,7 @@ class ToDoListItem extends StatelessWidget {
                     iconSize: 22,
                     color: Colors.red,
                     onPressed: () {
-                      context.read<ToDoBloc>().add(
-                            RemoveToDoListItem(id: todo.id),
-                          );
+                      _deleteItem(context, todo.id);
                     },
                   ),
                 ],
@@ -143,6 +143,23 @@ class ToDoListItem extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _deleteItem(BuildContext context, String employeeID) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDeleteDialog(
+          title: "Confirm Delete",
+          content: "Do you want to delete this item?",
+          onConfirm: () {
+            context.read<ToDoBloc>().add(
+                  RemoveToDoListItem(id: todo.id),
+                );
+          },
+        );
+      },
     );
   }
 }

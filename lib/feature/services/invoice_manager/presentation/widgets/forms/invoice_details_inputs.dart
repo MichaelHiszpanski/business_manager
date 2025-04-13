@@ -87,7 +87,7 @@ class _InvoiceDetailsInputsState extends State<InvoiceDetailsInputs> {
                 widget.onFormValidated(true);
               }
             },
-            buttonText: 'Apply!',
+            buttonText: 'Preview your PDF',
 
           ),
         ],

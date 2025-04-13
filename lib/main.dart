@@ -47,25 +47,25 @@ class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     return
-        // AppRepositories(
-        //   child:
-        AppBlocProviders(
-      child: GetMaterialApp(
-        navigatorKey: navigatorKey,
-        initialRoute: '/home_page',
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: getSupportedLocales(),
-        theme: getAppTheme(),
-        locale: const Locale('en'),
-        routes: AppRoutes.routes,
-        home: const HomePage(),
-      ),
-      //)
-    );
+      // AppRepositories(
+      //   child:
+      AppBlocProviders(
+        child: GetMaterialApp(
+          navigatorKey: navigatorKey,
+          initialRoute: '/home_page',
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: getSupportedLocales(),
+          theme: getAppTheme(),
+          locale: const Locale('en'),
+          routes: AppRoutes.routes,
+          home: const HomePage(),
+        ),
+        //)
+      );
   }
 }

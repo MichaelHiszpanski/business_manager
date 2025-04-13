@@ -46,57 +46,55 @@ class _ToDoListScreenState extends State<ToDoListScreen>
         isActionButtonAvailable: true,
         titleFontColor: Colors.black,
         iconArrowColor: Colors.black,
-        background: Colors.white,
+        background: Colors.transparent,
       ),
       body: BgLinearContainer(
-        child: Expanded(
-          child: BlocBuilder<ToDoBloc, ToDoState>(
-            builder: (context, state) {
-              if (state is ToDoInitial) {
-                return Center(
-                  child: Text(context.strings.to_do_list_empty_message),
-                );
-              } else if (state is ToDoLoading) {
-                return const LoadAppDataScreen();
-              } else if (state is ToDoLoadSuccess) {
-                final toDoList = _filteredToDos(state.toDoList);
-                if (toDoList.isEmpty) {
-                  return const ToDoListEmptyView();
-                }
+        child: BlocBuilder<ToDoBloc, ToDoState>(
+          builder: (context, state) {
+            if (state is ToDoInitial) {
+              return Center(
+                child: Text(context.strings.to_do_list_empty_message),
+              );
+            } else if (state is ToDoLoading) {
+              return const LoadAppDataScreen();
+            } else if (state is ToDoLoadSuccess) {
+              final toDoList = _filteredToDos(state.toDoList);
+              if (toDoList.isEmpty) {
+                return const ToDoListEmptyView();
+              }
 
-                _checkForExpiredItems();
+              _checkForExpiredItems();
 
-                return ListWheelScrollView.useDelegate(
-                  itemExtent: 210,
-                  physics: const FixedExtentScrollPhysics(),
-                  diameterRatio: 5,
-                  squeeze: 1,
-                  childDelegate: ListWheelChildBuilderDelegate(
-                    childCount: toDoList.length,
-                    builder: (context, index) {
-                      final todo = toDoList[index];
+              return ListWheelScrollView.useDelegate(
+                itemExtent: 210,
+                physics: const FixedExtentScrollPhysics(),
+                diameterRatio: 5,
+                squeeze: 1,
+                childDelegate: ListWheelChildBuilderDelegate(
+                  childCount: toDoList.length,
+                  builder: (context, index) {
+                    final todo = toDoList[index];
 
-                      return ToDoListItem(todo: todo);
-                    },
-                  ),
-                );
-              } else if (state is ToDoError) {
-                return Padding(
-                  padding: const EdgeInsets.all(Constants.padding16),
-                  child: Center(
-                    child: Text(
-                      context.strings.to_do_error_message,
-                      style: context.text.headlineSmall?.copyWith(
-                        color: Colors.white,
-                      ),
+                    return ToDoListItem(todo: todo);
+                  },
+                ),
+              );
+            } else if (state is ToDoError) {
+              return Padding(
+                padding: const EdgeInsets.all(Constants.padding16),
+                child: Center(
+                  child: Text(
+                    context.strings.to_do_error_message,
+                    style: context.text.headlineSmall?.copyWith(
+                      color: Colors.white,
                     ),
                   ),
-                );
-              } else {
-                return const LoadAppDataScreen();
-              }
-            },
-          ),
+                ),
+              );
+            } else {
+              return const LoadAppDataScreen();
+            }
+          },
         ),
       ),
       floatingActionButton: Padding(

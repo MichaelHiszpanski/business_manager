@@ -144,21 +144,17 @@ class _StepThreeState extends State<StepThree> {
         const SizedBox(height: Constants.padding16),
         ElevatedButton(
           onPressed: widget.saveInvoiceData,
-          //     () {
-          //   _addItemToItemsAddedToInvoiceList();
-          //   widget.saveInvoiceData();
-          //
-          // },
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.all(Pallete.colorFive),
           ),
           child: const Text(
             "Add Item to Invoice",
             style: TextStyle(
-                color: Pallete.whiteColor,
-                fontWeight: FontWeight.w600,
-                fontFamily: AppFontFamily.suse,
-                fontSize: 18),
+              color: Pallete.whiteColor,
+              fontWeight: FontWeight.w600,
+              fontFamily: AppFontFamily.suse,
+              fontSize: 18,
+            ),
           ),
         ),
         const SizedBox(height: Constants.padding16),
@@ -192,7 +188,7 @@ class _StepThreeState extends State<StepThree> {
           ),
           const SizedBox(height: Constants.padding16),
         ],
-        // const SizedBox(height: Constants.padding16),
+
         ExpansionTileWrapper(
           title: "Add New Item",
           children: [
@@ -213,22 +209,45 @@ class _StepThreeState extends State<StepThree> {
     int index,
     InvoiceItemModel item,
   ) {
-    return ListTile(
-      title: Text(
-        item.description,
-        style: context.text.titleSmall,
-      ),
-      subtitle: Text(
-        "Total: ${item.quantity} x ${item.itemPrice} Price: ${(double.parse(item.quantity) * double.parse(item.itemPrice)).toStringAsFixed(2)}",
-        style: context.text.labelLarge,
-      ),
-      trailing: IconButton(
-        icon: const Icon(Icons.delete, color: Pallete.colorFive),
-        onPressed: () {
-          setState(() {
-            widget.invoiceAddedItemsList.removeAt(index);
-          });
-        },
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: Constants.padding4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.description,
+                  style: context.text.titleSmall,
+                ),
+                Text(
+                  "Total: ${item.quantity} x ${item.itemPrice} Price: ${(double.parse(item.quantity) * double.parse(item.itemPrice)).toStringAsFixed(2)}",
+                  style: context.text.labelLarge,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 36,
+            height: 36,
+            margin: const EdgeInsets.only(left: Constants.padding8),
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              icon: const Icon(
+                Icons.delete,
+                color: Pallete.colorFive,
+                size: 20,
+              ),
+              onPressed: () {
+                setState(() {
+                  widget.invoiceAddedItemsList.removeAt(index);
+                });
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

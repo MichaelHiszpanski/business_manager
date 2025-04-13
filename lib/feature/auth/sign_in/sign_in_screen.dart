@@ -30,7 +30,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordController = TextEditingController();
   String? _errorMessage;
   bool _isLoading = false;
-  bool _isObscured = true;
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,9 @@ class _SignInScreenState extends State<SignInScreen> {
         ],
         child: CenterColumnLayout(
           children: [
+            const SizedBox(height: Constants.padding32),
             if (_errorMessage != null && _errorMessage != "") ...[
+              const SizedBox(height: Constants.padding32),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(Constants.padding4),
@@ -174,6 +176,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> _signInWithSupabase() async {
+    print("Halo");
     setState(() {
       _isLoading = true;
       _errorMessage = null;

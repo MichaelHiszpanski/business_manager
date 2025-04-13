@@ -50,25 +50,22 @@ class _DatePickerState extends State<DatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            _expiredDateSelected == null
-                ? 'No Date Selected! ${_expiredDateSelected ?? ""}'
-                : 'Selected: ${DateFormatHelper.dateFormat(_expiredDateSelected)}',
-            style: context.text.titleMedium,
-          ),
-          const SizedBox(height: 10),
-          CustomFloatingButton(
-            onPressed: () => _datePicker(context),
-            buttonText: widget.buttonText ?? 'Pick Expiration Date',
-            backgroundColor: widget.backgroundColor ?? Pallete.gradient1,
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          _expiredDateSelected == null
+              ? 'No Date Selected! ${_expiredDateSelected ?? ""}'
+              : 'Selected: ${DateFormatHelper.dateFormat(_expiredDateSelected)}',
+          style: context.text.titleSmall,
+        ),
+        const SizedBox(height: 10),
+        CustomFloatingButton(
+          onPressed: () => _datePicker(context),
+          buttonText: widget.buttonText ?? 'Pick Expiration Date',
+          backgroundColor: widget.backgroundColor ?? Pallete.gradient1,
+        ),
+      ],
     );
   }
 }

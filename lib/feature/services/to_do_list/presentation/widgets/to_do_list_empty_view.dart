@@ -54,7 +54,7 @@ class _ToDoListEmptyViewState extends State<ToDoListEmptyView>
                 borderRadius: BorderRadius.circular(Constants.radius20),
                 boxShadow: [
                   BoxShadow(
-                    color: Pallete.colorSeven.withOpacity(0.5),
+                    color: Colors.white.withOpacity(0.5),
                     blurRadius: 10.0,
                     offset: const Offset(4, 4),
                   ),

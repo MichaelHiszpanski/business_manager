@@ -35,7 +35,7 @@ class CustomFloatingButton extends StatelessWidget {
           ),
           textStyle: WidgetStateProperty.all<TextStyle>(
             const TextStyle(
-              fontSize: 22.0,
+              fontSize: 18.0,
               fontWeight: FontWeight.bold,
               fontFamily: AppFontFamily.orbitron,
             ),

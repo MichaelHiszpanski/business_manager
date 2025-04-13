@@ -71,6 +71,7 @@ class InvoiceManagerBloc
         getExistingBusinessHiveData
             .cast<BusinessDetailsHive>()
             .map((hiveData) => BusinessDetailsModel(
+                  businessID: hiveData.businessID,
                   businessName: hiveData.businessName,
                   businessFirstName: hiveData.businessFirstName,
                   businessLastName: hiveData.businessLastName,
@@ -87,6 +88,7 @@ class InvoiceManagerBloc
       _clientCurrentList.addAll(
         getExistingClientHiveData.cast<ClientsDetailsHive>().map(
               (hiveData) => ClientDetailsModel(
+                clinetID: hiveData.clientID,
                 clientFirstName: hiveData.clientFirstName,
                 clientLastName: hiveData.clientLastName,
                 clientStreet: hiveData.clientOwnerStreet,
@@ -103,6 +105,7 @@ class InvoiceManagerBloc
       _invoiceItemsCurrentList.addAll(
         getExistingItemsHiveData.cast<InvoiceItemsHive>().map(
               (hiveData) => InvoiceItemModel(
+                itemID: hiveData.itemID,
                 description: hiveData.description,
                 quantity: hiveData.quantity,
                 itemPrice: hiveData.itemPrice,
@@ -116,6 +119,7 @@ class InvoiceManagerBloc
       _bankCurrentList.addAll(
         getExistingBankDetailsHiveData.cast<BankDetailsHive>().map(
               (hiveData) => BankDetailsModel(
+                bankID: hiveData.bankID,
                 bankName: hiveData.bankName,
                 sortCode: hiveData.sortCode,
                 accountNo: hiveData.accountNo,
@@ -278,10 +282,11 @@ class InvoiceManagerBloc
     _bankCurrentList.add(event.bankDetailsData);
 
     bankDetailsList.add(BankDetailsHive(
-        bankID: event.bankDetailsData.bankID,
-        bankName: event.bankDetailsData.bankName,
-        sortCode: event.bankDetailsData.sortCode,
-        accountNo: event.bankDetailsData.accountNo));
+      bankID: event.bankDetailsData.bankID,
+      bankName: event.bankDetailsData.bankName,
+      sortCode: event.bankDetailsData.sortCode,
+      accountNo: event.bankDetailsData.accountNo,
+    ));
 
     await boxItems.put(
       HiveBankDetailsProperties.TO_BANK_DETAILS_DATA_KEY,
