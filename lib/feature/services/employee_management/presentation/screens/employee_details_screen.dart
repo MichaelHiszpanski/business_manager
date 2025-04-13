@@ -8,6 +8,7 @@ import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:business_manager/core/widgets/custom_delete_dialog/custom_delete_dialog.dart';
 import 'package:business_manager/core/widgets/layouts/bg_radial_container/bg_radial_container.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_model.dart';
@@ -39,10 +40,10 @@ class EmployeeDetailsScreen extends StatelessWidget {
           const Positioned.fill(
             child: BgRadialContainer(
               colors: [
-                Pallete.colorTwo,
-                Colors.white,
+                Pallete.colorSix,
+                Colors.black87,
                 // Colors.red,
-                // Colors.orange,
+                Pallete.colorSix
                 // Colors.yellow,
                 // Colors.lightBlue,
                 // Colors.purpleAccent,
@@ -63,25 +64,6 @@ class EmployeeDetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: Constants.padding46 * 2.1),
-                      BlocBuilder<EmployeeManagementBloc,
-                          EmployeeManagementState>(
-                        builder: (context, state) {
-                          if (state is EmployeeManagementLoaded) {
-                            final updatedEmployee =
-                                state.employeeDataList.firstWhere(
-                              (employee) =>
-                                  employee.employeeID == model.employeeID,
-                              orElse: () => model,
-                            );
-                            return EmployeeDetailsDisplay(
-                              employee: updatedEmployee,
-                            );
-                          }
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
-                      ),
                       const SizedBox(height: Constants.padding16),
                       Row(
                         children: [
@@ -90,6 +72,8 @@ class EmployeeDetailsScreen extends StatelessWidget {
                               color: Colors.white,
                               borderRadius:
                                   BorderRadius.circular(Constants.radius30),
+                              border: Border.all(
+                                  color: Pallete.gradient1, width: 2.0),
                             ),
                             padding: const EdgeInsets.symmetric(
                               horizontal: Constants.padding16,
@@ -102,9 +86,22 @@ class EmployeeDetailsScreen extends StatelessWidget {
                             ),
                           ),
                           const Spacer(),
-                          SizedBox(
-                            height: 40,
+                          Container(
                             width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              // color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Pallete.gradient1.withOpacity(0.8),
+                                  spreadRadius: 1,
+                                  blurRadius: 7,
+                                  offset: const Offset(2, 2),
+                                ),
+                              ],
+                              borderRadius:
+                                  BorderRadius.circular(Constants.radius10),
+                            ),
                             child: FloatingActionButton(
                               backgroundColor: Colors.green,
                               onPressed: () {
@@ -123,6 +120,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          const SizedBox(height: Constants.padding12),
                         ],
                       ),
                       const SizedBox(height: Constants.padding32),
@@ -142,7 +140,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                 return Container(
                                   width: double.infinity,
                                   height:
-                                      MediaQuery.of(context).size.height * 0.3,
+                                      MediaQuery.of(context).size.height * 0.4,
                                   decoration: BoxDecoration(
                                     color: Colors.black.withOpacity(0.3),
                                     borderRadius: BorderRadius.circular(
@@ -172,13 +170,33 @@ class EmployeeDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: Constants.padding46),
+                      BlocBuilder<EmployeeManagementBloc,
+                          EmployeeManagementState>(
+                        builder: (context, state) {
+                          if (state is EmployeeManagementLoaded) {
+                            final updatedEmployee =
+                                state.employeeDataList.firstWhere(
+                              (employee) =>
+                                  employee.employeeID == model.employeeID,
+                              orElse: () => model,
+                            );
+                            return EmployeeDetailsDisplay(
+                              employee: updatedEmployee,
+                            );
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: Constants.padding46),
                       PrimaryButton(
                         onPressed: () {
                           _updatedEmployeeDetails(context, model);
                         },
                         buttonText: "Edit Employee Details",
                       ),
-                      const SizedBox(height: Constants.padding16),
+                      const SizedBox(height: Constants.padding32),
                       CustomFloatingButton(
                         onPressed: () {
                           _deleteEmployee(context, model.employeeID!);
@@ -214,35 +232,14 @@ class EmployeeDetailsScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text(
-            "Confirm Delete",
-            style: TextStyle(color: Colors.red),
-          ),
-          content: const Text(
-            "Do you want to Delete this Employee?",
-            style: TextStyle(color: Colors.black87),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Cancel"),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-              onPressed: () {
-                context.read<EmployeeManagementBloc>().add(
-                      RemoveEmployee(employeeID: employeeID),
-                    );
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                "Delete",
-                style: context.text.bodyMedium,
-              ),
-            ),
-          ],
+        return CustomDeleteDialog(
+          title: "Confirm Delete",
+          content: "Do you want to delete this employee?",
+          onConfirm: () {
+            context.read<EmployeeManagementBloc>().add(
+              RemoveEmployee(employeeID: employeeID),
+            );
+          },
         );
       },
     );

@@ -1,5 +1,5 @@
-import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
 import 'package:flutter/material.dart';
 
@@ -39,13 +39,12 @@ class PrimaryButton extends StatelessWidget {
                 vertical: 12.0,
               ),
               child: Center(
-                child: Text(
-                  buttonText,
-                  style: const TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: AppFontFamily.orbitron,
-                    color: Colors.white,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    buttonText,
+                    style: context.text.displayMedium,
+                    maxLines: 1,
                   ),
                 ),
               ),

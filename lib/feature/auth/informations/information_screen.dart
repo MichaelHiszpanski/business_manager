@@ -6,6 +6,7 @@ import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:business_manager/core/widgets/layouts/center_column_layout/center_column_layout.dart';
 import 'package:business_manager/feature/auth/informations/widgets/informations_screen_row.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,7 +31,7 @@ class _InformationsScreenState extends State<InformationsScreen> {
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
-          decoration:  BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [Colors.white, Pallete.colorSix.withOpacity(0.5)],
               begin: Alignment.topLeft,
@@ -42,9 +43,9 @@ class _InformationsScreenState extends State<InformationsScreen> {
               horizontal: Constants.padding16,
               vertical: Constants.padding24,
             ),
-            child: Column(
+            child: CenterColumnLayout(
               children: [
-                const SizedBox(height: 2*Constants.padding46),
+                const SizedBox(height: 2 * Constants.padding46),
                 Text(
                   context.strings.app_name,
                   style: context.text.titleLarge
@@ -73,7 +74,7 @@ class _InformationsScreenState extends State<InformationsScreen> {
                   icon: Icons.receipt_long,
                   title: context.strings.feature_invoice_manager_title,
                   description:
-                  context.strings.feature_invoice_manager_description,
+                      context.strings.feature_invoice_manager_description,
                 ),
                 InformationScreenRow(
                   icon: Icons.calendar_today,
@@ -84,7 +85,7 @@ class _InformationsScreenState extends State<InformationsScreen> {
                   icon: Icons.people,
                   title: context.strings.feature_employee_management_title,
                   description:
-                  context.strings.feature_employee_management_description,
+                      context.strings.feature_employee_management_description,
                 ),
                 const SizedBox(height: 3 * Constants.padding16),
                 PrimaryButton(

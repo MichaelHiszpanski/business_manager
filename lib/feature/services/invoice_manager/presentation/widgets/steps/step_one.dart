@@ -52,25 +52,6 @@ class _StepOneState extends State<StepOne> {
     selectedBusinessDetails = widget.initialSelectedBusinessDetails;
   }
 
-  void _removeBusiness(BuildContext context, BusinessDetailsModel business) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CustomDialog(
-          title: "Confirm Delete",
-          content: "Do you want to delete this business?",
-          onConfirm: () {
-            context.read<InvoiceManagerBloc>().add(
-                  InvoiceManagerRemoveBusiness(
-                    businessID: business.businessID!,
-                  ),
-                );
-          },
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -135,6 +116,25 @@ class _StepOneState extends State<StepOne> {
           ],
         ),
       ],
+    );
+  }
+
+  void _removeBusiness(BuildContext context, BusinessDetailsModel business) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDialog(
+          title: "Confirm Delete",
+          content: "Do you want to delete this business?",
+          onConfirm: () {
+            context.read<InvoiceManagerBloc>().add(
+                  InvoiceManagerRemoveBusiness(
+                    businessID: business.businessID!,
+                  ),
+                );
+          },
+        );
+      },
     );
   }
 }

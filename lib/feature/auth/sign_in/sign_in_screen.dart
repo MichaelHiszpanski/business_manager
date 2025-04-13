@@ -31,6 +31,7 @@ class _SignInScreenState extends State<SignInScreen> {
   String? _errorMessage;
   bool _isLoading = false;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +50,9 @@ class _SignInScreenState extends State<SignInScreen> {
         ],
         child: CenterColumnLayout(
           children: [
+            const SizedBox(height: Constants.padding32),
             if (_errorMessage != null && _errorMessage != "") ...[
+              const SizedBox(height: Constants.padding32),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(Constants.padding4),
@@ -93,7 +96,9 @@ class _SignInScreenState extends State<SignInScreen> {
               labelText: context.strings.password,
               hintText: context.strings.enter_password,
               inputValue: _passwordController,
+              isPassword: true,
             ),
+
             const SizedBox(height: Constants.padding16 * 4),
             PrimaryButton(
               onPressed: () =>
@@ -171,6 +176,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> _signInWithSupabase() async {
+    print("Halo");
     setState(() {
       _isLoading = true;
       _errorMessage = null;

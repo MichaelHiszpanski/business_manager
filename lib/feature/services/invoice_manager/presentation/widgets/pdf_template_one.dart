@@ -36,6 +36,7 @@ class PdfTemplateOne {
                           "${pdfData.businessDetailsModel.businessFirstName} ${pdfData.businessDetailsModel.businessLastName}"),
                       pw.Text(pdfData.businessDetailsModel.businessOwnerStreet),
                       pw.Text(pdfData.businessDetailsModel.businessOwnerCity),
+                      pw.Text(pdfData.businessDetailsModel.businessOwnerPostCode),
                       pw.Text(
                           "Mobile: ${pdfData.businessDetailsModel.businessOwnerMobile}"),
                       pw.Text(
@@ -51,7 +52,7 @@ class PdfTemplateOne {
                       pw.SizedBox(height: 8),
                       pw.Text(
                           // "Date: ${DateTime.now().toString().split(' ')[0]}"
-                          "Date: ${DateFormatHelper.dateFormatWithTime(pdfData.invoiceDateTimeCreated)}"),
+                          "Date: ${DateFormatHelper.dateFormat(pdfData.invoiceDateTimeCreated)}"),
                       pw.Text("Invoice #: ${pdfData.invoiceNumber}"),
                     ],
                   ),
@@ -67,6 +68,7 @@ class PdfTemplateOne {
                   "${pdfData.clientDetailsModel.clientFirstName} ${pdfData.clientDetailsModel.clientLastName}"),
               pw.Text(pdfData.clientDetailsModel.clientStreet),
               pw.Text(pdfData.clientDetailsModel.clientCity),
+              pw.Text(pdfData.clientDetailsModel.clientPostCode),
               pw.Text("Mobile: ${pdfData.clientDetailsModel.clientMobile}"),
               pw.Text("Email: ${pdfData.clientDetailsModel.clientEmail}"),
               pw.SizedBox(height: 32),
@@ -105,10 +107,10 @@ class PdfTemplateOne {
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text("Subtotal:",
-                                style: pw.TextStyle(fontSize: 14)),
+                                style: const pw.TextStyle(fontSize: 14)),
                             pw.Text(
                                 "£ ${(pdfData.subTotalPrice!).toStringAsFixed(2)}",
-                                style: pw.TextStyle(fontSize: 14)),
+                                style: const pw.TextStyle(fontSize: 14)),
                           ],
                         ),
                         // pw.Row(
@@ -131,7 +133,7 @@ class PdfTemplateOne {
                                   fontSize: 16, fontWeight: pw.FontWeight.bold),
                             ),
                             pw.Text(
-                              "£ ${(pdfData.subTotalPrice!).toStringAsFixed(2)}", //+ (pdfData.subTotalPrice! * 0.1)
+                              "£ ${(pdfData.subTotalPrice!).toStringAsFixed(2)}",
                               style: pw.TextStyle(
                                   fontSize: 16, fontWeight: pw.FontWeight.bold),
                             ),
@@ -164,15 +166,15 @@ class PdfTemplateOne {
                   children: [
                     pw.Text(
                       "Bank Name: ${pdfData.bankDetailsModel.bankName}",
-                      style: pw.TextStyle(fontSize: 16),
+                      style: const pw.TextStyle(fontSize: 16),
                     ),
                     pw.Text(
                       "Sort Code:  ${pdfData.bankDetailsModel.sortCode}",
-                      style: pw.TextStyle(fontSize: 16),
+                      style: const pw.TextStyle(fontSize: 16),
                     ),
                     pw.Text(
                       "Account No:  ${pdfData.bankDetailsModel.accountNo}",
-                      style: pw.TextStyle(fontSize: 16),
+                      style: const pw.TextStyle(fontSize: 16),
                     ),
                     pw.SizedBox(height: 8),
                     pw.Divider(),

@@ -7,10 +7,11 @@ import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart
 import 'package:business_manager/core/widgets/filter_menu/filter_menu_to_do_list.dart';
 import 'package:business_manager/core/enums/fliter_menu_to_do_list_enum.dart';
 import 'package:business_manager/core/enums/piority_level_enum.dart';
-import 'package:business_manager/core/widgets/layouts/beam_container/beam_container.dart';
+import 'package:business_manager/core/widgets/layouts/bg_linear_container/bg_linear_container.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:business_manager/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/widgets/custom_floating_action_button.dart';
+import 'package:business_manager/feature/services/to_do_list/presentation/widgets/to_do_list_empty_view.dart';
 import 'package:business_manager/feature/services/to_do_list/presentation/widgets/to_do_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +24,8 @@ class ToDoListScreen extends StatefulWidget {
   State<ToDoListScreen> createState() => _ToDoListScreenState();
 }
 
-class _ToDoListScreenState extends State<ToDoListScreen> {
+class _ToDoListScreenState extends State<ToDoListScreen>
+    with SingleTickerProviderStateMixin {
   FilterMenuToDoListEnum _selectedFilter = FilterMenuToDoListEnum.ALL;
   DateTime? _lastCheckTime;
 
@@ -44,67 +46,56 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
         isActionButtonAvailable: true,
         titleFontColor: Colors.black,
         iconArrowColor: Colors.black,
-        background: Colors.white,
+        background: Colors.transparent,
       ),
-      body: BeamContainer(
-        children: [
-          Expanded(
-            child: BlocBuilder<ToDoBloc, ToDoState>(
-              builder: (context, state) {
-                if (state is ToDoInitial) {
-                  return Center(
-                    child: Text(context.strings.to_do_list_empty_message),
-                  );
-                } else if (state is ToDoLoading) {
-                  return const LoadAppDataScreen();
-                } else if (state is ToDoLoadSuccess) {
-                  final toDoList = _filteredToDos(state.toDoList);
-                  if (toDoList.isEmpty) {
-                    return Center(
-                      child: Text(
-                        context.strings.to_do_list_empty_message,
-                        style: context.text.headlineMedium?.copyWith(
-                          color: Colors.black,
-                        ),
-                      ),
-                    );
-                  }
+      body: BgLinearContainer(
+        child: BlocBuilder<ToDoBloc, ToDoState>(
+          builder: (context, state) {
+            if (state is ToDoInitial) {
+              return Center(
+                child: Text(context.strings.to_do_list_empty_message),
+              );
+            } else if (state is ToDoLoading) {
+              return const LoadAppDataScreen();
+            } else if (state is ToDoLoadSuccess) {
+              final toDoList = _filteredToDos(state.toDoList);
+              if (toDoList.isEmpty) {
+                return const ToDoListEmptyView();
+              }
 
-                  _checkForExpiredItems();
+              _checkForExpiredItems();
 
-                  return ListWheelScrollView.useDelegate(
-                    itemExtent: 210,
-                    physics: const FixedExtentScrollPhysics(),
-                    diameterRatio: 5,
-                    squeeze: 1,
-                    childDelegate: ListWheelChildBuilderDelegate(
-                      childCount: toDoList.length,
-                      builder: (context, index) {
-                        final todo = toDoList[index];
+              return ListWheelScrollView.useDelegate(
+                itemExtent: 210,
+                physics: const FixedExtentScrollPhysics(),
+                diameterRatio: 5,
+                squeeze: 1,
+                childDelegate: ListWheelChildBuilderDelegate(
+                  childCount: toDoList.length,
+                  builder: (context, index) {
+                    final todo = toDoList[index];
 
-                        return ToDoListItem(todo: todo);
-                      },
+                    return ToDoListItem(todo: todo);
+                  },
+                ),
+              );
+            } else if (state is ToDoError) {
+              return Padding(
+                padding: const EdgeInsets.all(Constants.padding16),
+                child: Center(
+                  child: Text(
+                    context.strings.to_do_error_message,
+                    style: context.text.headlineSmall?.copyWith(
+                      color: Colors.white,
                     ),
-                  );
-                } else if (state is ToDoError) {
-                  return Padding(
-                    padding: const EdgeInsets.all(Constants.padding16),
-                    child: Center(
-                      child: Text(
-                        context.strings.to_do_error_message,
-                        style: context.text.headlineSmall?.copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  );
-                } else {
-                  return const LoadAppDataScreen();
-                }
-              },
-            ),
-          ),
-        ],
+                  ),
+                ),
+              );
+            } else {
+              return const LoadAppDataScreen();
+            }
+          },
+        ),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 60.0),

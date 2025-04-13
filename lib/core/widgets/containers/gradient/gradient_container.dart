@@ -8,12 +8,12 @@ class GradientContainer extends StatelessWidget {
   final BorderRadiusGeometry? borderRadius;
 
   const GradientContainer({
+    super.key,
     this.child,
     this.height,
     this.padding,
     this.borderRadius,
-    key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +25,8 @@ class GradientContainer extends StatelessWidget {
             Colors.green[300] ?? Colors.green,
             Colors.red[300] ?? Colors.red,
           ],
-          stops: [0, 0.7],
-          transform: GradientRotation(pi / 2),
+          stops: const [0, 0.7],
+          transform: const GradientRotation(pi / 2),
         ),
         borderRadius: borderRadius,
       ),

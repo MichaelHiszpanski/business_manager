@@ -46,7 +46,7 @@ class _StepFourState extends State<StepFour> {
           onConfirm: () {
             context.read<InvoiceManagerBloc>().add(
                   InvoiceManagerRemoveBank(
-                    bankID: bank.bankID ?? bank.bankName,
+                    bankID: bank.bankID!,
                   ),
                 );
           },
