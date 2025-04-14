@@ -26,19 +26,20 @@ class _CustomDropDownHoursState extends State<CustomDropDownHours> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<int>(
-        value: _selectedHour,
-        items: List.generate(
-          24,
-          (index) {
-            int hour = index + 1;
+      value: _selectedHour,
+      items: List.generate(
+        24,
+        (index) {
+          int hour = index + 1;
 
-            return DropdownMenuItem<int>(
-              value: hour,
-              child: Text('$hour hour${hour > 1 ? 's' : ''}'),
-            );
-          },
-        ),
-        onChanged: _onSelectedHour);
+          return DropdownMenuItem<int>(
+            value: hour,
+            child: Text('$hour hour${hour > 1 ? 's' : ''}'),
+          );
+        },
+      ),
+      onChanged: _onSelectedHour,
+    );
   }
 
   void _onSelectedHour(int? value) {

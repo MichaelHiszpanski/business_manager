@@ -79,7 +79,7 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
                 onTap: (details) => _onCalendarEventClicked(context, details),
                 appointmentTextStyle: const TextStyle(
                   color: Colors.black,
-                  fontSize: 12,
+                  fontSize: 20,
                 ),
               ),
             );

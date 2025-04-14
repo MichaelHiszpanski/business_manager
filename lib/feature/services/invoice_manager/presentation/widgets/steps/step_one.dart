@@ -125,7 +125,8 @@ class _StepOneState extends State<StepOne> {
       builder: (BuildContext context) {
         return CustomDialog(
           title: "Confirm Delete",
-          content: "Do you want to delete this business?",
+          content:
+              "Do you want to delete this: ${business.businessName} business?",
           onConfirm: () {
             context.read<InvoiceManagerBloc>().add(
                   InvoiceManagerRemoveBusiness(

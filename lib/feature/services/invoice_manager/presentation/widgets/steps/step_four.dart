@@ -36,25 +36,6 @@ class StepFour extends StatefulWidget {
 class _StepFourState extends State<StepFour> {
   late BankDetailsModel? selectedBankDetails;
 
-  void _removeBank(BuildContext context, BankDetailsModel bank) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CustomDialog(
-          title: "Confirm Delete",
-          content: "Do you want to delete this Bank?",
-          onConfirm: () {
-            context.read<InvoiceManagerBloc>().add(
-                  InvoiceManagerRemoveBank(
-                    bankID: bank.bankID!,
-                  ),
-                );
-          },
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -112,6 +93,26 @@ class _StepFourState extends State<StepFour> {
           ],
         ),
       ],
+    );
+  }
+
+  void _removeBank(BuildContext context, BankDetailsModel bank) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDialog(
+          title: "Confirm Delete",
+          content:
+              "Do you want to delete this bank details: ${bank.displayName} ?",
+          onConfirm: () {
+            context.read<InvoiceManagerBloc>().add(
+                  InvoiceManagerRemoveBank(
+                    bankID: bank.bankID!,
+                  ),
+                );
+          },
+        );
+      },
     );
   }
 }

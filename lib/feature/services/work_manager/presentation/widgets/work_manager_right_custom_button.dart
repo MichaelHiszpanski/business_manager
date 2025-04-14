@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/widgets/containers/animated_item_container/animated_item_container.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/custom_box_decoration.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class _WorkManagerRightCustomButtonState
             AnimatedItemContainer(
               minDuration: 275,
               maxDuration: 875,
-              icon: Icons.event,
+              icon: Icons.add_circle_outline,
               alignment: alignment1,
               toggleButton: toggleButton,
               size: toggleButton ? 0 : size1,
@@ -89,7 +90,7 @@ class _WorkManagerRightCustomButtonState
             AnimatedItemContainer(
               minDuration: 275,
               maxDuration: 875,
-              icon: Icons.add_circle_outline,
+              icon: Icons.calendar_month_sharp,
               alignment: alignment3,
               toggleButton: toggleButton,
               size: toggleButton ? 0 : size3,
@@ -110,7 +111,7 @@ class _WorkManagerRightCustomButtonState
                   color: Colors.transparent,
                   child: IconButton(
                     splashColor: Colors.orange[400],
-                    splashRadius: 32.0,
+                    splashRadius: Constants.radius30,
                     onPressed: isClickable
                         ? () {
                             setState(() {

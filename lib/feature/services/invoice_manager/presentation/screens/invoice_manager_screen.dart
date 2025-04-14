@@ -10,7 +10,6 @@ import 'package:business_manager/feature/services/invoice_manager/models/busines
 import 'package:business_manager/feature/services/invoice_manager/models/client_details_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_item_model.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
-import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/invoice_custom_floating_button.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/forms/invoice_details_inputs.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/pdf_template_one.dart';
 import 'package:business_manager/feature/services/invoice_manager/presentation/widgets/steps/step_four.dart';
@@ -20,7 +19,6 @@ import 'package:business_manager/feature/services/invoice_manager/presentation/w
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 import 'package:uuid/uuid.dart';
 
@@ -139,7 +137,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       thankYouMessage: _thankYouMessage.text.isNotEmpty
           ? _thankYouMessage.text
           : "Thank you for your business!",
-      paymentDueDays: "Payment is due within ${_paymentDueDays.text} days.",
+      paymentDueDays: _paymentDueDays.text,
       subTotalPrice: calculateSubTotalPrice(),
     );
   }
@@ -293,21 +291,22 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                     ] else ...[
                       Container(
                         decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Pallete.colorSeven, Pallete.colorSix],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
+                          gradient: const LinearGradient(
+                            colors: [Pallete.colorSeven, Pallete.colorSix],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Pallete.colorFive.withOpacity(0.45),
+                              offset: const Offset(0, 4),
+                              blurRadius: 8,
+                              spreadRadius: 1,
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Pallete.colorFive.withOpacity(0.45),
-                                offset: const Offset(0, 4),
-                                blurRadius: 8,
-                                spreadRadius: 1,
-                              ),
-                            ],
-                            borderRadius:
-                                BorderRadius.circular(Constants.padding24)),
+                          ],
+                          borderRadius:
+                              BorderRadius.circular(Constants.padding24),
+                        ),
                         child: ElevatedButton(
                           onPressed: details.onStepContinue,
                           style: ElevatedButton.styleFrom(
@@ -333,21 +332,22 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                     if (_currentStep > 0)
                       Container(
                         decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Pallete.colorSix, Pallete.colorSeven],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
+                          gradient: const LinearGradient(
+                            colors: [Pallete.colorSix, Pallete.colorSeven],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Pallete.colorFive.withOpacity(0.45),
+                              offset: const Offset(0, 4),
+                              blurRadius: 8,
+                              spreadRadius: 1,
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Pallete.colorFive.withOpacity(0.45),
-                                offset: const Offset(0, 4),
-                                blurRadius: 8,
-                                spreadRadius: 1,
-                              ),
-                            ],
-                            borderRadius:
-                                BorderRadius.circular(Constants.padding24)),
+                          ],
+                          borderRadius:
+                              BorderRadius.circular(Constants.padding24),
+                        ),
                         child: ElevatedButton(
                           onPressed: details.onStepCancel,
                           style: ElevatedButton.styleFrom(
@@ -628,7 +628,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     return StepStyle(
         connectorColor: Pallete.colorSeven,
         gradient: const LinearGradient(
-          colors: [Colors.red, Colors.white],
+          colors: [Colors.yellow, Colors.white],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -637,6 +637,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           fontWeight: FontWeight.bold,
           color: Colors.black,
           fontFamily: AppFontFamily.orbitron,
+
         ),
         connectorThickness: 2.0,
         border: Border.all(

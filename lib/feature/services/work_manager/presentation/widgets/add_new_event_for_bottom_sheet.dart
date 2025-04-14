@@ -52,7 +52,7 @@ class AddNewEventForBottomSheet extends StatelessWidget {
         top: 16.0,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(Constants.padding16),
         child: Form(
           key: formKey,
           child: ListView(
@@ -84,35 +84,35 @@ class AddNewEventForBottomSheet extends StatelessWidget {
                 maxLength: Constants.MAX_LENGHT_TEXT_CONTENT,
                 maxLines: null,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: Constants.padding16),
               Text(
                 fromSelectedDate != null && fromSelectedTime != null
                     ? '${fromSelectedDate!.toLocal().toString().split(' ')[0]} ${fromSelectedTime!.format(context)}'
                     : context.strings.work_manager_select_start_date_time,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: Constants.padding16),
               CustomDropDownHours(
                 value: eventDurationPerDay,
                 selectedHours: onEventDurationPerDay,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: Constants.padding16),
               ColorSelector(
                 initialColor: selectedColor,
                 onColorSelected: onColorSelected,
               ),
-              const SizedBox(height: 16),
-              SwitchListTile(
-                title: Text(context.strings.work_manager_all_day_event_label),
-                value: isAllDay,
-                onChanged: onAllDay,
-              ),
-              const SizedBox(height: 16),
+              const SizedBox(height: Constants.padding16),
+              // SwitchListTile(
+              //   title: Text(context.strings.work_manager_all_day_event_label),
+              //   value: isAllDay,
+              //   onChanged: onAllDay,
+              // ),
+              const SizedBox(height: Constants.padding16),
               CustomFloatingButton(
                 onPressed: addMeeting,
                 buttonText: context.strings.work_manager_button_accept,
                 backgroundColor: Pallete.gradient2,
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: Constants.padding42),
             ],
           ),
         ),
