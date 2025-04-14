@@ -51,25 +51,6 @@ class _StepTwoState extends State<StepTwo> {
     selectedClientDetails = widget.initialSelectedClientDetails;
   }
 
-  void _removeClient(BuildContext context, ClientDetailsModel client) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CustomDialog(
-          title: "Confirm Delete",
-          content: "Do you want to delete this client?",
-          onConfirm: () {
-            context.read<InvoiceManagerBloc>().add(
-                  InvoiceManagerRemoveClient(
-                    clientID: client.clinetID ?? client.clientFirstName,
-                  ),
-                );
-          },
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -133,6 +114,26 @@ class _StepTwoState extends State<StepTwo> {
         ),
         // const SizedBox(height: Constants.padding16 * 10),
       ],
+    );
+  }
+
+  void _removeClient(BuildContext context, ClientDetailsModel client) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDialog(
+          title: "Confirm Delete",
+          content:
+              "Do you want to delete this client: ${client.clientFirstName} ${client.clientLastName}?",
+          onConfirm: () {
+            context.read<InvoiceManagerBloc>().add(
+                  InvoiceManagerRemoveClient(
+                    clientID: client.clinetID ?? client.clientFirstName,
+                  ),
+                );
+          },
+        );
+      },
     );
   }
 }

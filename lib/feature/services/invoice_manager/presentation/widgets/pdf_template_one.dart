@@ -10,6 +10,9 @@ class PdfTemplateOne {
 
   pw.Document generatePdf() {
     final invoiceOne = pw.Document();
+    final DateTime invoiceDate = pdfData.invoiceDateTimeCreated;
+    final DateTime dueDate = invoiceDate
+        .add(Duration(days: int.tryParse(pdfData.paymentDueDays.trim()) ?? 30));
 
     invoiceOne.addPage(
       pw.Page(
@@ -36,7 +39,8 @@ class PdfTemplateOne {
                           "${pdfData.businessDetailsModel.businessFirstName} ${pdfData.businessDetailsModel.businessLastName}"),
                       pw.Text(pdfData.businessDetailsModel.businessOwnerStreet),
                       pw.Text(pdfData.businessDetailsModel.businessOwnerCity),
-                      pw.Text(pdfData.businessDetailsModel.businessOwnerPostCode),
+                      pw.Text(
+                          pdfData.businessDetailsModel.businessOwnerPostCode),
                       pw.Text(
                           "Mobile: ${pdfData.businessDetailsModel.businessOwnerMobile}"),
                       pw.Text(
@@ -146,17 +150,13 @@ class PdfTemplateOne {
               ),
               pw.SizedBox(height: 32),
               pw.Text(
-                pdfData.thankYouMessage,
-                style: const pw.TextStyle(fontSize: 16),
-              ),
-              pw.Text(
-                " ${pdfData.paymentDueDays}.",
+                "Payment Due: ${DateFormatHelper.dateFormat(dueDate)}",
                 style: pw.TextStyle(
                   fontSize: 12,
                   fontStyle: pw.FontStyle.italic,
                 ),
               ),
-              pw.SizedBox(height: 16),
+              pw.SizedBox(height: 8),
               pw.Divider(),
               pw.SizedBox(height: 8),
               pw.Container(
@@ -181,6 +181,15 @@ class PdfTemplateOne {
                   ],
                 ),
               ),
+              pw.Spacer(),
+              pw.Align(
+                alignment: pw.Alignment.centerRight,
+                child: pw.Text(
+                  pdfData.thankYouMessage,
+                  style: const pw.TextStyle(fontSize: 18),
+                ),
+              ),
+              pw.Spacer(),
             ],
           );
         },

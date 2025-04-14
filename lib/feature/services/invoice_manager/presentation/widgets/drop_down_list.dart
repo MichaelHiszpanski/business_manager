@@ -82,13 +82,17 @@ class _DropDownListState<T extends Equatable> extends State<DropDownList<T>> {
                             widget.getFullNameDetails(item),
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                                fontFamily: AppFontFamily.suse,
-                                fontSize: 18,
-                                color: Pallete.colorOne,
-                                fontWeight: FontWeight.w400),
+                              fontFamily: AppFontFamily.suse,
+                              fontSize: 18,
+                              color: Pallete.colorOne,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                           trailing: IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
                             onPressed: () {
                               widget.onRemoveItem!(item);
                               _cloeDropDown();

@@ -53,25 +53,6 @@ class _StepThreeState extends State<StepThree> {
     selectedItemDetails = widget.initialSelectedItemDetails;
   }
 
-  void _removeItem(BuildContext context, InvoiceItemModel item) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CustomDialog(
-          title: "Confirm Delete",
-          content: "Do you want to delete this item?",
-          onConfirm: () {
-            context.read<InvoiceManagerBloc>().add(
-                  InvoiceManagerRemoveItem(
-                    itemID: item.itemID ?? item.description,
-                  ),
-                );
-          },
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -188,7 +169,6 @@ class _StepThreeState extends State<StepThree> {
           ),
           const SizedBox(height: Constants.padding16),
         ],
-
         ExpansionTileWrapper(
           title: "Add New Item",
           children: [
@@ -249,6 +229,25 @@ class _StepThreeState extends State<StepThree> {
           ),
         ],
       ),
+    );
+  }
+
+  void _removeItem(BuildContext context, InvoiceItemModel item) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDialog(
+          title: "Confirm Delete",
+          content: "Do you want to delete this item: ${item.displayName} ?",
+          onConfirm: () {
+            context.read<InvoiceManagerBloc>().add(
+                  InvoiceManagerRemoveItem(
+                    itemID: item.itemID ?? item.description,
+                  ),
+                );
+          },
+        );
+      },
     );
   }
 }

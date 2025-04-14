@@ -14,8 +14,7 @@ class InvoiceScreenLeftButton extends StatefulWidget {
       _InvoiceScreenLeftButtonState();
 }
 
-class _InvoiceScreenLeftButtonState
-    extends State<InvoiceScreenLeftButton>
+class _InvoiceScreenLeftButtonState extends State<InvoiceScreenLeftButton>
     with SingleTickerProviderStateMixin {
   bool toggleButton = true;
   late AnimationController _controller;
@@ -113,10 +112,10 @@ class _InvoiceScreenLeftButtonState
                     splashRadius: 32.0,
                     onPressed: isClickable
                         ? () {
-                      setState(() {
-                        _onTap(999);
-                      });
-                    }
+                            setState(() {
+                              _onTap(999);
+                            });
+                          }
                         : null,
                     icon: const Icon(
                       Icons.edit_calendar,
