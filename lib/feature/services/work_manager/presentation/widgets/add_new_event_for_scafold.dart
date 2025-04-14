@@ -48,7 +48,7 @@ class AddNewEventForScafold extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: screenHeight * 0.9,
+      height: screenHeight * 0.8,
       padding: const EdgeInsets.all(Constants.padding16),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -131,18 +131,18 @@ class AddNewEventForScafold extends StatelessWidget {
                   onColorSelected: onColorSelected,
                 ),
                 const SizedBox(height: Constants.padding16),
-                SwitchListTile(
-                  title: Text(context.strings.work_manager_all_day_event_label),
-                  value: isAllDay,
-                  onChanged: onAllDay,
-                ),
+                // SwitchListTile(
+                //   title: Text(context.strings.work_manager_all_day_event_label),
+                //   value: isAllDay,
+                //   onChanged: onAllDay,
+                // ),
                 const SizedBox(height: Constants.padding16),
                 CustomFloatingButton(
                   onPressed: addMeeting,
                   buttonText: context.strings.work_manager_button_accept,
                   backgroundColor: Pallete.gradient2,
                 ),
-                const SizedBox(height: Constants.padding32),
+                const SizedBox(height: Constants.padding42),
               ],
             ),
           ),

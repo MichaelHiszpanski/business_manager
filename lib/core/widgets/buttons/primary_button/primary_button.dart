@@ -43,7 +43,7 @@ class PrimaryButton extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                   child: Text(
                     buttonText,
-                    style: context.text.displayMedium,
+                    style: context.text.displaySmall,
                     maxLines: 1,
                   ),
                 ),
