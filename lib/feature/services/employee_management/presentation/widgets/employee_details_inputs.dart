@@ -1,5 +1,6 @@
 import 'package:business_manager/core/helpers/validations_helper.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/date_picker/date_picker.dart';
 import 'package:flutter/material.dart';
@@ -88,6 +89,7 @@ class _EmployeeDetailsInputsState extends State<EmployeeDetailsInputs> {
               }
             },
             buttonText: 'Save',
+            customStyle: context.text.displayMedium,
           )
         ],
       ),

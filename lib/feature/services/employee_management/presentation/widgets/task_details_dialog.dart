@@ -79,9 +79,10 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
             if (widget.task.employeeCheckInTime != null) ...[
               Text(
                 "  Check-In    : ${DateFormatHelper.dateFormat(widget.task.employeeCheckInTime)}",
-                style: context.text.bodyLarge?.copyWith(
+                style: context.text.bodyMedium?.copyWith(
                   color: Colors.green,
                   fontWeight: FontWeight.w600,
+                  fontSize: 18,
                 ),
               )
             ],
@@ -89,9 +90,10 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
             if (widget.task.employeeCheckOutTime != null) ...[
               Text(
                 "  Check-Out : ${DateFormatHelper.dateFormat(widget.task.employeeCheckOutTime)}",
-                style: context.text.bodyLarge?.copyWith(
+                style: context.text.bodyMedium?.copyWith(
                   color: Colors.blue,
                   fontWeight: FontWeight.w600,
+                    fontSize: 18,
                 ),
               )
             ],

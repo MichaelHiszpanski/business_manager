@@ -27,8 +27,8 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   final String _error = "Field cannot be empty";
   final uuid = const Uuid();
 
-  DateTime? _checkInTime;
-  DateTime? _checkOutTime;
+  DateTime? _checkInDate;
+  DateTime? _checkOutDate;
 
   @override
   Widget build(BuildContext context) {
@@ -68,10 +68,10 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   DatePicker(
                     onDateSelected: (selectedDate) {
                       setState(() {
-                        _checkInTime = selectedDate;
+                        _checkInDate = selectedDate;
                       });
                     },
-                    selectedDate: _checkInTime,
+                    selectedDate: _checkInDate,
                     buttonText: "Check-In Time",
                     startingDate: DateTime(1980),
                     backgroundColor: Colors.green,
@@ -80,12 +80,12 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   DatePicker(
                     onDateSelected: (selectedDate) {
                       setState(() {
-                        _checkOutTime = selectedDate;
+                        _checkOutDate = selectedDate;
                       });
                     },
-                    selectedDate: _checkOutTime,
+                    selectedDate: _checkOutDate,
                     buttonText: "Check-Out Time",
-                    minDate: _checkInTime,
+                    minDate: _checkInDate,
                     startingDate: DateTime(1980),
                     backgroundColor: Colors.blue,
                   ),
@@ -137,14 +137,22 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
   void _addEmployeeTask() {
     if (_formKey.currentState!.validate()) {
+      final DateTime now = DateTime.now();
+      final DateTime checkInDate = _checkInDate ?? now;
+
+      final DateTime? checkOutDate = _checkOutDate ??
+          (isSameDate(checkInDate, now)
+              ? checkInDate.add(const Duration(days: 7))
+              : null);
+
       final newTask = EmployeeTaskModel(
         taskID: uuid.v4(),
         taskTitle: _taskTitleController.text.trim(),
         taskDescription: _taskDescriptionController.text.trim(),
         taskDuration: 0.0,
         employeeID: widget.employeeID,
-        employeeCheckInTime: _checkInTime,
-        employeeCheckOutTime: _checkOutTime,
+        employeeCheckInTime: checkInDate,
+        employeeCheckOutTime: checkOutDate,
         isDone: false,
       );
 
@@ -158,11 +166,10 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
     }
   }
 
-  @override
-  void dispose() {
-    _taskTitleController.dispose();
-    _taskDescriptionController.dispose();
-    super.dispose();
+  bool isSameDate(DateTime compered, DateTime current) {
+    return compered.year == current.year &&
+        compered.month == current.month &&
+        compered.day == current.day;
   }
 
   InputDecoration inputDecoration(String labelText) {
@@ -175,5 +182,12 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
         borderSide: BorderSide(color: Pallete.colorSix, width: 2),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _taskTitleController.dispose();
+    _taskDescriptionController.dispose();
+    super.dispose();
   }
 }
