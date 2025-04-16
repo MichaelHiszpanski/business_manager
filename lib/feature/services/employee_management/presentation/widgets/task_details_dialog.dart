@@ -82,7 +82,7 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
                 style: context.text.bodyMedium?.copyWith(
                   color: Colors.green,
                   fontWeight: FontWeight.w600,
-                  fontSize: 18,
+                  fontSize: 14,
                 ),
               )
             ],
@@ -93,11 +93,13 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
                 style: context.text.bodyMedium?.copyWith(
                   color: Colors.blue,
                   fontWeight: FontWeight.w600,
-                    fontSize: 18,
+                    fontSize: 14,
                 ),
-              )
+              ),
+              const SizedBox(height: Constants.padding16),
+              const DecorationLine(lineColor: Pallete.gradient1),
             ],
-            const SizedBox(height: Constants.padding32),
+            const SizedBox(height: Constants.padding16),
             ButtonWrapperTwo(
               startColor: _isCompleted ? Colors.green : Colors.red,
               endColor: _isCompleted ? Colors.lightGreen : Colors.redAccent,

@@ -8,6 +8,7 @@ import 'package:business_manager/core/widgets/layouts/bg_sweep_container/bg_swee
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/scheduler.dart';
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget {
@@ -17,13 +18,28 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen>
+    with WidgetsBindingObserver {
   late final dynamic _user;
 
   @override
   void initState() {
     super.initState();
     _user = Supabase.instance.client.auth.currentUser;
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setState(() {});
+    }
   }
 
   @override

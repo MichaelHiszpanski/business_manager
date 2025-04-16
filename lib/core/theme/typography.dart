@@ -79,6 +79,7 @@ TextTheme getTextTheme(Color defaultTextColor) {
       height: 1.2,
       fontWeight: FontWeight.w400,
       color: defaultTextColor,
+      fontFamily: AppFontFamily.orbitron,
     ),
     labelLarge: TextStyle(
       fontSize: 16,

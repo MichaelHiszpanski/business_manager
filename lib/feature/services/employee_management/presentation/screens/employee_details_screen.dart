@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
+import 'package:business_manager/core/main_utils/auto_routes/app_router.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/app_properties.dart';
@@ -238,6 +239,12 @@ class EmployeeDetailsScreen extends StatelessWidget {
           onConfirm: () {
             context.read<EmployeeManagementBloc>().add(
               RemoveEmployee(employeeID: employeeID),
+            );
+            Navigator.of(context).pop();
+            //
+            // // Then navigate to the EmployeeManagementScreen
+            Navigator.of(context).pushReplacementNamed(
+              AppRoutes.employeeManagementScreen,
             );
           },
         );

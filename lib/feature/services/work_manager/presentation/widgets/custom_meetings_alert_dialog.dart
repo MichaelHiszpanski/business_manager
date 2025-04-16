@@ -30,39 +30,63 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
     return AlertDialog(
       title: Text(
         context.strings.work_manager_meeting_details_title,
-        style: TextStyle(color: Colors.green),
+        style: context.text.titleMedium?.copyWith(color: Pallete.colorFour),
       ),
       content: SizedBox(
-        width: double.maxFinite,
+        width: MediaQuery.of(context).size.width * 0.75,
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: widget.meetings.length,
           itemBuilder: (BuildContext context, int index) {
             final Meeting meeting = widget.meetings[index];
             return ListTile(
-              title: Text(
-                meeting.eventName,
-                style: context.text.headlineSmall,
+              title: RichText(
+                text: TextSpan(
+                  style: context.text.bodyLarge,
+                  children: [
+                    TextSpan(
+                      text: '${context.strings.work_manager_task_name}\n',
+                      style: context.text.bodySmall
+                          ?.copyWith(color: Pallete.gradient1),
+                    ),
+                    TextSpan(
+                      text: meeting.eventName,
+                      style: context.text.bodyMedium
+                          ?.copyWith(color: Pallete.colorOne),
+                    ),
+                  ],
+                ),
               ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const SizedBox(height: Constants.padding16),
-                  Text(
-                    '${context.strings.work_manager_meeting_content_label}'
-                    ' ${meeting.eventDescription}',
-                    style: context.text.bodyLarge
-                        ?.copyWith(color: Pallete.gradient1),
+                  RichText(
+                    text: TextSpan(
+                      style: context.text.bodyLarge,
+                      children: [
+                        TextSpan(
+                          text:
+                              '${context.strings.work_manager_meeting_content_label}\n',
+                          style: context.text.bodySmall
+                              ?.copyWith(color: Pallete.gradient1),
+                        ),
+                        TextSpan(
+                            text: meeting.eventDescription,
+                            style: context.text.bodyMedium
+                                ?.copyWith(color: Pallete.colorOne)),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: Constants.padding16),
                   Text(
                     '${context.strings.work_manager_meeting_from_label} ${DateFormatHelper.dateFormatWithTime(meeting.startDate)}',
-                    style: context.text.bodyLarge,
+                    style: context.text.labelLarge,
                   ),
                   const SizedBox(height: Constants.padding8),
                   Text(
                     '${context.strings.work_manager_meeting_to_label}       ${DateFormatHelper.dateFormatWithTime(meeting.finishDate)}',
-                    style: context.text.bodyLarge,
+                    style: context.text.labelLarge,
                   ),
                   const SizedBox(height: Constants.padding8),
                 ],
@@ -81,25 +105,40 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
         ),
       ),
       actions: <Widget>[
-        TextButton(
-            child: Text(context.strings.work_manager_button_select_remove),
-            onPressed: () {
-              if (_selectedIndex != null) {
-                final meetingToRemove = widget.meetings[_selectedIndex!];
-
-                BlocProvider.of<WorkManagerBloc>(context)
-                    .add(MeetingRemoveEvent(meeting: meetingToRemove));
-
-                Navigator.of(context).pop();
-              }
-            }),
-        TextButton(
-          child: Text(context.strings.work_manager_button_close),
+        ElevatedButton(
+          onPressed: _deleteSelectedTask,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+          ),
+          child: Text(
+            context.strings.work_manager_button_select_remove,
+            style: context.text.bodyMedium,
+          ),
+        ),
+        ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green,
+          ),
+          child: Text(
+            context.strings.work_manager_button_close,
+            style: context.text.bodyMedium,
+          ),
         ),
       ],
     );
+  }
+
+  void _deleteSelectedTask() {
+    if (_selectedIndex != null) {
+      final meetingToRemove = widget.meetings[_selectedIndex!];
+
+      BlocProvider.of<WorkManagerBloc>(context)
+          .add(MeetingRemoveEvent(meeting: meetingToRemove));
+
+      Navigator.of(context).pop();
+    }
   }
 }

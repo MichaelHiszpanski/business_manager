@@ -8,7 +8,6 @@ class EmployeeModel extends Equatable {
   final String employeeLastName;
   final String employeeEmail;
   final String employeeRole;
-  // final double tasksDone;
   final List<TaskDoneModel> tasksDone;
   final DateTime employeeDateJoined;
   final List<EmployeeTaskModel> employeeTaskList;
