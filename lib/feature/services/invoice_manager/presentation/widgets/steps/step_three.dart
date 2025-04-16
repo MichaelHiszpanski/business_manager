@@ -238,14 +238,16 @@ class _StepThreeState extends State<StepThree> {
       builder: (BuildContext context) {
         return CustomDialog(
           title: "Confirm Delete",
-          content: "Do you want to delete this item: ${item.displayName} ?",
+          currentItem: item.displayName,
           onConfirm: () {
             context.read<InvoiceManagerBloc>().add(
                   InvoiceManagerRemoveItem(
-                    itemID: item.itemID ?? item.description,
+                    itemID: item.itemID!,
                   ),
                 );
           },
+          question: 'Do you want to delete this: ',
+          itemType: ' item?',
         );
       },
     );

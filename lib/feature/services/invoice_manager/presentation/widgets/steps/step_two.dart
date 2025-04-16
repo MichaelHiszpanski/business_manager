@@ -123,15 +123,16 @@ class _StepTwoState extends State<StepTwo> {
       builder: (BuildContext context) {
         return CustomDialog(
           title: "Confirm Delete",
-          content:
-              "Do you want to delete this client: ${client.clientFirstName} ${client.clientLastName}?",
+          currentItem: "${client.clientFirstName} ${client.clientLastName}",
           onConfirm: () {
             context.read<InvoiceManagerBloc>().add(
                   InvoiceManagerRemoveClient(
-                    clientID: client.clinetID ?? client.clientFirstName,
+                    clientID: client.clinetID!,
                   ),
                 );
           },
+          question: 'Do you want to delete this: ',
+          itemType: ' client?',
         );
       },
     );

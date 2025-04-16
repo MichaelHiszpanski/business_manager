@@ -17,7 +17,10 @@ class ButtonWrapperTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(Constants.padding16),
+      padding: const EdgeInsets.symmetric(
+        horizontal: Constants.padding32,
+        vertical: Constants.padding8,
+      ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [

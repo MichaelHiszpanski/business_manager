@@ -102,8 +102,7 @@ class _StepFourState extends State<StepFour> {
       builder: (BuildContext context) {
         return CustomDialog(
           title: "Confirm Delete",
-          content:
-              "Do you want to delete this bank details: ${bank.displayName} ?",
+          currentItem: bank.displayName,
           onConfirm: () {
             context.read<InvoiceManagerBloc>().add(
                   InvoiceManagerRemoveBank(
@@ -111,6 +110,8 @@ class _StepFourState extends State<StepFour> {
                   ),
                 );
           },
+          question: 'Do you want to delete this: ',
+          itemType: ' bank details?',
         );
       },
     );

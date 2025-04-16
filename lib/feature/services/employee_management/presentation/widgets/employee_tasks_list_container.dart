@@ -1,6 +1,7 @@
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
+import 'package:business_manager/core/widgets/custom_dialog/custom_dialog.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_model.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_task_model.dart';
@@ -115,12 +116,23 @@ class EmployeeTasksListContainer extends StatelessWidget {
     String employeeID,
     String taskTitle,
   ) {
-    context.read<EmployeeManagementBloc>().add(
-          RemoveEmployeeTask(
-            employeeID: employeeID,
-            taskTitle: taskTitle,
-          ),
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDialog(
+          title: "Confirm Delete",
+          currentItem:taskTitle,
+          onConfirm: () {
+            context.read<EmployeeManagementBloc>().add(
+                  RemoveEmployeeTask(
+                    employeeID: employeeID,
+                    taskTitle: taskTitle,
+                  ),
+                );
+            Navigator.of(context).pop();
+          }, question: 'Do you want to delete this: ', itemType: ' task?',
         );
-    Navigator.of(context).pop();
+      },
+    );
   }
 }
