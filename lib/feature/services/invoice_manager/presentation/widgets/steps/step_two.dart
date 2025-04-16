@@ -127,7 +127,7 @@ class _StepTwoState extends State<StepTwo> {
           onConfirm: () {
             context.read<InvoiceManagerBloc>().add(
                   InvoiceManagerRemoveClient(
-                    clientID: client.clinetID ?? client.clientFirstName,
+                    clientID: client.clinetID!,
                   ),
                 );
           },

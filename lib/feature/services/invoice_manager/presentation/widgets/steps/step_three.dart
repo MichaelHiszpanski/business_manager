@@ -242,7 +242,7 @@ class _StepThreeState extends State<StepThree> {
           onConfirm: () {
             context.read<InvoiceManagerBloc>().add(
                   InvoiceManagerRemoveItem(
-                    itemID: item.itemID ?? item.description,
+                    itemID: item.itemID!,
                   ),
                 );
           },
