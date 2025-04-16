@@ -1,4 +1,5 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_two.dart';
@@ -13,11 +14,11 @@ class TaskDetailsDialog extends StatefulWidget {
   final VoidCallback onDelete;
 
   const TaskDetailsDialog({
-    Key? key,
+    super.key,
     required this.task,
     required this.employeeID,
     required this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   State<TaskDetailsDialog> createState() => _TaskDetailsDialogState();
@@ -35,39 +36,63 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(
-        widget.task.taskTitle,
-        style: context.text.headlineSmall,
+      title: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "Title: ",
+              style: context.text.headlineSmall
+                  ?.copyWith(color: Pallete.gradient1),
+            ),
+            TextSpan(
+              text: widget.task.taskTitle,
+              style: context.text.headlineSmall,
+            ),
+          ],
+        ),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Description: ${widget.task.taskDescription}",
-            style: context.text.bodyLarge,
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: "Description:\n",
+                  style: context.text.bodyLarge
+                      ?.copyWith(color: Pallete.colorFour),
+                ),
+                TextSpan(
+                  text: widget.task.taskDescription,
+                  style: context.text.bodyLarge,
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: Constants.padding16),
-          if (widget.task.employeeCheckInTime != null)
+          decorationLine(),
+          const SizedBox(height: Constants.padding16),
+          if (widget.task.employeeCheckInTime != null) ...[
             Text(
               "  Check-In    : ${DateFormatHelper.dateFormat(widget.task.employeeCheckInTime)}",
               style: context.text.bodyLarge?.copyWith(
                 color: Colors.green,
                 fontWeight: FontWeight.w600,
               ),
-            ),
-          const SizedBox(
-            height: Constants.padding4,
-          ),
-          if (widget.task.employeeCheckOutTime != null)
+            )
+          ],
+          const SizedBox(height: Constants.padding8),
+          if (widget.task.employeeCheckOutTime != null) ...[
             Text(
               "  Check-Out : ${DateFormatHelper.dateFormat(widget.task.employeeCheckOutTime)}",
               style: context.text.bodyLarge?.copyWith(
                 color: Colors.blue,
                 fontWeight: FontWeight.w600,
               ),
-            ),
-          const SizedBox(height: Constants.padding16),
+            )
+          ],
+          const SizedBox(height: Constants.padding32),
           ButtonWrapperTwo(
             startColor: _isCompleted ? Colors.green : Colors.red,
             endColor: _isCompleted ? Colors.lightGreen : Colors.redAccent,
@@ -94,6 +119,8 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
               ),
             ),
           ),
+          const SizedBox(height: Constants.padding16),
+          decorationLine(),
         ],
       ),
       actions: [
@@ -118,12 +145,16 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
           ),
         ),
       ],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Constants.radius30),
+        side: const BorderSide(color: Pallete.gradient1, width: 2),
+      ),
     );
   }
 
   void _toggleTaskStatus(BuildContext context) {
     setState(() {
-      _isCompleted = !_isCompleted;
+      _isCompleted = true; //!_isCompleted;
     });
 
     final updatedTask = EmployeeTaskModel(
@@ -143,5 +174,13 @@ class _TaskDetailsDialogState extends State<TaskDetailsDialog> {
             updatedTask: updatedTask,
           ),
         );
+  }
+
+  Widget decorationLine() {
+    return Container(
+      width: double.infinity,
+      height: 1,
+      color: Pallete.gradient1,
+    );
   }
 }

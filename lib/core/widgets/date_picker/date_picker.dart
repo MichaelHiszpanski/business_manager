@@ -8,6 +8,7 @@ class DatePicker extends StatefulWidget {
   final ValueChanged<DateTime?> onDateSelected;
   final DateTime? selectedDate;
   DateTime? startingDate;
+  final DateTime? minDate;
   String? buttonText;
   Color? backgroundColor;
 
@@ -16,6 +17,7 @@ class DatePicker extends StatefulWidget {
     required this.onDateSelected,
     this.selectedDate,
     this.buttonText,
+    this.minDate,
     this.startingDate,
     this.backgroundColor,
   });
@@ -34,10 +36,14 @@ class _DatePickerState extends State<DatePicker> {
   }
 
   Future<void> _datePicker(BuildContext context) async {
+    final DateTime initialDate = _expiredDateSelected ?? DateTime.now();
+    final DateTime firstDate =
+        widget.minDate ?? widget.startingDate ?? DateTime(1980);
+
     final DateTime? calendarPicker = await showDatePicker(
       context: context,
-      initialDate: _expiredDateSelected ?? DateTime.now(),
-      firstDate: widget.startingDate ?? DateTime.now(),
+      initialDate: initialDate.isBefore(firstDate) ? firstDate : initialDate,
+      firstDate: firstDate,
       lastDate: DateTime(2099),
     );
     if (calendarPicker != null && calendarPicker != _expiredDateSelected) {

@@ -83,6 +83,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   },
                   selectedDate: _checkOutTime,
                   buttonText: "Check-Out Time",
+                  minDate: _checkInTime,
                   startingDate: DateTime(1980),
                   backgroundColor: Colors.blue,
 

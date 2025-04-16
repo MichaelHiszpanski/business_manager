@@ -1,8 +1,12 @@
+import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:flutter/material.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title;
-  final String content;
+  final String currentItem;
+  final String question;
+  final String itemType;
   final VoidCallback onConfirm;
   final String confirmText;
   final String cancelText;
@@ -10,7 +14,9 @@ class CustomDialog extends StatelessWidget {
   const CustomDialog({
     super.key,
     required this.title,
-    required this.content,
+    required this.question,
+    required this.currentItem,
+    required this.itemType,
     required this.onConfirm,
     this.confirmText = "Delete",
     this.cancelText = "Cancel",
@@ -21,17 +27,27 @@ class CustomDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(
         title,
-        style: const TextStyle(color: Colors.red),
+        style: context.text.bodyLarge?.copyWith(color: Colors.red),
       ),
-      content: Text(
-        content,
-        style: const TextStyle(color: Colors.black87),
+      content: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: question,
+              style: context.text.headlineSmall,
+            ),
+            TextSpan(
+              text: currentItem,
+              style: context.text.headlineSmall?.copyWith(color: Colors.red),
+            ),
+            TextSpan(
+              text: itemType,
+              style: context.text.headlineSmall,
+            ),
+          ],
+        ),
       ),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(cancelText),
-        ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
           onPressed: () {
@@ -40,10 +56,22 @@ class CustomDialog extends StatelessWidget {
           },
           child: Text(
             confirmText,
-            style: const TextStyle(color: Colors.white),
+            style: context.text.bodyMedium,
+          ),
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(
+            cancelText,
+            style: context.text.bodyMedium,
           ),
         ),
       ],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Constants.radius30),
+        side: const BorderSide(color: Colors.red, width: 2),
+      ),
     );
   }
 }
