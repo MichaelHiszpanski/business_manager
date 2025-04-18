@@ -37,6 +37,7 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
       _fromSelectedDate = widget.selectedDatetime;
       _fromSelectedTime = TimeOfDay.fromDateTime(widget.selectedDatetime!);
     }
+    setState(() {});
   }
 
   @override

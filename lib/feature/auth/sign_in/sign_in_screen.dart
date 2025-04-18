@@ -69,6 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     color: Colors.red,
                     fontWeight: FontWeight.w700,
                     height: 1.5,
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -121,7 +122,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   Text(
                     context.strings.sign_in_no_account_message,
-                    style: context.text.bodyLarge?.copyWith(
+                    style: context.text.bodyMedium?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                       height: 1.5,
@@ -131,7 +132,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   Text(
                     context.strings.sign_in_go_to_website_message,
-                    style: context.text.bodyLarge?.copyWith(
+                    style: context.text.bodyMedium?.copyWith(
                       color: Pallete.gradient1,
                       fontWeight: FontWeight.w700,
                       height: 1.5,

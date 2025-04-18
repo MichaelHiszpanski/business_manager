@@ -238,11 +238,10 @@ class EmployeeDetailsScreen extends StatelessWidget {
           content: "Do you want to delete this employee?",
           onConfirm: () {
             context.read<EmployeeManagementBloc>().add(
-              RemoveEmployee(employeeID: employeeID),
-            );
+                  RemoveEmployee(employeeID: employeeID),
+                );
             Navigator.of(context).pop();
-            //
-            // // Then navigate to the EmployeeManagementScreen
+
             Navigator.of(context).pushReplacementNamed(
               AppRoutes.employeeManagementScreen,
             );

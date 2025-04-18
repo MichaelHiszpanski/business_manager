@@ -45,7 +45,7 @@ class _InformationsScreenState extends State<InformationsScreen> {
             ),
             child: CenterColumnLayout(
               children: [
-                const SizedBox(height: 2 * Constants.padding46),
+                const SizedBox(height:  Constants.padding46),
                 Text(
                   context.strings.app_name,
                   style: context.text.titleLarge

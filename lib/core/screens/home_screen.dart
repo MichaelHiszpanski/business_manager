@@ -1,7 +1,6 @@
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
 import 'package:business_manager/core/theme/app_font_family.dart';
 import 'package:business_manager/core/theme/colors.dart';
-import 'package:business_manager/core/tools/app_properties.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_side_button_menu/custom_side_button_menu.dart';
@@ -39,11 +38,10 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           BgLinearContainer(
-            colors:const [
-              Pallete.gradient1,
-              Pallete.colorTwo,
+            colors: const [
+              Pallete.colorOne,
               Pallete.colorSix,
-              Pallete.colorSix
+              Pallete.colorSix,
             ],
             child: Center(
               child: Column(

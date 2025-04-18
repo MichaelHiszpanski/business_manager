@@ -149,7 +149,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                                   ? Colors.blue.withOpacity(0.5)
                                   : Colors.green.withOpacity(0.5)
                               : Colors.red.withOpacity(0.5),
-                          blurRadius: 10.0,
+                          blurRadius: 26.0,
                           offset: const Offset(4, 4),
                         ),
                       ],
