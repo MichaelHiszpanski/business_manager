@@ -17,6 +17,7 @@ TextTheme getTextTheme(Color defaultTextColor) {
       height: 1.3,
       fontWeight: FontWeight.w800,
       color: Colors.white,
+     // fontFamily: AppFontFamily.orbitron,
     ),
     headlineLarge: const TextStyle(
       fontSize: 32,
@@ -68,7 +69,7 @@ TextTheme getTextTheme(Color defaultTextColor) {
       color: Colors.white,
     ),
     bodyLarge: TextStyle(
-      fontSize: 20,
+      fontSize: 16,
       height: 1.2,
       fontWeight: FontWeight.w700,
       color: defaultTextColor,

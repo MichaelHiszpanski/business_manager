@@ -62,6 +62,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen>
     businessOwnerCity: "",
     businessOwnerMobile: "",
     businessOwnerEmail: "",
+      businessNino:"",
   );
   ClientDetailsModel _selectedClientDetails = ClientDetailsModel(
     clientFirstName: "",
@@ -90,6 +91,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen>
   final TextEditingController _businessOwnerCity = TextEditingController();
   final TextEditingController _businessOwnerMobile = TextEditingController();
   final TextEditingController _businessOwnerEmail = TextEditingController();
+  final TextEditingController _businessNino= TextEditingController();
 
   final TextEditingController _clientFirstName = TextEditingController();
   final TextEditingController _clientLastName = TextEditingController();
@@ -131,6 +133,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen>
         businessOwnerCity: _selectedBusinessDetails.businessOwnerCity,
         businessOwnerMobile: _selectedBusinessDetails.businessOwnerMobile,
         businessOwnerEmail: _selectedBusinessDetails.businessOwnerEmail,
+          businessNino:_selectedBusinessDetails.businessNino,
       ),
       clientDetailsModel: ClientDetailsModel(
         clientFirstName: _selectedClientDetails.clientFirstName,
@@ -182,6 +185,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen>
                   businessOwnerCity: _businessOwnerCity,
                   businessOwnerMobile: _businessOwnerMobile,
                   businessOwnerEmail: _businessOwnerEmail,
+                  businessNiNo: _businessNino,
                   initialSelectedBusinessDetails: _selectedBusinessDetails,
                   saveBusinessDetails: _saveBusinessDetails,
                   onBusinessSelected: (BusinessDetailsModel? selectedBusiness) {
@@ -506,6 +510,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen>
       businessOwnerCity: _businessOwnerCity.text,
       businessOwnerMobile: _businessOwnerMobile.text,
       businessOwnerEmail: _businessOwnerEmail.text,
+        businessNino:_businessNino.text,
     );
 
     context

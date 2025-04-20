@@ -80,6 +80,7 @@ class InvoiceManagerBloc
                   businessOwnerCity: hiveData.businessOwnerCity,
                   businessOwnerMobile: hiveData.businessOwnerMobile,
                   businessOwnerEmail: hiveData.businessOwnerEmail,
+                  businessNino: hiveData.businessNiNo,
                 )),
       );
     }
@@ -156,16 +157,16 @@ class InvoiceManagerBloc
     _businessCurrentList.add(event.businessDetailsData);
 
     businessDetailList.add(BusinessDetailsHive(
-      businessID: event.businessDetailsData.businessID,
-      businessName: event.businessDetailsData.businessName,
-      businessFirstName: event.businessDetailsData.businessFirstName,
-      businessLastName: event.businessDetailsData.businessLastName,
-      businessOwnerStreet: event.businessDetailsData.businessOwnerStreet,
-      businessOwnerPostCode: event.businessDetailsData.businessOwnerPostCode,
-      businessOwnerCity: event.businessDetailsData.businessOwnerCity,
-      businessOwnerMobile: event.businessDetailsData.businessOwnerMobile,
-      businessOwnerEmail: event.businessDetailsData.businessOwnerEmail,
-    ));
+        businessID: event.businessDetailsData.businessID,
+        businessName: event.businessDetailsData.businessName,
+        businessFirstName: event.businessDetailsData.businessFirstName,
+        businessLastName: event.businessDetailsData.businessLastName,
+        businessOwnerStreet: event.businessDetailsData.businessOwnerStreet,
+        businessOwnerPostCode: event.businessDetailsData.businessOwnerPostCode,
+        businessOwnerCity: event.businessDetailsData.businessOwnerCity,
+        businessOwnerMobile: event.businessDetailsData.businessOwnerMobile,
+        businessOwnerEmail: event.businessDetailsData.businessOwnerEmail,
+        businessNiNo: event.businessDetailsData.businessNino));
 
     await box.put(
       HiveBusinessDetailsProperties.TO_BUSINESS_DETAILS_DATA_KEY,

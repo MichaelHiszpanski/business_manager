@@ -196,6 +196,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                           _updatedEmployeeDetails(context, model);
                         },
                         buttonText: "Edit Employee Details",
+                        customStyle: context.text.displaySmall,
                       ),
                       const SizedBox(height: Constants.padding32),
                       CustomFloatingButton(

@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:business_manager/core/helpers/date_format_helper.dart';
+import 'package:business_manager/core/supabase/supabase_config.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
+import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:business_manager/core/widgets/custom_dialog/custom_dialog.dart';
 import 'package:business_manager/core/widgets/layouts/bg_sweep_container/bg_sweep_container.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -49,8 +52,8 @@ class _ProfileScreenState extends State<ProfileScreen>
       appBar: CustomAppBar(
         title: context.strings.profile_name,
         onMenuPressed: () {},
-        titleFontColor: Colors.white,
-        iconArrowColor: Colors.white,
+        titleFontColor: Colors.black,
+        iconArrowColor: Colors.black,
       ),
       body: BgSweepContainer(
         colors: const [
@@ -190,6 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                 ),
               ),
               const SizedBox(height: Constants.padding16 * 4),
+              _deleteAccountButton(),
               const Spacer(),
             ],
           ),
@@ -207,5 +211,67 @@ class _ProfileScreenState extends State<ProfileScreen>
         mode: LaunchMode.externalApplication,
       );
     }
+  }
+
+  Future<void> _deleteSupabaseUserAccount(BuildContext context) async {
+    try {
+      await Supabase.initialize(
+        url: SupabaseConfig.supabaseUrl,
+        anonKey: SupabaseConfig.supabaseAnonKey,
+      );
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Your Supabase Account was Deleted.')),
+      );
+      setState(() {
+        _user = Supabase.instance.client.auth.currentUser;
+      });
+      context.router.popUntilRoot();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to delete Supabase Account: $e')),
+      );
+    }
+  }
+
+  void _showReinitConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => CustomDialog(
+        title: "Delete User Account",
+        question: "Are you sure you want to ? ",
+        currentItem: "Delete  ",
+        itemType: "your Account",
+        confirmText: "Delete",
+        cancelText: "Cancel",
+        onConfirm: () => _deleteSupabaseUserAccount(context),
+      ),
+    );
+  }
+
+  Widget _deleteAccountButton() {
+    return Container(
+      width: double.infinity,
+      height: 50,
+      margin: const EdgeInsets.only(top: Constants.padding16),
+      child: ElevatedButton(
+        onPressed: () => _showReinitConfirmationDialog(context),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.red,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Constants.radius30),
+          ),
+        ),
+        child: Text(
+          'Delete your Account',
+          style: context.text.displaySmall?.copyWith(
+            color: Colors.white,
+            fontSize: 22,
+          ),
+        ),
+      ),
+    );
   }
 }
