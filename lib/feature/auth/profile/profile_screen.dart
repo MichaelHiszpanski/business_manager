@@ -77,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: Constants.padding32 * 4),
+              const SizedBox(height: Constants.padding32 ),
               Container(
                 width: double.maxFinite,
                 padding: const EdgeInsets.all(Constants.padding16),
@@ -188,7 +188,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                   ),
                   child: Text(
                     context.strings.profile_button_reset_password,
-                    style: context.text.displaySmall,
+                    style: context.text.displayMedium,
                   ),
                 ),
               ),
@@ -241,9 +241,9 @@ class _ProfileScreenState extends State<ProfileScreen>
       context: context,
       builder: (context) => CustomDialog(
         title: "Delete User Account",
-        question: "Are you sure you want to ? ",
+        question: "Are you sure you want to ",
         currentItem: "Delete  ",
-        itemType: "your Account",
+        itemType: "your Account?",
         confirmText: "Delete",
         cancelText: "Cancel",
         onConfirm: () => _deleteSupabaseUserAccount(context),

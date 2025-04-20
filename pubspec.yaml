@@ -3,7 +3,7 @@ description: "Business Manager."
 
 publish_to: "none"
 
-version: 2.0.1+1
+version: 1.4.2+1
 # sdk: '>=3.4.3 <4.0.0'
 environment:
   sdk: ">=3.3.2 <4.0.0"
@@ -42,6 +42,7 @@ dependencies:
   supabase_flutter: ^2.8.3
   fl_chart: ^0.69.0
   auto_size_text: ^3.0.0
+  package_info_plus: ^8.3.0
 
 flutter_icons:
   image_path: "assets/images/earth.png"
