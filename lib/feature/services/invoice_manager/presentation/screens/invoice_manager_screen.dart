@@ -29,7 +29,20 @@ class InvoiceManagerScreen extends StatefulWidget {
   State<InvoiceManagerScreen> createState() => _InvoiceManagerScreenState();
 }
 
-class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
+class _InvoiceManagerScreenState extends State<InvoiceManagerScreen>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   final List<BusinessDetailsModel> _businessesList = [];
   final List<ClientDetailsModel> _clientsList = [];
   final List<InvoiceItemModel> _itemsList = [];
@@ -49,6 +62,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
     businessOwnerCity: "",
     businessOwnerMobile: "",
     businessOwnerEmail: "",
+      businessNino:"",
   );
   ClientDetailsModel _selectedClientDetails = ClientDetailsModel(
     clientFirstName: "",
@@ -77,6 +91,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
   final TextEditingController _businessOwnerCity = TextEditingController();
   final TextEditingController _businessOwnerMobile = TextEditingController();
   final TextEditingController _businessOwnerEmail = TextEditingController();
+  final TextEditingController _businessNino= TextEditingController();
 
   final TextEditingController _clientFirstName = TextEditingController();
   final TextEditingController _clientLastName = TextEditingController();
@@ -118,6 +133,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
         businessOwnerCity: _selectedBusinessDetails.businessOwnerCity,
         businessOwnerMobile: _selectedBusinessDetails.businessOwnerMobile,
         businessOwnerEmail: _selectedBusinessDetails.businessOwnerEmail,
+          businessNino:_selectedBusinessDetails.businessNino,
       ),
       clientDetailsModel: ClientDetailsModel(
         clientFirstName: _selectedClientDetails.clientFirstName,
@@ -169,6 +185,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
                   businessOwnerCity: _businessOwnerCity,
                   businessOwnerMobile: _businessOwnerMobile,
                   businessOwnerEmail: _businessOwnerEmail,
+                  businessNiNo: _businessNino,
                   initialSelectedBusinessDetails: _selectedBusinessDetails,
                   saveBusinessDetails: _saveBusinessDetails,
                   onBusinessSelected: (BusinessDetailsModel? selectedBusiness) {
@@ -493,6 +510,7 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
       businessOwnerCity: _businessOwnerCity.text,
       businessOwnerMobile: _businessOwnerMobile.text,
       businessOwnerEmail: _businessOwnerEmail.text,
+        businessNino:_businessNino.text,
     );
 
     context
@@ -637,7 +655,6 @@ class _InvoiceManagerScreenState extends State<InvoiceManagerScreen> {
           fontWeight: FontWeight.bold,
           color: Colors.black,
           fontFamily: AppFontFamily.orbitron,
-
         ),
         connectorThickness: 2.0,
         border: Border.all(

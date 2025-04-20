@@ -22,6 +22,7 @@ class StepOne extends StatefulWidget {
   final TextEditingController businessOwnerCity;
   final TextEditingController businessOwnerMobile;
   final TextEditingController businessOwnerEmail;
+  final TextEditingController businessNiNo;
 
   StepOne({
     super.key,
@@ -37,6 +38,7 @@ class StepOne extends StatefulWidget {
     required this.initialSelectedBusinessDetails,
     required this.saveBusinessDetails,
     required this.onBusinessSelected,
+    required this.businessNiNo,
   });
 
   @override
@@ -112,6 +114,7 @@ class _StepOneState extends State<StepOne> {
               mobile: widget.businessOwnerMobile,
               email: widget.businessOwnerEmail,
               onSaveData: widget.saveBusinessDetails,
+              businessNiNo: widget.businessNiNo,
             ),
           ],
         ),

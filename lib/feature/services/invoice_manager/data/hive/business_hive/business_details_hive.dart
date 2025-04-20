@@ -32,6 +32,9 @@ class BusinessDetailsHive {
   @HiveField(HiveBusinessDetailsProperties.businessOwnerEmail)
   final String businessOwnerEmail;
 
+  @HiveField(HiveBusinessDetailsProperties.businessNiNo)
+  final String businessNiNo;
+
   BusinessDetailsHive({
     this.businessID,
     required this.businessName,
@@ -42,6 +45,7 @@ class BusinessDetailsHive {
     required this.businessOwnerCity,
     required this.businessOwnerMobile,
     required this.businessOwnerEmail,
+    required this.businessNiNo,
   });
 
   @override
@@ -49,6 +53,6 @@ class BusinessDetailsHive {
     return 'BusinessDetailsHive(businessID : $businessID, businessName: $businessName, businessFirstName: $businessFirstName, '
         'businessLastName: $businessLastName, businessOwnerStreet: $businessOwnerStreet, '
         'businessOwnerPostCode: $businessOwnerPostCode, businessOwnerCity: $businessOwnerCity, '
-        'businessOwnerMobile: $businessOwnerMobile, businessOwnerEmail: $businessOwnerEmail)';
+        'businessOwnerMobile: $businessOwnerMobile, businessOwnerEmail: $businessOwnerEmail, businessNino $businessNiNo)';
   }
 }

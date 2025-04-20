@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:business_manager/core/main_utils/app_routes/app_routes.dart';
+import 'package:business_manager/core/main_utils/auto_routes/app_router.dart';
 import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/app_properties.dart';
@@ -195,6 +196,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
                           _updatedEmployeeDetails(context, model);
                         },
                         buttonText: "Edit Employee Details",
+                        customStyle: context.text.displaySmall,
                       ),
                       const SizedBox(height: Constants.padding32),
                       CustomFloatingButton(
@@ -237,7 +239,12 @@ class EmployeeDetailsScreen extends StatelessWidget {
           content: "Do you want to delete this employee?",
           onConfirm: () {
             context.read<EmployeeManagementBloc>().add(
-              RemoveEmployee(employeeID: employeeID),
+                  RemoveEmployee(employeeID: employeeID),
+                );
+            Navigator.of(context).pop();
+
+            Navigator.of(context).pushReplacementNamed(
+              AppRoutes.employeeManagementScreen,
             );
           },
         );

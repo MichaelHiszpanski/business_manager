@@ -2,6 +2,7 @@ import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
+import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/color_selector.dart';
 import 'package:business_manager/feature/services/work_manager/presentation/widgets/custom_dropdown_hours.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,11 @@ class AddNewEventForBottomSheet extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             children: <Widget>[
               const SizedBox(height: 16),
-              Text(context.strings.work_manager_add_event_title),
+              Text(
+                context.strings.work_manager_add_event_title,
+                style:
+                    context.text.titleLarge?.copyWith(color: Pallete.gradient1),
+              ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: controllerName,
@@ -107,10 +112,14 @@ class AddNewEventForBottomSheet extends StatelessWidget {
               //   onChanged: onAllDay,
               // ),
               const SizedBox(height: Constants.padding16),
-              CustomFloatingButton(
+              // CustomFloatingButton(
+              //   onPressed: addMeeting,
+              //   buttonText: context.strings.work_manager_button_accept,
+              //   backgroundColor: Pallete.gradient2,
+              // ),
+              PrimaryButton(
                 onPressed: addMeeting,
                 buttonText: context.strings.work_manager_button_accept,
-                backgroundColor: Pallete.gradient2,
               ),
               const SizedBox(height: Constants.padding42),
             ],

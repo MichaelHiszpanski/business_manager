@@ -100,5 +100,6 @@
     "work_manager_meeting_from_label": "Od: ",
     "work_manager_meeting_to_label": "Do: ",
     "work_manager_button_select_remove": "Wybierz do usunięcia",
-    "work_manager_button_close": "Zamknij"
+    "work_manager_button_close": "Zamknij",
+    "work_manager_task_name": "Zadanie"
  }

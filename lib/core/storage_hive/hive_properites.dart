@@ -49,6 +49,7 @@ class HiveBusinessDetailsProperties {
   static const int businessOwnerCity = 6;
   static const int businessOwnerMobile = 7;
   static const int businessOwnerEmail = 8;
+  static const int businessNiNo = 9;
 }
 
 class HiveClientDetailsProperties {

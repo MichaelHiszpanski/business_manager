@@ -6,11 +6,15 @@ import 'package:flutter/material.dart';
 class PrimaryButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonText;
+  TextStyle? customStyle;
+  Color? backgroundColor;
 
-  const PrimaryButton({
+  PrimaryButton({
     super.key,
     required this.onPressed,
     required this.buttonText,
+    this.customStyle,
+    this.backgroundColor
   });
 
   @override
@@ -43,7 +47,7 @@ class PrimaryButton extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                   child: Text(
                     buttonText,
-                    style: context.text.displaySmall,
+                    style: customStyle ?? context.text.displayMedium,
                     maxLines: 1,
                   ),
                 ),

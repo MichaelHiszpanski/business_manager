@@ -1,6 +1,7 @@
 import 'package:business_manager/core/helpers/validations_helper.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
+import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class PersonalDetailsInputs extends StatefulWidget {
   final TextEditingController email;
   final VoidCallback onSaveData;
   final TextEditingController? businessName;
+  final TextEditingController? businessNiNo;
   final bool isBusinessInputText;
 
   const PersonalDetailsInputs({
@@ -27,6 +29,7 @@ class PersonalDetailsInputs extends StatefulWidget {
     required this.email,
     required this.onSaveData,
     this.businessName,
+    this.businessNiNo,
     this.isBusinessInputText = false,
   });
 
@@ -85,6 +88,14 @@ class _PersonalDetailsInputsState extends State<PersonalDetailsInputs> {
             decoration: const InputDecoration(labelText: 'Email:'),
             validator: ValidationsHelper.validateTextField,
           ),
+          if (widget.isBusinessInputText) ...[
+            TextFormField(
+              controller: widget.businessNiNo,
+              decoration:
+                  const InputDecoration(labelText: 'National Insurance No.'),
+              validator: ValidationsHelper.validateTextField,
+            ),
+          ],
           const SizedBox(height: Constants.padding24),
           CustomFloatingButton(
             onPressed: () {
@@ -99,6 +110,4 @@ class _PersonalDetailsInputsState extends State<PersonalDetailsInputs> {
       ),
     );
   }
-
-
 }

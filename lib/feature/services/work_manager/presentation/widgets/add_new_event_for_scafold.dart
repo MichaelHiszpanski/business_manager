@@ -67,7 +67,8 @@ class AddNewEventForScafold extends StatelessWidget {
                 const SizedBox(height: Constants.padding16),
                 Text(
                   context.strings.work_manager_setup_new_event_title,
-                  style: context.text.headlineSmall,
+                  style: context.text.bodyMedium
+                      ?.copyWith(color: Pallete.colorFour, fontSize: 18),
                 ),
                 const SizedBox(height: 2 * Constants.padding16),
                 TextFormField(
@@ -131,11 +132,6 @@ class AddNewEventForScafold extends StatelessWidget {
                   onColorSelected: onColorSelected,
                 ),
                 const SizedBox(height: Constants.padding16),
-                // SwitchListTile(
-                //   title: Text(context.strings.work_manager_all_day_event_label),
-                //   value: isAllDay,
-                //   onChanged: onAllDay,
-                // ),
                 const SizedBox(height: Constants.padding16),
                 CustomFloatingButton(
                   onPressed: addMeeting,

@@ -1,4 +1,5 @@
 import 'package:business_manager/core/helpers/date_format_helper.dart';
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/feature/services/invoice_manager/models/invoice_one_model.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart' as pdf;
@@ -23,6 +24,7 @@ class PdfTemplateOne {
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               pw.Row(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
                   pw.Column(
@@ -31,31 +33,118 @@ class PdfTemplateOne {
                       pw.Text(
                         pdfData.businessDetailsModel.businessName,
                         style: pw.TextStyle(
-                          fontSize: 22,
+                          fontSize: 24,
                           fontWeight: pw.FontWeight.bold,
+                          color: pdf.PdfColor(0.0, 0.0, 0.545),
                         ),
                       ),
-                      pw.Text(
-                          "${pdfData.businessDetailsModel.businessFirstName} ${pdfData.businessDetailsModel.businessLastName}"),
-                      pw.Text(pdfData.businessDetailsModel.businessOwnerStreet),
-                      pw.Text(pdfData.businessDetailsModel.businessOwnerCity),
-                      pw.Text(
-                          pdfData.businessDetailsModel.businessOwnerPostCode),
-                      pw.Text(
-                          "Mobile: ${pdfData.businessDetailsModel.businessOwnerMobile}"),
-                      pw.Text(
-                          "Email: ${pdfData.businessDetailsModel.businessOwnerEmail}"),
+                      pw.RichText(
+                        text: pw.TextSpan(
+                          children: [
+                            pw.TextSpan(
+                                text: "Name: ",
+                                style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold)),
+                            pw.TextSpan(
+                                text:
+                                    "${pdfData.businessDetailsModel.businessFirstName} ${pdfData.businessDetailsModel.businessLastName}"),
+                          ],
+                        ),
+                      ),
+                      pw.RichText(
+                        text: pw.TextSpan(
+                          children: [
+                            pw.TextSpan(
+                                text: "NINo: ",
+                                style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold)),
+                            pw.TextSpan(
+                                text:
+                                    "${pdfData.businessDetailsModel.businessNino}"),
+                          ],
+                        ),
+                      ),
+                      pw.RichText(
+                        text: pw.TextSpan(
+                          children: [
+                            pw.TextSpan(
+                                text: "Street: ",
+                                style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold)),
+                            pw.TextSpan(
+                                text:
+                                    "${pdfData.businessDetailsModel.businessOwnerStreet}"),
+                          ],
+                        ),
+                      ),
+                      pw.RichText(
+                        text: pw.TextSpan(
+                          children: [
+                            pw.TextSpan(
+                                text: "City: ",
+                                style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold)),
+                            pw.TextSpan(
+                                text:
+                                    "${pdfData.businessDetailsModel.businessOwnerCity}"),
+                          ],
+                        ),
+                      ),
+                      pw.RichText(
+                        text: pw.TextSpan(
+                          children: [
+                            pw.TextSpan(
+                                text: "PostCode: ",
+                                style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold)),
+                            pw.TextSpan(
+                                text:
+                                    "${pdfData.businessDetailsModel.businessOwnerPostCode}"),
+                          ],
+                        ),
+                      ),
+                      pw.RichText(
+                        text: pw.TextSpan(
+                          children: [
+                            pw.TextSpan(
+                                text: "Mobile: ",
+                                style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold)),
+                            pw.TextSpan(
+                                text:
+                                    "${pdfData.businessDetailsModel.businessOwnerMobile}"),
+                          ],
+                        ),
+                      ),
+                      pw.RichText(
+                        text: pw.TextSpan(
+                          children: [
+                            pw.TextSpan(
+                                text: "Email: ",
+                                style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold)),
+                            pw.TextSpan(
+                                text:
+                                    "${pdfData.businessDetailsModel.businessOwnerEmail}"),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                   pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.end,
                     children: [
-                      pw.Text("Invoice",
-                          style: pw.TextStyle(
-                              fontSize: 24, fontWeight: pw.FontWeight.bold)),
+                      pw.Text(
+                        "Invoice",
+                        style: pw.TextStyle(
+                          fontSize: 24,
+                          fontWeight: pw.FontWeight.bold,
+                          color: pdf.PdfColor.fromInt(0xFF00008B),
+                        ),
+                      ),
                       pw.SizedBox(height: 8),
                       pw.Text(
-                          // "Date: ${DateTime.now().toString().split(' ')[0]}"
+                        // "Date: ${DateTime.now().toString().split(' ')[0]}"
                           "Date: ${DateFormatHelper.dateFormat(pdfData.invoiceDateTimeCreated)}"),
                       pw.Text("Invoice #: ${pdfData.invoiceNumber}"),
                     ],
@@ -65,8 +154,11 @@ class PdfTemplateOne {
               pw.Divider(height: 32),
               pw.Text(
                 "Bill To:",
-                style:
-                    pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold),
+                style: pw.TextStyle(
+                  fontSize: 16,
+                  fontWeight: pw.FontWeight.bold,
+                  color: pdf.PdfColor.fromInt(0xFF00008B),
+                ),
               ),
               pw.Text(
                   "${pdfData.clientDetailsModel.clientFirstName} ${pdfData.clientDetailsModel.clientLastName}"),

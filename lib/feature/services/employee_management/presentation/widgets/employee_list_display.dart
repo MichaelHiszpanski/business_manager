@@ -36,7 +36,7 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
                         children: [
                           Text(
                             "Add New Employee.",
-                            style: context.text.headlineLarge?.copyWith(
+                            style: context.text.headlineMedium?.copyWith(
                               color: Colors.white,
                             ),
                           ),
@@ -50,7 +50,7 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
                       child: ListWheelScrollView.useDelegate(
                         itemExtent: 60,
                         useMagnifier: true,
-                        magnification:1,
+                        magnification: 1,
                         diameterRatio: 2,
                         physics: const FixedExtentScrollPhysics(),
                         onSelectedItemChanged: (index) {
@@ -58,8 +58,7 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
                             selectedIndex = index;
                           });
                         },
-                        childDelegate:
-                        ListWheelChildBuilderDelegate(
+                        childDelegate: ListWheelChildBuilderDelegate(
                           builder: (context, index) {
                             if (index < 0 || index >= employeeList.length) {
                               return Text(
@@ -82,8 +81,6 @@ class _EmployeeListDisplayState extends State<EmployeeListDisplay> {
                                       ? Colors.white70
                                       : Colors.transparent,
                                 ),
-                                // padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
                                 child: Row(
                                   children: [
                                     const SizedBox(width: Constants.padding4),

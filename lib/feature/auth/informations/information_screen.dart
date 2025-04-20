@@ -10,6 +10,7 @@ import 'package:business_manager/core/widgets/layouts/center_column_layout/cente
 import 'package:business_manager/feature/auth/informations/widgets/informations_screen_row.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 @RoutePage()
 class InformationsScreen extends StatefulWidget {
@@ -20,6 +21,24 @@ class InformationsScreen extends StatefulWidget {
 }
 
 class _InformationsScreenState extends State<InformationsScreen> {
+  String _appName = '';
+  String _version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAppInfo();
+  }
+
+  Future<void> _loadAppInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    if (!mounted) return;
+    setState(() {
+      _appName = info.appName;
+      _version = info.version;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +64,7 @@ class _InformationsScreenState extends State<InformationsScreen> {
             ),
             child: CenterColumnLayout(
               children: [
-                const SizedBox(height: 2 * Constants.padding46),
+                const SizedBox(height: Constants.padding46),
                 Text(
                   context.strings.app_name,
                   style: context.text.titleLarge
@@ -91,7 +110,19 @@ class _InformationsScreenState extends State<InformationsScreen> {
                 PrimaryButton(
                   onPressed: _launchURL,
                   buttonText: context.strings.button_open_website,
-                )
+                ),
+                const SizedBox(height: 2 * Constants.padding16),
+                Text(
+                  _appName,
+                  style: context.text.titleLarge
+                      ?.copyWith(color: Colors.blueAccent),
+                ),
+                const SizedBox(height: Constants.padding8),
+                Text(
+                  "Version: $_version",
+                  style:
+                      context.text.bodyMedium?.copyWith(color: Colors.black54),
+                ),
               ],
             ),
           ),

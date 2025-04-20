@@ -10,6 +10,7 @@ class BusinessDetailsModel extends Equatable {
   final String businessOwnerCity;
   final String businessOwnerMobile;
   final String businessOwnerEmail;
+  final String businessNino;
 
   BusinessDetailsModel({
     this.businessID,
@@ -21,6 +22,7 @@ class BusinessDetailsModel extends Equatable {
     required this.businessOwnerCity,
     required this.businessOwnerMobile,
     required this.businessOwnerEmail,
+    required this.businessNino,
   });
 
   String get displayName => "$businessName";
@@ -35,5 +37,6 @@ class BusinessDetailsModel extends Equatable {
         businessOwnerPostCode,
         businessOwnerMobile,
         businessOwnerEmail,
+        businessNino
       ];
 }
