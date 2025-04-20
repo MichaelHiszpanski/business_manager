@@ -129,7 +129,15 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
   }
 
   void _onCalendarEventClicked(
-      BuildContext context, sf.CalendarTapDetails details) {
+    BuildContext context,
+    sf.CalendarTapDetails details,
+  ) {
+    if (_calendarView != sf.CalendarView.day &&
+        _calendarView != sf.CalendarView.week) {
+      return;
+    }
+
+
     if (details.appointments == null || details.appointments!.isEmpty) {
       if (details.date != null) {
         _showAddEventBottomSheet(context, details.date!, false);
