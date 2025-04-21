@@ -26,11 +26,31 @@ class SignInScreen extends StatefulWidget {
   _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignInScreenState extends State<SignInScreen>
+    with WidgetsBindingObserver {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String? _errorMessage;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,9 +127,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       : _signInWithSupabase(),
               buttonText: context.strings.sign_in_with_email,
               shadowColor: Colors.black87,
-              customStyle: context.text.displayMedium?.copyWith(
-                color: Pallete.colorOne
-              ),
+              customStyle:
+                  context.text.displayMedium?.copyWith(color: Pallete.colorOne),
             ),
             const SizedBox(height: Constants.padding46),
             SecondaryButton(
@@ -124,7 +143,6 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> _signInWithSupabase() async {
-
     setState(() {
       _isLoading = true;
       _errorMessage = null;

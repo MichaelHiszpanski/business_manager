@@ -3,8 +3,8 @@ description: "Business Manager."
 
 publish_to: "none"
 
-version: 1.4.2+1
-# sdk: '>=3.4.3 <4.0.0'
+version: 1.4.3+1
+
 environment:
   sdk: ">=3.3.2 <4.0.0"
 

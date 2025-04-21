@@ -9,7 +9,6 @@ import 'package:business_manager/core/widgets/buttons/secondary_button/secondary
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/core/widgets/custom_dialog/custom_dialog.dart';
 import 'package:business_manager/core/widgets/layouts/bg_linear_container/bg_linear_container.dart';
-import 'package:business_manager/core/widgets/layouts/bg_sweep_container/bg_sweep_container.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -161,7 +160,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                 shadowColor: Colors.green,
               ),
               const SizedBox(height: Constants.padding46),
-              // _deleteAccountButton(),
               SecondaryButton(
                 onPressed: () => _showReinitConfirmationDialog(context),
                 buttonText: 'Delete Your account',
@@ -221,30 +219,6 @@ class _ProfileScreenState extends State<ProfileScreen>
         confirmText: "Delete",
         cancelText: "Cancel",
         onConfirm: () => _deleteSupabaseUserAccount(context),
-      ),
-    );
-  }
-
-  Widget _deleteAccountButton() {
-    return Container(
-      width: double.infinity,
-      height: 50,
-      margin: const EdgeInsets.only(top: Constants.padding16),
-      child: ElevatedButton(
-        onPressed: () => _showReinitConfirmationDialog(context),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Constants.radius30),
-          ),
-        ),
-        child: Text(
-          'Delete your Account',
-          style: context.text.displaySmall?.copyWith(
-            color: Colors.white,
-            fontSize: 22,
-          ),
-        ),
       ),
     );
   }
