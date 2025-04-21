@@ -1,18 +1,18 @@
 part of 'work_manager_bloc.dart';
 
 sealed class WorkManagerState extends Equatable {
-  final List<Meeting> meetings;
+  final List<MeetingModel> meetings;
 
   const WorkManagerState({this.meetings = const []});
 
-  WorkManagerState copyWith({List<Meeting>? meetings});
+  WorkManagerState copyWith({List<MeetingModel>? meetings});
 }
 
 final class WorkManagerInitial extends WorkManagerState {
   const WorkManagerInitial() : super(meetings: const []);
 
   @override
-  WorkManagerState copyWith({List<Meeting>? meetings}) {
+  WorkManagerState copyWith({List<MeetingModel>? meetings}) {
     return const  WorkManagerInitial();
   }
 
@@ -21,10 +21,10 @@ final class WorkManagerInitial extends WorkManagerState {
 }
 
 final class WorkManagerLoaded extends WorkManagerState {
-  const WorkManagerLoaded({List<Meeting> meetings = const []}) : super(meetings: meetings);
+  const WorkManagerLoaded({List<MeetingModel> meetings = const []}) : super(meetings: meetings);
 
   @override
-  WorkManagerState copyWith({List<Meeting>? meetings}) {
+  WorkManagerState copyWith({List<MeetingModel>? meetings}) {
     return WorkManagerLoaded(
       meetings: meetings ?? this.meetings,
     );

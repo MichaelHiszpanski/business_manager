@@ -23,7 +23,7 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
 
   FutureOr<void> _onAddNewMeeting(
       AddMeetingEvent event, Emitter<WorkManagerState> emit) async {
-    final newMeeting = Meeting(
+    final newMeeting = MeetingModel(
       event.eventName,
       event.eventDescription,
       event.startDate,
@@ -82,7 +82,7 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
         await Hive.openBox(HiveWorkManagerProperties.TO_WORK_MANAGER_DATA_BOX);
 
     if (state is WorkManagerLoaded) {
-      final currentMeetingList = List<Meeting>.from(state.meetings)
+      final currentMeetingList = List<MeetingModel>.from(state.meetings)
         ..remove(event.meeting);
       emit(state.copyWith(meetings: currentMeetingList));
 
@@ -113,7 +113,7 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
     List<dynamic>? getExistingHiveData =
         box.get(HiveWorkManagerProperties.TO_WORK_MANAGER_DATA_KEY);
 
-    List<Meeting> meetingsFromHive = [];
+    List<MeetingModel> meetingsFromHive = [];
 
     if (getExistingHiveData == null || getExistingHiveData.isEmpty) {
       return;
@@ -123,7 +123,7 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
         getExistingHiveData.cast<WorkManagerHive>();
 
     meetingsFromHive = hiveDataList.map((hiveItem) {
-      return Meeting(
+      return MeetingModel(
         hiveItem.eventName,
         hiveItem.eventDescription,
         hiveItem.startDate,

@@ -2,7 +2,7 @@ import 'package:business_manager/core/helpers/date_format_helper.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
-import 'package:business_manager/core/widgets/custom_delete_dialog/custom_delete_dialog.dart';
+import 'package:business_manager/core/widgets/custom_dialog/custom_dialog.dart';
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
@@ -84,7 +84,7 @@ class ToDoListItem extends StatelessWidget {
                     iconSize: 22,
                     color: Colors.red,
                     onPressed: () {
-                      _deleteItem(context, todo.id);
+                      _deleteItem(context, todo.id, todo.title);
                     },
                   ),
                 ],
@@ -146,19 +146,20 @@ class ToDoListItem extends StatelessWidget {
     );
   }
 
-  void _deleteItem(BuildContext context, String employeeID) {
+  void _deleteItem(BuildContext context, String employeeID, String todoTitle) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return CustomDeleteDialog(
-          title: "Confirm Delete",
-          content: "Do you want to delete this item?",
-          onConfirm: () {
-            context.read<ToDoBloc>().add(
-                  RemoveToDoListItem(id: todo.id),
-                );
-          },
-        );
+        return CustomDialog(
+            title: "Confirm Delete",
+            question: "Do you want to delete ",
+            currentItem: todoTitle,
+            itemType: " task?",
+            onConfirm: () {
+              context.read<ToDoBloc>().add(
+                    RemoveToDoListItem(id: todo.id),
+                  );
+            });
       },
     );
   }

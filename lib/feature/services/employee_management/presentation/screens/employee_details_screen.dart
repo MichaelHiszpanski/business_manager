@@ -4,11 +4,10 @@ import 'package:business_manager/core/screens/load_app_data_screen.dart';
 import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
-import 'package:business_manager/core/widgets/buttons/custom_floating_button.dart';
 import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/buttons/secondary_button/secondary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
-import 'package:business_manager/core/widgets/custom_delete_dialog/custom_delete_dialog.dart';
+import 'package:business_manager/core/widgets/custom_dialog/custom_dialog.dart';
 import 'package:business_manager/core/widgets/layouts/bg_radial_container/bg_radial_container.dart';
 import 'package:business_manager/feature/services/employee_management/bloc/employee_management_bloc.dart';
 import 'package:business_manager/feature/services/employee_management/models/employee_model.dart';
@@ -189,16 +188,18 @@ class EmployeeDetailsScreen extends StatelessWidget {
                           _updatedEmployeeDetails(context, model);
                         },
                         buttonText: "Edit Employee Details",
-                        customStyle: context.text.displayMedium?.copyWith(
-                          fontSize: 17,
-                          color: Colors.black
-                        ),
+                        customStyle: context.text.displayMedium
+                            ?.copyWith(fontSize: 17, color: Colors.black),
                         shadowColor: Colors.white,
                       ),
                       const SizedBox(height: Constants.padding32),
                       SecondaryButton(
                         onPressed: () {
-                          _deleteEmployee(context, model.employeeID!);
+                          _deleteEmployee(
+                            context,
+                            model.employeeID!,
+                            model.displayName,
+                          );
                         },
                         buttonText: "Delete Employee",
                         backgroundColor: Colors.red,
@@ -228,25 +229,36 @@ class EmployeeDetailsScreen extends StatelessWidget {
     );
   }
 
-  void _deleteEmployee(BuildContext context, String employeeID) {
+  void _deleteEmployee(
+    BuildContext context,
+    String employeeID,
+    String employeeName,
+  ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return CustomDeleteDialog(
+        return CustomDialog(
           title: "Confirm Delete",
-          content: "Do you want to delete this employee?",
-          onConfirm: () {
-            context.read<EmployeeManagementBloc>().add(
-                  RemoveEmployee(employeeID: employeeID),
-                );
-            Navigator.of(context).pop();
-
-            Navigator.of(context).pushReplacementNamed(
-              AppRoutes.employeeManagementScreen,
-            );
-          },
+          question: "Do you want to delete ",
+          currentItem: employeeName,
+          itemType: " employee?",
+          onConfirm: () => _onConfirmDeleteEmployee(context, employeeID),
         );
       },
+    );
+  }
+
+  void _onConfirmDeleteEmployee(
+    BuildContext context,
+    String employeeID,
+  ) {
+    context.read<EmployeeManagementBloc>().add(
+          RemoveEmployee(employeeID: employeeID),
+        );
+    Navigator.of(context).pop();
+
+    Navigator.of(context).pushReplacementNamed(
+      AppRoutes.employeeManagementScreen,
     );
   }
 }

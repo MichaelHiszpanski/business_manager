@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class Meeting {
+class MeetingModel {
   String eventName;
   String eventDescription;
   DateTime startDate;
@@ -9,7 +9,7 @@ class Meeting {
   Color backgroundColor;
   bool isAllDay;
 
-  Meeting(this.eventName, this.eventDescription, this.startDate,
+  MeetingModel(this.eventName, this.eventDescription, this.startDate,
       this.finishDate, this.backgroundColor, this.isAllDay);
 
   @override

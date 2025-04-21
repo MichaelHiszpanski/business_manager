@@ -143,7 +143,7 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
         _showAddEventBottomSheet(context, details.date!, false);
       }
     } else {
-      final List<Meeting> meetings = details.appointments!.cast<Meeting>();
+      final List<MeetingModel> meetings = details.appointments!.cast<MeetingModel>();
 
       showDialog(
         context: context,

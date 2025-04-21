@@ -8,7 +8,7 @@ import 'package:business_manager/feature/services/work_manager/models/meeting_mo
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomMeetingsAlertDialog extends StatefulWidget {
-  final List<Meeting> meetings;
+  final List<MeetingModel> meetings;
 
   const CustomMeetingsAlertDialog({super.key, required this.meetings});
 
@@ -38,7 +38,7 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
           shrinkWrap: true,
           itemCount: widget.meetings.length,
           itemBuilder: (BuildContext context, int index) {
-            final Meeting meeting = widget.meetings[index];
+            final MeetingModel meeting = widget.meetings[index];
             return ListTile(
               title: RichText(
                 text: TextSpan(

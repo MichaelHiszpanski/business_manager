@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart' as sf;
 
 class MeetingDataListManager extends sf.CalendarDataSource {
-  MeetingDataListManager(List<Meeting> source) {
+  MeetingDataListManager(List<MeetingModel> source) {
     appointments = source;
   }
 
@@ -32,10 +32,10 @@ class MeetingDataListManager extends sf.CalendarDataSource {
     return _getMeetingData(index).isAllDay;
   }
 
-  Meeting _getMeetingData(int index) {
+  MeetingModel _getMeetingData(int index) {
     final dynamic meeting = appointments![index];
-    late final Meeting meetingData;
-    if (meeting is Meeting) {
+    late final MeetingModel meetingData;
+    if (meeting is MeetingModel) {
       meetingData = meeting;
     }
 
