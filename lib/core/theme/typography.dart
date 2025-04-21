@@ -6,7 +6,7 @@ import 'app_font_family.dart';
 TextTheme getTextTheme(Color defaultTextColor) {
   return TextTheme(
     displayMedium: const TextStyle(
-      fontSize: 22,
+      fontSize: 18,
       height: 1.3,
       fontWeight: FontWeight.w700,
       color: Colors.white,
@@ -73,7 +73,7 @@ TextTheme getTextTheme(Color defaultTextColor) {
       height: 1.2,
       fontWeight: FontWeight.w700,
       color: defaultTextColor,
-      fontFamily: AppFontFamily.orbitron,
+     // fontFamily: AppFontFamily.orbitron,
     ),
     bodySmall: TextStyle(
       fontSize: 14,
