@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _checkUserSignInStatus() async {
-    final user = Supabase.instance.client.auth.currentUser;
+    final dynamic user = Supabase.instance.client.auth.currentUser;
     setState(() {
       isUserSignedIn = user != null;
     });

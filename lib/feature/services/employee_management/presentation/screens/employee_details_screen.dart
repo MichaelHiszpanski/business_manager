@@ -68,7 +68,9 @@ class EmployeeDetailsScreen extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.circular(Constants.radius30),
                               border: Border.all(
-                                  color: Pallete.gradient1, width: 2.0),
+                                color: Pallete.gradient1,
+                                width: 2.0,
+                              ),
                             ),
                             padding: const EdgeInsets.symmetric(
                               horizontal: Constants.padding16,

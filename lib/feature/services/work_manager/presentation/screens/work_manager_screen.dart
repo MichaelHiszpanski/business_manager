@@ -132,18 +132,18 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
     BuildContext context,
     sf.CalendarTapDetails details,
   ) {
-    if (_calendarView != sf.CalendarView.day &&
-        _calendarView != sf.CalendarView.week) {
-      return;
-    }
 
 
-    if (details.appointments == null || details.appointments!.isEmpty) {
+    if ((details.appointments == null &&
+            (_calendarView != sf.CalendarView.month ||
+                _calendarView != sf.CalendarView.timelineDay)) ||
+        details.appointments!.isEmpty) {
       if (details.date != null) {
         _showAddEventBottomSheet(context, details.date!, false);
       }
     } else {
-      final List<MeetingModel> meetings = details.appointments!.cast<MeetingModel>();
+      final List<MeetingModel> meetings =
+          details.appointments!.cast<MeetingModel>();
 
       showDialog(
         context: context,

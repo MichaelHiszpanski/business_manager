@@ -39,67 +39,77 @@ class _CustomMeetingsAlertDialogState extends State<CustomMeetingsAlertDialog> {
           itemCount: widget.meetings.length,
           itemBuilder: (BuildContext context, int index) {
             final MeetingModel meeting = widget.meetings[index];
-            return ListTile(
-              title: RichText(
-                text: TextSpan(
-                  style: context.text.bodyLarge,
-                  children: [
-                    TextSpan(
-                      text: '${context.strings.work_manager_task_name}\n',
-                      style: context.text.bodySmall
-                          ?.copyWith(color: Pallete.gradient1),
+            return Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Pallete.gradient1,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(Constants.radius15),
+              ),
+              margin: const EdgeInsets.only(bottom: Constants.padding12),
+              child: ListTile(
+                title: RichText(
+                  text: TextSpan(
+                    style: context.text.bodyLarge,
+                    children: [
+                      TextSpan(
+                        text: '${context.strings.work_manager_task_name}\n',
+                        style: context.text.bodySmall
+                            ?.copyWith(color: Pallete.gradient1),
+                      ),
+                      TextSpan(
+                        text: meeting.eventName,
+                        style: context.text.bodyMedium
+                            ?.copyWith(color: Pallete.colorOne),
+                      ),
+                    ],
+                  ),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const SizedBox(height: Constants.padding16),
+                    RichText(
+                      text: TextSpan(
+                        style: context.text.bodyLarge,
+                        children: [
+                          TextSpan(
+                            text:
+                                '${context.strings.work_manager_meeting_content_label}\n',
+                            style: context.text.bodySmall
+                                ?.copyWith(color: Pallete.gradient1),
+                          ),
+                          TextSpan(
+                              text: meeting.eventDescription,
+                              style: context.text.bodyMedium
+                                  ?.copyWith(color: Pallete.colorOne)),
+                        ],
+                      ),
                     ),
-                    TextSpan(
-                      text: meeting.eventName,
-                      style: context.text.bodyMedium
-                          ?.copyWith(color: Pallete.colorOne),
+                    const SizedBox(height: Constants.padding16),
+                    Text(
+                      '${context.strings.work_manager_meeting_from_label} ${DateFormatHelper.dateFormatWithTime(meeting.startDate)}',
+                      style: context.text.labelLarge,
                     ),
+                    const SizedBox(height: Constants.padding8),
+                    Text(
+                      '${context.strings.work_manager_meeting_to_label}       ${DateFormatHelper.dateFormatWithTime(meeting.finishDate)}',
+                      style: context.text.labelLarge,
+                    ),
+                    const SizedBox(height: Constants.padding8),
                   ],
                 ),
+                selectedColor:
+                    _selectedIndex != null ? Colors.red.withOpacity(0.8) : null,
+                selectedTileColor: Colors.red.withOpacity(0.4),
+                onTap: () {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                selected: _selectedIndex == index,
               ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const SizedBox(height: Constants.padding16),
-                  RichText(
-                    text: TextSpan(
-                      style: context.text.bodyLarge,
-                      children: [
-                        TextSpan(
-                          text:
-                              '${context.strings.work_manager_meeting_content_label}\n',
-                          style: context.text.bodySmall
-                              ?.copyWith(color: Pallete.gradient1),
-                        ),
-                        TextSpan(
-                            text: meeting.eventDescription,
-                            style: context.text.bodyMedium
-                                ?.copyWith(color: Pallete.colorOne)),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: Constants.padding16),
-                  Text(
-                    '${context.strings.work_manager_meeting_from_label} ${DateFormatHelper.dateFormatWithTime(meeting.startDate)}',
-                    style: context.text.labelLarge,
-                  ),
-                  const SizedBox(height: Constants.padding8),
-                  Text(
-                    '${context.strings.work_manager_meeting_to_label}       ${DateFormatHelper.dateFormatWithTime(meeting.finishDate)}',
-                    style: context.text.labelLarge,
-                  ),
-                  const SizedBox(height: Constants.padding8),
-                ],
-              ),
-              selectedColor:
-                  _selectedIndex != null ? Colors.red.withOpacity(0.8) : null,
-              selectedTileColor: Colors.red.withOpacity(0.4),
-              onTap: () {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              selected: _selectedIndex == index,
             );
           },
         ),
