@@ -7,8 +7,9 @@ import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/tools/network_controler.dart';
 import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
+import 'package:business_manager/core/widgets/buttons/secondary_button/secondary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
-import 'package:business_manager/core/widgets/layouts/bg_sweep_container/bg_sweep_container.dart';
+import 'package:business_manager/core/widgets/layouts/bg_linear_container/bg_linear_container.dart';
 import 'package:business_manager/core/widgets/layouts/center_column_layout/center_column_layout.dart';
 import 'package:business_manager/core/widgets/outlined_text_field/outlined_text_field.dart';
 import 'package:business_manager/main.dart';
@@ -25,12 +26,31 @@ class SignInScreen extends StatefulWidget {
   _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignInScreenState extends State<SignInScreen>
+    with WidgetsBindingObserver {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String? _errorMessage;
   bool _isLoading = false;
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +61,7 @@ class _SignInScreenState extends State<SignInScreen> {
         onMenuPressed: () {},
         titleFontColor: Pallete.colorOne,
       ),
-      body: BgSweepContainer(
+      body: BgLinearContainer(
         colors: const [
           Colors.black,
           Pallete.colorSix,
@@ -99,7 +119,6 @@ class _SignInScreenState extends State<SignInScreen> {
               inputValue: _passwordController,
               isPassword: true,
             ),
-
             const SizedBox(height: Constants.padding16 * 4),
             PrimaryButton(
               onPressed: () =>
@@ -107,69 +126,16 @@ class _SignInScreenState extends State<SignInScreen> {
                       ? null
                       : _signInWithSupabase(),
               buttonText: context.strings.sign_in_with_email,
+              shadowColor: Colors.black87,
+              customStyle:
+                  context.text.displayMedium?.copyWith(color: Pallete.colorOne),
             ),
-            const SizedBox(height: Constants.padding16 * 2),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(Constants.padding4),
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(Constants.radius25),
-                ),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    context.strings.sign_in_no_account_message,
-                    style: context.text.bodyMedium?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      height: 1.5,
-                    ),
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                  ),
-                  Text(
-                    context.strings.sign_in_go_to_website_message,
-                    style: context.text.bodyMedium?.copyWith(
-                      color: Pallete.gradient1,
-                      fontWeight: FontWeight.w700,
-                      height: 1.5,
-                    ),
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: Constants.padding16),
-            Container(
-              width: double.maxFinite,
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Constants.radius10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 3,
-                    blurRadius: 6,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: ElevatedButton(
-                onPressed: _launchURL,
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Pallete.gradient1),
-                ),
-                child: Text(
-                  context.strings.sign_up,
-                  style: context.text.displayMedium,
-                ),
-              ),
-            ),
-            // const Spacer(),
+            const SizedBox(height: Constants.padding46),
+            SecondaryButton(
+              onPressed: _launchURL,
+              buttonText: context.strings.sign_up,
+              shadowColor: Colors.white,
+            )
           ],
         ),
       ),
@@ -177,7 +143,6 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> _signInWithSupabase() async {
-    print("Halo");
     setState(() {
       _isLoading = true;
       _errorMessage = null;

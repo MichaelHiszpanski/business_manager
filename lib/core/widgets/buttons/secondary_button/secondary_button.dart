@@ -1,19 +1,21 @@
+import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
-import 'package:business_manager/core/widgets/buttons/button_wrappers/button_wrapper_one.dart';
 import 'package:flutter/material.dart';
 
-class PrimaryButton extends StatelessWidget {
+class SecondaryButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonText;
   final TextStyle? customStyle;
+  final Color? backgroundColor;
   final Color? shadowColor;
 
-  const PrimaryButton({
+  const SecondaryButton({
     super.key,
     required this.onPressed,
     required this.buttonText,
     this.customStyle,
+    this.backgroundColor,
     this.shadowColor,
   });
 
@@ -34,24 +36,23 @@ class PrimaryButton extends StatelessWidget {
               offset: const Offset(0, 4),
             ),
           ],
+          color: backgroundColor ?? Pallete.gradient1,
         ),
-        child: ButtonWrapperOne(
-          child: InkWell(
-            onTap: onPressed,
-            borderRadius: BorderRadius.circular(Constants.padding24),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 32.0,
-                vertical: 12.0,
-              ),
-              child: Center(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    buttonText,
-                    style: customStyle ?? context.text.displayMedium,
-                    maxLines: 1,
-                  ),
+        child: InkWell(
+          onTap: onPressed,
+          borderRadius: BorderRadius.circular(Constants.padding24),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 32.0,
+              vertical: 12.0,
+            ),
+            child: Center(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  buttonText,
+                  style: customStyle ?? context.text.displayMedium,
+                  maxLines: 1,
                 ),
               ),
             ),

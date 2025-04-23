@@ -5,9 +5,10 @@ import 'package:business_manager/core/theme/colors.dart';
 import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
+import 'package:business_manager/core/widgets/buttons/secondary_button/secondary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:business_manager/core/widgets/custom_dialog/custom_dialog.dart';
-import 'package:business_manager/core/widgets/layouts/bg_sweep_container/bg_sweep_container.dart';
+import 'package:business_manager/core/widgets/layouts/bg_linear_container/bg_linear_container.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -52,16 +53,16 @@ class _ProfileScreenState extends State<ProfileScreen>
       appBar: CustomAppBar(
         title: context.strings.profile_name,
         onMenuPressed: () {},
-        titleFontColor: Colors.black,
-        iconArrowColor: Colors.black,
+        titleFontColor: Colors.white,
+        iconArrowColor: Colors.white,
       ),
-      body: BgSweepContainer(
+      body: BgLinearContainer(
         colors: const [
-          Pallete.gradient1,
-          Colors.white,
-          Colors.red,
-          Colors.green,
-          Colors.blue
+          // Pallete.gradient1,
+          Colors.blueAccent,
+          Pallete.colorOne,
+          // Colors.blueAccent,
+          Colors.lightBlue
         ],
         child: Padding(
           padding: const EdgeInsets.all(Constants.padding16),
@@ -72,12 +73,13 @@ class _ProfileScreenState extends State<ProfileScreen>
               Text(
                 context.strings.profile_name,
                 style: context.text.headlineLarge?.copyWith(
-                  color: Pallete.colorOne,
+                  // color: Pallete.colorOne,
+                  color: Colors.white,
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: Constants.padding32 ),
+              const SizedBox(height: Constants.padding32),
               Container(
                 width: double.maxFinite,
                 padding: const EdgeInsets.all(Constants.padding16),
@@ -96,30 +98,50 @@ class _ProfileScreenState extends State<ProfileScreen>
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "${context.strings.profile_email_label}: "
-                            "${_user?.email ?? context.strings.profile_email_placeholder}",
-                            style: context.text.bodyMedium?.copyWith(
-                              color: Colors.black87,
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text:
+                                      "${context.strings.profile_email_label}:\n",
+                                  style: context.text.bodyMedium?.copyWith(
+                                    color: Pallete.colorFour,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: _user?.email ??
+                                      context.strings.profile_email_placeholder,
+                                  style: context.text.bodyMedium?.copyWith(
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           const SizedBox(height: 8),
-                          Text(
-                            "${context.strings.profile_user_id_label}:"
-                            "${_user?.id ?? context.strings.profile_email_placeholder}",
-                            style: context.text.bodyMedium?.copyWith(
-                              color: Colors.black87,
-                            ),
-                          ),
                           const SizedBox(height: 8),
-                          Text(
-                            "${context.strings.profile_user_created_at}:"
-                            "${DateFormatHelper.dateFormatFromString(_user?.createdAt)}",
-                            style: context.text.bodyMedium?.copyWith(
-                              color: Colors.black87,
-                            ),
+                          RichText(
                             maxLines: 3,
-                          ),
+                            overflow: TextOverflow.ellipsis,
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text:
+                                      "${context.strings.profile_user_created_at}:\n",
+                                  style: context.text.bodyMedium?.copyWith(
+                                    color: Pallete.colorFour,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: DateFormatHelper.dateFormatFromString(
+                                      _user?.createdAt),
+                                  style: context.text.bodyMedium?.copyWith(
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       )
                     : Center(
@@ -131,69 +153,19 @@ class _ProfileScreenState extends State<ProfileScreen>
                         ),
                       ),
               ),
-              const SizedBox(height: Constants.padding16 * 4),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(Constants.padding4),
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(Constants.radius25),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      context.strings.profile_password_reset_instruction,
-                      style: context.text.bodyLarge?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        height: 1.5,
-                      ),
-                      textAlign: TextAlign.center,
-                      softWrap: true,
-                    ),
-                    Text(
-                      context.strings.profile_go_to_website_message,
-                      style: context.text.bodyLarge?.copyWith(
-                        color: Pallete.gradient1,
-                        fontWeight: FontWeight.w700,
-                        height: 1.5,
-                      ),
-                      textAlign: TextAlign.center,
-                      softWrap: true,
-                    ),
-                  ],
-                ),
+              const SizedBox(height: Constants.padding46),
+              PrimaryButton(
+                onPressed: _launchURL,
+                buttonText: context.strings.profile_button_reset_password,
+                shadowColor: Colors.green,
               ),
-              const SizedBox(height: Constants.padding16),
-              Container(
-                width: double.maxFinite,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Constants.radius10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 3,
-                      blurRadius: 6,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: ElevatedButton(
-                  onPressed: _launchURL,
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(Pallete.gradient1),
-                  ),
-                  child: Text(
-                    context.strings.profile_button_reset_password,
-                    style: context.text.displayMedium,
-                  ),
-                ),
+              const SizedBox(height: Constants.padding46),
+              SecondaryButton(
+                onPressed: () => _showReinitConfirmationDialog(context),
+                buttonText: 'Delete Your account',
+                backgroundColor: Colors.red,
+                shadowColor: Colors.white,
               ),
-              const SizedBox(height: Constants.padding16 * 4),
-              _deleteAccountButton(),
               const Spacer(),
             ],
           ),
@@ -247,30 +219,6 @@ class _ProfileScreenState extends State<ProfileScreen>
         confirmText: "Delete",
         cancelText: "Cancel",
         onConfirm: () => _deleteSupabaseUserAccount(context),
-      ),
-    );
-  }
-
-  Widget _deleteAccountButton() {
-    return Container(
-      width: double.infinity,
-      height: 50,
-      margin: const EdgeInsets.only(top: Constants.padding16),
-      child: ElevatedButton(
-        onPressed: () => _showReinitConfirmationDialog(context),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Constants.radius30),
-          ),
-        ),
-        child: Text(
-          'Delete your Account',
-          style: context.text.displaySmall?.copyWith(
-            color: Colors.white,
-            fontSize: 22,
-          ),
-        ),
       ),
     );
   }

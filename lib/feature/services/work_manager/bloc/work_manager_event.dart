@@ -40,7 +40,7 @@ class DisplayMeetingEvent extends WorkManagerEvent {
 }
 
 class MeetingRemoveEvent extends WorkManagerEvent {
-  final Meeting meeting;
+  final MeetingModel meeting;
 
   const MeetingRemoveEvent({required this.meeting});
 

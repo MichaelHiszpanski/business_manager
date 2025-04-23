@@ -2,6 +2,7 @@ import 'package:business_manager/core/tools/constants.dart';
 import 'package:business_manager/core/tools/flutter_helper.dart';
 import 'package:business_manager/core/widgets/buttons/primary_button/primary_button.dart';
 import 'package:business_manager/core/widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:business_manager/core/widgets/layouts/center_column_layout/center_column_layout.dart';
 import 'package:business_manager/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:business_manager/core/enums/piority_level_enum.dart';
 import 'package:business_manager/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
@@ -35,61 +36,66 @@ class _AddItemScreenState extends State<AddItemScreen> {
       ),
       body: SingleChildScrollView(
         reverse: true,
-        child: Padding(
-          padding: const EdgeInsets.all(Constants.padding32),
-          child: Form(
-            key: _globalKey,
-            child: Column(
-              children: [
-                Text(
-                  context.strings.add_item_heading_new_event,
-                  style: context.text.headlineLarge,
+        child: CenterColumnLayout(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(Constants.padding32),
+              child: Form(
+                key: _globalKey,
+                child: Column(
+                  children: [
+                    Text(
+                      context.strings.add_item_heading_new_event,
+                      style: context.text.headlineLarge,
+                    ),
+                    const SizedBox(height: Constants.padding24),
+                    TextFormField(
+                      controller: _titleController,
+                      decoration: InputDecoration(
+                        hintText: context.strings.add_item_hint_title,
+                      ),
+                      validator: _validateValue,
+                      maxLength: Constants.MAX_LENGHT_TEXT_TITLE,
+                    ),
+                    const SizedBox(height: Constants.padding24),
+                    TextFormField(
+                      controller: _contentController,
+                      decoration: InputDecoration(
+                        hintText: context.strings.add_item_hint_content,
+                      ),
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
+                      maxLength: Constants.MAX_LENGHT_TEXT_CONTENT,
+                      validator: _validateValue,
+                    ),
+                    const SizedBox(height: Constants.padding24),
+                    PriorityDropdown(
+                      selectedPriority: _prioritySelected,
+                      onChanged: (PriorityLevelEnum newPriority) {
+                        setState(() {
+                          _prioritySelected = newPriority;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: Constants.padding24),
+                    DatePicker(
+                      selectedDate: _expiredDateSelected,
+                      onDateSelected: (DateTime? selectedDate) {
+                        setState(() {
+                          _expiredDateSelected = selectedDate;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: Constants.padding24),
+                    PrimaryButton(
+                      onPressed: _validateToDoItem,
+                      buttonText: context.strings.add_item_button_add,
+                    )
+                  ],
                 ),
-                TextFormField(
-                  controller: _titleController,
-                  decoration: InputDecoration(
-                    hintText: context.strings.add_item_hint_title,
-                  ),
-                  validator: _validateValue,
-                  maxLength: Constants.MAX_LENGHT_TEXT_TITLE,
-                ),
-                const SizedBox(height: Constants.padding24),
-                TextFormField(
-                  controller: _contentController,
-                  decoration: InputDecoration(
-                    hintText: context.strings.add_item_hint_content,
-                  ),
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  maxLength: Constants.MAX_LENGHT_TEXT_CONTENT,
-                  validator: _validateValue,
-                ),
-                const SizedBox(height: Constants.padding24),
-                PriorityDropdown(
-                  selectedPriority: _prioritySelected,
-                  onChanged: (PriorityLevelEnum newPriority) {
-                    setState(() {
-                      _prioritySelected = newPriority;
-                    });
-                  },
-                ),
-                const SizedBox(height: Constants.padding24),
-                DatePicker(
-                  selectedDate: _expiredDateSelected,
-                  onDateSelected: (DateTime? selectedDate) {
-                    setState(() {
-                      _expiredDateSelected = selectedDate;
-                    });
-                  },
-                ),
-                const SizedBox(height: Constants.padding24),
-                PrimaryButton(
-                  onPressed: _validateToDoItem,
-                  buttonText: context.strings.add_item_button_add,
-                )
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
